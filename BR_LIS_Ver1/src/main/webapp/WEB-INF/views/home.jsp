@@ -15,6 +15,6 @@
 <P>  The time on the server is ${serverTime}. </P>
 <a href="./test.do">이동</a>
 
-<h4>yhl add</h4>
+<h4>MergeTest-yhl</h4>
 </body>
 </html>
