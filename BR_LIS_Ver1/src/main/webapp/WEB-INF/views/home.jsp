@@ -14,5 +14,10 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <a href="./test.do">이동</a>
+<p>Pull Test</p>
+<p>Pull Test</p>
+<p>Pull Test</p>
+<p>Pull Test</p>
+<p>Pull Test</p>
 </body>
 </html>
