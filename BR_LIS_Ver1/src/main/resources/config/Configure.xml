@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+ <typeAliases>
+ 	<typeAlias type="com.br.lis.vo.TestVo" alias="TestVo"/>
+ 	<typeAlias type="com.br.lis.vo.AdminVo" alias="AdminVo"/>
+ 	<typeAlias type="com.br.lis.vo.BookInfoVo" alias="BookInfoVo"/>
+ 	<typeAlias type="com.br.lis.vo.CalendarBoardVo" alias="CalendarBoardVo"/>
+ 	<typeAlias type="com.br.lis.vo.LendingVo" alias="LendingVo"/>
+ 	<typeAlias type="com.br.lis.vo.LibMemberVo" alias="LibMemberVo"/>
+ 	<typeAlias type="com.br.lis.vo.Notice_FAQBoardVo" alias="Notice_FAQVo"/>
+ 	<typeAlias type="com.br.lis.vo.PurchaseVo" alias="PurchaseVo"/>
+ 	<typeAlias type="com.br.lis.vo.RegularPurchaseVo" alias="RegularPurchaseVo"/>
+ 	<typeAlias type="com.br.lis.vo.RequestPurchaseVo" alias="RequestPurchaseVo"/>
+ </typeAliases>
+ <mappers>
+ 	<mapper resource="sqls/test_statement.xml"/>
+ </mappers>
+</configuration>
