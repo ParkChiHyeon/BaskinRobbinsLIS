@@ -247,18 +247,18 @@
 		</dependency>
 		
 		<!-- 핸드폰 문자인증 라이브러리 -->
-<!--         <dependency> -->
-<!--           <groupId>net.nurigo</groupId> -->
-<!--           <artifactId>javaSDK</artifactId> -->
-<!--           <version>2.2</version> -->
-<!--         </dependency> -->
+        <dependency>
+          <groupId>net.nurigo</groupId>
+          <artifactId>javaSDK</artifactId>
+          <version>2.2</version>
+        </dependency>
 
 		<!-- 핸드폰 문자인증 서비스 안에서 사용될 simple json 라이브러리 -->
-<!--         <dependency> -->
-<!--             <groupId>com.googlecode.json-simple</groupId> -->
-<!--             <artifactId>json-simple</artifactId> -->
-<!--             <version>1.1.1</version> -->
-<!--         </dependency> -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
         
         <!-- apache_poi  -->
         <dependency>
