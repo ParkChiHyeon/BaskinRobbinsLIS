@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.br.lis.model.member.mapper.MemberDaoImpl">
+<mapper namespace="com.br.lis.model.member.mapper.LibMemberDaoImpl">
+	<!-- 회원가입 -->
+	<insert id="signUpMember" parameterType="java.util.Map">
+	INSERT INTO LIB_MEMBER(
+ MEMBER_ID, MEMBER_CODE, PASSWORD,
+  PHONE, NAME, ADDRESS, 
+   EMAIL, AUTH, PENALTY, 
+    FILEPATH, RENTAL_COUNT, NOTIFICATION,
+     BIRTH)
+VALUES(#{member_id}, 'M' || TO_CHAR(SYSDATE,'YYMM')|| LPAD(TO_CHAR(member_seq.nextval),6,0), #{password},
+     #{phone}, #{name}, #{address},
+      '', 'NM', '', 
+       '', 5, 'Y',
+        #{birth}
+        )
+	</insert>
+	
+	<!-- 중복아이디 확인 -->
+	<select id="selectMember" parameterType="java.util.Map" >
+		SELECT MEMBER_ID
+			FROM LIB_MEMBER
+			WHERE MEMBER_ID =#{member_id}
+	</select>
+	
+	
 </mapper>

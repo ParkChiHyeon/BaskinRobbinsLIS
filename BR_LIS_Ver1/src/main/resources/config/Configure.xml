@@ -15,5 +15,6 @@
  </typeAliases>
  <mappers>
  	<mapper resource="sqls/test_statement.xml"/>
+ 	<mapper resource="sqls/lib_member.xml"/>
  </mappers>
 </configuration>
