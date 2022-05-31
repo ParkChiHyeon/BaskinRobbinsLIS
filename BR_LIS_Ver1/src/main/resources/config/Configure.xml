@@ -15,5 +15,6 @@
  </typeAliases>
  <mappers>
  	<mapper resource="sqls/test_statement.xml"/>
+ 	<mapper resource="sqls/calendarboard_statement.xml"/>
  </mappers>
 </configuration>

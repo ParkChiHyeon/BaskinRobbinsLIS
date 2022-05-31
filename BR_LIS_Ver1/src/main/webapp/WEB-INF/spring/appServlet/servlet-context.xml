@@ -21,6 +21,7 @@
 	<context:component-scan base-package="com.br.lis" />
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
 	<tx:annotation-driven/>
 	
 </beans:beans>
