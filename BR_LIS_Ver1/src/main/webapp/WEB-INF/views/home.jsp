@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Home</title>
 </head>
+	<%@ include file="./header.jsp" %>
 <body>
 <P>  The time on the server is ${serverTime}. </P>
 <a href="./test.do">이동</a>
@@ -17,4 +18,5 @@
 	</fieldset>
 </div>
 </body>
+<%@ include file="./footer.jsp" %>
 </html>
