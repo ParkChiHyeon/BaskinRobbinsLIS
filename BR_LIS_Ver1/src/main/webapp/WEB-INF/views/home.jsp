@@ -4,8 +4,8 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
-	<%@ include file="./header.jsp" %>
+<meta charset="UTF-8">
+<title>Home</title>
 </head>
 <body>
 <P>  The time on the server is ${serverTime}. </P>
@@ -16,6 +16,5 @@
 		<legend>git Test</legend>
 	</fieldset>
 </div>
-<%@ include file="./footer.jsp" %>
 </body>
 </html>
