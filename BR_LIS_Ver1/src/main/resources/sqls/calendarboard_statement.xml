@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.br.lis.model.board.mapper.CalendarBoardDaoImpl">
-
-  <select id="viewAllCalendar" resultType="CalendarBoardVo">
-  	SELECT CALENDAR_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, START_DATE, END_DATE
-   		FROM CALENDAR_BOARD
-  </select>
-</mapper>
