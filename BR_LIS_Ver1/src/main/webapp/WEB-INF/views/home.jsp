@@ -4,12 +4,10 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+<meta charset="UTF-8">
+<title>Home</title>
 </head>
 <body>
-<h1>
-</h1>
-
 <P>  The time on the server is ${serverTime}. </P>
 <a href="./test.do">이동</a>
 
@@ -18,6 +16,5 @@
 		<legend>git Test</legend>
 	</fieldset>
 </div>
-
 </body>
 </html>
