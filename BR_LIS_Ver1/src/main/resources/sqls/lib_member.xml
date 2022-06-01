@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.br.lis.model.member.mapper.LibMemberDaoImpl">
-	<!-- 회원가입 -->
+
+	<!-- 중복 회원 검사 BR_W_UM001 -->
+	<select id="duplicateMemberCheck" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(*) MEMBER_ID 
+ 	FROM LIB_MEMBER 
+  	WHERE MEMBER_ID =#{member_id} AND PHONE =#{phone}  AND  BIRTH=#{birth}
+	</select>
+
+
+	<!-- 회원가입  BR_W_UM002 -->
 	<insert id="signUpMember" parameterType="java.util.Map">
 	INSERT INTO LIB_MEMBER(
- MEMBER_ID, MEMBER_CODE, PASSWORD,
-  PHONE, NAME, ADDRESS, 
-   EMAIL, AUTH, PENALTY, 
+ 	MEMBER_ID, MEMBER_CODE, PASSWORD,
+  	PHONE, NAME, ADDRESS, 
+   	EMAIL, AUTH, PENALTY, 
     FILEPATH, RENTAL_COUNT, NOTIFICATION,
-     BIRTH)
-VALUES(#{member_id}, 'M' || TO_CHAR(SYSDATE,'YYMM')|| LPAD(TO_CHAR(member_seq.nextval),6,0), #{password},
+    BIRTH)
+	VALUES(#{member_id}, 'M' || TO_CHAR(SYSDATE,'YYMM')|| LPAD(TO_CHAR(member_seq.nextval),6,0), #{password},
      #{phone}, #{name}, #{address},
       '', 'NM', '', 
        '', 5, 'Y',
@@ -17,12 +26,55 @@ VALUES(#{member_id}, 'M' || TO_CHAR(SYSDATE,'YYMM')|| LPAD(TO_CHAR(member_seq.ne
         )
 	</insert>
 	
-	<!-- 중복아이디 확인 -->
-	<select id="selectMember" parameterType="java.util.Map" >
-		SELECT MEMBER_ID
-			FROM LIB_MEMBER
-			WHERE MEMBER_ID =#{member_id}
+	<!-- 중복아이디 검사  BR_W_UM003-->
+	<select id="idDuplicateCheck" parameterType="java.util.Map"  resultType="java.lang.Integer">
+	SELECT COUNT(*) MEMBER_ID
+	FROM LIB_MEMBER
+	WHERE MEMBER_ID =#{member_id}
 	</select>
+	
+	<!--  일반회원 로그인 BR_W_UM_009-->
+	<select id="loginMember" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(*) MEMBER_ID
+	FROM  LIB_MEMBER
+	WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
+	AND AUTH != 'TT'
+	</select>
+	
+	
+	<!-- 회원 아이디 찾기 BR_W_UM_011 -->
+	<select id="findId" parameterType="java.util.Map" resultType="LibMemberVo">
+	SELECT MEMBER_ID 
+  	FROM LIB_MEMBER lm 
+  	WHERE NAME =#{name} AND PHONE=#{phone}
+	</select>
+	
+	
+	<!-- 회원 비밀번호 찾기 BR_W_UM_012  -->
+	<select id="findPw" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(*) MEMBER_ID
+   	FROM LIB_MEMBER
+   	WHERE MEMBER_ID=#{member_id} AND PASSWORD = #{password} AND PHONE= #{phone}
+	</select>
+	
+	<!-- 회원 비밀번호 1로 초기화  BR_W_UM013-->
+	<update id="resetPw" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET PASSWORD ='1'
+  	WHERE MEMBER_ID=#{member_id} AND PASSWORD = #{password} AND PHONE =#{phone}
+	</update>
+	
+	<!-- 임시 비밀번호 발급  BR_W_UM014 -->
+	<update id="updateNewPw">
+	UPDATE LIB_MEMBER 
+  	SET PASSWORD =TRUNC(DBMS_RANDOM.VALUE(10000000,9000000))
+  	WHERE PASSWORD = '1' AND MEMBER_ID=#{member_id} AND PHONE =#{phone}
+	</update>
+	
+	
+	
+	
+	
 	
 	
 </mapper>

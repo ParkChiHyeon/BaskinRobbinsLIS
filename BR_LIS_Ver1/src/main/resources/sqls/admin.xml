@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.br.lis.model.member.mapper.AdminDaoImpl">
+
+	<!-- 관리자 로그인 BR_W_UM_010 -->
+	<select id="loginAdmin" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(*) ADMIN_ID
+	FROM  ADMIN
+	WHERE ADMIN_ID = #{admin_id} AND PASSWORD = #{password}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+</mapper>
