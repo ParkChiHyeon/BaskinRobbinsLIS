@@ -1,5 +1,9 @@
 package com.br.lis.model.member.mapper;
 
-public interface IAdminDao {
+import java.util.Map;
 
+public interface IAdminDao {
+	
+	public int loginAdmin(Map<String, Object> map);
+	
 }
