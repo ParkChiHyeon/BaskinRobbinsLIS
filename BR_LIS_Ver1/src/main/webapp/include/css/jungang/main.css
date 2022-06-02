@@ -6,7 +6,7 @@
 @import url("button.css");
 @import url("mainContents.css");
 
-#wrap {background:url(./include/image/jungang/common/bg_body.png) 0 0 repeat-x; position:relative}
+#wrap {background:url(../../image/jungang/common/bg_body.png) 0 0 repeat-x; position:relative}
 
 #btnSearchTop { display:none}
 #topmenu { margin-left:280px}

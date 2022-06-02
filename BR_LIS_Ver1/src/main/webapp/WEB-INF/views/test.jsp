@@ -21,62 +21,7 @@
 		$('#searchBoxArea').css('height','73px');
 		$('#searchBoxArea').css('opacity','1');
 		$('#searchBoxArea').show();
-
-		$("#ebookBtn").click(fnEbook);
-
-		$.ajax({
-
-			type:"GET",
-			url: "/kolaseek/plus/api/plusApiMyLibrarySummary.do",
-			data : {},
-			dataType : 'json',
-			success: function(data){
-				if (data.PARAM_MESSAGE == '로그인 후 이용가능합니다.' || data.PARAM_MESSAGE == '도서관 대출회원만 이용가능합니다.') {
-					$('#LOAN_BOOK_CNT').text('(0)');
-					$('#RESERVATION_BOOK_CNT').text('(0)');
-					$('#HOPE_BOOK_APPLY_CNT').text('(0)');
-				} else {
-					$('#LOAN_BOOK_CNT').text('(' + data.LOAN_BOOK_CNT + '/' +  data.OVERDUE_LOAN_CNT + ')');
-					$('#RESERVATION_BOOK_CNT').text('(' + data.RESERVATION_BOOK_CNT + ')');
-					$('#HOPE_BOOK_APPLY_CNT').text('(' + data.HOPE_BOOK_APPLY_CNT + ')');
-				}
-			},
-			error : function(request, status, error) {
-				alert("에러코드 : " + request.status +"\n" + "메시지 :"+ request.responseText);
-			}
-		});
 	});
-
-	function fnSeatMatePop(){
-		var url = "http://218.51.227.34:8800/SeatMate4/SeatMate.php";
-		var opt = "location=no,scrollbars=no,resizable=yes,menubar=no,toolbar=no,width=1020,height=835";
-		window.open(url,"seatMatePop", opt).focus();
-	}
-
-	function fnLibMatePop(){
-		var url = "http://218.51.227.34:8800/LibMate4/LibMate.php";
-		var opt = "location=no,scrollbars=no,resizable=yes,menubar=no,toolbar=no,width=1016,height=810";
-		window.open(url,"libMatePop", opt).focus();
-	}
-
-	function fnEbook(){
-		var form = document.ebookForm;
-
-			form.target = "_blank";
-		if(isEmpty(form.user_id.value)){
-			document.charset = 'utf-8';
-			form.action = "http://cyber.uwlib.or.kr:81";
-			form.submit();
-		} else if(isEmpty(form.user_no.value)){
-			document.charset = 'utf-8';
-			form.action = "http://cyber.uwlib.or.kr:81";
-			form.submit();
-		}else {
-			document.charset = 'utf-8';
-			form.action = "http://cyber.uwlib.or.kr:81/Login_Check.asp";
-			form.submit();
-		}
-	}
 </script>
 </head>
 <%-- <%@ include file="./header.jsp" %> --%>
@@ -86,7 +31,6 @@
 <input type="hidden" name="user_name" value="" />
 <input type="hidden" name="user_no" value="" />
 </form>
-
 
 
 <!-- 접근성 본문 바로가기 -->
@@ -139,19 +83,19 @@ $(function(){
 <div><a href="#link" id="blackBG">이전 상태로 변경</a></div>
 	<div id="topheader">
 		<div id="indexColumn">
-			<h1 id="logo"><a href="/jungang/main.do"><img src="./include/image/jungang/common/logo.png" alt="의왕시중앙도서관" /></a></h1>
-			<div id="siteIndex">
-				<p class="WebHide"><a href="#link">의왕시통합도서관</a></p>
-				<ul class="siteRole clearfix">
-					<li class="mobileHide"><a href="/index.do" target="_blank">인트로</a></li>
-					<li><a href="/naeson/main.do" target="_blank">내손<span class="mobileHide">도서관</span></a></li>
-					<li><a href="/global/main.do" target="_blank">글로벌<span class="mobileHide">도서관</span></a></li>
-					<li><a href="/poil/main.do" target="_blank">포일어울림<span class="mobileHide">도서관</span></a></li>
-					<li><a href="/baegun/main.do" target="_blank">백운호수<span class="mobileHide">도서관</span></a></li>
-					<li class="small_lib"><a href="/intro/bugok/content.do" target="_blank">작은<span class="mobileHide">도서관</span></a></li>
-					<li><a href="/jungang/10592/40213/content.do"><span class="mobileHide">스마트도서관</span></a></li>
-				</ul>
-			</div>
+<!-- 			<h1 id="logo"><a href="/jungang/main.do"><img src="./include/image/jungang/common/library-logo-template-design-free-vector.jpg" alt="의왕시중앙도서관" /></a></h1> -->
+<!-- 			<div id="siteIndex"> -->
+<!-- 				<p class="WebHide"><a href="#link">의왕시통합도서관</a></p> -->
+<!-- 				<ul class="siteRole clearfix"> -->
+<!-- 					<li class="mobileHide"><a href="/index.do" target="_blank">인트로</a></li> -->
+<!-- 					<li><a href="/naeson/main.do" target="_blank">내손<span class="mobileHide">도서관</span></a></li> -->
+<!-- 					<li><a href="/global/main.do" target="_blank">글로벌<span class="mobileHide">도서관</span></a></li> -->
+<!-- 					<li><a href="/poil/main.do" target="_blank">포일어울림<span class="mobileHide">도서관</span></a></li> -->
+<!-- 					<li><a href="/baegun/main.do" target="_blank">백운호수<span class="mobileHide">도서관</span></a></li> -->
+<!-- 					<li class="small_lib"><a href="/intro/bugok/content.do" target="_blank">작은<span class="mobileHide">도서관</span></a></li> -->
+<!-- 					<li><a href="/jungang/10592/40213/content.do"><span class="mobileHide">스마트도서관</span></a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
 			<div id="siteMenu" class="siteMenu">
 				<ul class="memUtil">
 					
