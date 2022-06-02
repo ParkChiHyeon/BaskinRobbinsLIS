@@ -15,7 +15,6 @@
  </typeAliases>
  <mappers>
  	<mapper resource="sqls/test_statement.xml"/>
- 	<mapper resource="sqls/calendarboard_statement.xml"/>
  	<mapper resource="sqls/notice_faqboard_statement.xml"/>
  	<mapper resource="sqls/lib_member.xml"/>
  	<mapper resource="sqls/admin.xml"/>

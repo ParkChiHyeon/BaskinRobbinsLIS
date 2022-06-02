@@ -47,9 +47,9 @@ public class HomeController {
 	
 	@RequestMapping(value = "/test.do",method = RequestMethod.GET)
 	public String test(Model model) {
-		List<Map<String, String>> lists = service.testSelect();
-		
-		model.addAttribute("lists", lists);
+//		List<Map<String, String>> lists = service.testSelect();
+//		
+//		model.addAttribute("lists", lists);
 		return "test";
 	}
 	
