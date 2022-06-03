@@ -12,12 +12,15 @@
  	<typeAlias type="com.br.lis.vo.PurchaseVo" alias="PurchaseVo"/>
  	<typeAlias type="com.br.lis.vo.RegularPurchaseVo" alias="RegularPurchaseVo"/>
  	<typeAlias type="com.br.lis.vo.RequestPurchaseVo" alias="RequestPurchaseVo"/>
+ 	<typeAlias type="com.br.lis.vo.LendBookBean" alias="LendBookBean"/>
+ 	<typeAlias type="com.br.lis.vo.Possessing_BookVo" alias="Possessing_BookVo"/>
  </typeAliases>
  <mappers>
  	<mapper resource="sqls/test_statement.xml"/>
- 	<mapper resource="sqls/calendarboard_statement.xml"/>
+<!--  	<mapper resource="sqls/calendarboard_statement.xml"/> -->
  	<mapper resource="sqls/notice_faqboard_statement.xml"/>
  	<mapper resource="sqls/lib_member.xml"/>
  	<mapper resource="sqls/admin.xml"/>
+ 	<mapper resource="sqls/lending.xml"/>
  </mappers>
 </configuration>

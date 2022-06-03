@@ -1,0 +1,47 @@
+{
+	"folders": {},
+	"connections": {
+		"oracle_thin-18123585f2d-4bf69f87c453dd28": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "ORCL",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "ORCL",
+				"url": "jdbc:oracle:thin:@ tcp://0.tcp.jp.ngrok.io:12955",
+				"home": "C:\\app\\82102\\product\\21c\\dbhomeXE",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-connection-type@": "CUSTOM",
+					"show-only-one-schema@": "false",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-always-show-dba@": "false",
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "false",
+					"@dbeaver-meta-use-alternative-table-query@": "false",
+					"oracle.meta-search-in-synonyms": "false",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
