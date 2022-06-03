@@ -3,16 +3,9 @@
 <mapper namespace="com.br.lis.model.member.mapper.AdminDaoImpl">
 
 	<!-- 관리자 로그인 BR_W_UM_010 -->
-	<select id="loginAdmin" parameterType="java.util.Map" resultType="java.lang.Integer">
-	SELECT COUNT(*) ADMIN_ID
+	<select id="loginAdmin" parameterType="java.util.Map" resultType="AdminVo">
+	SELECT ADMIN_ID
 	FROM  ADMIN
 	WHERE ADMIN_ID = #{admin_id} AND PASSWORD = #{password}
 	</select>
-	
-	
-	
-	
-	
-	
-	
 </mapper>

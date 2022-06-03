@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.br.lis.vo.AdminVo;
+
 @Repository
 public class AdminDaoImpl implements IAdminDao {
 
@@ -15,7 +17,7 @@ public class AdminDaoImpl implements IAdminDao {
 	private final String  NS="com.br.lis.model.member.mapper.AdminDaoImpl.";
 
 	@Override
-	public int loginAdmin(Map<String, Object> map) {
+	public AdminVo loginAdmin(Map<String, Object> map) {
 		return sqlSession.selectOne(NS+"loginAdmin", map);
 	}
 	
