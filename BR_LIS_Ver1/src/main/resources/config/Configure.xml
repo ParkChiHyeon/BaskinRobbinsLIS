@@ -24,5 +24,8 @@
  	<mapper resource="sqls/noticeboard_statement.xml"/>
  	<mapper resource="sqls/return_book.xml"/>
  	<mapper resource="sqls/test_statement.xml"/>
+ 	<mapper resource="sqls/request_purchase.xml"/>
+ 	<mapper resource="sqls/purchase.xml"/>
+ 	<mapper resource="sqls/purchase_registration.xml"/>
  </mappers>
 </configuration>

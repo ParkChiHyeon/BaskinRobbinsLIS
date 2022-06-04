@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.br.lis.model.purchaseinfo.mapper.PurchaseRegistrationDaoImpl">
+
+<!-- 구매도서등록(BR_W_BM_701) : 정기구매도서 구매완료된 도서 조회 -->
+<!-- <select id="regulCompliteBookList" parameterType="java.lang.String" resultType="RegularPurchaseVo"> -->
+<!-- 	SELECT ISBN ,TITLE ,PUBLISHER ,AUTHOR ,EA -->
+<!-- 		FROM (SELECT * FROM REGULAR_PURCHASE rp2 WHERE PURCHASE_CODE = #{purchase_code}) -->
+<!-- 			WHERE RECEIVE_DATE IS NOT NULL -->
+<!-- </select> -->
+
+<!-- 구매도서등록(BR_W_BM_701) : 신청구매도서 구매완료된 도서 조회 -->
+<!-- <select id="reqCompliteBookList" parameterType="java.lang.String" resultType="RequestPurchaseVo"> -->
+<!-- 	SELECT ISBN ,TITLE ,PUBLISHER ,AUTHOR ,EA -->
+<!-- 		FROM (SELECT * FROM REQUEST_PURCHASE rp WHERE PURCHASE_CODE = #{purchase_code}) -->
+<!-- 			WHERE RECEIVE_DATE IS NOT NULL -->
+<!-- </select> -->
+
+<!-- 구매도서등록(BR_W_BM_702) : 신규도서조회 등록된지 30일 이내 -->
+<!-- <select id="selectNewBookPossess" resultType=""> -->
+<!-- 	SELECT * FROM POSSESSING_BOOK pb WHERE REGDATE BETWEEN (CURRENT_DATE-30) AND CURRENT_DATE -->
+<!-- </select> -->
+
+<!-- 신규도서조회(BR_W_BM_702) : 신규도서조회 등독된지 30일 이내 도서의 BOOKINFO조회 -->
+<!-- <select id="selectNewBookInfo" resultType="BookInfoVo"> -->
+<!-- 	SELECT bi.TITLE, bi.PUBLISHER , bi.AUTHOR , bi.ISBN -->
+<!-- 		FROM BOOK_INFO bi -->
+<!-- 			LEFT OUTER JOIN -->
+<!-- 			(SELECT * FROM POSSESSING_BOOK pb WHERE REGDATE BETWEEN (SYSDATE-30) AND SYSDATE) pb ON bi.ISBN = pb.ISBN -->
+<!-- 		WHERE pb.ISBN IS NOT NULL -->
+<!-- </select> -->
+
+
+
+<!-- 정기구매도서등록(BR_W_BM_703) : 구매한 도서 정보를 삽입?? -->
+
+
+<!-- 등록예정목록조회(BR_W_BM_704) : 새로입고된 도서 목록들 조회(신청도서) -->
+<!-- <select id="selectNewReqBookList" parameterType="java.lang.String" resultType="RequestPurchaseVo"> -->
+<!-- 	SELECT *  -->
+<!-- 		FROM (SELECT * FROM REQUEST_PURCHASE WHERE RECEIVE_DATE IS NOT NULL) -->
+<!-- 			WHERE PURCHASE_CODE = #{purchase_code} -->
+<!-- </select> -->
+
+<!-- 등록예정목록조회(BR_W_BM_704) : 새로입고된 도서 목록들 조회(정기도서) -->
+<!-- <select id="selectNewRegulBookList" parameterType="java.lang.String" resultType="RegularPurchaseVo"> -->
+<!-- 	SELECT *  -->
+<!-- 		FROM (SELECT * FROM REGULAR_PURCHASE WHERE RECEIVE_DATE IS NOT NULL)  -->
+<!-- 			WHERE PURCHASE_CODE = #{purchase_code} -->
+<!-- </select> -->
+
+<!-- 등록수정(BR_W_BM_705) : 입고도서 상태를 대기로 변경 -->
+<!-- <update id="updatePurchConfirm" parameterType="java.lang.String"> -->
+<!-- 	UPDATE PURCHASE -->
+<!-- 		SET CONFIRM ='Q' -->
+<!-- 			WHERE PURCHASE_CODE = #{purchase_code} -->
+<!-- </update> -->
+
+<!-- 등록취소(BR_W_BM_707) : (정기) 입고도서 상태를 N으로 변경, 히스토리 업데이트 -->
+<!-- <update id="updateRegulHistory" parameterType="java.util.Map"> -->
+<!-- 	UPDATE REGULAR_PURCHASE -->
+<!-- 		SET CONFIRM='N', HISTORY= #{history} -->
+<!-- 			WHERE REGULAR_SERIAL= #{regular_serial} -->
+<!-- </update> -->
+
+<!-- 등록취소(BR_W_BM_707) : (신청) 입고도서 상태를 N으로 변경, 히스토리 업데이트 -->
+<!-- <update id="updateReqHistory" parameterType="java.util.Map"> -->
+<!-- UPDATE REQUEST_PURCHASE  -->
+<!-- 	SET CONFIRM='N', HISTORY= #{history} -->
+<!-- 		WHERE WISH_SERIAL = #{wish_serial} -->
+<!-- </update> -->
+
+
+</mapper>

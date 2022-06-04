@@ -377,19 +377,9 @@
 					<div class="upper mobileHide">
 						<!-- after Login -->
 						<div class="innerWrap">
-						
-							<c:if test="${member.auth eq null }">
-							<span class="txtBtn_darkGray sizeSmall"><a href="./loginPage.do">로그인</a></span>
-							</c:if>
-							
-							<c:if test="${member.auth eq 'NM'|| member.auth eq'GH'}">
-							<span class="txtBtn_darkGray sizeSmall"><a href="./logout.do">로그아웃</a></span>
-							</c:if>
-							
-								 <span
-								class="txtBtn_darkGray sizeSmall ml10">
-								
-								<a
+							<span class="txtBtn_darkGray sizeSmall"><a
+								href="/jungang/10094/30027/program.do">로그인</a></span> <span
+								class="txtBtn_darkGray sizeSmall ml10"><a
 								href="/member/join.do">회원가입</a></span>
 						</div>
 					</div>

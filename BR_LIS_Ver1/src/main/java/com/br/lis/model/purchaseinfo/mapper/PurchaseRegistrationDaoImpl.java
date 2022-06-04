@@ -6,11 +6,17 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class RegularPurchaseDaoImpl implements IRegularPurchaseDao {
+public class PurchaseRegistrationDaoImpl implements IPurchaseRegistrationDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	private final String  NS="";
+	private final String  NS="com.br.lis.model.purchaseinfo.mapper.PurchaseRegistrationDaoImpl.";
+
+	
+	
+
+	
+	
 	
 }
