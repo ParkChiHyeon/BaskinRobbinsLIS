@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.br.lis.model.board.mapper.CalendarBoardDaoImpl">
+	
+	
+	<insert id="insertCalendar" parameterType="java.util.Map">
+	INSERT INTO CALENDAR_BOARD(CALENDAR_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE) 
+		VALUES(CALENDAR_SEQ.NEXTVAL, #{admin_id}, #{title}, #{content})
+	</insert>
+	<update id="modifyCalendar" parameterType="Notice_FAQVo">
+	UPDATE CALENDAR_BOARD
+		SET TITLE = #{title}, CONTENT = #{content} 
+		WHERE CALENDAR_SEQ, = #{calendar_seq}
+	</update>
+	<delete id="deleteCalendar">
+		DELETE FROM CALENDAR_BOARD
+			WHERE CALENDAR_SEQ, IN
+			<foreach collection="list" item="faq_seq" open="(" close=")" separator=",">
+		#{calendar_seq}
+	</foreach> 
+	</delete>
+</mapper>
