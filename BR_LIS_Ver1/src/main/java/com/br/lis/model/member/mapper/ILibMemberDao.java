@@ -13,7 +13,7 @@ public interface ILibMemberDao {
 	
 	public int duplicateMemberCheck(Map<String, Object> map);
 	
-	public int loginMember(Map<String, Object> map);
+	public LibMemberVo loginMember(Map<String, String> map);
 	
 	public LibMemberVo findId(Map<String, Object> map);
 
@@ -22,5 +22,36 @@ public interface ILibMemberDao {
 	public int resetPw(Map<String, Object> map);
 
 	public int updateNewPw(Map<String, Object> map);
+
+	public int updateNmToGh(Map<String, Object> map);
+
+	public LibMemberVo checkResident(Map<String, Object> map);
+
+	public int updateEmail(Map<String, Object> map);
+
+	public LibMemberVo selectMyInfo(Map<String, Object> map);
+
+	public int updateMyInfo(Map<String, Object> map);
+
+	public int quitRequest(Map<String, Object> map);
+
+	public int quitApprove(Map<String, Object> map);
+
+	public LibMemberVo quitSelectMember();
+
+	public int lendingPenalty(Map<String, Object> map);
+
+	public int endPenalty();
+
+	public int notificationYN(Map<String, Object> map);
+
+	public int encryptPassword(Map<String, Object> map);
+	
+	//비밀번호 확인
+	public String pwChk(Map<String, Object> map);
+		
+	//아이디 확인
+	public int idCheck(String id);
+		
 
 }
