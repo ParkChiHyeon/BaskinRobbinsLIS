@@ -1,6 +1,8 @@
 package com.br.lis.model.board.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.br.lis.vo.CalendarBoardVo;
 
 import org.slf4j.Logger;
@@ -18,10 +20,27 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	
 	@Override
-	public List<CalendarBoardVo> viewAllCalendar() {
-		logger.info("CalendarBoardServiceImpl viewAllCalendar");
-		return dao.viewAllCalendar();
+	public int insertCalendar(Map<String, String> map) {
+		logger.info("CalendarBoardServiceImpl insertBoardAnswer : {}",map);
+		return dao.insertCalendar(map);
 	}
+
+	@Override
+	public int modifyCalendar(Map<String, Object> map) {
+		logger.info("CalendarBoardServiceImpl modifyCalendar : {}",map);
+		return dao.modifyCalendar(map);
+	}
+
+	@Override
+	public int deleteCalendar(List<String> seqs) {
+		logger.info("CalendarBoardServiceImpl deleteCalendar : {}",seqs);
+		return dao.deleteCalendar(seqs);
+	}
+
+
+
+
 	
 }

@@ -1,6 +1,7 @@
 package com.br.lis.model.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -18,11 +19,20 @@ public class CalendarBoardDaoImpl implements ICalendarBoardDao {
 	
 	private final String  NS="com.br.lis.model.board.mapper.CalendarBoardDaoImpl.";
 
+
 	@Override
-	public List<CalendarBoardVo> viewAllCalendar() {
-		List<CalendarBoardVo> lists = sqlSession.selectList(NS+"viewAllCalendar");
-		
-		return lists;
+	public int insertCalendar(Map<String, String> map) {
+		return sqlSession.insert(NS+"insertCalendar", map);
+	}
+
+	@Override
+	public int modifyCalendar(Map<String, Object> map) {
+		return sqlSession.update(NS+"modifyCalendar", map);
+	}
+
+	@Override
+	public int deleteCalendar(List<String> seqs) {
+		return sqlSession.delete(NS+"deleteCalendar", seqs);
 	}
 	
 }

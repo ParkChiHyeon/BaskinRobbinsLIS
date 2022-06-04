@@ -16,14 +16,13 @@
  	<typeAlias type="com.br.lis.vo.Possessing_BookVo" alias="Possessing_BookVo"/>
  </typeAliases>
  <mappers>
- 	<mapper resource="sqls/test_statement.xml"/>
-<!--  	<mapper resource="sqls/calendarboard_statement.xml"/> -->
- 	<mapper resource="sqls/faqboard_statement.xml"/>
- 	<mapper resource="sqls/lib_member.xml"/>
  	<mapper resource="sqls/admin.xml"/>
+ 	<mapper resource="sqls/calendarboard_statement.xml"/>
+ 	<mapper resource="sqls/faqboard_statement.xml"/>
  	<mapper resource="sqls/lending.xml"/>
- 	<mapper resource="sqls/return_book.xml"/>
+ 	<mapper resource="sqls/lib_member.xml"/>
  	<mapper resource="sqls/noticeboard_statement.xml"/>
- 	<mapper resource="sqls/calendarboard_statement.xml.xml"/>
+ 	<mapper resource="sqls/return_book.xml"/>
+ 	<mapper resource="sqls/test_statement.xml"/>
  </mappers>
 </configuration>

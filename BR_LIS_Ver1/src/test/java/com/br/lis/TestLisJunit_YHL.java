@@ -16,12 +16,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.br.lis.model.board.mapper.ICalendarBoardDao;
+import com.br.lis.model.board.service.CalendarBoardServiceImpl;
 import com.br.lis.model.board.service.ICalendarBoardService;
 import com.br.lis.model.board.service.IFAQBoardService;
 import com.br.lis.model.board.service.NoticeBoardServiceImpl;
 import com.br.lis.model.test.service.ITestService;
 import com.br.lis.vo.CalendarBoardVo;
 import com.br.lis.vo.Notice_FAQBoardVo;
+import com.google.j2objc.annotations.AutoreleasePool;
 
 
 
@@ -40,6 +42,9 @@ public class TestLisJunit_YHL {
 	
 	@Autowired
 	private NoticeBoardServiceImpl serviceNotice;
+	
+	@Autowired
+	private CalendarBoardServiceImpl serviceCalendar;
 	
 	private final Logger logger = LoggerFactory.getLogger(TestLisJunit_YHL.class);
 	
@@ -126,7 +131,7 @@ public class TestLisJunit_YHL {
 	
 	
 	// Notice
-	@Test
+//	@Test
 	public void insertNotice() {
 		logger.info("JUnit insertNotice Test");
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -163,9 +168,72 @@ public class TestLisJunit_YHL {
 		}else {
 			System.out.println("글 삭제에 실패하였습니다.");
 		}
+	}
+	 
+	@Test
+	public void insertCalendar(){
+		/* (Map<String, String> map); */
+		System.out.println("Junit_insertCalendar notice 입력");
+		String admin_id ="admin001" ;
+		String title = "여름휴가지를 도서관으로!";
+		String content = "6월, 여름휴가지로 떠나지 않는 여러분을 위해 도서관에서 서비스를 제공합니다. 영화 상영 및 컨텐츠를 제공하고 있으니, 세부 일정은 공지사항을 확인 부탁드립니다.";
+		String start_date = "2022-06-04";
+		String end_date = "2022-06-30";
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("admin_id", admin_id);
+		map.put("title", title);
+		map.put("content", content);
+		map.put("start_date", start_date);
+		map.put("end_date", end_date);
+		
+		if (serviceCalendar.insertCalendar(map)>0) {
+			System.out.println("새글 입력에 성공하였습니다.");
+			
+		}else {
+			System.out.println("새글 입력에 실패하였습니다.");
+		}
+		
 		
 	}
-	
-	
-	
-}
+
+//	@Test
+	public void modifyCalendar(){
+		System.out.println("Junit_modifyCalendar notice수정");
+		String notice_seq = "8";
+		String admin_id ="admin001" ;
+		String title = "여름휴가지를 도서관으로!";
+		String content = "6월, 여름휴가지로 떠나지 않는 여러분을 위해 도서관에서 서비스를 제공합니다. 영화 상영 및 컨텐츠를 제공하고 있으니, 세부 일정은 공지사항을 확인 부탁드립니다.";
+		String start_date = "2022-06-04";
+		String end_date = "2022-06-25";
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("admin_id", admin_id);
+		map.put("title", title);
+		map.put("content", content);
+		map.put("start_date", start_date);
+		map.put("end_date", end_date);
+		/* (Map<String, Object> map); */
+	}
+
+//	@Test
+	public void deleteCalendar(){
+		/*(List<String> seqs);  */    
+		System.out.println("JUnit Test 12)글 삭제(DB삭제, ) deleteCalendar");
+		List<String> list = new ArrayList<String>();
+		
+		list.add("21");
+		list.add("23");
+		list.add("24");
+		
+ 		int cnt = serviceCalendar.deleteCalendar(list);
+ 		
+		if (cnt>0) {
+			System.out.println("글 삭제에 성공하였습니다 삭제한 글의 개수 : "+cnt);
+		}else {
+			System.out.println("글 삭제에 실패하였습니다.");
+		}
+	}
+}         
+
+
