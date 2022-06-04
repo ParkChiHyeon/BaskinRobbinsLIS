@@ -123,6 +123,15 @@ public class BookInfoVo {
 		this.wh = wh;
 	}
 
+	
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public void setBook_serial(String book_serial) {
+		this.book_serial = book_serial;
+	}
+
 	@Override
 	public String toString() {
 		return "BookInfoVo [isbn=" + isbn + ", title=" + title + ", publisher=" + publisher + ", author=" + author
