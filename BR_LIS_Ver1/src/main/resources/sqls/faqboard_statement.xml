@@ -21,9 +21,5 @@
 			<foreach collection="list" item="faq_seq" open="(" close=")" separator=",">
 		#{faq_seq}
 	</foreach> 
-
- 
 	</delete>
-
-
 </mapper>
