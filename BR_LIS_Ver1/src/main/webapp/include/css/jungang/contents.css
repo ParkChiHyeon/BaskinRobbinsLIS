@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
-.bd00view td input[type=text],.bd00view td input[type=password], input[type=password],input[type=text]{height:24px;}
-.bd00view td select { height:24px}
+/* .bd00view td input[type=text],.bd00view td input[type=password], input[type=password],input[type=text]{height:24px;} */
+/* .bd00view td select { height:24px} */
 .bd00Bbs .tB00,.bd00Bbs .tB01,.bd00Bbs .tB02,.bd00Bbs .tB03,.bd00Bbs .tB04{min-width:40px !important}
 
 /* 로그인 */
@@ -69,7 +69,7 @@
 .outarea li {margin-bottom:6px;}
 .outarea dl dt,.outarea dl dt label {font-size:15px;float:left;width:80px;font-family:'Nanum Gothic';color:#333333;font-weight:bold;}
 .outarea dl dd {float:left;width:255px;color:#0065b3;font-weight:bold}
-.outarea input[type=text],.outarea input[type=password] {height:22px;}
+/* .outarea input[type=text],.outarea input[type=password] {height:22px;} */
 .formWrap .memout > p {border-bottom:1px solid #dedede;padding-bottom:10px;}
 .formWrap .memout {padding:20px 30px 25px 30px}
 .memapplyarea {margin:30px 56px}

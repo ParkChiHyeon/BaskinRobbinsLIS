@@ -699,8 +699,8 @@ $(document).ready(function(e) {
 
 
 	$('#mobileIndex').html($('#indexNavi').html());
-	$('#mobileIndex').html($('#mobileIndex').html().replace('topmenu','topmenuM'));
-	$('#mobileIndex').html($('#mobileIndex').html().replace(/gnb/g,'mmb'));
+//	$('#mobileIndex').html($('#mobileIndex').html().replace('topmenu','topmenuM'));
+//	$('#mobileIndex').html($('#mobileIndex').html().replace(/gnb/g,'mmb'));
 
 //		$('#mobileIndex > ul > li > a').each(function(index, element) {
 //			//$(this).text($(this).find('img').attr('alt'));

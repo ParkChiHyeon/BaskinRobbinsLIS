@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>woowang Library</title>
-<link rel="icon" href="images/favicon.png"/>
-<script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="icon" href="./include/image/favicon.ico" type="image/x-icon">
 <link href="./include/css/custom.css" rel="stylesheet" type="text/css"/>
 <link href="./include/css/jungang/sub.css" rel="stylesheet" type="text/css"/>
 <link href="./include/css/jungang/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="./include/js/gnb.js"></script>
 <script src="./include/js/idangerous.swiper.js"></script>
 <!-- <script src="./include/js/jquery-1.12.2.min.js"></script> -->
@@ -35,7 +35,7 @@
 			<div id="btnSearchTop"><a href="#link"><img src="./include/image/common/btn_serachTop.png" alt="검색창 열기"><span>검색</span></a></div>
 			<div id="indexNavi">
 	<ul id="topmenu">
-	<li id="gnb1"><a href="/jungang/10010/30002/program.do" >자료검색</a>
+	<li id="gnb1"><a href="./booksearch.do" >자료검색</a>
 			<ul>
 			<li id="gnb1_1" class=""><a href="/jungang/10010/30002/program.do" >통합검색</a>
 					</li>
@@ -312,6 +312,31 @@
 </div>
 		</div>
 	</div>
+	
+	
+	<!--Top SerachBox -->
+	<div id="searchBoxArea" style="height:0px; display:none">
+		<div id="searchBox">
+			<div class="searchBox">
+				<form name="topSearchForm" id="topSearchForm" method="post" action="/jungang/10010/booksearch/searchSimple.do">
+					<input type="hidden" name="searchLibraryArr" value="MA" />
+					<div class="bgWhite">
+						<select name="searchKey" title="검색방식선택">
+							<option value="ALL" selected="selected">전체</option>
+							<option value="TITLE">서명</option>
+							<option value="AUTHOR">저자</option>
+							<option value="PUBLISHER">출판사</option>
+							<option value="KEYWORD">키워드</option>
+						</select>
+						<input type="text" name="searchKeyword" id="topSearchKeyword" class="schInput1" title="검색어 입력" />
+					</div>
+					<div class="btnRight"> <span class="themeBtn"><a href="javascript:fnTopSearch();">도서검색</a></span> </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--Top SerachBox -->
+	
 </div>
 <script>initMenu(0,0,0,0);</script>
 </body>

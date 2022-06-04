@@ -49,13 +49,6 @@ public class Board_Controller {
 //	@Autowired
 //	private 
 	
-	@RequestMapping(value = "main.Jsp.do", method = RequestMethod.GET)
-	public String main() {
-		logger.info("---------메인화면이동--------");
-		
-		return "main";
-		
-	}
 	
 	@RequestMapping(value = "/mainView.do", method = RequestMethod.GET)
 	public String mainView(Model model, @SessionAttribute("pageNum") Map<String, Object> map, HttpSession session) {
