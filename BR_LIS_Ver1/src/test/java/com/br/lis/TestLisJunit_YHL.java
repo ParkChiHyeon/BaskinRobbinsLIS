@@ -38,11 +38,12 @@ public class TestLisJunit_YHL {
 	private IFAQBoardService serviceFAQ;
 	
 	
-//	@Test
+	@Test
 	public void viewAllFAQ() {
 		
 		System.out.println("Junit_viewAllFAQ_FAQ 전체 조회");
 		List<Notice_FAQBoardVo> lists = serviceFAQ.viewAllFAQ();
+		System.out.println(lists);
 		
 	}
 	
@@ -88,7 +89,7 @@ public class TestLisJunit_YHL {
 		serviceFAQ.modifyFAQ(vo);
 	}
 	
-	@Test
+//	@Test
 	public void deleteFAQ() {
 		System.out.println("JUnit deleteFAQ FAQ 삭제");
 		List<String> list = new ArrayList<String>();
