@@ -23,7 +23,7 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	@Override
 	public List<LendingVo> nowLendingBook() {
 		logger.info("ILendingBookDao 즉시대출도서목록_nowLendingBook");
-		return null;
+		return dao.nowLendingBook();
 	}
 
 	@Override
