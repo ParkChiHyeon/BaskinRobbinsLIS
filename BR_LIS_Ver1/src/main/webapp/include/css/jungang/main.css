@@ -9,7 +9,7 @@
 #wrap {background:url(../../image/jungang/common/bg_body.png) 0 0 repeat-x; position:relative}
 
 #btnSearchTop { display:none}
-#topmenu { margin-left:140px}
+#topmenu { margin:0 120px;}
 
 #contbodym {
 	width: 998px;

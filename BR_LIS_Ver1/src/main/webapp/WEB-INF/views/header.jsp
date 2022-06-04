@@ -28,6 +28,13 @@
 <div id="wrap">
 <div id="topheader">
 		<div id="indexColumn">
+		<div id="siteIndex">
+				<ul class="siteRole clearfix">
+					<li class="mobileHide"><a href="./home.do">HOME</a></li>
+					<li><a href="https://search.daum.net/search?w=book" target="_blank">다음 책</a></li>
+					<li ><a href="https://www.aladin.co.kr/" target="_blank">알라딘</a></li>
+				</ul>
+			</div>
 			<div id="siteMenu" class="siteMenu">
 				<ul class="memUtil">
 							<c:if test="${member.auth eq 'NM'|| member.auth eq 'GH'}">

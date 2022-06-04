@@ -415,7 +415,7 @@
 							src="./include/image/jungang/main/icon_svc01.png" alt="책드림서비스"></a></li>
 					<li><a href="/jungang/10362/40165/content.do"><img
 							src="./include/image/jungang/main/icon_svc02.png" alt="무인예약대출"></a></li>
-					<li><a href="#link" id="ebookBtn"><img
+					<li><a a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
 							src="./include/image/jungang/main/icon_svc03.png" alt="전자책도서관"></a></li>
 					<li><a href="/jungang/10012/40001/content.do"><img
 							src="./include/image/jungang/main/icon_svc09.png" alt="희망도서신청"></a></li>
@@ -424,9 +424,9 @@
 					<li><a href="/jungang/10066/40147/content.do"><img
 							src="./include/image/jungang/main/icon_svc05.png" alt="이용안내"></a></li>
 					<!--<li><a href="/jungang/10073/40035/content.do"><img src="/include/image/jungang/main/icon_svc06.png" alt="찾아오시는길"></a></li>-->
-					<li><a href="javascript:fnSeatMatePop();" title="새 창 열림"><img
+					<li><a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
 							src="./include/image/jungang/main/icon_svc07.png" alt="열람실좌석현황"></a></li>
-					<li><a href="javascript:fnLibMatePop();"><img
+					<li><a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
 							src="./include/image/jungang/main/icon_svc08.png" alt="디지털정보실현황"
 							title="새 창 열림"></a></li>
 				</ul>
@@ -454,15 +454,15 @@
 								<li>01(수) <a href="#" title="정기휴관일">정기휴관일</a></li>
 								<li>01(수) <a href="#" title="휴관: 지방선거">휴관: 지방선거</a></li>
 								<li>06(월) <a href="#" title="휴관: 현충일">휴관: 현충일</a></li>
-								<li>09(목) <a href="#" title="북스타트2기: 꼼지락꼼지락 동화읽기A">북스타트2기:
-										꼼지락꼼지락 동화읽기A</a></li>
-								<li>13(월) <a href="#" title="정기휴관일">정기휴관일</a></li>
-								<li>16(목) <a href="#" title="북스타트2기: 꼼지락꼼지락 동화읽기A">북스타트2기:
-										꼼지락꼼지락 동화읽기A</a></li>
-								<li>20(월) <a href="#" title="정기휴관일">정기휴관일</a></li>
-								<li>22(수) <a href="#" title="북스타트2기: 그림책으로 떠나는 감정여행">북스타트2기:
-										그림책으로 떠나는 감정여행</a></li>
-								<li>27(월) <a href="#" title="정기휴관일">정기휴관일</a></li>
+<!-- 								<li>09(목) <a href="#" title="북스타트2기: 꼼지락꼼지락 동화읽기A">북스타트2기: -->
+<!-- 										꼼지락꼼지락 동화읽기A</a></li> -->
+<!-- 								<li>13(월) <a href="#" title="정기휴관일">정기휴관일</a></li> -->
+<!-- 								<li>16(목) <a href="#" title="북스타트2기: 꼼지락꼼지락 동화읽기A">북스타트2기: -->
+<!-- 										꼼지락꼼지락 동화읽기A</a></li> -->
+<!-- 								<li>20(월) <a href="#" title="정기휴관일">정기휴관일</a></li> -->
+<!-- 								<li>22(수) <a href="#" title="북스타트2기: 그림책으로 떠나는 감정여행">북스타트2기: -->
+<!-- 										그림책으로 떠나는 감정여행</a></li> -->
+<!-- 								<li>27(월) <a href="#" title="정기휴관일">정기휴관일</a></li> -->
 							</ul>
 						</div>
 					</div>

@@ -5,11 +5,7 @@ ul>li>a{
 	cursor: pointer;
 }
 
-#searchKeyword{
-	width: 500px;
-}
-
-input {
+#searchKeyword {
   width: 500px;
   height: 30px;
   font-size: 15px;
