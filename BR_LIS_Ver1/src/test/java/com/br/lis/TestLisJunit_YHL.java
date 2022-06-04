@@ -44,7 +44,7 @@ public class TestLisJunit_YHL {
 	private final Logger logger = LoggerFactory.getLogger(TestLisJunit_YHL.class);
 	
 	
-	@Test
+//	@Test
 	public void viewAllFAQ() {
 		
 		System.out.println("Junit_viewAllFAQ_FAQ 전체 조회");
@@ -137,7 +137,7 @@ public class TestLisJunit_YHL {
 		System.out.println(result);
 	}
 	
-	@Test
+//	@Test
 	public void modifyNotice() {
 		System.out.println("JUnit Test 10)글 수정 modifyBoard");
 		Notice_FAQBoardVo vo = new Notice_FAQBoardVo();
@@ -147,7 +147,7 @@ public class TestLisJunit_YHL {
 		serviceNotice.modifyNotice(vo);
 	}
 	
-	@Test
+//	@Test
 	public void deleteNotice() {
 		System.out.println("JUnit deleteNotice");
 		List<String> list = new ArrayList<String>();
