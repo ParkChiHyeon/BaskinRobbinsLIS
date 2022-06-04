@@ -4,22 +4,23 @@
 <%@ page session="false" %>
 <html>
 <head>
-
-
-
-
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/> -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> -->
 </head>    
 <!--         <link rel="icon" href="images/favicon.png"/> -->
-        <link href="./khu_css/style.css" rel="stylesheet">
+ <link href="./khu_css/style.css" rel="stylesheet">
 <%@ include file="./header.jsp" %>
-<body>
+<style>
+#footer{
+ 	position:absolute;
+ 	bottom: 0;
+ 	width: 100%
+}
+</style>
+<body class="body">
 	<div id="forms">
     <section class="login-form">
         <h1>Login</h1>

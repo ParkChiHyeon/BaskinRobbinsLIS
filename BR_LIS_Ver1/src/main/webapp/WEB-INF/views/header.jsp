@@ -6,11 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>woowang Library</title>
+<link rel="icon" href="images/favicon.png"/>
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link href="./include/css/custom.css" rel="stylesheet" type="text/css"/>
 <link href="./include/css/jungang/sub.css" rel="stylesheet" type="text/css"/>
 <link href="./include/css/jungang/main.css" rel="stylesheet" type="text/css" />
 <script src="./include/js/gnb.js"></script>
+<script src="./include/js/idangerous.swiper.js"></script>
 <!-- <script src="./include/js/jquery-1.12.2.min.js"></script> -->
 <!-- <script src="./include/js/jquery.stringify.js"></script> -->
 <!-- <script src="./include/js/common.js"></script> -->
@@ -311,5 +313,6 @@
 		</div>
 	</div>
 </div>
+<script>initMenu(0,0,0,0);</script>
 </body>
 </html>

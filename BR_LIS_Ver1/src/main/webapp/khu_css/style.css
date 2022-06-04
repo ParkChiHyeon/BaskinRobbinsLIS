@@ -1,3 +1,4 @@
+@charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 * {
@@ -6,23 +7,23 @@
   
 }
 
-.wrap {
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-size: cover;
-    position: absolute;
+/* .wrap { */
+/*     height: 100%; */
+/*     width: 100%; */
+/*     background-position: center; */
+/*     background-size: cover; */
+/*     position: absolute; */
+/* } */
 
-
-.form-wrap {
-    width: 380px;
-    height: 480px;
-    position: relative;
-    margin: 6% auto;
-    background: #fff;
-    padding: 5px;
-    overflow: hidden;
-}
+/* .form-wrap { */
+/*     width: 380px; */
+/*     height: 480px; */
+/*     position: relative; */
+/*     margin: 6% auto; */
+/*     background: #fff; */
+/*     padding: 5px; */
+/*     overflow: hidden; */
+/* } */
 
 
 body {
@@ -30,7 +31,7 @@ body {
   justify-content: center;
   align-items: center;
 /*   background-color : #FFCCFF; */
-  background-image: url("../khu_images/실패작4.png");
+/*   background-image: url("../khu_images/�떎�뙣�옉4.png"); */
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 90%;

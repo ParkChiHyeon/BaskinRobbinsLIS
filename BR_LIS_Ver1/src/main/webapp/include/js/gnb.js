@@ -395,7 +395,7 @@ function docTitleNavi(n1,n2,n3,n4,n5,mth) {
 	var pName = window.location.href;
 	var siteName = ""; //Sub Lib Name
 
-	var basicTitle = "의왕시도서관";
+	var basicTitle = "woowang Library";
 	var homeUrl = $("#logo > a").attr("href");
 
 	if(pName.indexOf('List.do')>0) { pSort = "목록보기";}
