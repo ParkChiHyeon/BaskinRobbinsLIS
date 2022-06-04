@@ -1,4 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.br.lis.model.member.mapper.MemberDaoImpl">
+<mapper namespace="com.br.lis.model.member.mapper.LibMemberDaoImpl">
+
+	<!-- 중복 회원 검사 BR_W_UM001 -->
+	<select id="duplicateMemberCheck" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(*) MEMBER_ID 
+ 	FROM LIB_MEMBER 
+  	WHERE MEMBER_ID =#{member_id} AND PHONE =#{phone}  AND  BIRTH=#{birth}
+	</select>
+
+
+	<!-- 회원가입  BR_W_UM002 -->
+	<insert id="signUpMember" parameterType="java.util.Map">
+	INSERT INTO LIB_MEMBER(
+ 	MEMBER_ID, MEMBER_CODE, PASSWORD,
+  	PHONE, NAME, ADDRESS, 
+   	EMAIL, AUTH, PENALTY, 
+    FILEPATH, RENTAL_COUNT, NOTIFICATION,
+    BIRTH)
+	VALUES(#{member_id}, 'M' || TO_CHAR(SYSDATE,'YYMM')|| LPAD(TO_CHAR(member_seq.nextval),6,0), #{password},
+     #{phone}, #{name}, #{address},
+      '', 'NM', '', 
+       '', 5, 'Y',
+        #{birth}
+        )
+	</insert>
+	
+	<!-- 중복아이디 검사  BR_W_UM003-->
+	<select id="idDuplicateCheck" parameterType="java.util.Map"  resultType="java.lang.Integer">
+	SELECT COUNT(*) MEMBER_ID
+	FROM LIB_MEMBER
+	WHERE MEMBER_ID =#{member_id}
+	</select>
+	
+	<!--  일반회원 로그인 BR_W_UM_009-->
+	<select id="loginMember" parameterType="java.util.Map" resultType="LibMemberVo">
+	SELECT MEMBER_ID,AUTH
+	FROM  LIB_MEMBER
+	WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
+	AND AUTH != 'TT'
+	</select>
+	
+	<!-- 암호화를 위한 ID 로그인-->
+	<select id="enLogin" parameterType="java.util.Map" resultType="LibMemberVo">
+		SELECT MEMBER_ID, AUTH FROM LIB_MEMBER WHERE MEMBER_ID=#{member_id} 
+	</select>
+	
+	<!-- matches-->
+	<select id="pwChk" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT PASSWORD
+		FROM LIB_MEMBER
+		WHERE MEMBER_ID = #{member_id}
+	</select>
+	
+	
+	<!-- 회원 아이디 찾기 BR_W_UM_011 -->
+	<select id="findId" parameterType="java.util.Map" resultType="LibMemberVo">
+	SELECT MEMBER_ID 
+  	FROM LIB_MEMBER lm 
+  	WHERE NAME =#{name} AND PHONE=#{phone}
+	</select>
+	
+	
+	<!-- 회원 비밀번호 찾기 BR_W_UM_012  -->
+	<select id="findPw" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(*) MEMBER_ID
+   	FROM LIB_MEMBER
+   	WHERE MEMBER_ID=#{member_id} AND PASSWORD = #{password} AND PHONE= #{phone}
+	</select>
+	
+	<!-- 회원 비밀번호 1로 초기화  BR_W_UM013-->
+	<update id="resetPw" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET PASSWORD ='1'
+  	WHERE MEMBER_ID=#{member_id} AND PASSWORD = #{password} AND PHONE =#{phone}
+	</update>
+	
+	<!-- 임시 비밀번호 발급  BR_W_UM014 -->
+	<update id="updateNewPw">
+	UPDATE LIB_MEMBER 
+  	SET PASSWORD =TRUNC(DBMS_RANDOM.VALUE(10000000,9000000))
+  	WHERE PASSWORD = '1' AND MEMBER_ID=#{member_id} AND PHONE =#{phone}
+	</update>
+	
+	<!-- 관내 회원 등록  BR_W_UM_015 -->
+	<update id="updateNmToGh" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET AUTH ='GH' , MEMBER_CODE = 'M' || TO_CHAR(SYSDATE,'YYMM')|| LPAD(TO_CHAR
+	(member_seq.nextval),6,0), filepath=#{filepath}
+  	WHERE MEMBER_ID = #{member_id}
+  	AND AUTH ='NM'	
+	</update>
+	
+	<!-- 등본 인증 OCR에 따라 수정 예정 BR_W_UM_016 -->
+	<select id="checkResident" parameterType="java.util.Map" resultType="LibMemberVo">
+	SELECT MEMBER_ID 
+  	FROM LIB_MEMBER 
+  	WHERE NAME =#{name} AND ADDRESS =#{address} AND BIRTH= #{birth}		
+	</select>
+	
+	<!-- 이메일 인증 BR_W_UM_017 -->
+	<update id="updateEmail" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET EMAIL = #{email}
+   	WHERE MEMBER_ID =#{member_id}
+	</update>
+	
+	<!-- 개인정보 조회 BR_W_UM_024 -->
+	<select id="selectMyInfo" parameterType="java.util.Map" resultType="LibMemberVo">
+	SELECT MEMBER_ID,PASSWORD,PHONE, 
+	NAME, ADDRESS, EMAIL, 
+	AUTH, NOTIFICATION,BIRTH
+	FROM LIB_MEMBER
+	WHERE MEMBER_ID =#{member_id}
+	</select>
+	
+	<!-- 개인정보 수정 BR_W_UM_018 -->
+	<update id="updateMyInfo" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET PHONE = #{phone}, EMAIL= #{email}, ADDRESS = #{address},
+  	PASSWORD= #{password} 
+  	WHERE MEMBER_ID =#{member_id}
+	</update>
+	
+	<!-- 탈퇴 신청 BR_W_UM_019 -->
+	<update id="quitRequest" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET AUTH ='F'
+  	WHERE MEMBER_ID =#{member_id}
+  	AND RENTAL_COUNT ='5'
+	</update>
+	
+	<!-- 탈퇴 승인 BR_W_UM_020 -->
+	<update id="quitApprove" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+ 	SET MEMBER_ID = #{member_id}, MEMBER_CODE =TRUNC(DBMS_RANDOM.VALUE(10000000000,99999999999)) ,
+ 	PASSWORD =TRUNC(DBMS_RANDOM.VALUE(1000000000000,9999999999999)),
+ 	PHONE =TRUNC(DBMS_RANDOM.VALUE(10000000000,99999999999)),
+ 	NAME=DBMS_RANDOM.STRING('L',10),
+	ADDRESS = DBMS_RANDOM.STRING('L',10), 
+ 	EMAIL=DBMS_RANDOM.STRING('L',10), 
+ 	RENTAL_COUNT=0,
+ 	BIRTH='0',
+ 	AUTH ='TT'
+ 	WHERE MEMBER_ID =#{member_id}
+ 	AND AUTH ='F'
+	</update>
+	
+	<!-- 탈퇴 신청 회원 조회 BR_W_UM_021 -->
+	<select id="quitSelectMember" resultType="LibMemberVo">
+	SELECT MEMBER_ID,NAME,EMAIL,PHONE,RENTAL_COUNT,PENALTY
+ 	FROM LIB_MEMBER
+ 	WHERE AUTH = 'F'
+	</select>
+	
+	<!-- 연체 패널티 부여 BR_W_UM_022 -->
+	<update id="lendingPenalty" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET AUTH='NM', PENALTY = (SELECT
+  	(SELECT CASE WHEN (BACK_DATE-END_DATE) > 0 THEN TO_DATE(TO_CHAR((BACK_DATE-END_DATE)+ 
+	SYSDATE,'YYYYMMDD')) END
+  	FROM LENDING l
+  	WHERE MEMBER_CODE =#{member_code}
+  	AND LENDING_SEQ =#{lending_seq})
+  	FROM DUAL)
+	</update>  
+	
+	<!-- 연체 패널티 복구 BR_W_UM_023-->
+	<update id="endPenalty">
+	UPDATE LIB_MEMBER 
+  	SET AUTH ='NM',PENALTY =''
+  	WHERE SYSDATE > PENALTY 
+	</update>                
+	
+	<!-- 알림 설정 동의 비동의 BR_W_UMA_001 -->
+	<update id="notificationYN" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER 
+  	SET NOTIFICATION = CASE NOTIFICATION WHEN 'N' THEN 'Y' ELSE 'N' END
+  	WHERE MEMBER_ID = #{member_id}
+	</update>
+	
+	<update id="encryptPassword" parameterType="java.util.Map">
+	UPDATE LIB_MEMBER
+	SET PASSWORD = #{password}
+	WHERE MEMBER_ID = #{member_id}
+	</update>
+	
+	
+	
 </mapper>

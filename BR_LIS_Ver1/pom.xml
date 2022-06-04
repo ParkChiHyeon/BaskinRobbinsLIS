@@ -312,23 +312,12 @@
 		            <version>1.1</version>
 		        </dependency>    
 		        
-		        <dependency>
-					<groupId>org.json</groupId>
-					<artifactId>json</artifactId>
-					<version>20160810</version>
-				</dependency>
-						
-		
-		<!-- 인경:	COOL SMS, 
-			RECAPCHA - , SECURITY(암호화용)
-			구글비전, 또또.. APACHE POI, PDF BOX, 링크나 뭐좀
-		 -->
 		
 	</dependencies>
 	
 	
     <build>
-    <finalName>BR_LIS_Ver1</finalName>
+    <finalName>woowangLibrary</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

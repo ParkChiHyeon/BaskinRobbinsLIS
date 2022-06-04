@@ -28,28 +28,19 @@ public class HomeController {
 	@Autowired
 	private ITestService service;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+	
+	@RequestMapping(value = "/home.do")
+	public String home() {
+		logger.info("HomeController Welcome home!");
 		
 		return "home";
 	}
 	
 	@RequestMapping(value = "/test.do",method = RequestMethod.GET)
 	public String test(Model model) {
-		List<Map<String, String>> lists = service.testSelect();
-		
-		model.addAttribute("lists", lists);
+//		List<Map<String, String>> lists = service.testSelect();
+//		
+//		model.addAttribute("lists", lists);
 		return "test";
 	}
 	

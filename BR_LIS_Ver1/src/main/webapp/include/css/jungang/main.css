@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+@import url("default.css");
+@import url("layout.css");
+@import url("common.css");
+@import url("button.css");
+@import url("mainContents.css");
+
+#wrap {background:url(../../image/jungang/common/bg_body.png) 0 0 repeat-x; position:relative}
+
+#btnSearchTop { display:none}
+#topmenu { margin-left:140px}
+
+#contbodym {
+	width: 998px;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 105px;
+	min-height:500px;
+}
+#contbodym * {font-family:'Nanum Gothic';}
+
+#section1 { overflow:hidden;}
+#section1 > .fl {overflow:hidden;width:745px; height:242px;  margin-bottom:25px}
+#section1 > .fr { width:253px; position:relative; margin-bottom:25px}
+
+#section2 { overflow:hidden; margin-bottom:25px}
+
+#section3 { overflow:hidden; }
+#section3 .sec3_1 { width:194px; margin-right:30px; float:left; overflow:hidden; background:#fff; margin-bottom:25px}
+#section3 .sec3_2 { width:370px; float:left; overflow:hidden; background:#fff; margin-bottom:25px}
+#section3 .sec3_3 { width:370px; float:right; overflow:hidden; background:#fff; margin-bottom:25px}
+
+
+@media screen and (max-width: 998px) {
+#wrap {}
+#contbodym { width:auto; padding:0 10px;}
+#section1 > .fl { height:auto; width:100%}
+#section1 > .fr {  width:100%}
+#section1 > .fr .downer { height:auto; width:auto}
+#section3 .sec3_1 { width:19%;}
+#section3 .sec3_2 { width:36.5%;}
+#section3 .sec3_3 { width:36.5%;}
+}
+@media screen and (max-width: 800px) {
+	#section3 .sec3_1 { width:28%; margin-right:3%}
+	#section3 .sec3_2 { width:68%;}
+	#section3 .sec3_3:before { content:" "; clear:both; float:none;}
+	#section3 .sec3_3 { float:none; width:100%; height:auto; display:block; }
+}
+@media screen and (max-width: 640px) {
+	#section3 .sec3_1 { width:38%; margin-right:3%}
+	#section3 .sec3_2 { width:58%;}
+}
+@media screen and (max-width: 480px) {
+	#section3 .sec3_1 { float:none; width:100%; height:auto; display:block; margin-right:0}
+	#section3 .sec3_2 {  float:none; width:100%; height:auto; display:block; margin-right:0}
+	#section3 .sec3_3:before { content:" "; clear:both; float:none;}
+	#section3 .sec3_3 { float:none; width:100%; height:auto; display:block; }
+}
+@media screen and (min-width: 998px) {
+#wrap {min-width:998px;}
+}

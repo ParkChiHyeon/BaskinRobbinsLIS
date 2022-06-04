@@ -23,6 +23,22 @@ public class Notice_FAQBoardVo {
 		this.notice_seq = notice_seq;
 	}
 
+	public String getFaq_seq() {
+		return faq_seq;
+	}
+
+	public void setFaq_seq(String faq_seq) {
+		this.faq_seq = faq_seq;
+	}
+
+	public String getAdmin_id() {
+		return admin_id;
+	}
+
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -55,19 +71,24 @@ public class Notice_FAQBoardVo {
 		this.file_path = file_path;
 	}
 
-	public String getAdmin_id() {
-		return admin_id;
-	}
-
-	public String getFaq_seq() {
-		return faq_seq;
-	}
-
 	@Override
 	public String toString() {
-		return "NoticeBoardVo [notice_seq=" + notice_seq + ", faq_seq=" + faq_seq + ", admin_id=" + admin_id
+		return "Notice_FAQBoardVo [notice_seq=" + notice_seq + ", faq_seq=" + faq_seq + ", admin_id=" + admin_id
 				+ ", title=" + title + ", content=" + content + ", regdate=" + regdate + ", file_path=" + file_path
 				+ "]";
 	}
 
+	public Notice_FAQBoardVo(String notice_seq, String faq_seq, String admin_id, String title, String content,
+			String regdate, String file_path) {
+		super();
+		this.notice_seq = notice_seq;
+		this.faq_seq = faq_seq;
+		this.admin_id = admin_id;
+		this.title = title;
+		this.content = content;
+		this.regdate = regdate;
+		this.file_path = file_path;
+	}
+
+	
 }

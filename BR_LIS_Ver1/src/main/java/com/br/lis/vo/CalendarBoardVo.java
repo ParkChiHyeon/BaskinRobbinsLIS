@@ -60,6 +60,7 @@ public class CalendarBoardVo {
 	public String getAdmin_id() {
 		return admin_id;
 	}
+	
 
 	@Override
 	public String toString() {
