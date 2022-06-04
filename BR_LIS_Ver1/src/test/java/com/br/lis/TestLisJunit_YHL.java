@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.br.lis.model.board.mapper.ICalendarBoardDao;
 import com.br.lis.model.board.service.ICalendarBoardService;
 import com.br.lis.model.board.service.IFAQBoardService;
+import com.br.lis.model.board.service.NoticeBoardServiceImpl;
 import com.br.lis.model.test.service.ITestService;
 import com.br.lis.vo.CalendarBoardVo;
 import com.br.lis.vo.Notice_FAQBoardVo;
@@ -36,6 +37,11 @@ public class TestLisJunit_YHL {
 	
 	@Autowired
 	private IFAQBoardService serviceFAQ;
+	
+	@Autowired
+	private NoticeBoardServiceImpl serviceNotice;
+	
+	private final Logger logger = LoggerFactory.getLogger(TestLisJunit_YHL.class);
 	
 	
 	@Test
@@ -119,7 +125,46 @@ public class TestLisJunit_YHL {
 //	}
 	
 	
+	// Notice
+	@Test
+	public void insertNotice() {
+		logger.info("JUnit insertNotice Test");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("admin_id", "admin001");
+		map.put("title", "쿠키런과 함께하는 글짓기 대회");
+		map.put("content", "");
+		int result = serviceNotice.insertNotice(map);
+		System.out.println(result);
+	}
 	
+	@Test
+	public void modifyNotice() {
+		System.out.println("JUnit Test 10)글 수정 modifyBoard");
+		Notice_FAQBoardVo vo = new Notice_FAQBoardVo();
+		vo.setNotice_seq("notice_seq");
+		vo.setTitle("글수정합니다");
+		vo.setContent("수정수정");
+		serviceNotice.modifyNotice(vo);
+	}
+	
+	@Test
+	public void deleteNotice() {
+		System.out.println("JUnit deleteNotice");
+		List<String> list = new ArrayList<String>();
+		
+		list.add("");
+		list.add("");
+		list.add("");
+		
+ 		int cnt = serviceNotice.deleteNotice(list);
+ 		
+		if (cnt>0) {
+			System.out.println("글 삭제에 성공하였습니다 삭제한 글의 개수 : "+cnt);
+		}else {
+			System.out.println("글 삭제에 실패하였습니다.");
+		}
+		
+	}
 	
 	
 	

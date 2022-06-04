@@ -23,5 +23,7 @@
  	<mapper resource="sqls/admin.xml"/>
  	<mapper resource="sqls/lending.xml"/>
  	<mapper resource="sqls/return_book.xml"/>
+ 	<mapper resource="sqls/calendarboard_statement.xml"/>
+ 	<mapper resource="sqls/noticeboard_statement.xml"/>
  </mappers>
 </configuration>
