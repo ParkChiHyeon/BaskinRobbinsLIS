@@ -30,7 +30,7 @@
 .btnDown a { padding-right:0}.btnDown a:before {background:url(../../image/button/bg_btnDown.png) 0 0  no-repeat; display:inline-block; content:""; width:12px; height:28px; margin-right:5px; vertical-align:middle }
 .btnView a { padding-right:0}.btnView a:before {background:url(../../image/button/bg_btnView.png) 0 0  no-repeat; display:inline-block; content:""; width:12px; height:28px; margin-right:5px; vertical-align:middle }
 .btnSearch a { padding-right:0}.btnSearch a:after {background:url(../image/button/bg_btnSearch.png) 100% 50% no-repeat; display:inline-block; content:""; width:10px; height:12px; margin-left:5px; }
-.btnMore a { padding-right:0}.btnMore a:after {background:url(../image/button/bg_btnMore.png) 100% 50% no-repeat; display:inline-block; content:""; width:8px; height:10px; margin-left:5px }
+.btnMore a { padding-right:0}.btnMore a:after {background:url(../../image/jungang/main/bg_btnMore.png) 100% 50% no-repeat; display:inline-block; content:""; width:8px; height:10px; margin-left:5px }
 .txtBtn_lightGray.btnMore a { padding-right:0}.txtBtn_lightGray.btnMore a:after {background:url(../image/button/bg_btnDarkMore.png) 100% 50% no-repeat; display:inline-block; content:""; width:8px; height:10px; margin-left:5px }
 .btnList a { padding-right:0}.btnList a:after {background:url(../image/button/bg_btnList.png) 100% 50% no-repeat; display:inline-block; content:""; width:11px; height:12px; margin-left:5px }.txtBtn_lightGray.btnList a:after {background:url(../image/button/bg_btnDarkList.png) 100% 50% no-repeat; display:inline-block; content:""; width:11px; height:12px; margin-left:5px }
 

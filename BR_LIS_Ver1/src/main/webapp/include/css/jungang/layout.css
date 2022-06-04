@@ -45,7 +45,7 @@
 	float: left;
 	position: relative;
 	padding: 0 7px;
-	background: url(/include/image/jungang/common/bg_memUtilSlit.gif) 0 50% no-repeat;
+/* 	background: url(../../image/jungang/common/bg_memUtilSlit.gif) 0 50% no-repeat; */
 }
 .siteMenu ul.memUtil li:first-child {
 	background: none;
@@ -403,7 +403,7 @@
 .futil li {
 	float: left;
 	padding: 0 15px 5px 15px;
-	background: url(/include/image/jungang/common/bg_futilSlit.gif) 0 4px no-repeat;
+	background: url(../../image/jungang/common/bg_futilSlit.gif) 0 4px no-repeat;
 }
 .futil li:first-child {
 	background: none;
@@ -686,6 +686,7 @@
 #contbody #contentcore {
 	float: right;
 	width: 780px;
+	margin: 0 auto;
 }
 #contbody #contentcore .contents {
 	width: 780px;

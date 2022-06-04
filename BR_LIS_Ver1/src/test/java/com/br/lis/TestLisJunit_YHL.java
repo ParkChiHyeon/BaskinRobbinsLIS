@@ -50,6 +50,8 @@ public class TestLisJunit_YHL {
 		System.out.println("Junit_viewAllFAQ_FAQ 전체 조회");
 		List<Notice_FAQBoardVo> lists = serviceFAQ.viewAllFAQ();
 		System.out.println(lists);
+		System.out.println(lists);
+		System.out.println(lists);
 		
 	}
 	

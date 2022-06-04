@@ -23,6 +23,11 @@ import com.br.lis.vo.TestVo;
 @Controller
 public class HomeController {
 	
+	/*
+	 * 헤더 화면 흐름 제어 클래스
+	 */
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
@@ -35,6 +40,14 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	
+	@RequestMapping(value = "/booksearch.do")
+	public String bookSearch() {
+		logger.info("HomeController bookSearch 이동");
+		return "booksearch";
+	}
+	
 	
 	@RequestMapping(value = "/test.do",method = RequestMethod.GET)
 	public String test(Model model) {

@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+
+ul>li>a{
+	cursor: pointer;
+}
+
+#searchKeyword{
+	width: 500px;
+}
+
+input {
+  width: 500px;
+  height: 30px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}

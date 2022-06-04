@@ -964,7 +964,6 @@
 			</div>
 		</div>
 	</div>
-	<iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임" class="hide"></iframe>
 </body>
 <%@include file="./footer.jsp"%>
 </html>

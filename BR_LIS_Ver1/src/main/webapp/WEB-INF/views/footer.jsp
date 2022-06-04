@@ -17,6 +17,7 @@ $(function(){
 });
 </script>
 <body>
+<iframe name="hiddenFrame" id="hiddenFrame" title="빈프레임" class="hide"></iframe>
 <!--footer-->
 	<div id="footer">
 		<div id="footbody">
