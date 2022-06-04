@@ -1,0 +1,145 @@
+@charset "utf-8";
+
+
+/* popup zone */
+.popupZone {position:relative; margin:0; overflow:hidden}
+.popupZone .swiper-wrapper {position:relative; width:100%;}
+.popupZone .swiper-slide {float:left; width:100%; height:240px; background-position:0 0; background-repeat:no-repeat; background-size:100% 100%;}
+.popupZone .swiper-slide a {display:block; position:relative;}
+.popupZone .swiper-slide img {width:100%; height:auto;}
+.device-popup { border:1px solid #d0d0d0; border-right:0 none; width:550px; overflow:hidden; float:right;}
+.popupZone .textPopup {position:absolute; top:0; left:0; z-index:30; padding:10px; padding-right:80px;}
+.popupZone .textPopup .tit {margin-bottom:5px; font-weight:bold; font-size:1.250em; color:#649257;}
+.popupZone .textPopup .desc {font-size:1.167em; color:#555;}
+.popupZone .textPopup .list {margin-top:5px; font-weight:bold; font-size:1em; color:#444;}
+
+
+.popupZone .pagination { background:#929292; height:245px; position:absolute; top:0; left:0; width:193px; overflow:hidden}
+.popupZone .swiper-pagination-switch {display:block; overflow:hidden; line-height:42px; background:#929292; padding:0 17px; color:#fff; font-weight:bold;font-family:'Nanum Gothic';  text-overflow:ellipsis; -o-text-overflow:ellipsis; -ms-text-overflow:ellipsis; -webkit-text-overflow:ellipsis; white-space:nowrap;}
+.popupZone .swiper-active-switch {background-color:#e2427f;}
+
+.popupZone .controlArea { position:absolute; bottom:0; left:0; z-index:98; width:193px; background:#474747; height:34px}
+.popupZone .controlArea > li:first-child { margin-left:50%;}
+.popupZone .controlArea > li { margin-left:2px; margin-top:7px; float:left}
+.popupZone .controlArea a {display:block; overflow:hidden; width:18px; height:18px; margin-left:5px; /*border-radius:11px; background-color:#ff6300;*/}
+.popupZone .controlArea img {display:block; width:100%; height:100%;}
+
+.popupZone .popupZoneCnt { position:absolute; bottom:7px; left:20px; z-index:99}
+.popupZone .popupZoneCnt  * {color:#fff; font-weight:bold;font-family:'Nanum Gothic'; font-size:13px}
+.pagination5 .popNo {display:none}
+.swiper-active-switch .popNo { display:inline; position:absolute; bottom:5px; left:10px; z-index:110; color:#fff; font-weight:bold;font-family:'Nanum Gothic'; font-size:13px}
+
+
+/*section1 FR upper*/
+#section1 > .fr .upper { background:#f1f1f1; border: 1px solid #d0d0d0; border-bottom:0 none}
+#section1 > .fr .upper .innerWrap { padding:20px; text-align:center}
+
+#section1 > .fr .downer { background:#f1f1f1; border: 1px solid #d0d0d0; border-top:1px dotted #d0d0d0; height:179px; overflow:hidden}
+#section1 > .fr .downer .innerWrap { padding:10px; }
+#section1 > .fr .downer .innerWrap li { margin-bottom:10px; min-width:115px; padding:0 10px; display:inline-block; float:left}
+.bg_fold { background:url(../../image/jungang/main/bg_fold.png) 0 0 no-repeat; display:block; width:36px; height:37px; background-size:36px 37px; overflow:hidden; position:absolute; bottom:0; right:0;}
+
+
+/*section2 */
+.mainSvc {border-top: 3px solid #E2427F; border-left:1px solid #d0d0d0; overflow:hidden}
+.mainSvc > li { width:123px; float:left; text-align:center; display:inline-block; padding:18px 0 15px 0; border-right:1px solid #d0d0d0; border-bottom:1px solid #d0d0d0;}
+.mainSvc > li:first-child { width:127px;}
+.mainSvc > li a { width:100%; text-align:center}
+
+
+/*sec3_3*/
+
+.bookTabList  .pagination {position:relative; z-index:100; margin-top:5px; text-align:center;}
+.bookTabList  .swiper-pagination-switch {display:inline-block; overflow:hidden; width:11px; height:11px; margin-left:5px; border-radius:11px; background-color:#d0d0d0;}
+.bookTabList  .swiper-active-switch {background-color:#ff6300;}
+
+/* book zone */
+.bookTabList {position:relative; height:210px;}
+.bookTabList:after {content:""; display:block; clear:both;}
+.bookTabList li {float:left; width:100px; text-align:left;}
+.bookTabList li h2 a {display:block; height:35px; font-weight:bold; font-size:18px; line-height:1em; color:#666; vertical-align:top;}
+.bookTabList li .btnMore { top:-35px; line-height:1em;}
+.bookTabList li:nth-child(1) {width:80px;}
+.bookTabList li:nth-child(2) {width:80px;}
+.bookZone {position:absolute; top:33px; left:0; width:100%;}
+.bookZone .device-book {position:relative; height:165px; padding-top:12px; background:#fff url(../../image/jungang/main/bg_bookList2.png) 50% 144px no-repeat; background-size:100% 8px;}
+.bookZone .swiper-container {overflow:hidden; height:165px; margin:0 26px;}
+.bookZone .swiper-wrapper {text-align:center;}
+.bookZone .swiper-slide {float:left; width:33.333%; text-align:center;}
+.bookZone .swiper-slide a {display:block; width:93px; height:130px; margin:0 auto; border:1px solid #ababab;}
+.bookZone .swiper-slide a img {display:block; max-width:93px; max-height:130px; height:130px; vertical-align:top;}
+.bookZone .swiper-slide .txt {display:block; overflow:hidden; margin:10px 13px 0 13px; font-weight:600; font-size:1em; color:#333; text-overflow:ellipsis; word-break:break-all; word-wrap:normal; white-space:nowrap;  text-align:center}
+.bookZone .pagination > span:nth-child(3n+2),.bookZone .pagination > span:nth-child(3n+3) {display:none;}
+.button-prev { background:url(../../image/jungang/main/btn_arrowPrev.png) 0 0 no-repeat; width:19px; height:31px; display:block; overflow:hidden; position:absolute; top:40%; left: 0; cursor:pointer;}
+.button-next { background:url(../../image/jungang/main/btn_arrowNext.png) 0 0 no-repeat; width:19px; height:31px; display:block; overflow:hidden; position:absolute; top:40%; right: 0; cursor:pointer;}
+
+.btnMore {position:absolute; top:0; right:0px; z-index:100; background:#fff;}
+.btnMore a {display:block; background:url(../../image/jungang/main/bg_btnMore.png) 100% 50% no-repeat; padding-right:0px; }
+/*.swiper-book1 { background:url(../../image/jungang/main/bg_bookList2.png) 50% 132px no-repeat; background-size:100% 8px;}
+.swiper-book2 { background:url(../../image/jungang/main/bg_bookList2.png) 50% 132px no-repeat; background-size:100% 8px;}
+.swiper-book3 { background:url(../../image/jungang/main/bg_bookList2.png) 50% 132px no-repeat; background-size:100% 8px;}*/
+
+/* notice */
+.noticeArea {position:relative; width:100%;}
+.noticeArea .btnMore { top:0; line-height:1em;}
+.noticeArea h2 {height:35px; font-size:18px; line-height:1em;}
+.noticeArea .top {position:relative; height:39px; margin-top:10px; padding-bottom:15px;}
+.noticeArea .top img {position:absolute; top:0; left:0;}
+.noticeArea .top dl {position:relative; height:44px; margin:0 0 10px 80px;}
+.noticeArea .top dl .date {position:relative; line-height:20px;}
+.noticeArea .top dl .noticex {overflow:hidden; margin:0; font-weight:bold; line-height:20px; text-overflow:ellipsis; word-break:break-all; word-wrap:normal; white-space:nowrap;}
+.noticeArea .top dl .noticex a {color:#333;}
+.noticeList {padding-top:8px; border-top:2px solid #888c9c; border-bottom:1px solid #d0d0d0; height:165px }
+.noticeList:after {content:""; display:block; clear:both;}
+.noticeList li {overflow:hidden; position:relative; margin-bottom:5px}
+.noticeList li img {vertical-align:middle; margin-left:3px; float:left;}
+.noticeList .date {line-height:25px; position:absolute; top:0; right:0px;}
+.noticeList .noticex {display:block; overflow:hidden; margin:0 80px 0 0; line-height:25px; text-overflow:ellipsis; word-break:break-all; word-wrap:normal; white-space:nowrap;}
+.noticeList .noticex a:hover {text-decoration:underline;}
+.mainTxtBtn {overflow:hidden; margin-right:5px;}
+.mainTxtBtn span,.mainTxtBtn a { display:inline-block; line-height:19px; text-align:center; padding:0 5px; border-radius:4px;}
+/*mainHoli*/
+.mainHoli { display:block; width:auto; background:#f1f1f1}
+.holiHead { position:relative; overflow:hidden}
+.holiHead h2 { float:left; line-height:35px; color:#fff; font-size:14px; margin-left:10px;}
+.holiHead .btnMore { overflow:hidden; float:right; margin-right:10px; background:none !important;}
+.holiHead .btnMore a { display:inline-block; background:url(../../image/jungang/main/bg_btnMore2.png) 100% 50% no-repeat; line-height:35px; color:#fff}
+.holiBody {  position:relative; overflow:hidden; height:177px }
+.holYM { position:absolute; top:15px; left:15px; background:url(../../image/jungang/main/bg_mainhol.png) 0 0 repeat-x; color:#fff; text-align:center; width:45px; height:45px; border-radius:6px; }
+.holiBody ul {display:block; margin:15px 15px 15px 80px;}
+.holYM .holYear { font-weight:bold; line-height:18px}
+.holMonth {line-height:1em; font-weight:bold; font-size:22px;}
+.holiBody li { display:block; overflow:hidden; text-overflow:ellipsis; word-break:break-all; word-wrap:normal; white-space:nowrap; color:#333; margin-bottom:8px}
+
+@media screen and (max-width: 998px) {
+	.popupZone .controlArea,.popupZone .pagination5 { width:30%}
+	.device-popup { float:right; width:70%; border-right:1px solid #d0d0d0;}
+	#section1 > .fr .downer { border-top:1px solid #d0d0d0;}
+	#section1 > .fr .downer .innerWrap li {min-width:115px;}
+	.mainSvc > li,.mainSvc > li:first-child { width:12.3%;}
+}
+@media screen and (max-width: 800px) {
+	.mainSvc > li a img { height:50px}
+	.mainSvc > li,.mainSvc > li:first-child { width:12.3%;}
+	.sec3_3 { float:none; width:auto; height:auto; display:block; }
+}
+@media screen and (max-width: 640px) {
+	.mainSvc > li a img { height:50px}
+	.mainSvc > li,.mainSvc > li:first-child { width:12.25%;}
+	.sec3_3 { float:none; width:auto; height:auto; display:block; }
+	.bg_fold { width:24px; height:24px; background-size:cover;}
+}
+@media screen and (max-width: 480px) {
+	#section1 > .fr .downer .innerWrap li:nth-child(2n+1) {min-width:175px;}
+	.controlArea,.popupZoneCnt,.pagination5 {display:none}
+	.device-popup { float:none; width:auto; border-right:1px solid #d0d0d0;}
+	.mainSvc > li a img { height:60px}
+	.mainSvc > li,.mainSvc > li:first-child { width:24.5%;}
+	.holiBody { height:auto; padding-bottom:10px; min-height:70px}
+	.holiBody li { display:inline-block; min-width:130px; margin-right:10px; float:left;}
+	.bookZone .device-book {background-position:50% 125px;}
+	.bookZone .swiper-slide a {width:80px; height:111px;}
+	.bookZone .swiper-slide a img {max-width:80px; max-height:111px; height:111px;}
+}
+@media screen and (min-width: 998px) {
+}

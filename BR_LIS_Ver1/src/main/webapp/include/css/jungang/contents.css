@@ -1,0 +1,305 @@
+@charset "utf-8";
+/* CSS Document */
+.bd00view td input[type=text],.bd00view td input[type=password], input[type=password],input[type=text]{height:24px;}
+.bd00view td select { height:24px}
+.bd00Bbs .tB00,.bd00Bbs .tB01,.bd00Bbs .tB02,.bd00Bbs .tB03,.bd00Bbs .tB04{min-width:40px !important}
+
+/* 로그인 */
+.loginWrap { overflow:hidden; border:1px solid #dfdfdf; background:url(../../image/jungang/common/bg_login.png) 60px 20px no-repeat;}
+
+.loginWrap * {font-family:'NanumGothic';}
+.loginWrap > div {position:relative; overflow:hidden; padding:23px}
+.loginWrap > .fr { width:450px; height:110px; }
+.loginTable { table-layout:fixed}
+.loginTable ul li:first-child { margin-bottom:10px}
+.loginTable input { display:inline-block; width:190px; height:27px; border:1px solid #dfdfdf; padding-left:10px}
+.loginTable label { display:inline-block; width:80px; text-align:right; font-size:14px; font-weight:bold; margin-right:10px}
+.logutil { padding-left:90px; margin-top:10px}
+.logutil .sizeSmall a { line-height:26px; padding:0 15px}
+.log_btn .themeBtn a {line-height:64px; width:40px;}
+/*.loginTable .log_id input { background:url(../../image/jungang/common/bg_log_id.gif) 10px 17px no-repeat;}
+.loginTable .log_pw input { background:url(../../image/jungang/common/bg_log_pw.gif) 10px 17px no-repeat;}
+*/
+.lgoinGuide { background:url(/include/image/jungang/common/bul_dp1.png) 0 50% no-repeat; padding-left:12px; margin-top:20px}
+.lgoinGuide p {
+	font-family:'NanumGothic'; font-size:13px;}
+
+
+/*sitemap*/
+#sitemap {overflow:hidden;}
+#smb1 ,#smb2 , #smb3,#smb4 {height:350px;}
+#smb6 , #smb5 , #smb8 , #smb9 {height:320px;}
+#smb7 {display:none !important}
+#smapmenu > li {float:left; margin:10px; display:inline-block}
+#sitemap  ul,#sitemap  ul li {position:relative !important; background:none}
+#sitemap .MkTab,#sitemap .MkSub {display:none;}
+#sitemap .mkSub a {font-weight:normal !important}
+#sitemap > ul > li > a {
+	font-size:22px !important;
+	font-weight:bold;
+	font-family:'NanumGothic';
+	width:100%;
+	text-align:left;
+	display:block;
+	border-bottom:2px solid #ccc;
+	padding-bottom:7px
+}
+#sitemap > ul > li > ul {margin-top:10px !important;}
+#sitemap > ul > li > ul > li {
+	/*background:url(../image/common/dot_gray2.gif) 5px center no-repeat !important; */	padding-left:15px !important;
+	margin-bottom:10px !important;
+	border-bottom:1px solid #ccc;
+	line-height:30px
+}
+#sitemap > ul > li > ul > li > a {font-size:13px !important; color:#666 !important; font-weight:bold}
+#sitemap #smapmenu> li > ul > li > ul  {background:#f8f8f8; overflow:hidden; padding-left:0 !important}
+#sitemap #smapmenu> li > ul > li > ul > li {display:block !important;clear:both !important;margin:0 !important; padding:0 !important; width:auto !important; top:0 !important; left:0 !important; /*background:url(../image/common/dot_blackline.gif) 5px center no-repeat !important;*/}
+#sitemap #smapmenu> li > ul > li > ul > li >a {color:#666 !important; margin:0 !important; padding-left:8px !important; width:auto !important; top:0 !important; left:0 !important; font-size:12px !important; color:#666 !important;}
+
+#sitemap #submenuArea {display:none}
+
+ 
+/*login*/
+.formWrap {overflow:hidden}
+.formWrap .findId {padding:80px 260px}
+.formWrap .findId > p {margin-bottom:50px;}
+.formWrap .clearfix .guide li {width:48%;margin-bottom:10px;}
+.formWrap .clearfix .guide li:first-child,.identify .fl {border-right:1px solid #d3d3d3;width:49%;}
+/*회원탈퇴*/.outarea {margin:30px 140px 40px 190px;}
+.outarea li {margin-bottom:6px;}
+.outarea dl dt,.outarea dl dt label {font-size:15px;float:left;width:80px;font-family:'Nanum Gothic';color:#333333;font-weight:bold;}
+.outarea dl dd {float:left;width:255px;color:#0065b3;font-weight:bold}
+.outarea input[type=text],.outarea input[type=password] {height:22px;}
+.formWrap .memout > p {border-bottom:1px solid #dedede;padding-bottom:10px;}
+.formWrap .memout {padding:20px 30px 25px 30px}
+.memapplyarea {margin:30px 56px}
+.memapplyarea > div {width:140px;text-align:center;float:left;margin-left:75px;}
+.memapplyarea > div:first-child {margin-left:0;}
+.memapplyarea > div > p {margin-bottom:10px;}
+.etc {background:#f8f8f8;padding:20px;border-left:1px solid #d3d3d3;border-right:1px solid #d3d3d3;border-bottom:1px solid #d3d3d3;font-family:'Nanum Gothic';font-size:13px;}
+.bd00view th.bd01th label {font-family:'Nanum Gothic';}
+/*login*/.loginForm {margin:40px 30px 50px 30px;}
+.loginForm .greeText {font-family:'Nanum Gothic';border-bottom:1px solid #d3d3d3;color:#999999;margin-bottom:20px;}
+.loginForm .greeText > span {font-size:35px;font-family:'Nanum Gothic';font-weight:800;margin-right:15px;line-height:29px;*line-height:33px}
+.loginForm p {color:#666666;}
+.loginForm .point_Org {font-family:'Nanum Gothic';}
+.loginarea {margin-left:120px}
+.loginarea .btnLogin {color:#fff; display:inline-block; width:92px; height:58px;}
+.loginarea ul,.loginarea ul input[type=button] {float:left;}
+.loginarea ul {margin-right:10px;vertical-align:bottom}
+.loginarea ul li {margin-bottom:5px;*margin-bottom:0px;overflow:hidden;}
+.loginarea ul li input[type=text],.loginarea ul li input[type=password] {height:22px;width:250px}
+.loginarea dl dt{font-size:15px;float:left;width:120px;font-family:'Nanum Gothic';color:#626262;font-weight:bold;}
+.loginarea dl dt label {font-size:15px;float:right;font-family:'Nanum Gothic';color:#626262;font-weight:bold; text-align:right; margin-right:10px}
+.loginarea dl dd {float:left;width:255px;color:#0065b3;font-weight:bold}
+.loginarea ul+ .txtBtn_Blue {margin-top:62px;}
+.mEtc {background:#f8f8f8;padding:20px;border-top:1px solid #d3d3d3;font-family:'Nanum Gothic';font-size:13px;}
+.mEtc li {padding-left:20px;background:url(../image/common/bg_cross.gif) 0 3px no-repeat;margin-bottom:5px;*margin-bottom:5px;overflow:hidden;}
+.mEtc li > p {float:left;font-family:'Nanum Gothic';}
+.mEtc li > span {float:right;}
+
+.memWrap {}
+.memguide > li > strong,.memptitle > strong,.memhtitle,.memhtitle strong {display:block; margin-bottom:6px; font-size:18px; font-family:'Nanum Gothic' !important; line-height:1.5em; color:#000;}
+.memguide > li > ul >li {padding-left:12px; background:url(/include/image/jungang/common/bul_dp4.png) 0 5px no-repeat; font-family:'Nanum Gothic';}
+.memWrap .memguide > li.fl { position:relative; min-height:155px; padding:25px 15px 25px 25px; border:1px solid #dfdfdf; width:348px; background:#fff;}
+.memWrap .memguide > li.fr { position:relative; min-height:155px; padding:25px; border:1px solid #dfdfdf; border-left:0 none !important; width:339px; background:#fff;}
+.memWrap .memguide > li .btn_farm {position:absolute; bottom:30px; left:25px; text-align:center}
+.boxWrap {display:block; border:1px solid #dfdfdf;  background:#f2f2f2; padding:20px}
+.boxWrap p {font-size:13px; font-weight:bold; color:#737373;}
+.changePw .txtBtn_theme a {padding:6px 15px; display:inline-block; font-size:13px;}
+.changePw dd {width:160px !important}
+.changePw input {width:150px !important}
+.txtBtn_join {display:inline-block; position:relative; }
+.txtBtn_join a,.txtBtn_join span {
+	font-family:'Nanum Gothic';
+	font-size:16px;
+	font-weight:bold;
+	min-width:130px;
+	line-height:32px;
+	color:#fff;
+	display:inline-block;
+	padding:2px 10px;
+	padding-top:3px;
+}
+
+/* member Join*/
+.memtypeRadio {}
+.memtypeRadio label {display:inline-block; min-width:100px}
+.inpSchClass00 {width:42px}
+.inpSchClass01 {width:60px;}
+.inpSchClass015 {width:82px;}
+.inpSchClass02 {width:90px;}
+.inpSchClass03 {width:152px; display:inline-block}
+.inpSchClass04 {width:200px; display:inline-block}
+.inpSchClass05 {width:307px}
+.inpSchClass07 {width:358px}
+.inpSchClass08 {width:400px}
+.inpSchClass09 {width:565px}
+ 
+ 
+/*content*/
+/* 도서관서비스 */
+.imgFix {position:absolute; top:15px; right:0; z-index:99;}
+
+
+/* 도서관서비스 - 스마트도서관 */
+.smartLib{position: relative; height: 360px; padding-bottom: 44px;}
+.smartLib > ul li{float: left; width: 33.33%; box-sizing: border-box; }
+.smartLib > ul li + li {padding-left: 3px}
+.smartLib > ul li:nth-child(2) {padding-left: 3px}
+.smartLib > ul li a {display: block; width: 100%; line-height: 44px; color: #acabb1; text-align: left; font-weight: bold; padding-left: 15px; background: #fff; box-sizing: border-box; border-top: 3px solid #acabb1; background:#f2f2f2}
+.smartLib > ul li.on a {color:#ed2373  ; background:url(/include/image/jungang/common/small_arr.png) 95% 50% no-repeat; border-top: 3px solid #ed2373  } 
+
+.smartHow {display: flex; background: #f4f4f4; justify-content: space-between; padding: 16px 20px; box-sizing: border-box;}
+.smartHow li {display:flex; width: 110px; align-items: center; justify-content: center; height: 110px; background: #fff; border-radius: 110px; border: 4px solid #ed2373  ;
+text-align: center; font-weight: bold; position: relative}
+.smartHow li::after {content: ''; position: absolute; display: block; width: 17px; height: 24px; right: -30px; top: 50%; margin-top: -12px; background: url(/include/image/jungang/common/arrow01.png) no-repeat ;}
+.smartHow li:last-child::after {display: none}
+
+.smartLib > div {position: absolute; left: 0; top: 44px; width: 100%;}
+
+
+
+/* 문화마당 */
+.lectureWrap {min-height:200px; padding-top:20px; background:url(/include/image/common/bg_cont_cultutre.jpg) 100% 0 no-repeat;}
+.taleWrap {min-height:340px; background:url(/include/image/common/bg_tale.png) 100% 0 no-repeat;}
+.tourWrap {min-height:340px; background:url(/include/image/common/bg_tour.jpg) 100% 0 no-repeat;}
+.sattaleWrap {min-height:200px; background:url(/include/image/common/bg_sat_tale.png) 100% 0 no-repeat;}
+
+/* 참여마당 */
+.circleWrap * {font-family:'Nanum Gothic';}
+.circleList {border-bottom:1px solid #474747;}
+.circleList > li {position:relative; border-top:3px solid #474747;}
+.circleList dt.tit {padding:10px 14px; font-weight:bold; font-size:1.5em; color:#333; border-bottom:1px solid #e2e2e2; background-color:#eee;}
+.circleList dt.tit .mark {display:inline-block; width:50px; margin-right:15px; padding:3px 0; font-size:0.667em; line-height:1em; color:#fff; text-align:center; vertical-align:middle; border-radius:10px;}
+.circleList dt.tit .mark.ja {background-color:#FB5789;}
+.circleList dt.tit .mark.ns {background-color:#91C501;}
+.circleList dt.tit .mark.gl {background-color:#F89B06;}
+.circleList dd.cont {padding:14px;}
+.circleList ul.info:after {content:""; display:block; clear:both;}
+.circleList ul.info > li {float:left; width:50%; margin-bottom:3px; font-size:1.167em;}
+.circleList ul.info > li.desc {float:none; clear:both; width:100%; padding-top:15px;}
+.circleList ul.info > li.desc .text {margin-top:5px; font-size:0.929em; line-height:1.8em;}
+
+/* 인사말 */
+.greetingWrap {padding:30px;}
+.greetingWrap p {font-weight:bold; font-size:14px; font-family:'Nanum Gothic'; line-height:1.8em; color:#555;}
+/* 연혁 */
+.historyWrap {min-height:400px; background:url(/include/image/common/bg_history.png) 100% 100% no-repeat;}
+.historyWrap * {font-family:'Nanum Gothic';}
+.historyList {padding:45px 20px;}
+.historyList li {position:relative; margin-top:30px; padding-left:90px;}
+.historyList li:after {content:""; display:block; clear:both;}
+.historyList li:first-child {margin-top:0;}
+.historyList li strong {position:absolute; top:0; left:0; font-size:16px;}
+.historyList dl {position:relative; padding-left:80px; font-size:13px;}
+.historyList dt {position:absolute; left:0; font-weight:bold; color:#333;}
+/* 조직도 */
+.organchart {text-align:center;}
+.organchart * {font-family:'Nanum Gothic';}
+.organList {width:720px; margin:0 auto 50px; background:url(/include/image/jungang/contents/bg_organ_line.png) center 44px no-repeat;}
+.organList:after {content:""; display:block; clear:both;}
+.organList li strong {display:block; height:38px; margin:0 auto; line-height:38px; border:3px solid #e2427f;}
+.organList .depth-1 {width:140px; margin-bottom:50px; font-size:18px; color:#fff; background-color:#e2427f;}
+.organList .depth-2 > li {float:left; width:166px;}
+.organList .depth-2 > li:nth-child(2) {margin:0 111px;}
+.organList .depth-2 > li strong {width:160px; font-size:14px; color:#e2427f;}
+.organList .depth-3 {margin-top:4px; padding:5px 0 10px; border:3px solid #e1e1e1;}
+.organList .depth-3 li {margin-top:5px;}
+/* 층별안내 */
+.floar_plan > li {position:relative; padding:30px 0; border-bottom:1px dotted #d7d7d7;}
+.floar_plan > li:first-child {padding-top:0;}
+.floar_plan > li:after {content:""; display:block; clear:both;}
+/* 숲속도서관 썸네일 */
+.forestPhotoView {position:relative; height:216px; margin-top:24px; padding:24px; border:1px solid #e5e5e5; background-color:#f5f5f5;}
+.forestPhotoView img {width:100%;}
+.forestPhotoView .htitle {position:absolute; top:24px; left:332px; z-index:60; height:24px; margin:0; line-height:24px;}
+.thumbSlider li {overflow:hidden; position:relative;}
+.thumbSlider dl {padding-left:308px;}
+.thumbSlider .bigImg {position:absolute; top:0; left:0; width:296px; background-color:#fff;}
+.thumbSlider .bigImg img {border:5px solid #e1e1e1; box-sizing:border-box;}
+.thumbSlider .desc {display:table-cell; height:130px; padding:24px 0 62px;font-size:13px; font-family:'Nanum Gothic'; vertical-align:bottom;}
+.thumbnaile {overflow:hidden; position:absolute; bottom:24px; left:332px; z-index:70; max-width:420px;} 
+.thumbImg li {float:left; width:16.666666666666667%;}
+.thumbImg a {display:block; width:92.85714285714286%; border:1px solid #e5e5e5; box-sizing:border-box;}
+.thumbImg a.active {border:3px solid #e2427f;}
+/* 이용안내 */
+.timeWrap {background:url(/include/image/common/bg_guide_time.png) 100% 0 no-repeat; min-height: 350px}
+/* 찾아오시는길 */
+.mapWrap {height:415px;}
+
+/* 정책 및 방침 */
+.policy table {border-top:1px solid #666; border-right:1px solid #e2e2e2;}
+.policy th,.policy td {padding:5px 8px; text-align:center; border-bottom:1px solid #e2e2e2; border-left:1px solid #e2e2e2;}
+.policy thead th {font-weight:normal; font-size:13px; font-family:'Nanum Gothic'; color:#555; background-color:#f5f5f5;}
+.policyList h5 {margin-bottom:5px; font-size:15px; font-family:'Nanum Gothic'; color:#666;}
+.policyList li {margin-top:5px;}
+.policyList > li {margin-top:30px;}
+.policyList > li > ol > li {margin-top:15px;}
+.policyList > li > ol > li:first-child {margin-top:5px;}
+.policyList li li li ol {padding-left:15px;}
+.policyList li > strong {display:block; margin-top:10px;}
+
+
+@media screen and (max-width: 998px) {	
+#smapmenu > li { width:29%; }
+.movieView .desc dd {width:82%;}
+.movieView .desc dt {width:70px; }
+.photoList > li {width:30%; margin:1.5%}
+.photoList > li dl > dd.photo img { width:100%}
+.serviceWrap .imgFix {display:none;}
+.smartHow li::after {display: none} 
+}
+
+@media screen and (max-width: 640px) {	
+#smapmenu > li { width:29%; }
+.movieView .desc dd {width:73%;}
+.movieView .desc dt {width:70px; }
+.photoList > li {width:47%; margin:1.5%}
+.photoList > li dl > dd.photo img { width:100%}
+.lectureWrap,.taleWrap,.tourWrap,.historyWrap,.timeWrap {background:none !important;}
+.organList {width:100%; background:none;}
+.organList .depth-2 > li,.organList .depth-2 > li:nth-child(2) {float:none; margin:20px auto;}
+.forestPhotoView {height:auto;}
+.forestPhotoView .htitle {position:relative; top:0; left:0;}
+.thumbSlider dl {padding:0;}
+.thumbSlider .bigImg {position:relative; top:0; left:0; width:100%;}
+.thumbSlider .desc {display:block; height:auto; padding:10px 0 0; vertical-align:top;}
+.thumbnaile {position:relative; bottom:auto; left:auto; max-width:100%; margin:10px 0;}
+.smartLib {padding-bottom: 88px;}
+.smartLib > ul li{width: 100%;}
+.smartLib > div {position: absolute;left: 0; top: 132px; width: 100%;}
+.smartHow li {width: 70px; height: 70px; border-radius: 70px; }
+}
+@media screen and (max-width: 480px) {
+.tabType5 li a {  font-size:12px; letter-spacing:-1px}
+#sitemap > ul > li > a { font-size:14px !important;}
+#sitemap > ul > li > ul > li { line-height:22px; margin-bottom:2px !important}
+#smb1, #smb2 { height:200px}
+#smb3, #smb4 { height:220px}
+#smb5, #smb6 { height:170px}
+#smb8, #smb10 { height:210px}
+.bd00 td.title a { max-width:75%;}
+#pageSearch select.schSel2 { width:80px !important;}
+#smapmenu > li { width:43%; }
+.movieView .desc dd {width:55%;}
+.movieView .desc dt {width:70px; }
+.photoList > li {width:47%; margin:1.5%}
+.photoList > li dl > dd.photo img { width:100%}
+.relation_list > li { margin:0 5px 10px 5px}
+.smartHow li {width: 60px; height: 60px; border-radius: 60px; }
+}
+@media screen and (max-width: 360px) {	
+#pageSearch select.schSel2,#pageSearch select { width:60px !important;}
+#smapmenu > li { width:43%;; }
+.movieView .photo { position:relative; top:auto; left:auto; margin:0 auto; margin-bottom:10px}
+.movieView .bookviewWrap { padding:20px 0 }
+.photoList > li {width:100%; margin:0%}
+.photoList > li dl > dd.photo img { width:100%}
+}
+@media screen and (min-width: 998px) {	
+#smapmenu > li { width:174px; }
+#pageSearch select.schSel2 { width:130px !important;}
+.movieView .desc dd {width:80%;}
+.movieView .desc dt {width:70px; }
+}
