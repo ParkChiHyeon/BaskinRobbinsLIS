@@ -4,10 +4,10 @@
 <%@ page session="false" %>
 <html>
 <head>
-<meta  charset="utf-8" />
-
-<%@include file="./header.jsp" %>
+<meta charset="UTF-8">
 </head>
+	<%@ include file="./header.jsp" %>
+<body>
 <script>
 	$(function(){
 		$('#searchBoxArea').css('height','73px');

@@ -23,7 +23,7 @@
 		<div id="indexColumn">
 			<div id="siteMenu" class="siteMenu">
 				<ul class="memUtil">
-							<li><a href="/jungang/10094/30027/program.do">로그인</a></li>
+							<li><a href="./loginPage.do">로그인</a></li>
 							<li class="mobileHide"><a href="/member/join.do">회원가입</a></li>
 					<li class="mobileHide"><a href="/jungang/10091/40013/content.do">사이트맵</a></li>
 				</ul>

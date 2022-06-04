@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  
+}
+
+.wrap {
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+
+
+.form-wrap {
+    width: 380px;
+    height: 480px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+}
+
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  justify-content: center;
+  align-items: center;
+/*   background-color : #FFCCFF; */
+  background-image: url("../khu_images/실패작4.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 90%;
+  
+}
+
+.button-wrap {
+    width: 230px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 600px 9px #fcae8f;
+    border-radius: 30px;
+}
+
+/* .togglebtn { */
+/*     padding: 10px 30px; */
+/*     cursor: pointer; */
+/*     background: transparent; */
+/*     border: 0; */
+/*     outline: none; */
+/*     position: relative; */
+/* } */
+
+/* #btnChange { */
+/*     top: 0; */
+/*     left: 0; */
+/*     position: absolute; */
+/*     width: 110px; */
+/*     height: 100%; */
+/*     background: linear-gradient(to right, #ff105f, #ffad06); */
+/*     border-radius: 30px; */
+/*     transition: .5s; */
+/* } */
+
+.login-form h1 {
+  font-size: 32px;
+  text-align: center;
+  margin-top: 30px;
+  font-weight:bold; 
+}
+
+.int-area1 {
+  opacity : 80%;
+  width: 400px;
+  margin: auto;
+}
+
+.int-area2 {
+  opacity : 80%;
+  width: 400px;
+  margin: auto;
+}
+
+.int-area1:first-child,.int-area2,:first-child {
+  margin-top: 0;
+}
+
+.int-area1 input,.int-area2 input {
+  display : flex;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 18px;
+  outline: none;
+}
+
+.int-area1 label ,.int-area2 label {
+  left: 10px;
+  top: 15px;
+  font-size: 18px;
+  transition: top 0.5s ease;
+}
+
+.int-area1 label.warning,.int-area2 label.warning {
+  color: red !important;
+  animation: warning 0.3s ease;
+  animation-iteration-count: 3;
+}
+
+@keyframes warning {
+  0% {
+    transform: translateX(-8px);
+  }
+  25% {
+    transform: translateX(8px);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+.int-area1 input:focus + label,.int-areal2 input:focus + label,
+.int-area int-areal2 input:valid + label,.int-areal2 input:valid + label {
+  top: -2px;
+  font-size: 13px;
+  color: #333333;
+}
+
+.btn-area {
+  opacity : 80%;
+  width : 400px;
+  margin:auto;
+  margin-top: 30px;
+}
+
+.btn-area button {
+  margin: auto;
+  opacity : 90%;
+  width: 100%;
+  height: 50px;
+  
+  color: #fff;
+  background: #333333;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.caption {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.caption a {
+  margin: 0 20px;
+  font-size: 15px;
+  color: #333333;
+  text-decoration: none;
+}
+
+/* .input-field { */
+/*     position: absolute; */
+/*     transition: .5s; */
+/* } */
+
+/* .input-field { */
+/*     width: 100%; */
+/*     padding: 10px 0; */
+/*     margin: 5px 0; */
+/*     border: none; */
+/*     border-bottom: 1px solid #999; */
+/*     outline: none; */
+/*     background: transparent; */
+/* } */
