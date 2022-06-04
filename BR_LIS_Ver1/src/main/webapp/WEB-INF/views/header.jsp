@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +30,16 @@
 		<div id="indexColumn">
 			<div id="siteMenu" class="siteMenu">
 				<ul class="memUtil">
+							<c:if test="${member.auth eq 'NM'|| member.auth eq 'GH'}">
+								<li>
+								<a>로그인 정보 :${member.member_id}[${member.auth == 'NM'?"일반회원":"관내회원"}]</a>
+								<li><a href="./logout.do"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+								</li>
+							</c:if>
+							
+							<c:if test="${member.auth eq null}"> 
 							<li><a href="./loginPage.do">로그인</a></li>
+							</c:if>
 							<li class="mobileHide"><a href="/member/join.do">회원가입</a></li>
 					<li class="mobileHide"><a href="/jungang/10091/40013/content.do">사이트맵</a></li>
 				</ul>

@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
 
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/> -->
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 </head>    
 <!--         <link rel="icon" href="images/favicon.png"/> -->
  <link href="./khu_css/style.css" rel="stylesheet">
@@ -27,11 +27,11 @@
  
         <form action="post" method="post" id="login">
             <div class="int-area1">
-                <input type="text" name="member_id" id="member_id" autocomplete="off" value="securityTest123">
+                <input type="text" name="member_id" id="member_id" autocomplete="off" value="user001">
                 <label for="id">USER NAME</label>
             </div>
             <div class="int-area2">
-                <input type="password" name="password" id="password" autocomplete="off" value="Clsclffk@12">
+                <input type="password" name="password" id="password" autocomplete="off" value="Xptmxm@12">
                 <label for="pw">PASSWORD</label>
             </div>
             <div class="btn-area">

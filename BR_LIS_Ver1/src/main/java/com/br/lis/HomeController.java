@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,14 @@ public class HomeController {
 //		model.addAttribute("lists", lists);
 		return "test";
 	}
+	
+	//로그아웃
+			@RequestMapping(value= "/logout.do", method = RequestMethod.GET)
+			public String logout(HttpSession session) {
+				session.invalidate();
+				
+				return "redirect:/home.do";
+			}
 	
 	
 }

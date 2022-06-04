@@ -55,13 +55,13 @@ public class TestLisJunit_KHU {
 //	@Test
 	public void signUpMember() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member_id", "securityTest123");
-		map.put("password", "Clsclffk@12");
+		map.put("member_id", "user001");
+		map.put("password", "Xptmxm@12");
 		String enPassword = passwordEncoder.encode((String)map.get("password"));
 		map.put("password", enPassword);
-		map.put("phone", "01085439646");
-		map.put("name", "김상덕");
-		map.put("address", "가산동 다은 104호");
+		map.put("phone", "01085439648");
+		map.put("name", "테스트이름");
+		map.put("address", "테스트 주소");
 		map.put("birth", "9705164******");
 		int cnt = mDao.signUpMember(map);
 		logger.info("회원가입 결과 : {}", cnt);
@@ -77,7 +77,7 @@ public class TestLisJunit_KHU {
 	}
 	
 	/* 일반회원 로그인 BR_W_UM009*/
-	@Test
+//	@Test
 	public void loginMember() {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("member_id", "securityTest123");

@@ -1,7 +1,10 @@
 package com.br.lis;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
@@ -14,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.br.lis.model.member.service.IAdminService;
 import com.br.lis.model.member.service.ILibMemberService;
 import com.br.lis.vo.AdminVo;
 import com.br.lis.vo.LibMemberVo;
+
 
 @Controller
 @SessionAttributes({"member","admin"})
@@ -72,17 +77,14 @@ public class MemberController {
 	
 	/* 로그인 시 세션에 정보를 담음 */
 	@RequestMapping(value = "/loginMember.do", method= RequestMethod.POST)
-	public String loginMember(@RequestParam Map<String, String> map,Map<String,Object> map2, Model model) {
+	public String loginMember(@RequestParam Map<String, String> map/*,Map<String,Object> map2,*/, Model model) {
 		logger.info("Lib_MemberController loginMember : {}", map);
 		LibMemberVo mVo = service.loginMember(map);
-		AdminVo aVo = aService.loginAdmin(map2);
+//		AdminVo aVo = aService.loginAdmin(map2);
 		
 		model.addAttribute("member", mVo);
-		model.addAttribute("admin", aVo);
-		return "redirect:/home.do";
+//		model.addAttribute("admin", aVo);
+		return "home";
 	}
-	
-	
-	
 	
 }
