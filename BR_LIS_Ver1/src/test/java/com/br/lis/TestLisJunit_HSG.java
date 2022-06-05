@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.br.lis.model.purchaseinfo.mapper.IPurchaseDao;
 import com.br.lis.model.purchaseinfo.mapper.IPurchaseRegistrationDao;
 import com.br.lis.model.purchaseinfo.mapper.IRequestPurchaseDao;
+import com.br.lis.model.purchaseinfo.service.IPurchaseRegistrationService;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LibMemberVo;
+import com.br.lis.vo.Possessing_BookVo;
 import com.br.lis.vo.PurchaseVo;
 import com.br.lis.vo.RegularPurchaseVo;
 import com.br.lis.vo.RequestPurchaseVo;
@@ -33,7 +36,10 @@ public class TestLisJunit_HSG {
 	private IPurchaseDao purchDao;
 	
 	@Autowired
-	private IPurchaseRegistrationDao registDao;
+	private IPurchaseRegistrationService registService;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	
 	// 신청도서 조회(BR_W_BM_501) : 제목으로 조회
 	// 신청도서 조회(BR_W_BM_501) : 출판사로 조회
@@ -46,8 +52,93 @@ public class TestLisJunit_HSG {
 	// 신청도서 알림관리(BR_W_BM_505) : 신청도서 중 구매승인이 된 도서에 한하여 신청한 사용자에게 알린다.
 	// 신청도서 전체목록 조회(BR_W_BM_506) : 신청도서 중 구매 승인이 된 도서의 목록을 조회한다(리스트 전체조회)
 	
+	// 구매코드생성(BR_W_BM_601) : 해당 월의 구매 코드를 생성
+	// 정기구매(BR_W_BM_602) : 구매정보 전체조회
+	// 정기구매(BR_W_BM_602) : 구매 해당 월의 구매코드를 조회
+	// 정기구매(BR_W_BM_602) : 정기구매 정보를 삽입
+	// 정기구매(BR_W_BM_602) : 정기구매 정보 업데이트(권수 업데이트)
+	// 정기구매(BR_W_BM_602) : 정기구매 정보 업데이트(구매여부(CONFIRM)업데이트)
+	// 신청구매(BR_W_BM_603) : 신청구매 정보 업데이트(권수 업데이트)
+	// 신청구매(BR_W_BM_603) : 신청구매 정보 업데이트(구매여부 업데이트)
+	// 발주목록(BR_W_BM_606) : 신청구매
+	// 발주목록(BR_W_BM_606) : 정기구매
+	// 발주(BR_W_BM_607) : (관리자)구매할 책의 총 가격, 권수, 구매 업체의 이메일 업데이트
+	// 발주(BR_W_BM_607) : (관리자)주문날짜, 확졍여부(발주O) 업데이트
+	// 발주(BR_W_BM_607) : (관리자)확정일, 확졍여부(반입C) 업데이트
+	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(신청도서)
+	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(정기구매도서)
+	
+	// 구매도서등록(BR_W_BM_701) : 보유도서에 삽입
+//	@Test
+	public void insertPurchaseBook() {
+		String isbn = "9791191942002";
+		
+		int n = registService.insertPurchaseBook(isbn);
+		System.out.println("성공갯수 : " + n);
+	}
+	
+	// 구매도서등록(BR_W_BM_701) : 보유도서의 책 갯수와 일치하도록 업데이트
+//	@Test
+	public void updateBookCount() {
+		String isbn = "9791191942002";
+		
+		int n = registService.updateBookCount(isbn);
+		
+		System.out.println("성공갯수 : " + n);
+	}
+	// 신규도서조회(BR_W_BM_702) : (관리자) 등록된 도서 중 현재월로부터 등록일이 한 달 이내인 도서를 조회
+//	@Test
+	public void selectNewBookAdmin() {
+		List<Possessing_BookVo> lists = registService.selectNewBookAdmin();
+		
+		System.out.println("selectNewBookAdmin의 목록" + lists);
+	}
+	// 신규도서조회(BR_W_BM_702) : (사용자) 선택된 ISBN으로 등록일이 한 달 이내인 도서정보를 조회
+//	@Test
+	public void selectNewBookUser() {
+		List<BookInfoVo> lists = registService.selectNewBookUser();
+		
+		System.out.println("selectNewBookUser의 목록" + lists);
+	}
+	// 등록취소(BR_W_BM_707) :  입고일이 없는 것 조회(신청구매)
+//	@Test
+	public void selectReqHistory() {
+		String purchCodeVo = "P2201";
+		List<RequestPurchaseVo> lists = registService.selectReqHistory(purchCodeVo);
+		
+		System.out.println("selectReqHistory의 목록" + lists);
+	}
+	// 등록취소(BR_W_BM_707) :  도서 목록에서 history 업데이트(신청구매)
+//	@Test
+	public void updateReqHistory() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("history","이월 2022-06-06");
+		map.put("wish_serial","PW22011007");
+		
+		int n = registService.updateReqHistory(map);
+		System.out.println("성공 갯수 :" + n);
+	}
+	// 등록취소(BR_W_BM_707) :  입고일이 없는 것 조회(정기구매)
+//	@Test
+	public void selectRegulHistory() {
+		String purchCodeVo = "P2202";
+		List<RegularPurchaseVo> lists = registService.selectRegulHistory(purchCodeVo);
+		
+		System.out.println("selectRegulHistory의 목록" + lists);
+	}
+	// 등록취소(BR_W_BM_707) :  도서 목록에서 history 업데이트(정기구매)
+//	@Test
+	public void updateRegulHistory() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("history","이월 2022-06-06");
+		map.put("regular_serial","PR22021010");
+		
+		int n = registService.updateRegulHistory(map);
+		System.out.println("성공 갯수 :" + n);
+	}
+	
+	
 
-//	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 //
 //	// 신청도서 조회(BR_W_BM_501)
 ////	@Test
@@ -316,7 +407,6 @@ public class TestLisJunit_HSG {
 //		int n = registDao.updateReqHistory(map);
 //		System.out.println("상태변경 성공 갯수 : " + n);
 //	}
-	
 	
 	
 }
