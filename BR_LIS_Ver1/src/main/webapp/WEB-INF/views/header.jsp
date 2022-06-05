@@ -146,19 +146,13 @@
 					</li>
 				</ul>
 			</li>
-	<li id="gnb4"><a href="/jungang/10041/20006/bbsList.do" >정보마당</a>
+	<li id="gnb4"><a href="./noticeboard.do" >정보마당</a>
 			<ul>
 			<li id="gnb4_1" class=""><a href="./noticeboard.do" >공지사항</a>
 					</li>
-				<li id="gnb4_2" class=""><a href="/jungang/10047/20007/bbsList.do" >책마루컬렉션</a>
+				<li id="gnb4_2" class=""><a href="./faqboard.do" >FAQ</a>
 					</li>
-				<li id="gnb4_3" class=""><a href="/jungang/10042/30009/program.do" >추천도서</a>
-					</li>
-				<li id="gnb4_4" class="mobileHide"><a href="/jungang/10046/30011/program.do" >행사달력</a>
-					</li>
-				<li id="gnb4_5" class=""><a href="https://www.uiwang.go.kr/UWKORINFO1001"  target="_blank">시청 채용공고</a>
-					</li>
-				<li id="gnb4_6" class=""><a href="https://www.nld.go.kr"  target="_blank">국립장애인도서관</a>
+				<li id="gnb4_3" class=""><a href="./calendarboard.do" >도서관일정</a>
 					</li>
 				</ul>
 			</li>

@@ -14,7 +14,11 @@
   font-weight: normal;
   font-style: normal;
 }
-
+#footer{
+ 	position:absolute;
+ 	bottom: 0;
+ 	width: 100%
+}
 
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

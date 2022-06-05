@@ -19,10 +19,13 @@
 		console.log(kind)
 	if(kind=="notice"){
 		$("#lnb4_1_a").css("color","#E2427F");
+		$("#lnb4_1_a").css("background","#fff url(./include/image/jungang/common/bg_lnbSubOn.png) 170px 50% no-repeat");
 	}else if(kind=="faq"){
 		$("#lnb4_2_a").css("color","#E2427F");
+		$("#lnb4_2_a").css("background","#fff url(./include/image/jungang/common/bg_lnbSubOn.png) 170px 50% no-repeat");
 	}else{
 		$("#lnb4_3_a").css("color","#E2427F");
+		$("#lnb4_3_a").css("background","#fff url(./include/image/jungang/common/bg_lnbSubOn.png) 170px 50% no-repeat");
 	}
  }
  
@@ -37,7 +40,7 @@
 					<ul id="lnb" class="lnbul">
 						<li id="lnb4_1"><a id="lnb4_1_a" href="./noticeboard.do">공지사항</a></li>
 						<li id="lnb4_2"><a id="lnb4_2_a" href="./faqboard.do">FAQ</a></li>
-						<li id="lnb4_3"><a id="lnb4_3_a">일정</a></li>
+						<li id="lnb4_3"><a id="lnb4_3_a">도서관일정</a></li>
 					</ul>
 					<div class="lnbBottom"></div>
 				</div>
