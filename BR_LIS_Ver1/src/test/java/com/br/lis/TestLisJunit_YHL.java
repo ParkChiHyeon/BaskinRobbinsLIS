@@ -1,5 +1,7 @@
 package com.br.lis;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ import com.br.lis.model.board.mapper.ICalendarBoardDao;
 import com.br.lis.model.board.service.CalendarBoardServiceImpl;
 import com.br.lis.model.board.service.ICalendarBoardService;
 import com.br.lis.model.board.service.IFAQBoardService;
+import com.br.lis.model.board.service.INoticeBoardService;
 import com.br.lis.model.board.service.NoticeBoardServiceImpl;
 import com.br.lis.model.test.service.ITestService;
 import com.br.lis.vo.CalendarBoardVo;
@@ -41,7 +44,7 @@ public class TestLisJunit_YHL {
 	private IFAQBoardService serviceFAQ;
 	
 	@Autowired
-	private NoticeBoardServiceImpl serviceNotice;
+	private INoticeBoardService serviceNotice;
 	
 	@Autowired
 	private CalendarBoardServiceImpl serviceCalendar;
@@ -120,19 +123,16 @@ public class TestLisJunit_YHL {
 		}
 	}
 	
-
+// Notice
+	@Test
+	public void viewAllNotice() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("admin_id", "admin001");
+		List<Notice_FAQBoardVo> lists = serviceNotice.viewAllNotice(map);
+		System.out.println(lists);
+		assertNotNull(lists);
+	}
 	
-//	@Test //캘린더
-//	public void test() {
-//		List<CalendarBoardVo> lists = service.viewAllCalendar();
-//		System.out.println("--------CalendarBoardVo--------------------viewAllCalendar---------------------------------------------------");
-//
-//		System.out.println(lists);
-//	
-//	}
-	
-	
-	// Notice
 //	@Test
 	public void insertNotice() {
 		logger.info("JUnit insertNotice Test");
@@ -171,8 +171,23 @@ public class TestLisJunit_YHL {
 			System.out.println("글 삭제에 실패하였습니다.");
 		}
 	}
-	 
+	
 	@Test
+	public void viewAllCalendar() {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("admin_id", "admin001");
+		List<CalendarBoardVo> lists = serviceCalendar.viewAllCalendar(map);
+		System.out.println(lists);
+		assertNotNull(lists);
+		
+	}
+	
+	
+	
+	
+	
+//	@Test
 	public void insertCalendar(){
 		/* (Map<String, String> map); */
 		System.out.println("Junit_insertCalendar notice 입력");

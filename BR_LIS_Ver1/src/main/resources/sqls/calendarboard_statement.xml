@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.br.lis.model.board.mapper.CalendarBoardDaoImpl">
 	
+	<select id="viewAllCalendar" resultType="Notice_FAQVo">
+		SELECT CALENDAR_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, START_DATE, END_DATE
+	   		FROM CALENDAR_BOARD
+	</select>
+	
 	<insert id="insertCalendar" parameterType="java.util.Map">
 		 INSERT INTO CALENDAR_BOARD (CALENDAR_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, START_DATE, END_DATE)
 				VALUES (CALENDAR_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE, 

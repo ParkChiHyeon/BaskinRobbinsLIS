@@ -148,7 +148,7 @@
 			</li>
 	<li id="gnb4"><a href="/jungang/10041/20006/bbsList.do" >정보마당</a>
 			<ul>
-			<li id="gnb4_1" class=""><a href="/jungang/10041/20006/bbsList.do" >공지사항</a>
+			<li id="gnb4_1" class=""><a href="./noticeboard.do" >공지사항</a>
 					</li>
 				<li id="gnb4_2" class=""><a href="/jungang/10047/20007/bbsList.do" >책마루컬렉션</a>
 					</li>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.br.lis.vo.CalendarBoardVo;
+import com.br.lis.vo.Notice_FAQBoardVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,12 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 
 	
 	@Override
+	public List<CalendarBoardVo> viewAllCalendar(Map<String, Object> map) {
+		logger.info("CalendarBoardServiceImpl viewAllNotice:{}", map);
+		return dao.viewAllCalendar(map);
+	}
+	
+	@Override
 	public int insertCalendar(Map<String, String> map) {
 		logger.info("CalendarBoardServiceImpl insertBoardAnswer : {}",map);
 		return dao.insertCalendar(map);
@@ -38,9 +45,5 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 		logger.info("CalendarBoardServiceImpl deleteCalendar : {}",seqs);
 		return dao.deleteCalendar(seqs);
 	}
-
-
-
-
 	
 }

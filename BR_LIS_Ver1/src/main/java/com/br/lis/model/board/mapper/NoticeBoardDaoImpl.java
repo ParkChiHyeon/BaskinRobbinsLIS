@@ -23,14 +23,11 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public List<Notice_FAQBoardVo> viewaAllNotice(Notice_FAQBoardVo noticeVo) {
-		return null;
+	public List<Notice_FAQBoardVo> viewAllNotice(Map<String, Object> map) {
+		return sqlSession.selectList(NS+"viewAllNotice", map);
 	}
 
-	@Override
-	public List<Notice_FAQBoardVo> viewNoticeAllAdmin() {
-		return null;
-	}
+
 	@Override
 	public int modifyNotice(Notice_FAQBoardVo noticeVo) {
 		return sqlSession.insert(NS+"modifyNotice",noticeVo);
@@ -56,6 +53,15 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	public int deleteNotice(List<String> seqs) {
 		return sqlSession.delete(NS+"deleteBoard", seqs);
 	}
+
+	@Override
+	public List<Notice_FAQBoardVo> viewNoticeAllAdmin() {
+		return null;
+	}
+
+
+
+
 
 
 	

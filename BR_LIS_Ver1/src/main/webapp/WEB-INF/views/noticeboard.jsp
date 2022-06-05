@@ -1,113 +1,81 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<%@page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
+<%@include file="./header.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Home</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.js"></script>
-<!-- <script src="https://cdn.ckeditor.com/4.18.0/standard-all/ckeditor.js"></script> -->
-<script type="text/javascript" src="./ckeditor/ckeditor/ckeditor.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- <%@ include file="./header.jsp"%>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 </head>
 <body>
-
 <div class="container">
-	<h3><a href="./dataTables.do?id=EditorTest">데이터테이블로 보기!</a></h3>
-	<h3><a href="./ajaxTables.do">데이터테이블 아작스로 해보자!</a></h3>
-	<hr>
-	<div>
-		<h3>CK에디터 테스트 중...</h3>
-		<form id="editorFrm" onsubmit="return editorAction()" method="post">
-			작성자:<input type="text" id="id" name="id" value="EditorTest" class="form-control">
-			제목: <input type="text" id="title" name="title" class="form-control"><br>
-			내용: <textarea name="content" id="content"></textarea>
-			<input type="submit" class="btn btn-default" value="저장">
-			<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
-		</form>
-	</div>
-	<hr>
-
-	<button onclick="search()" class="btn btn-info">textarea 내용 가져오기</button>
-	<div id="result"></div>
-	<hr>
-	
-	<input type="text" id="inputContent">
-	<button onclick="insert()" class="btn btn-info">textarea 내용 넣어주기</button>
-	
+<!-- https://datatables.net/examples/styling/ 
+해당 페이지에 들어가면 부트스트랩처럼 class로 테이블 디자인 설정 가능 -->
+	<table id="noticeBoardTable" class="cell-border"> 
+		<thead>
+			<tr>
+				<td style="width: 50px">글번호</td>
+				<td>제목</td>
+				<td>내용</td>
+				<td>등록날짜</td>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="vo" items="${lists}"  varStatus="vs">
+			<tr>
+				<td>${vo.notice_seq}</td>
+				<td>${vo.title}</td>
+				<td>${vo.content}</td>
+				<td>${vo.regdate}</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+		</table>
+	<button class="btn btn-info" onclick="javascript:location.href='./editor.do'">돌아가기</button>
 </div>
- <script>
-CKEDITOR.replace( 'content' ,{
-									//language: 'en', //에디터의 언어 설정
-									uiColor: '#9AB8F3', // 에디터 색상 변경
-									extraPlugins: 'editorplaceholder', 
-								    editorplaceholder: // 에디터 화면에 띄운 글귀
-								    '여기에 글을 입력하거나 파일을 드래그해주세요...', 
-  									filebrowserUploadUrl: "fileupload.do", //여기참고하세요 하나는 파일 업로드 하나는 이미지 업로드
-									uploadUrl:"fileupload.do", //여기 참고하세용
-							
-}
-);
 
-CKEDITOR.on('dialogDefinition', function( ev ){
-	var dialog = ev.data.definition.dialog;
-	var dialogName = ev.data.name;
-    var dialogDefinition = ev.data.definition;
-//  this file format is not
-    switch (dialogName) {
-        case 'image': 
-        	
-			dialogDefinition.removeContents('advanced'); // 자세히탭 제거
-			dialogDefinition.removeContents('Link'); // 링크탭 제거
-            
-            dialog.on('show', function (obj) {
-        		this.selectPage('Upload'); //업로드탭으로 시작
-            });
-			
-            break;
-    }
-});
-		 
-function search(){
-	// <textarea>의 입력값 가져오기
-	// CKEDITOR.instances.content.getData(); 의 content는 <textarea>에 설정된 id값
-	 var data = CKEDITOR.instances.content.getData();
-	 document.getElementById("result").innerHTML = data;
-}
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#noticeBoardTable").DataTable({
+    	//https://datatables.net/reference/option/language
+		// DataTable은 기본적으로 영어로 표시되기 때문에 별도로 language를 통해서 변경해줘야 함
+    		"language": {
+            "emptyTable": "데이터가 없어요.",
+            "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+            "info": "현재 _START_ - _END_ / _TOTAL_건",
+            "infoEmpty": "데이터 없음",
+            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+            "search": "검색: ",
+            "zeroRecords": "일치하는 데이터가 없어요.",
+            "loadingRecords": "로딩중...",
+            "processing":     "잠시만 기다려 주세요...",
+            "paginate": {
+                "next": "다음",
+                "previous": "이전"
+            }
+        },
+        
+        lengthChange: true, // 표시 건수기능 숨기기
+        searching: true, // 검색 기능 숨기기
+        ordering: true, // 정렬 기능 숨기기
+        info: true, // 정보 표시 숨기기
+        paging:true, // 페이징 기능 숨기기
+        order: [ [ 3, "asc" ], [ 1, "desc"] ], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
+//      columnDefs: [{ targets: 1, width: 100 }] //열의 넓이 조절 
+//		lengthMenu: [ 10, 20, 30, 40, 50 ], //표시건수 
+//      displayLength: 50, //기본표시건수 설정
+        pagingType: "simple_numbers" // 페이징 타입 설정 : simple, simple_numbers, full_numbers 등
+    
+    });
+} );
 
-function insert(){
-	var data = document.getElementById("inputContent").value;
-	console.log(data);
-	// <textarea>에 넣어줄 값을 data 부분에 넣어주면 됨 
-	CKEDITOR.instances.content.setData(data); 
-}
 
-function resetCon(){
-	CKEDITOR.instances.content.setData("");
-}
 
-function editorAction(){
-	var editorFrm = document.getElementById("editorFrm");
-	editorFrm.action = "./editorFrm.do";
-	
-	var title = document.getElementById("title").value;
-	var content = CKEDITOR.instances.content.getData();
-	console.log(title, content);
-	
-	if(title==""){
-		alert("제목을 입력해주세요");
-		return false;
-	}else if(content==""){
-		alert("내용을 입력해주세요");
-		return false;
-	}else{
-		editorFrm.submit();
-	}
-
-}
-</script>              
+</script>
 </body>
-<%@include file="./footer.jsp"%>
+<%@include file="./footer.jsp" %>
 </html>

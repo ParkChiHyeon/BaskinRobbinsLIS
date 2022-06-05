@@ -10,7 +10,7 @@ public interface INoticeBoardDao {
 	    //상세조회 엘라스틱
 		public Notice_FAQBoardVo viewDetailNotice(String seq);
 		//전체조회 엘라스틱
-		public List<Notice_FAQBoardVo> viewaAllNotice(Notice_FAQBoardVo noticeVo);
+		public List<Notice_FAQBoardVo> viewAllNotice(Map<String, Object> map);
 
 		//관리자 게시글 전체 보기 엘라스틱
 		public List<Notice_FAQBoardVo> viewNoticeAllAdmin();

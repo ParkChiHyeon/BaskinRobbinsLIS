@@ -2,10 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.br.lis.model.board.mapper.NoticeBoardDaoImpl">
 
+<select id="viewAllNotice" resultType="Notice_FAQVo">
+		SELECT NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH
+	   		FROM NOTICE_BOARD
+	</select>
+
 <insert id="insertNotice" parameterType="java.util.Map">
 INSERT INTO NOTICE_BOARD(NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH)
 VALUES (NOTICE_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE,NULL)
-
 </insert>
 
 <update id="modifyNotice" parameterType="Notice_FAQVo">

@@ -25,13 +25,6 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		return dao.viewDetailNotice(seq);
 	}
 	
-	//엘라스틱
-	@Override
-	public List<Notice_FAQBoardVo> viewaAllNotice(Notice_FAQBoardVo noticeVo) {
-		logger.info("NoticeBoardServiceImpl viewaAllNotice :");
-		return dao.viewNoticeAllAdmin();
-	}
-
 	@Override
 	public List<Notice_FAQBoardVo> viewNoticeAllAdmin() {
 		logger.info("NoticeBoardServiceImpl viewNoticeAllAdmin :");
@@ -70,6 +63,12 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	public int modifyNotice(Notice_FAQBoardVo noticeVo) {
 		logger.info("NoticeBoardServiceImpl modifyNotice ()");
 		return dao.modifyNotice(noticeVo);
+	}
+
+	@Override
+	public List<Notice_FAQBoardVo> viewAllNotice(Map<String, Object> map) {
+		logger.info("NoticeBoardServiceImpl viewaAllNotice()");
+		return dao.viewAllNotice(map);
 	}
 
 }
