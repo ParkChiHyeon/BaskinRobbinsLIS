@@ -1,11 +1,5 @@
 package com.br.lis;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.br.lis.model.test.service.ITestService;
-import com.br.lis.vo.TestVo;
 
 /**
  * Handles requests for the application home page.
@@ -32,9 +25,6 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	private ITestService service;
-	
 	
 	@RequestMapping(value = "/home.do")
 	public String home() {
@@ -44,20 +34,6 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "/booksearch.do")
-	public String bookSearch() {
-		logger.info("HomeController bookSearch 이동");
-		return "booksearch";
-	}
-	
-	
-	@RequestMapping(value = "/test.do",method = RequestMethod.GET)
-	public String test(Model model) {
-//		List<Map<String, String>> lists = service.testSelect();
-//		
-//		model.addAttribute("lists", lists);
-		return "test";
-	}
 	
 	//로그아웃
 			@RequestMapping(value= "/logout.do", method = RequestMethod.GET)

@@ -36,7 +36,7 @@
 		<div id="contbody">
 			<div id="contleft" class="contleft">
 				<h2>정보마당</h2>
-				<div class="lnbBody">
+				<div class="lnbBody" style="min-height: 550px;">
 					<ul id="lnb" class="lnbul">
 						<li id="lnb4_1"><a id="lnb4_1_a" href="./noticeboard.do">공지사항</a></li>
 						<li id="lnb4_2"><a id="lnb4_2_a" href="./faqboard.do">FAQ</a></li>
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<div id="contentcore" style="margin-bottom: 30px">
-		<table id="noticeBoardTable" class="cell-border" style="float:right; "> 
+		<table id="noticeBoardTable" class="cell-border" style="float:right;"> 
 			<thead>
 				<tr>
 					<td style="width: 50px">글번호</td>
@@ -55,7 +55,7 @@
 				</tr>
 			</thead>
 				
-			<tbody>
+			<tbody id="test-idkd">
 				<c:forEach var="vo" items="${lists}"  varStatus="vs">
 					<c:set var="i" value="${i+1}"/>
 				<tr>

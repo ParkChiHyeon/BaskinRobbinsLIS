@@ -56,31 +56,13 @@
 			<div id="btnSearchTop"><a href="#link"><img src="./include/image/common/btn_serachTop.png" alt="검색창 열기"><span>검색</span></a></div>
 			<div id="indexNavi">
 	<ul id="topmenu">
-	<li id="gnb1"><a href="./booksearch.do" >자료검색</a>
+	<li id="gnb1"><a href="./bookSearch.do" >자료검색</a>
 			<ul>
-			<li id="gnb1_1" class=""><a href="/jungang/10010/30002/program.do" >통합검색</a>
+			<li id="gnb1_1" class=""><a href="./bookSearch.do" >통합검색</a>
 					</li>
-				<li id="gnb1_2" class=""><a href="/jungang/10381/30095/program.do" >상세검색</a>
+				<li id="gnb1_2" class=""><a href="./bookSearchDetail.do" >상세검색</a>
 					</li>
-				<li id="gnb1_3" class=""><a href="/jungang/10382/30096/program.do" >주제별검색</a>
-					</li>
-				<li id="gnb1_4" class=""><a href="/jungang/10011/30003/program.do" >신착자료검색</a>
-					</li>
-				<li id="gnb1_5" class=""><a href="/jungang/10384/30097/program.do" >대출베스트</a>
-					<ul class="MkTab">
-					<li id="gnb1_5_1" class=""><a href="/jungang/10384/30097/program.do" >대출베스트</a>
-							</li>
-						<li id="gnb1_5_2" class=""><a href="/jungang/10385/30098/program.do" >주제별베스트</a>
-							</li>
-						<li id="gnb1_5_3" class=""><a href="/jungang/10386/30099/program.do" >연령별베스트</a>
-							</li>
-						</ul>
-					</li>
-				<li id="gnb1_6" class=""><a href="/jungang/10387/30100/program.do" >공공도서관인기도서</a>
-					</li>
-				<li id="gnb1_7" class=""><a href="/jungang/10012/40001/content.do" >희망도서신청</a>
-					</li>
-				<li id="gnb1_8" class=""><a href="/jungang/10553/30158/program.do" >지역서점도서관</a>
+				<li id="gnb1_3" class=""><a href="./requestBookSearch.do" >희망도서신청</a>
 					</li>
 				</ul>
 			</li>
