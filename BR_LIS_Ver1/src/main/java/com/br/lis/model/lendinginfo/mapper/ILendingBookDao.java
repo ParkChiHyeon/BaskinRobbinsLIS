@@ -14,7 +14,7 @@ public interface ILendingBookDao {
 	public List<LendingVo> nowLendingBook();
 	
 	//예약목록전체조회
-	public List<LendingVo> allReserveLending();
+	public List<BookInfoVo> allReserveLending();
 	
 	//회원예약목록조회
 	public LendBookBean reserveLendingBook(Map<String, String> map);

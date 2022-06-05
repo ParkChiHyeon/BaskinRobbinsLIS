@@ -27,7 +27,7 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	}
 
 	@Override
-	public List<LendingVo> allReserveLending() {
+	public List<BookInfoVo> allReserveLending() {
 		return sqlSession.selectList(NS+"allReserveLending");
 	}
 

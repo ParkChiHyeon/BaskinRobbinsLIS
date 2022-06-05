@@ -387,8 +387,10 @@
 						<div class="innerWrap">
 							<ul class="mySvcList">
 								<li><img src="./include/image/jungang/main/icon_msvc01.png"
-									alt=""> <a href="/jungang/10075/30014/program.do">
-										대출도서/반납연기 </a></li>
+									alt="">
+<!-- 									 <a href="/jungang/10075/30014/program.do"> -->
+									 <a href="./lendingBook.do">
+										대출현황조회</a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc02.png"
 									alt=""> <a href="/jungang/10076/30015/program.do">
 										예약도서 </a></li>
