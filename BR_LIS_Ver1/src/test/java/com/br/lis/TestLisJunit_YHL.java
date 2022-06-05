@@ -128,7 +128,7 @@ public class TestLisJunit_YHL {
 	public void viewAllNotice() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("admin_id", "admin001");
-		List<Notice_FAQBoardVo> lists = serviceNotice.viewAllNotice(map);
+		List<Notice_FAQBoardVo> lists = serviceNotice.viewAllNotice();
 		System.out.println(lists);
 		assertNotNull(lists);
 	}

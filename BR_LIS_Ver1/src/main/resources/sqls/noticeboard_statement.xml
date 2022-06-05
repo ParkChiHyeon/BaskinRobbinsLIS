@@ -5,6 +5,7 @@
 <select id="viewAllNotice" resultType="Notice_FAQVo">
 		SELECT NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH
 	   		FROM NOTICE_BOARD
+	   		ORDER BY REGDATE DESC
 	</select>
 
 <insert id="insertNotice" parameterType="java.util.Map">

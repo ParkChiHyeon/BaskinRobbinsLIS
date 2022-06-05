@@ -220,7 +220,8 @@ public class Board_Controller {
 		int cnt = inoticeService.insertNotice(map);
 		
 		if (cnt>0) {
-			List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice(null);
+			System.out.println("수정 후 이동");
+			List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
 			model.addAttribute("list"+lists);
 			return "noticeboard";
 			
@@ -232,41 +233,24 @@ public class Board_Controller {
 	//noticeboard메인화면 data tables
 	
 	@RequestMapping(value = "/noticeboard.do", method = RequestMethod.GET)
-	public String dataTables(Model model, @RequestParam Map<String, Object> map) {
-		logger.info("Board_Controller dataTables 리스트보기 : {}", map);
-		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice(map);
+	public String noticeBoardSelect(Model model) {
+		logger.info("Board_Controller noticeBoardSelect 리스트보기");
+		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
+		String str = "notice";
+		model.addAttribute("kind", str);
 		model.addAttribute("lists", lists);
 		return "noticeboard";
 	}
-	
-//	@RequestMapping(value = "/ajaxTables.do", method = RequestMethod.GET)
-//	public String ajaxTables() {
-//		logger.info("HomeController ajaxTables 데이터테이블 아작스처리 페이지로 가기");
-//		return "AjaxTables";
-//	}
 
-//	@RequestMapping(value="/createAjax.do", method = RequestMethod.GET, 
-//					produces = "application/json; charset=UTF-8")
-//	@ResponseBody
-//	public String createAjax(){
-//		logger.info("HomeController createAjax 아작스처리 시작");
-//		List<Notice_FAQBoardVo> lists = inoticeService.AjaxTables();
-//		
-//		Gson data = new GsonBuilder().create();
-//		return data.toJson(lists); //return해주는 변수명은 data여야 한다. 
-//	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value = "/faqboard.do", method = RequestMethod.GET)
+	public String faqBoardSelect(Model model) {
+		logger.info("Board_Controller faqBoardSelect");
+		List<Notice_FAQBoardVo> lists = ifaqService.viewAllFAQ();
+		String str = "faq";
+		model.addAttribute("kind", str);
+		model.addAttribute("lists", lists);
+		return "noticeboard";
+	}
 	
 	
 	
@@ -278,51 +262,6 @@ public class Board_Controller {
 		return "noticeMain";
 	}
 	
-	@RequestMapping(value = "/vieDoti.do", method = RequestMethod.GET)
-	@ResponseBody
-	public String bPage(Model model, @RequestParam("start") int start, @RequestParam("end") int end, 
-						@RequestParam("pageIndex") int pageIndex, @RequestParam("kind") int kind) {
-		logger.info("---------아작스테스트----------------");
-		
-		int cnt = 0;
-		if (kind ==1) {
-				cnt = inoticeService.getCountBoardList();
-			
-		}else {
-//			cnt = ILibMemberService.memberTotal();
-			
-		}
-		 
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if (cnt%10!=0) {
-			cnt/=10;
-			cnt+=1;
-			
-		}else {
-			cnt/=10;
-			
-		}
-		
-		System.out.println("-------cnt---------:" +cnt);
-		
-		map.put("start", start);
-		map.put("end", end);
-		map.put("btnCount", cnt);
-		map.put("index", start/10+1);
-		map.put("pageIndex", pageIndex);
-		
-		model.addAttribute("pageNum", map);
-		System.out.println("map");
-		
-		
-		
-		
-		
-		
-		return "success";
-		
-	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/modifyNotice.do", method =  RequestMethod.POST, produces = "application/text; charset=UTF-8;")

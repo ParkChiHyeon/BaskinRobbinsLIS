@@ -37,7 +37,7 @@ public class TablesController {
 	@RequestMapping(value = "/dataTables.do", method = RequestMethod.GET)
 	public String dataTables(Model model, @RequestParam Map<String, Object> map) {
 		logger.info("HomeController dataTables 리스트보기 : {}", map);
-		List<Notice_FAQBoardVo> lists = service.viewAllNotice(null);
+		List<Notice_FAQBoardVo> lists = service.viewAllNotice();
 		model.addAttribute("lists", lists);
 		return "dataTables";
 	}

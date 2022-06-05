@@ -12,34 +12,76 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 </head>
 <body>
-<div class="container">
+
+<script type="text/javascript">
+ window.onload=function(){
+	var kind = '<c:out value="${kind}"/>'
+		console.log(kind)
+	if(kind=="notice"){
+		$("#lnb4_1_a").css("color","#E2427F");
+	}else if(kind=="faq"){
+		$("#lnb4_2_a").css("color","#E2427F");
+	}else{
+		$("#lnb4_3_a").css("color","#E2427F");
+	}
+ }
+ 
+</script>
 <!-- https://datatables.net/examples/styling/ 
 해당 페이지에 들어가면 부트스트랩처럼 class로 테이블 디자인 설정 가능 -->
-	<table id="noticeBoardTable" class="cell-border"> 
-		<thead>
-			<tr>
-				<td style="width: 50px">글번호</td>
-				<td>제목</td>
-				<td>내용</td>
-				<td>등록날짜</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="vo" items="${lists}"  varStatus="vs">
-			<tr>
-				<td>${vo.notice_seq}</td>
-				<td>${vo.title}</td>
-				<td>${vo.content}</td>
-				<td>${vo.regdate}</td>
-			</tr>
-			</c:forEach>
-		</tbody>
+<div id="middle" >
+		<div id="contbody">
+			<div id="contleft" class="contleft">
+				<h2>정보마당</h2>
+				<div class="lnbBody">
+					<ul id="lnb" class="lnbul">
+						<li id="lnb4_1"><a id="lnb4_1_a" href="./noticeboard.do">공지사항</a></li>
+						<li id="lnb4_2"><a id="lnb4_2_a" href="./faqboard.do">FAQ</a></li>
+						<li id="lnb4_3"><a id="lnb4_3_a">일정</a></li>
+					</ul>
+					<div class="lnbBottom"></div>
+				</div>
+			</div>
+			<div id="contentcore" style="margin-bottom: 30px">
+		<table id="noticeBoardTable" class="cell-border" style="float:right; "> 
+			<thead>
+				<tr>
+					<td style="width: 50px">글번호</td>
+					<td>제목</td>
+					<td>등록일</td>
+				</tr>
+			</thead>
+				
+			<tbody>
+				<c:forEach var="vo" items="${lists}"  varStatus="vs">
+					<c:set var="i" value="${i+1}"/>
+				<tr>
+					<c:if test="${kind == 'faq'}">
+						<td>${i}</td>
+					</c:if>
+					<c:if test="${kind=='notice'}">
+					<td>${vo.notice_seq}</td>
+					</c:if>
+					<td><a href="#">${vo.title}</a></td>
+					<td>${vo.regdate}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
 		</table>
-	<button class="btn btn-info" onclick="javascript:location.href='./editor.do'">돌아가기</button>
+		<div>
+	<c:if test="${kind == 'notice' }">
+	<button class="btn btn-primary" onclick="javascript:location.href='./modifynotice.do'">공지작성</button>
+	</c:if>
+	<button class="btn btn-info" onclick="javascript:location.href='./home.do'"  style="float:right;">돌아가기</button>
+	</div>
+	</div>
 </div>
+	</div>
+	
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
     $("#noticeBoardTable").DataTable({
     	//https://datatables.net/reference/option/language
 		// DataTable은 기본적으로 영어로 표시되기 때문에 별도로 language를 통해서 변경해줘야 함
@@ -64,7 +106,7 @@ $(document).ready(function(){
         ordering: true, // 정렬 기능 숨기기
         info: true, // 정보 표시 숨기기
         paging:true, // 페이징 기능 숨기기
-        order: [ [ 3, "asc" ], [ 1, "desc"] ], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
+        order: [], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
 //      columnDefs: [{ targets: 1, width: 100 }] //열의 넓이 조절 
 //		lengthMenu: [ 10, 20, 30, 40, 50 ], //표시건수 
 //      displayLength: 50, //기본표시건수 설정
@@ -72,8 +114,6 @@ $(document).ready(function(){
     
     });
 } );
-
-
 
 </script>
 </body>

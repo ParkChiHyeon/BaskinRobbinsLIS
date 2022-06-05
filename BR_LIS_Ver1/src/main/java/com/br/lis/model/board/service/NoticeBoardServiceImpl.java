@@ -66,9 +66,9 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	}
 
 	@Override
-	public List<Notice_FAQBoardVo> viewAllNotice(Map<String, Object> map) {
+	public List<Notice_FAQBoardVo> viewAllNotice() {
 		logger.info("NoticeBoardServiceImpl viewaAllNotice()");
-		return dao.viewAllNotice(map);
+		return dao.viewAllNotice();
 	}
 
 }

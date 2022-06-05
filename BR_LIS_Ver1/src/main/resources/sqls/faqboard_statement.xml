@@ -5,6 +5,7 @@
 	<select id="viewAllFAQ" resultType="Notice_FAQVo">
 	SELECT FAQ_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE
 		FROM FAQ_BOARD
+		ORDER BY REGDATE DESC
 	</select>
 	<insert id="insertFAQ" parameterType="java.util.Map">
 	INSERT INTO FAQ_BOARD(FAQ_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE) 

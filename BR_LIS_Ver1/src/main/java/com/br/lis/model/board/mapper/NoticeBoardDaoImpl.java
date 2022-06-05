@@ -23,8 +23,8 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public List<Notice_FAQBoardVo> viewAllNotice(Map<String, Object> map) {
-		return sqlSession.selectList(NS+"viewAllNotice", map);
+	public List<Notice_FAQBoardVo> viewAllNotice() {
+		return sqlSession.selectList(NS+"viewAllNotice");
 	}
 
 

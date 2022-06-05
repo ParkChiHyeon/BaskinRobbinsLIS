@@ -618,7 +618,7 @@ $(document).ready(function(e) {
 	/*lnbBody Length*/
 	var basicHeight = $('#contentcore').height();
 	basicHeight = basicHeight + "px";
-	$('.lnbBody').css('min-height',basicHeight);
+//	$('.lnbBody').css('min-height',basicHeight);
 
 	//find Last Tab and addClass
 	if($('#ttab3').html()) {
