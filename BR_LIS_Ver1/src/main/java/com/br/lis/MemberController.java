@@ -76,7 +76,7 @@ public class MemberController {
 	
 	
 	/* 로그인 시 세션에 정보를 담음 */
-	@RequestMapping(value = "/loginMember.do", method= RequestMethod.POST)
+	@RequestMapping(value = "/loginMember.do", method=RequestMethod.POST)
 	public String loginMember(@RequestParam Map<String, String> map/*,Map<String,Object> map2,*/, Model model) {
 		logger.info("MemberController loginMember : {}", map);
 		LibMemberVo mVo = service.loginMember(map);
@@ -84,7 +84,7 @@ public class MemberController {
 		
 		model.addAttribute("member", mVo);
 //		model.addAttribute("admin", aVo);
-		return "home";
+		return "redirect:/home.do";
 	}
 	
 	/* 회원가입 폼 이동 */

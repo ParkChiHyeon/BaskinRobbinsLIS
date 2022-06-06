@@ -47,7 +47,7 @@
 							<c:if test="${member.auth eq null}"> 
 							<li><a href="./loginPage.do">로그인</a></li>
 							</c:if>
-							<li class="mobileHide"><a href="/member/join.do">회원가입</a></li>
+							<li class="mobileHide"><a href="./signUpPage.do">회원가입</a></li>
 					<li class="mobileHide"><a href="/jungang/10091/40013/content.do">사이트맵</a></li>
 				</ul>
 			</div>
