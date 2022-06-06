@@ -39,7 +39,7 @@
             </div>
             <div class="caption">
             <a href="">Forgot Password?</a>
-            <a href="">회원가입</a>
+            <a href="./signUpPage.do">회원가입</a>
         </div>
         </form>
         

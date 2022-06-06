@@ -78,7 +78,7 @@ public class MemberController {
 	/* 로그인 시 세션에 정보를 담음 */
 	@RequestMapping(value = "/loginMember.do", method= RequestMethod.POST)
 	public String loginMember(@RequestParam Map<String, String> map/*,Map<String,Object> map2,*/, Model model) {
-		logger.info("Lib_MemberController loginMember : {}", map);
+		logger.info("MemberController loginMember : {}", map);
 		LibMemberVo mVo = service.loginMember(map);
 //		AdminVo aVo = aService.loginAdmin(map2);
 		
@@ -86,5 +86,22 @@ public class MemberController {
 //		model.addAttribute("admin", aVo);
 		return "home";
 	}
+	
+	/* 회원가입 폼 이동 */
+	@RequestMapping(value = "/signUpPage.do")
+	public String signUpMemberPage() {
+		return "signUpPage";	
+	}
+	
+	/* 회원 가입 */
+	@RequestMapping(value = "/signUp.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String signUpMember(@RequestParam Map<String, Object> map) {
+		logger.info("MemberController register : {}",map);
+		int n = service.signUpMember(map);
+		
+		return(n==1)?"redirect:/loginPage.do":"redirect:/signUpPage.do";	
+	}
+	
+	
 	
 }
