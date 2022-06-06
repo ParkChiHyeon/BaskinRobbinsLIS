@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.br.lis.model.lendinginfo.mapper.ILendingBookDao;
 import com.br.lis.vo.BookInfoVo;
@@ -13,6 +14,7 @@ import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
 import com.br.lis.vo.LibMemberVo;
 
+@Service
 public class LendingBookServiceImpl implements ILendingBookService {
 
 	@Autowired
@@ -27,7 +29,7 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	}
 
 	@Override
-	public List<LendingVo> allReserveLending() {
+	public List<BookInfoVo> allReserveLending() {
 		logger.info("ILendingBookDao 예약한 목록 전체 조회_allReserveLending");
 		return dao.allReserveLending();
 	}
@@ -38,19 +40,16 @@ public class LendingBookServiceImpl implements ILendingBookService {
 		return dao.reserveLendingBook(map);
 	}
 	
-	// BR_W_BM_204 대출 신청  : 대출 신청 후 대출가능여부변경 
+	// BR_W_BM_204 대출 신청 Transction처리  : 대출 신청 후 대출가능여부변경 LD =Y , DG =N  + 대여가능권수변경
 	@Override
-	public int insertLendingBook(LendingVo vo) {
-		logger.info("ILendingBookDao 대출 신청_insertLendingBook");
-		return 0;
-	}
-	@Override
-	public int insertLendingBookUpdate(LendingVo vo) {
-		logger.info("ILendingBookDao 대출 신청 상태변경_insertLendingBookUpdate");
-		return 0;
+	public int lendingBook(LendingVo vo,String member_code) {
+		logger.info(" lendingBook 대출 신청 후 보유도서 상태변경",vo,member_code);
+		int n = dao.insertLendingBook(vo);
+		int m = dao.insertLendingBookUpdate(vo);
+		int x = dao.lendingCount(member_code);
+		return (n>0&&m>0&&x>0)?1:0;
 	}
 
-	
 	
 	@Override
 	public List<LibMemberVo> deleyPenalty() {
@@ -64,30 +63,25 @@ public class LendingBookServiceImpl implements ILendingBookService {
 		return dao.lendingList(map);
 	}
 
-	//BR_W_BM_208 대출 예약 신청 
+	
+	//BR_W_BM_208 대출 예약 신청 RV=Y , DG=N 
+	// + 예약가능권수 초과하면 추가예약 불가
 	@Override
-	public int reservationBook(LendingVo vo) {
-		logger.info("ILendingBookDao 대출예약 신청_reservationBook");
-		return 0;
+	public int bookReservation(LendingVo lVo, BookInfoVo bVo) {
+		logger.info("bookReservation 대출예약 신청 후 보유도서 상태변경",lVo,bVo);
+		int n = dao.reservationBook(lVo);
+		int m = dao.reservationBookUpdate(bVo);
+		return (n>0&&m>0)?1:0;
 	}
+	//BR_W_BM_209 예약건 대출 확정 후 상태변경
+	// ++ 반납일이 빠른도서로 예약
 	@Override
-	public int reservationBookUpdate(BookInfoVo vo) {
-		logger.info("ILendingBookDao 대출예약 신청 후  상태변경_reservationBookUpdate");
-		return 0;
+	public int confrimReserveBook(String lending_seq, LendingVo vo) {
+		logger.info("confrimReserveBook 예약건 대출확정 후 상태변경");
+		int n = dao.realReserBook(lending_seq);
+		int m =dao.realReserBookUpdate(vo);
+		return (n>0&&m>0)?1:0;
 	}
-
-	//BR_W_BM_209 예약 후 대출 확정
-	@Override
-	public int realReserBook(String lending_seq) {
-		logger.info("ILendingBookDao 예약후  대출확정_realReserBook");
-		return 0;
-	}
-	@Override
-	public int realReserBookUpdate(LendingVo vo) {
-		logger.info("ILendingBookDao 예약 후 대출 확정 상태변경_realReserBookUpdate");
-		return 0;
-	}
-
 	
 	@Override
 	public List<LendingVo> fastReturnDayBook(LendingVo vo) {
@@ -95,25 +89,27 @@ public class LendingBookServiceImpl implements ILendingBookService {
 		return dao.fastReturnDayBook(vo);
 	}
 
-	//BR_W_BM_211 대출예약 자동취소 / possisng상태변경 : 트렌젝션 처리
+	
+	//BR_W_BM_211 대출예약 자동취소 후 상태변경 RV  =N ,DG=Y
 	@Override
-	public int reserveAutoDel(String lending_seq) {
-		logger.info("ILendingBookDao 대출 예약 자동취소_reserveAutoDel");
-		return 0;
-	}
-	//BR_W_BM_212대출예약 취소 / possisng상태변경 : 트렌젝션 처리
-	@Override
-	public int reserveDelUpdate(BookInfoVo vo) {
-		logger.info(" 대출 예약 취소 상태변경_reserveDelUpdate");
-		return 0;
+	public int autoDeleteResrve(String lending_seq, BookInfoVo vo) {
+		logger.info("autoDeleteResrve 대출 예약 자동취소 후 보유도서 상태변경");
+		int n =dao.reserveAutoDel(lending_seq);
+		int m = dao.reserveDelUpdate(vo);
+		return (n>0&&m>0)?1:0;
 	}
 	
-	//상태변경
+	
+	//BR_W_BM_212 대출예약 취소 후 상태변경 RV  =N ,DG=Y
 	@Override
-	public int reserveSelfDel(String lending_seq) {
-		logger.info("ILendingBookDao 대출 예약 취소_reserveSelfDel");
-		return 0;
+	public int selfDeleteResrve(String lending_seq, BookInfoVo vo) {
+		logger.info("selfDeleteResrve 대출 예약 취소 후 보유도서 상태변경");
+		int n = dao.reserveSelfDel(lending_seq);
+		int m = dao.reserveDelUpdate(vo);
+		return (n>0&&m>0)?1:0;
 	}
+	
+
 
 
 	@Override

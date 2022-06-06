@@ -14,16 +14,14 @@ public interface ILendingBookService {
 		public List<LendingVo> nowLendingBook();
 		
 		//예약목록전체조회
-		public List<LendingVo> allReserveLending();
+		public List<BookInfoVo> allReserveLending();
 		
 		//회원예약목록조회
 		public LendBookBean reserveLendingBook(Map<String, String> map);
 		
-		//대출 신청
-		public int insertLendingBook(LendingVo vo);
 		
-		//대출 신청 상태변경
-		public int insertLendingBookUpdate(LendingVo vo);
+		//BR_W_BM_204 대출 신청 트렌젝션 처리
+		public int lendingBook(LendingVo vo,String member_code);
 		
 		//도서연체패널티대상 조회 -대출시 필요
 		public List<LibMemberVo> deleyPenalty();
@@ -31,29 +29,24 @@ public interface ILendingBookService {
 		//대출 내역조회
 		public List<LendBookBean> lendingList(Map<String, Object>map);
 		
-		//대출 예약 신청
-		public int reservationBook(LendingVo vo);
+		//BR_W_BM_208 대출 예약 신청 후 상태변경 _트렌젝션 처리
+		public int bookReservation(LendingVo lVo,BookInfoVo bVo);
 		
-		//대출 예약 신청 후 상태변경
-		public int reservationBookUpdate(BookInfoVo vo);
 		
-		//예약 후 대출 확정
-		public int realReserBook(String lending_seq);
-		
-		//예약 후 대출 확정 상태변겨
-		public int realReserBookUpdate(LendingVo vo);
+		//BR_W_BM_209 예약건 대출 확정 후 상태변경
+		// ++ 반납일이 빠른도서로 예약
+		public int confrimReserveBook(String lending_seq,LendingVo vo );
 		
 		//반납일이 빠른도서조회
 		public List<LendingVo> fastReturnDayBook(LendingVo vo);
 		
-		//대출 예약 자동취소
-		public int reserveAutoDel(String lending_seq);
+		//BR_W_BM_211 대출예약 자동취소 후 상태변경
+		public int autoDeleteResrve(String lending_seq,BookInfoVo vo);
 		
-		//대출 예약 취소
-		public int reserveSelfDel(String lending_seq);
+		//BR_W_BM_212 대출예약 취소 후 상태변경
+		public int selfDeleteResrve(String lending_seq,BookInfoVo vo);
 		
-		//대출 예약 취소후 상태변경
-		public int reserveDelUpdate(BookInfoVo vo);
+		
 		
 		//대여가능 권수
 		public int lendingCount(String member_code);

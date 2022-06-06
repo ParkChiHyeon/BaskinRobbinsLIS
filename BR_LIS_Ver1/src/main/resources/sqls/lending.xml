@@ -52,8 +52,8 @@ SELECT BOOK_SERIAL ,ISBN ,LD ,RV
 </select>
 
 <!-- BR_W_BM_202  예약목록전체조회-->
-<select id="allReserveLending" resultType="LendingVo">
-SELECT *
+<select id="allReserveLending" resultType="BookInfoVo">
+SELECT  BOOK_SERIAL ,ISBN ,LD ,RV 
 	FROM POSSESSING_BOOK pb 
 		WHERE RV ='Y' AND LD ='Y'
 </select>
