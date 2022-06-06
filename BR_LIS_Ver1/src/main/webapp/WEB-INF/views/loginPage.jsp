@@ -25,23 +25,23 @@
     <section class="login-form">
         <h1>Login</h1>
  
-        <form action="post" method="post" id="login">
+        <form action="#" method="post" id="login">
             <div class="int-area1">
-                <input type="text" name="member_id" id="member_id" autocomplete="off" value="user001">
+                <input type="text" name="member_id" id="member_id" autocomplete="off" value="user001" required>
                 <label for="id">USER NAME</label>
             </div>
             <div class="int-area2">
-                <input type="password" name="password" id="password" autocomplete="off" value="Xptmxm@12">
+                <input type="text" name="password" id="password" autocomplete="off" value="Xptmxm@12" required>
                 <label for="pw">PASSWORD</label>
             </div>
             <div class="btn-area">
-                <button id="btn" type="button" onclick="loginCheck()">LOGIN</button>
-            </div>
+                <button id="btn" type="button" name="signUp" onclick="loginCheck()">LOGIN</button>
+            </div> 
             <div class="caption">
             <a href="">Forgot Password?</a>
             <a href="./signUpPage.do">회원가입</a>
         </div>
-        </form>
+       </form>
         
          
         
