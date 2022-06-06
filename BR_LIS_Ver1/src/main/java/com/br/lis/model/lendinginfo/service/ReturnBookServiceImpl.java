@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.br.lis.model.lendinginfo.mapper.IReturnBookDao;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendingVo;
+import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.ReservationVo;
 
 @Service
@@ -21,6 +22,20 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	
+	// 반납시 해당도서의 대출건 조회
+	@Override
+	public LendingVo lendingDetailForReturnBook(String book_serial) {
+		logger.info("ReturnBookServiceImpl 반납 도서의 대출내역 {} ", book_serial);
+		return dao.lendingDetailForReturnBook(book_serial);
+	}
+	
+	// 반납시 해당도서의 반납자 정보 조회
+	@Override
+	public LibMemberVo lendingDetailForReturnUser(String member_code) {
+		logger.info("ReturnBookServiceImpl 반납 도서의 반납자 정보 {} ", member_code);
+		return dao.lendingDetailForReturnUser(member_code);
+	}
 	// 반납시 해당 도서의 예약내역 조회
 	@Override
 	public ReservationVo returnBookReserveCheck(Map<String, Object> map) {

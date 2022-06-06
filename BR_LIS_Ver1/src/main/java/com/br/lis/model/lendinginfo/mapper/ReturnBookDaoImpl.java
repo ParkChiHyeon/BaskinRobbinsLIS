@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendingVo;
+import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.ReservationVo;
 
 @Repository
@@ -19,6 +20,16 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	
 	private final String  NS = "com.br.lis.model.lendinginfo.mapper.ReturnBookDaoImpl.";
 
+	@Override
+	public LendingVo lendingDetailForReturnBook(String book_serial) {
+		return sqlSession.selectOne(NS+"lendingDetailForReturnBook", book_serial);
+	}
+
+	@Override
+	public LibMemberVo lendingDetailForReturnUser(String member_code) {
+		return sqlSession.selectOne(NS+"lendingDetailForReturnUser", member_code);
+	}
+	
 	@Override
 	public int allReturnBook(String lending_seq) {
 		return sqlSession.update(NS+"allReturnBook", lending_seq);
@@ -83,6 +94,7 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	public ReservationVo returnBookReserveCheck(Map<String, Object> map) {
 		return sqlSession.selectOne(NS+"returnBookReserveCheck",map);
 	}
+
 
 
 

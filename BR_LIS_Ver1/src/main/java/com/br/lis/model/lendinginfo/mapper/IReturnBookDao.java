@@ -5,10 +5,13 @@ import java.util.Map;
 
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendingVo;
+import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.ReservationVo;
 
 public interface IReturnBookDao {
 	
+	public LendingVo lendingDetailForReturnBook(String book_serial);
+	public LibMemberVo lendingDetailForReturnUser(String member_code);
 	public int allReturnBook(String lending_seq);
 	public int returnBookDate(String lending_seq);
 	public int damegeReturnBook(String lending_seq);

@@ -18,6 +18,7 @@ import com.br.lis.model.lendinginfo.service.IReturnBookService;
 import com.br.lis.model.test.service.ITestService;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendingVo;
+import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.ReservationVo;
 
 
@@ -196,6 +197,19 @@ public class TestLisJunit_HIK {
 		System.out.println(vo);
 	}
 	
+//	@Test
+	public void lendingDetailForReturnBook() {
+		String book_serial ="BKSR155997";
+		LendingVo vo = dao.lendingDetailForReturnBook(book_serial);
+		System.out.println(vo);
+	}
+	
+//	@Test
+	public void lendingDetailForReturnUser() {
+		String member_code = "M2205000793";
+		LibMemberVo vo = dao.lendingDetailForReturnUser(member_code);
+		System.out.println(vo);
+	}
 	
 	
 }
