@@ -21,11 +21,11 @@
   </style>
 <%@ include file="./header.jsp"%>
 <body>
-<%-- ${lb} --%>
-${lists}
 
-<h1>대출현황조회</h1>
+<%-- ${lists} --%>
+
 <div id="container">
+<h1>예약목록전체조회(관리자)</h1>
 	<table  class="table table-bordered">
 		<thead>
 			<tr>
@@ -38,7 +38,7 @@ ${lists}
 		<tbody>
 			<c:forEach var="lVo" items="${lists}" varStatus="vs">
 			<tr>
-				<td>${lVo.book_serial}</td>
+				<td><a href="./reserveBook.do">${lVo.book_serial}</a></td>
 				<td>${lVo.isbn}</td>
 				<td>${lVo.ld}</td>
 				<td>${lVo.rv}</td>
@@ -46,8 +46,38 @@ ${lists}
 			</c:forEach>
 		</tbody>
 	</table>
+
+<h1>예약목록전체조회(회원)</h1>
+${lb}
+<%-- ${lb.isbn} --%>
+	<table  class="table table-bordered">
+		<thead>
+			<tr>
+				<th>회원코드</th>
+				<th>ISBN</th>
+				<th>예약번호</th>
+				<th>도서제목</th>
+				<th>출판사</th>
+				<th>저자</th>
+			</tr>
+		</thead>
+<!-- 		<tbody> -->
+<%-- 			<c:forEach var="mVo" items="${lb}" varStatus="vs"> --%>
+<!-- 			<tr> -->
+<%-- 				<td>${mVo.member_code}</td> --%>
+<%-- 				<td>${mVo.isbn}</td> --%>
+<%-- 				<td>${mVo.lending_seq}</td> --%>
+<%-- 				<td>${mVo.title}</td> --%>
+<%-- 				<td>${mVo.publisher}</td> --%>
+<%-- 				<td>${mVo.author}</td> --%>
+<!-- 			</tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</tbody> -->
+	</table>
 </div>
 
+<h1>이전대출도서내역</h1>
+${listBean}
 
 
 <div class="container-fluid">
@@ -55,7 +85,10 @@ ${lists}
     <div class="col-sm-3 sidenav">
 			<h2>나의 도서관</h2>
 			<ul class="nav nav-pills nav-stacked">
-				<li class="side2m1 sel">	<a href="./index.php?g_page=mypage&amp;m_page=mypage01">내서재</a></li>
+				<li class="side2m1 sel">	<a href="./lendingBook.do"">내서재</a></li>
+				<li class="side2m1 sel">	<a href="./lendingBook.do"">대출중인도서</a></li>
+				<li class="side2m1 sel">	<a href="./lendingBook.do">이전대출도서내역</a></li>
+				<li class="side2m1 sel">	<a href="./lendingBook.do"">예약내역</a></li>
 				<li class="side2m3 "><a href="./index.php?g_page=mypage&amp;m_page=mypage03">희망도서 신청내역</a></li>
 				<li class="side2m4 "><a href="/dls_lu/member/index.php?act=joinAct&step=userJoin">기본정보</a></li>
 			</ul>
