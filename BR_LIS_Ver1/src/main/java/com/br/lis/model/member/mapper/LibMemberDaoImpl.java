@@ -23,9 +23,9 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 
 	@Override
 	public int signUpMember(Map<String, Object> map) {
-//		String enPassword = passwordEncoder.encode((String)map.get("password"));		
-//		map.put("password", enPassword);
-//		System.out.println("Spring security에 의해서 암호화된 비밀번호 :" + map.get("password"));
+		String enPassword = passwordEncoder.encode((String)map.get("password"));		
+		map.put("password", enPassword);
+		System.out.println("Spring security에 의해서 암호화된 비밀번호 :" + map.get("password"));
 		return sqlSession.insert(NS+"signUpMember", map);
 	}
 

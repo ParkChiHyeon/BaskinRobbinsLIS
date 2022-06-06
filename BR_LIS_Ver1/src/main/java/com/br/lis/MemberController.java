@@ -94,7 +94,7 @@ public class MemberController {
 	}
 	
 	/* 회원 가입 */
-	@RequestMapping(value = "/signUp.do", method = {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUpMember(@RequestParam Map<String, Object> map) {
 		logger.info("MemberController register : {}",map);
 		int n = service.signUpMember(map);

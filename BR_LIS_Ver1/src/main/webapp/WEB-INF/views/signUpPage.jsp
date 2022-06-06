@@ -39,7 +39,7 @@ label{
 		<div id="2" class="row">		
 		<label>아이디</label>		
 		<div class="col">
-		<input type="text" class="form-control" placeholder="ID" id="member_id" name="member_id">
+		<input type="text" class="form-control" placeholder="ID" id="id_textbox" name="member_id">
 		</div>
 		<span><a>사용 가능한 아이디 입니다</a></span>
 		</div>
@@ -96,7 +96,7 @@ label{
 		</div>
 		
 		<div id="10" class="row">
-		<input type="button" class="btn btn-primary" value="가입완료" onclick="signUp()">
+		<input type="submit" class="btn btn-primary" value="가입완료" onclick="signUp()">
 		</div>	
 	</div>
 	</form>
