@@ -9,9 +9,9 @@ public interface ILibMemberDao {
 
 	public int signUpMember(Map<String, Object> map);
 
-	public int idDuplicateCheck(Map<String, Object> map);
+	public LibMemberVo idDuplicateCheck(Map<String, Object> map);
 	
-	public int duplicateMemberCheck(Map<String, Object> map);
+	public LibMemberVo duplicateMemberCheck(Map<String, Object> map);
 	
 	public LibMemberVo loginMember(Map<String, String> map);
 	

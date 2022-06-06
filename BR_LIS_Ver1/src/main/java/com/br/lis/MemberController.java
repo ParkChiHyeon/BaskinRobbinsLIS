@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,12 +51,15 @@ public class MemberController {
 	public Map<String, String> loginCheck(@RequestParam Map<String, String> map /*, Map<String,Object> map2 */) {
 		Map<String, String> resultMap = new HashMap<String, String>();
 		logger.info("MemberController loginCheck : {}", map);
-
+		
+		
 		LibMemberVo mVo = service.loginMember(map);
 		
 //		logger.info("MemberController loginCheck : {}", map2);
 //		AdminVo aVo = aService.loginAdmin(map2);
 		logger.info("MemberController loginCheck 로그인 정보 : {}", mVo);
+		
+		
 		
 //		logger.info("MemberController loginCheck 로그인 정보 : {}", aVo);
 		
@@ -71,10 +75,7 @@ public class MemberController {
 //		}
 		return resultMap;
 	}
-	
-	
-	
-	
+		
 	/* 로그인 시 세션에 정보를 담음 */
 	@RequestMapping(value = "/loginMember.do", method=RequestMethod.POST)
 	public String loginMember(@RequestParam Map<String, String> map/*,Map<String,Object> map2,*/, Model model) {
@@ -83,8 +84,9 @@ public class MemberController {
 //		AdminVo aVo = aService.loginAdmin(map2);
 		
 		model.addAttribute("member", mVo);
+		logger.info("현재 세션의 정보는 :{}", mVo);
 //		model.addAttribute("admin", aVo);
-		return "redirect:/home.do";
+		return "home";
 	}
 	
 	/* 회원가입 폼 이동 */
@@ -94,12 +96,31 @@ public class MemberController {
 	}
 	
 	/* 회원 가입 */
+	
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUpMember(@RequestParam Map<String, Object> map) {
 		logger.info("MemberController register : {}",map);
 		int n = service.signUpMember(map);
 		
 		return(n==1)?"redirect:/loginPage.do":"redirect:/signUpPage.do";	
+	}
+	
+	
+	@RequestMapping(value = "/idDuplicateCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> idDuplicateCheck(@RequestParam Map<String, Object> map) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		LibMemberVo mVo = service.idDuplicateCheck(map);
+		
+		if(mVo == null) {
+			resultMap.put("isc", "실패");
+		}else if(mVo != null){
+			resultMap.put("isc", "성공");
+		}	
+		
+		return resultMap;
 	}
 	
 	

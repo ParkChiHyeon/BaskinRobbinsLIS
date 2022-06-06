@@ -27,8 +27,8 @@
 	</insert>
 	
 	<!-- 중복아이디 검사  BR_W_UM003-->
-	<select id="idDuplicateCheck" parameterType="java.util.Map"  resultType="java.lang.Integer">
-	SELECT COUNT(*) MEMBER_ID
+	<select id="idDuplicateCheck" parameterType="java.util.Map"  resultType="LibMemberVo">
+	SELECT MEMBER_ID
 	FROM LIB_MEMBER
 	WHERE MEMBER_ID =#{member_id}
 	</select>

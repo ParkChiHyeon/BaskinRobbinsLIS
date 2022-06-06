@@ -22,6 +22,7 @@
 </style>
 <body class="body">
 	<div id="forms">
+	<input type="hidden" id="chkval" value="0">
     <section class="login-form">
         <h1>Login</h1>
  
@@ -53,7 +54,7 @@
     	
          var id = document.getElementById("member_id");
          var pw = document.getElementById("password");
-         var frm = document.forms[0];
+         var frm = document.getElementById("login");
          
          
     		console.log("member_id",id.value);
@@ -104,14 +105,10 @@
     
    
     
+   
     
     
-//     	//회원가입
-//     	window.onload = function(){
-//     			document.getElementById("register").onclick = function(){
-//     				location.href = "./registerForm.do";
-//     			}
-//     		} 
+  
     </script>           
 </body>
 <%@ include file="./footer.jsp" %>

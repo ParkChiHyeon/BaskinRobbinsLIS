@@ -46,7 +46,7 @@ public class TestLisJunit_KHU {
 		map.put("member_id", "gnldnd125852");
 		map.put("phone", "01085439644");
 		map.put("birth", "9705161******");
-		int cnt = mDao.duplicateMemberCheck(map);
+		LibMemberVo cnt = mDao.duplicateMemberCheck(map);
 		logger.info("중복회원 검사 결과 : {}", cnt);
 	}
 	
@@ -72,7 +72,7 @@ public class TestLisJunit_KHU {
 	public void idDuplicateCheck() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("member_id", "gnldnd11");
-		int cnt = mDao.idDuplicateCheck(map);
+		LibMemberVo cnt = mDao.idDuplicateCheck(map);
 		logger.info("중복아이디 결과 : {}" , cnt);
 	}
 	

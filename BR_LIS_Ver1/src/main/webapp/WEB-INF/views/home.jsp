@@ -378,7 +378,7 @@
 						<!-- after Login -->
 						<div class="innerWrap">
 							<span class="txtBtn_darkGray sizeSmall"><a
-								href="/jungang/10094/30027/program.do">로그인</a></span> <span
+								href="./loginPage.do">로그인</a></span> <span
 								class="txtBtn_darkGray sizeSmall ml10"><a
 								href="./signUpPage.do">회원가입</a></span>
 						</div>

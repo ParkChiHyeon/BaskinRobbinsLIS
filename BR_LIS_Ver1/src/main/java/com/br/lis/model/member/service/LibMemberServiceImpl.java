@@ -29,13 +29,13 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	}
 
 	@Override
-	public int idDuplicateCheck(Map<String, Object> map) {
+	public LibMemberVo idDuplicateCheck(Map<String, Object> map) {
 		logger.info("Lib_MemberServiceImpl idDuplicateCheck : {}", map);
 		return mDao.idDuplicateCheck(map);
 	}
 
 	@Override
-	public int duplicateMemberCheck(Map<String, Object> map) {
+	public LibMemberVo duplicateMemberCheck(Map<String, Object> map) {
 		logger.info("Lib_MemberServiceImpl duplicateMemberCheck : {}", map);
 		return mDao.duplicateMemberCheck(map);
 	}
