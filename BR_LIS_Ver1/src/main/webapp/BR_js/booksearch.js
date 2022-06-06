@@ -9,6 +9,7 @@ function bookSearchTotal(){
 		method:"GET",
 		url:"http://localhost:9200/book_info/_search",
 		data:{"from":"0","size":"5000"},
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 //		headers:{
 //			"Authorization" : "Basic " + btoa("GD"+":"+"gd1234")
 //		},
@@ -50,7 +51,7 @@ function bookSearchTotal(){
         pagingType: "simple_numbers", // 페이징 타입 	
 		 	 data: jsonSource,
 		 	 columns: [
-		  		{ data: 'title' }
+		  		{ data: 'title'}
 		  	]
 		  });
 		}
