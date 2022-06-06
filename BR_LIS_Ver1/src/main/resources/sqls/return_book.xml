@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.br.lis.model.lendinginfo.mapper.ReturnBookDaoImpl">
+
+
+<select id="lendingDetailForReturnBook" parameterType="java.lang.String" resultType="LendingVo">
+SELECT LENDING_SEQ,	BOOK_SERIAL, MEMBER_CODE, LENDING_DELAY, RETURN_STATUS, LENDING_DATE, END_DATE, BACK_DATE, RESERVE_DATE
+FROM  (SELECT LENDING_SEQ,	BOOK_SERIAL, MEMBER_CODE, LENDING_DELAY, RETURN_STATUS, LENDING_DATE, END_DATE, BACK_DATE, RESERVE_DATE
+FROM LENDING l 
+ORDER BY LENDING_SEQ DESC)
+<![CDATA[WHERE BOOK_SERIAL = #{book_serial} AND ROWNUM <2]]>
+AND BACK_DATE IS NULL AND LENDING_DATE IS NOT NULL
+</select>
+
+<select id="lendingDetailForReturnUser" parameterType="java.lang.String" resultType="LibMemberVo">
+SELECT MEMBER_ID, MEMBER_CODE , NAME , PHONE , ADDRESS , EMAIL , AUTH , PENALTY , RENTAL_COUNT, SUBSTR(BIRTH,-13,6)||'-'||SUBSTR(BIRTH,-7,1)AS BIRTH
+FROM LIB_MEMBER
+WHERE MEMBER_CODE = #{member_code}
+</select>
+
 <update id="allReturnBook" parameterType="java.lang.String">
 UPDATE POSSESSING_BOOK 
  SET LD ='N', DL='N', BA='Y', OD='N', DG='Y'
@@ -108,16 +125,16 @@ SELECT *
 	<collection property="bookInfo" resultMap="bookInfoMap"/>
 </resultMap>
 
-<select id="returnBookReserveCheck" parameterType="java.lang.String" resultMap="ReservationMap">
-SELECT l.LENDING_SEQ, pb.BOOK_SERIAL, l.MEMBER_CODE, lm.PHONE, lm.EMAIL , lm.NAME
+<select id="returnBookReserveCheck" parameterType="java.util.Map" resultType="ReservationVo">
+SELECT l.LENDING_SEQ, pb.BOOK_SERIAL, l.MEMBER_CODE, lm.PHONE, lm.EMAIL , lm.NAME, l.RESERVE_DATE
   FROM LENDING l 
   JOIN POSSESSING_BOOK pb 
   ON l.BOOK_SERIAL = pb.BOOK_SERIAL 
   JOIN LIB_MEMBER lm 
   ON l.MEMBER_CODE = lm.MEMBER_CODE 
 <![CDATA[WHERE pb.BOOK_SERIAL = #{book_serial} 
-<!--   AND RV ='Y'  -->
-<!--   AND ROWNUM < 2]]> -->
+  AND RV ='Y'
+  AND ROWNUM < 2]]> 
   AND l.LENDING_DATE IS NULL 
   ORDER  BY LENDING_SEQ DESC
 </select>
