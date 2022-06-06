@@ -76,4 +76,18 @@ public class PurchaseVo {
 				+ ", confirm_date=" + confirm_date + "]";
 	}
 
+	public PurchaseVo(String purchase_code, String total_price, String total_ea, String order_date,
+			String distributor_email, String confirm, String confirm_date) {
+		super();
+		this.purchase_code = purchase_code;
+		this.total_price = total_price;
+		this.total_ea = total_ea;
+		this.order_date = order_date;
+		this.distributor_email = distributor_email;
+		this.confirm = confirm;
+		this.confirm_date = confirm_date;
+	}
+	
+	
+
 }
