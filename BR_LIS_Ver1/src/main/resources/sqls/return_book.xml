@@ -48,7 +48,7 @@ UPDATE LENDING
 
 <update id="dgAndLsReturnBookStatus" parameterType="java.lang.String">
 UPDATE POSSESSING_BOOK
- SET NM='N', DG='N'
+ SET NM='N', DG='N', RV='N'
  WHERE BOOK_SERIAL = (SELECT pb2.BOOK_SERIAL 
  FROM POSSESSING_BOOK pb2 LEFT OUTER JOIN LENDING l
  ON pb2.BOOK_SERIAL=l.BOOK_SERIAL
@@ -102,6 +102,12 @@ SELECT *
  FROM POSSESSING_BOOK pb 
  WHERE SP = 'Y'
 </select>
+<update id="penaltyAuthModify">
+<![CDATA[UPDATE LIB_MEMBER SET AUTH ='NM' 
+WHERE MEMBER_CODE = (SELECT l.MEMBER_CODE M 
+FROM LENDING l 
+WHERE SYSDATE-END_DATE>=1 AND BACK_DATE IS NULL)]]>
+</update>
 <resultMap type="com.br.lis.vo.LendingVo" id="lendingMap">
 <id property="lending_seq" column="LENDING_SEQ"/>
 <id property="member_code" column="MEMBER_CODE"/>

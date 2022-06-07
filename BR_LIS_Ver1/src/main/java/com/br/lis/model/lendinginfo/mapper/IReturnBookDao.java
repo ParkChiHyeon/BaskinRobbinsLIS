@@ -25,4 +25,5 @@ public interface IReturnBookDao {
 	public List<BookInfoVo> warehouseList();
 	public List<BookInfoVo> supplementList();
 	public ReservationVo returnBookReserveCheck(Map<String, Object> map);
+	public int penaltyAuthModify();
 }

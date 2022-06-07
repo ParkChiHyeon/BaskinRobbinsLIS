@@ -8,11 +8,10 @@
 <link rel="stylesheet" type="text/css" href="./hik_css/returnBookPage.css">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
-
 <%@ include file="./header.jsp"%>
 <body>
 <div class="container">
-	<h1>반납처리</h1>
+	<h1>반납</h1>
 	<form action="#">
 		<h2>도서대출내역</h2>
 		<table>
@@ -77,11 +76,14 @@
 				<td><input type="hidden" name="name" value="${rVo.name}">${rVo.name}</td>
 			</tr>
 		</table>
-		<button type="submit" formaction="./returnNomal.do" formmethod="get" formtarget="_self">반납</button>
-		<button type="submit" formaction="./returnBookDamege.do" formmethod="get" formtarget="_self">파손</button>
-		<button onclick="aram()">분실</button>
+		<div class="buttons">
+		<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./returnNomal.do" formmethod="get" formtarget="_self">반납</button>
+		<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./returnBookDamege.do" formmethod="get" formtarget="_self">파손</button>
+		<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./returnBookLost.do" formmethod="get" formtarget="_self">분실</button>
+		</div>
 		</form>	
 	</div>
+    
 </body>
 <%@include file="./footer.jsp"%>
 </html>
