@@ -395,7 +395,7 @@
 									alt=""> <a href="/jungang/10076/30015/program.do">
 										예약도서 </a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc03.png"
-									alt=""> <a href="/jungang/10079/30017/program.do">
+									alt=""> <a href="./requestPage.do">
 										희망도서신청 </a> <!--<a href="#n" onclick="alert('코로나19 심각단계 격상으로 의왕시 도서관 휴관에 따라 희망도서 신청을 중단하니 양해부탁드립니다.');"> 희망도서신청
 									</a>--></li>
 								<li><img src="./include/image/jungang/main/icon_msvc04.png"
