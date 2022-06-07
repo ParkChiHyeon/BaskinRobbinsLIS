@@ -46,6 +46,15 @@ window.onload=function(){
 /* 	table-layout:fixed; */
 font-size: 12px;
 }
+
+.bookImg_BR {
+    max-width: 100%;
+    height: 120px;
+  	margin: auto;
+}
+td:nth-child(odd){
+	text-align: center;
+}
 </style>
 <body>
 

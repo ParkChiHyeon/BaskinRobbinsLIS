@@ -12,7 +12,7 @@ function bookSearchTotal(){
 	$.ajax({
 		method:"POST",
 		contentType:"application/json;",
-		url:"http://localhost:9200/book_info/_search",		
+		url:"https://f087-211-197-28-137.jp.ngrok.io/book_info/_search",		
 		data:JSON.stringify(queryStr),
 		dataType:"json",
 //		headers:{
@@ -63,10 +63,15 @@ function bookSearchTotal(){
         pagingType: "simple_numbers", // 페이징 타입 	
 		     data: jsonSource, 
 		 	 columns: [
+				{ 	
+					render:function(data,type,row){
+					var html = '<img class="bookImg_BR" src='+row.img+'>' 
+					return html;
+				  }},
 		  		{ title:'도서',
+				 
 		          render:function(data,type,row){
-					var html = '<img src='+row.img+'>' 
-						html+= row.title+'<br>'; 
+					var	html= row.title+'<br>'; 
 					    html+= row.author+'<br>';
 					    html+= row.publisher+'<br>';
 					    html+= row.isbn;
