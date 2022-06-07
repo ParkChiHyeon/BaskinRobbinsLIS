@@ -37,8 +37,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	
 	
 	@Override
-	public LendBookBean reserveLendingBook(Map<String, String> map) {
-		return sqlSession.selectOne(NS+"reserveLendingBook", map);
+	public List<Map<String, Object>> reserveLendingBook(String member_code) {
+		return sqlSession.selectList(NS+"reserveLendingBook", member_code);
 	}
 
 	@Override

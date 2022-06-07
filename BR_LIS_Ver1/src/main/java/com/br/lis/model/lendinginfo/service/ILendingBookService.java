@@ -17,7 +17,7 @@ public interface ILendingBookService {
 		public List<BookInfoVo> allReserveLending();
 		
 		//회원예약목록조회
-		public LendBookBean reserveLendingBook(Map<String, String> map);
+		public List<Map<String, Object>> reserveLendingBook(String member_code);
 		
 		
 		//BR_W_BM_204 대출 신청 트렌젝션 처리

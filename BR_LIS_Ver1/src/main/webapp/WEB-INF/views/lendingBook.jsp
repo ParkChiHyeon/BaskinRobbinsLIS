@@ -19,6 +19,21 @@
     
     
   </style>
+  <script type="text/javascript">
+  		function reservation(){
+  			console.log("예약화면");
+//   			console.log(val);
+  			
+  		
+  			var i = document.getElementById("reserveListVal").innerText;
+  			var j = document.getElementById("lending_seq").innerText;
+  			console.log(i);
+  			console.log(j);
+			location.href='./reserveBook.do?lending_seq='+j;
+  			
+  		}
+  
+  </script>
 <%@ include file="./header.jsp"%>
 <body>
 
@@ -29,7 +44,7 @@
 	<table  class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Book_Serial</th>
+				<th>도서코드</th>
 				<th>ISBN</th>
 				<th>LD</th>
 				<th>RV</th>
@@ -47,37 +62,76 @@
 		</tbody>
 	</table>
 
-<h1>예약목록전체조회(회원)</h1>
-${lb}
-<%-- ${lb.isbn} --%>
+<h1>회원예약목록조회</h1>
+${a}
+${a.ISBN}
+<%-- ${lb.ISBN} --%>
+<form action="./reserveBook.do" >
 	<table  class="table table-bordered">
 		<thead>
-			<tr>
+			<tr id="reserveList">
 				<th>회원코드</th>
 				<th>ISBN</th>
 				<th>예약번호</th>
 				<th>도서제목</th>
 				<th>출판사</th>
 				<th>저자</th>
+				<th>대출신청</th>
 			</tr>
 		</thead>
-<!-- 		<tbody> -->
-<%-- 			<c:forEach var="mVo" items="${lb}" varStatus="vs"> --%>
-<!-- 			<tr> -->
-<%-- 				<td>${mVo.member_code}</td> --%>
-<%-- 				<td>${mVo.isbn}</td> --%>
-<%-- 				<td>${mVo.lending_seq}</td> --%>
-<%-- 				<td>${mVo.title}</td> --%>
-<%-- 				<td>${mVo.publisher}</td> --%>
-<%-- 				<td>${mVo.author}</td> --%>
-<!-- 			</tr> -->
+		<tbody>
+<%-- 			<c:forEach var="a" items="${a}" varStatus="vs"> --%>
+			<tr id="reserveListVal">
+				<td id="mem">${a.MEMBER_CODE}</td>
+				<td>${a.ISBN}</td>
+				<td id="lending_seq">${a.LENDING_SEQ}</td>
+				<td>${a.TITLE}</td>
+				<td>${a.PUBLISHER}</td>
+				<td>${a.AUTHOR}</td>
+				<td><button>신청</button> </td>
+			</tr>
 <%-- 			</c:forEach> --%>
-<!-- 		</tbody> -->
+		</tbody>
 	</table>
+	<input type="button" class="btn btn-warning" value="대출신청" onclick="reservation()">
+</form>	
 </div>
-
+<br>
+<br>
+<br>
 <h1>이전대출도서내역</h1>
-${listBean}
+
+	<table  class="table table-bordered">
+		<thead>
+			<tr>
+				<th>대출코드</th>
+				<th>회원번호</th>
+				<th>도서제목</th>
+				<th>저자</th>
+				<th>연장여부</th>
+				<th>대출일</th>
+				<th>반납예정일</th>
+				<th>반납일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="lBean" items="${listBean}" varStatus="vs">
+			<tr>
+				<td>${lBean.lending_seq}</td>
+				<td>${lBean.member_code}</td>
+				<td>${lBean.title}</td>
+				<td>${lBean.author}</td>
+				<td>${lBean.lending_delay}</td>
+				<td>${lBean.lending_date}</td>
+				<td>${lBean.end_date}</td>
+				<td>${lBean.back_date}</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
+
+
 
 
 <div class="container-fluid">
@@ -85,10 +139,10 @@ ${listBean}
     <div class="col-sm-3 sidenav">
 			<h2>나의 도서관</h2>
 			<ul class="nav nav-pills nav-stacked">
-				<li class="side2m1 sel">	<a href="./lendingBook.do"">내서재</a></li>
-				<li class="side2m1 sel">	<a href="./lendingBook.do"">대출중인도서</a></li>
+				<li class="side2m1 sel">	<a href="./lendingBook.do">내서재</a></li>
+				<li class="side2m1 sel">	<a href="./lendingBook.do">대출중인도서</a></li>
 				<li class="side2m1 sel">	<a href="./lendingBook.do">이전대출도서내역</a></li>
-				<li class="side2m1 sel">	<a href="./lendingBook.do"">예약내역</a></li>
+				<li class="side2m1 sel">	<a href="./lendingBook.do">예약내역</a></li>
 				<li class="side2m3 "><a href="./index.php?g_page=mypage&amp;m_page=mypage03">희망도서 신청내역</a></li>
 				<li class="side2m4 "><a href="/dls_lu/member/index.php?act=joinAct&step=userJoin">기본정보</a></li>
 			</ul>
