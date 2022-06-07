@@ -30,13 +30,13 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 	}
 
 	@Override
-	public int idDuplicateCheck(Map<String, Object> map) {
+	public LibMemberVo idDuplicateCheck(Map<String, Object> map) {
 		return sqlSession.selectOne(NS+"idDuplicateCheck",map);
 		
 	}
 
 	@Override
-	public int duplicateMemberCheck(Map<String, Object> map) {
+	public LibMemberVo duplicateMemberCheck(Map<String, Object> map) {
 		return sqlSession.selectOne(NS+"duplicateMemberCheck", map);
 	}
 
