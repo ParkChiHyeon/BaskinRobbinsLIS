@@ -13,6 +13,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 <link rel="stylesheet" href="./include/booksearch/css/booksearch.css">
 <link rel="stylesheet" href="./include/css/button.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script type="text/javascript" src="./BR_js/booksearch.js"></script>
 
 <script type="text/javascript">
@@ -49,11 +51,20 @@ font-size: 12px;
 
 .bookImg_BR {
     max-width: 100%;
-    height: 120px;
   	margin: auto;
 }
 td:nth-child(odd){
 	text-align: center;
+	width: 120px;
+}
+.thumbImg{
+	float:left;
+	position: relative; 
+	top: 15px; 
+	width: 15px; /*Desired width*/
+	height: 15px; /*Desired height*/
+	cursor: pointer;
+	
 }
 </style>
 <body>
@@ -116,7 +127,7 @@ td:nth-child(odd){
 						<option value="isbn">ISBN</option>
 					</select>
 						<input	type="text"  class="form-control" id="requestSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 80%">
-						<button class="btn btn-primary" onclick="bookSearchTotal()">검색</button>
+						<button class="btn btn-primary" onclick="bookSearchRequest()">검색</button>
 					</form>
 				</div>
 				</c:if>
