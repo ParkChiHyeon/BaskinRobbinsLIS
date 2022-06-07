@@ -8,6 +8,7 @@
 <title>로그인 페이지</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
+<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 </head>    
 <!--         <link rel="icon" href="images/favicon.png"/> -->
@@ -50,6 +51,24 @@
 	</div>
 	  
     <script type="text/javascript">
+    
+    $(function(){
+    	  // 눈표시 클릭 시 패스워드 보이기
+    	  $('.eyes').on('click',function(){
+    	    $('.input.password').toggleClass('active');
+
+    	    if( $('.input.password').hasClass('active') == true ){
+    	    	$(this).find('.fa-eye').attr('class',"fas fa-eye-slash").parents('.input').find('#password').attr('type',"text");
+    	    				// i 클래스                // 텍스트 보이기 i 클래스
+    	    }
+    	    else{
+    	    	$(this).find('.fa-eye-slash').attr('class',"fas fa-eye").parents('.input').find('#password').attr('type','password');
+    	    }
+    	  });
+    	});
+    
+    
+    
     function loginCheck(){
     	
          var id = document.getElementById("member_id");

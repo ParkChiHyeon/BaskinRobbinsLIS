@@ -2,6 +2,45 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<%@ page import="java.net.*, java.io.*"%>  
+<%
+    // 1회성 토큰 생성
+    String g_recaptcha_response = request.getParameter("g-recaptcha-response");
+    
+    //URL로 쿼리 매개 변수 secret, response 및 remoteip를 담아 HTTP 요청을 하면, json 응답을 받는다.
+    HttpURLConnection conn = (HttpURLConnection) new URL("https://www.google.com/recaptcha/api/siteverify").openConnection();
+    // 토큰과 보안키로 성공 여부 확인
+    String params = "secret=6LcgedMfAAAAAJZAB1Tr-0FBoVzizuQ94YHat2TD" + "&response=" + g_recaptcha_response;
+    // 전송 방식 : POST
+    conn.setRequestMethod("POST");
+    conn.setDoOutput(true);
+    
+    DataOutputStream dos = new DataOutputStream(conn.getOutputStream()); 
+    dos.writeBytes(params);  
+    dos.flush();   
+    dos.close();
+    
+    // 결과코드 확인(200 : 성공)
+    int responseCode = conn.getResponseCode();
+    StringBuffer responseBody = new StringBuffer();
+    if (responseCode == 200) {
+        
+        // 데이터 추출
+        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(bis));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            responseBody.append(line);
+        }
+        bis.close();
+        
+        // JSON으로 변환 
+        if(responseBody.toString().indexOf("\"success\": true") > -1)
+            out.println("인증 되었습니다");
+    }
+    
+%>
+
 <html>
 
 
@@ -11,8 +50,10 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
 <style type="text/css">
 #id_textbox{
@@ -158,9 +199,10 @@ label{
 		
 		
 		
-		
+		<li class="list-group-item"><div id="recaptcha_render" ></div></li>
 		<li class="list-group-item"><input type="submit" class="btn btn-success" value="가입완료" onclick="signUp()" id="btnSignUp" ></li>
-		
+				
+			
 				
 	
 	</ul>
@@ -170,6 +212,17 @@ label{
 <%@ include file="./footer.jsp" %>
 
 <script type="text/javascript">
+var onloadCallback = function() {
+    grecaptcha.render('recaptcha_render', {
+    	/* 사이트 키 */
+        'sitekey' : '6LcgedMfAAAAAA-6iUavQAVF8Vg5FrObAvKk3XEd',
+        /* recaptcha 테마 */
+        'theme' : 'dark'
+//      'theme' : 'light'
+    });
+};
+
+
 
 function signUp() {
 	var chk = document.getElementById(chkVal).value;
@@ -310,6 +363,8 @@ $(document).ready(function(){
 	});
 });
 // \d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}
+
+
 
 
 </script>
