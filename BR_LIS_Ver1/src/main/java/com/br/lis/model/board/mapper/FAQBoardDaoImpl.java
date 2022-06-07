@@ -21,6 +21,11 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 	public List<Notice_FAQBoardVo> viewAllFAQ() {
 		return sqlSession.selectList(NS+"viewAllFAQ");
 	}
+	
+	@Override
+	public Notice_FAQBoardVo viewDetailFAQ(String seq) {
+		return sqlSession.selectOne(NS+"viewDetailFAQ", seq);
+	}
 
 	@Override
 	public int insertFAQ(Map<String, String> map) {
@@ -39,4 +44,6 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 		sqlSession.close();
 		return sqlSession.delete(NS+"deleteFAQ", list);
 	}
+
+
 }

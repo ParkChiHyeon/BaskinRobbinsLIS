@@ -7,6 +7,13 @@
 	   		FROM NOTICE_BOARD
 	   		ORDER BY REGDATE DESC
 	</select>
+	
+	<select id="viewDetailNotice" resultType="Notice_FAQVo">
+		SELECT NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH 
+		FROM NOTICE_BOARD
+				WHERE NOTICE_SEQ=#{seq}
+	</select>
+	
 
 <insert id="insertNotice" parameterType="java.util.Map">
 INSERT INTO NOTICE_BOARD(NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH)
