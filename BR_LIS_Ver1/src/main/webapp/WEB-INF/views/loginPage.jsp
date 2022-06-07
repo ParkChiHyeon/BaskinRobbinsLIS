@@ -7,9 +7,10 @@
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
 
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
-<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://kit.fontawesome.com/37d6185271.js" crossorigin="anonymous"></script>
 </head>    
 <!--         <link rel="icon" href="images/favicon.png"/> -->
  <link href="./khu_css/style.css" rel="stylesheet">
@@ -20,6 +21,18 @@
  	bottom: 0;
  	width: 100%
 }
+
+div.int-area2{
+    position: relative;
+}
+
+div.int-area2 i{
+	position :absolute;
+    left: 92%;
+    top : 40px;
+    color: black;
+}
+
 </style>
 <body class="body">
 	<div id="forms">
@@ -33,7 +46,8 @@
                 <label for="id">USER NAME</label>
             </div>
             <div class="int-area2">
-                <input type="text" name="password" id="password" autocomplete="off" value="Xptmxm@12" required>
+                <input type="password" name="password" id="password" autocomplete="off" value="Xptmxm@12" required>
+                <i class="fa-solid fa-eye fa-lg"></i>
                 <label for="pw">PASSWORD</label>
             </div>
             <div class="btn-area">
@@ -50,24 +64,7 @@
     </section>
 	</div>
 	  
-    <script type="text/javascript">
-    
-    $(function(){
-    	  // 눈표시 클릭 시 패스워드 보이기
-    	  $('.eyes').on('click',function(){
-    	    $('.input.password').toggleClass('active');
-
-    	    if( $('.input.password').hasClass('active') == true ){
-    	    	$(this).find('.fa-eye').attr('class',"fas fa-eye-slash").parents('.input').find('#password').attr('type',"text");
-    	    				// i 클래스                // 텍스트 보이기 i 클래스
-    	    }
-    	    else{
-    	    	$(this).find('.fa-eye-slash').attr('class',"fas fa-eye").parents('.input').find('#password').attr('type','password');
-    	    }
-    	  });
-    	});
-    
-    
+    <script type="text/javascript">  
     
     function loginCheck(){
     	
@@ -123,7 +120,19 @@
     
     
    
-    
+    $(document).ready(function(){
+        $('.int-area2 i').on('click',function(){
+            $('input').toggleClass('active');
+            if($('input').hasClass('active')){
+                $(this).attr('class',"fa fa-eye-slash fa-lg")
+                .prev('input').attr('type',"text");
+            }else{
+                $(this).attr('class',"fa fa-eye fa-lg")
+                .prev('input').attr('type','password');
+            }
+        });
+    });
+
    
     
     

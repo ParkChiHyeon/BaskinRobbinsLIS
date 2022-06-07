@@ -377,10 +377,20 @@
 					<div class="upper mobileHide">
 						<!-- after Login -->
 						<div class="innerWrap">
-							<span class="txtBtn_darkGray sizeSmall"><a
-								href="./loginPage.do">로그인</a></span> <span
+							<c:if test="${member.auth eq null}"> 
+							<span class="txtBtn_darkGray sizeSmall">
+							<a
+								href="./loginPage.do">로그인</a></span>
+								
+								 <span
 								class="txtBtn_darkGray sizeSmall ml10"><a
 								href="./signUpPage.do">회원가입</a></span>
+								</c:if>
+							<c:if test="${member.auth eq 'NM'|| member.auth eq 'GH'}">
+							<span
+								class="txtBtn_darkGray sizeSmall ml10"><a
+								href="./logout.do">로그아웃</a></span>	
+								</c:if>
 						</div>
 					</div>
 					<div class="downer" id="downer">
