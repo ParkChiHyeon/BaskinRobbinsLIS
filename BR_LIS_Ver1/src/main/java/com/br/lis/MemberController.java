@@ -1,8 +1,11 @@
 package com.br.lis;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,10 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.br.lis.model.member.service.API_Service;
 import com.br.lis.model.member.service.IAdminService;
 import com.br.lis.model.member.service.ILibMemberService;
 import com.br.lis.vo.AdminVo;
 import com.br.lis.vo.LibMemberVo;
+
 
 
 @Controller
@@ -37,6 +42,9 @@ public class MemberController {
 	
 	@Autowired
 	private IAdminService aService;
+	
+	@Autowired
+	private API_Service cService;
 	
 	/* 로그인 페이지로 이동 */
 	@RequestMapping(value = "/loginPage.do",method = RequestMethod.GET)
@@ -96,7 +104,6 @@ public class MemberController {
 	}
 	
 	/* 회원 가입 */
-	
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUpMember(@RequestParam Map<String, Object> map) {
 		logger.info("MemberController register : {}",map);
@@ -105,7 +112,7 @@ public class MemberController {
 		return(n==1)?"redirect:/loginPage.do":"redirect:/signUpPage.do";	
 	}
 	
-	
+	/* 중복아이디 체크 */
 	@RequestMapping(value = "/idDuplicateCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> idDuplicateCheck(@RequestParam Map<String, Object> map) {
@@ -122,6 +129,42 @@ public class MemberController {
 		
 		return resultMap;
 	}
+	/* sms 인증 */
+	@RequestMapping(value = "/sendSMS.do",method = RequestMethod.POST)
+	@ResponseBody
+	public String sendSMS(String phoneNumber) {
+		  Random rand  = new Random(); // 인증번호를 위한 난수 생성
+	        String numStr = "";
+	        for(int i=0; i<8; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+	        System.out.println("수신자 번호 : " + phoneNumber);
+	        System.out.println("인증번호 : " + numStr);
+	        cService.certifiedPhoneNumber(phoneNumber,numStr);
+	        return numStr;
+	    }
+	
+	
+	/* 회원가입 폼 이동 */
+	@RequestMapping(value = "/findIdPage.do")
+	public String findIdPage() {
+		return "findIdPage";	
+	}
+	
+	@RequestMapping(value = "/findId.do" ,method = RequestMethod.POST)
+	public String findId(@RequestParam Map<String,Object> map, Model model) {
+		logger.info("MemberController",map);
+		String s = service.findId(map);
+		logger.info("찾은아이디 : {}",s);
+		
+		model.addAttribute("mId",s);
+	
+		
+		return "";		
+	}
+	
+	
 	
 	
 	

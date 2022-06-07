@@ -97,13 +97,13 @@ public class TestLisJunit_KHU {
 	}
 	
 	/* 회원 아이디 찾기 BR_W_UM_011 */
-//	@Test
+	@Test
 	public void findId() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", "김휘웅1");
 		map.put("phone", "01042935376");
-		LibMemberVo vo = mDao.findId(map);
-		logger.info("찾은 아이디 : {}", vo.getMember_id());
+		String vo = mDao.findId(map);
+		logger.info("찾은 아이디 : {}", vo);
 	}
 	
 	/* 비밀번호 찾기 인증BR_W_UM_012  */

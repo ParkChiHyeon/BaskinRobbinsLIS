@@ -377,7 +377,7 @@
 					<div class="upper mobileHide">
 						<!-- after Login -->
 						<div class="innerWrap">
-							<c:if test="${member.auth eq null}"> 
+							<c:if test="${member.auth eq null && admin.admin_id == null }"> 
 							<span class="txtBtn_darkGray sizeSmall">
 							<a
 								href="./loginPage.do">로그인</a></span>
@@ -391,6 +391,18 @@
 								class="txtBtn_darkGray sizeSmall ml10"><a
 								href="./logout.do">로그아웃</a></span>	
 								</c:if>
+							<c:if test="${member.auth eq null && admin.admin_id == null }"> 
+							<span
+								class="txtBtn_darkGray sizeSmall ml10"><a
+								href="./adminCertification.do">관리자</a></span>	
+								</c:if>	
+								
+								<c:if test="${admin.admin_id != null }"> 
+							<span
+								class="txtBtn_darkGray sizeSmall ml10"><a
+								href="#">관리자 기능</a></span>	
+								</c:if>	
+								
 						</div>
 					</div>
 					<div class="downer" id="downer">

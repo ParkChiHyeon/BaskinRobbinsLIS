@@ -44,11 +44,18 @@
 								</li>
 							</c:if>
 							
-							<c:if test="${member.auth eq null}"> 
+							<c:if test="${admin.admin_id != null}">
+								<li>
+								<a>로그인 정보 :${admin.admin_id}[관리자]</a>
+								<li><a href="./logout.do"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+								</li>
+							</c:if>
+							
+							<c:if test="${member.auth eq null && admin.admin_id == null }"> 
 							<li><a href="./loginPage.do">로그인</a></li>
 							</c:if>
 							
-							<c:if test="${member.auth eq null}"> 
+							<c:if test="${member.auth eq null && admin.admin_id==null }"> 
 							<li class="mobileHide"><a href="./signUpPage.do">회원가입</a></li>
 							</c:if>
 							

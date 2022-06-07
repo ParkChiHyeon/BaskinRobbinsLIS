@@ -34,9 +34,7 @@
         }
         bis.close();
         
-        // JSON으로 변환 
-        if(responseBody.toString().indexOf("\"success\": true") > -1)
-            out.println("인증 되었습니다");
+      
     }
     
 %>
@@ -124,8 +122,10 @@ label{
 }
 
 #ulForm{
-	margin : 0 auto; display: table; border: 2px solid;
+	margin : 40px auto; display: table; border: 2px solid;
 }
+
+
 
 
 </style>
@@ -134,14 +134,14 @@ label{
  <link href="./khu_css/style.css" rel="stylesheet">
 <%@ include file="./header.jsp" %>
 <body>
-	<form action="./signUp.do" method="POST">
+	<form action="#" method="POST">
 	<div class="container">
 	
 		<ul class="list-group" id="ulForm">				
 		<li class="list-group-item" id="idInput">
-		<label>아이디&nbsp;</label>
+		<label>아이디</label>
 		<input type="text" class="form-control" placeholder="ID" id="id_textbox" name="member_id" required>
-		<button type="button" id="btnIdDuplicateCheck" onclick="idDuplicateCheck()"class="btn btn-primary">중복확인</button>
+		<button type="button" id="btnIdDuplicateCheck" onclick="idDuplicateCheck()"class="btn btn-outline-primary">중복확인</button>
 		</li>
 		<li class="list-group-item"><span id="resultId"><a></a></span></li>
 		
@@ -149,7 +149,7 @@ label{
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>비밀번호&nbsp;</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required> 
+		<label>비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required> 
 		</li>
 		<li class="list-group-item"><span id="resultPw"><a></a></span></li>
 		
@@ -157,14 +157,14 @@ label{
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>비밀번호 확인&nbsp;</label><input type="password" class="form-control"  id="pwChk_textbox" required>
+		<label>비밀번호 확인</label><input type="password" class="form-control"  id="pwChk_textbox" required>
 		</li>
 		<li class="list-group-item"><span id="resultPw2"><a></a></span></li>
 		
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>이름&nbsp;</label><input type="text" class="form-control"  id="name_textbox" name="name" required>
+		<label>이름</label><input type="text" class="form-control"  id="name_textbox" name="name" required>
 		</li>
 		
 		
@@ -180,27 +180,29 @@ label{
 		
 		<li class="list-group-item" id="idInput">
 		<label>전화번호</label><input type="text" class="form-control" placeholder="ex)01012345678" id="phone_textbox" name="phone" maxlength="11" required>
-		<input type="button" class="btn btn-primary" value="인증번호 전송" id="btnPhoneChk" onclick="#">
+		<input type="button" class="btn btn-outline-primary" value="인증번호 전송" id="sendPhoneNumber">
 		</li>
 		<li class="list-group-item"><span id="resultPhone"><a>하이픈(-) 제외</a></span></li>
 		
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>인증번호</label><input type="text" class="form-control" id="phoneCheck_textbox" name="phoneCheckNum" maxlength="6" required>
+		<label>인증번호</label><input type="text" class="form-control" id="phoneCheck_textbox" name="phoneCheckNum" maxlength="8" required>
+		<input type="button" id="checkBtn" value="확인" class="btn btn-outline-primary">
+		<div class="time"></div>
 		</li>
 		
 		
 		
 		<li class="list-group-item" id="idInput">
 		<label>주소</label><input type="text" class="form-control" id="detailAddress_textbox" placeholder="상세주소" name="address" autocomplete="name" required>
-		<input type="button" class="btn btn-primary" value="우편번호 찾기" id="zipSearch_textbox" onclick="kakaopost()">
+		<input type="button" class="btn btn-outline-primary" value="우편번호 찾기" id="zipSearch_textbox" onclick="kakaopost()">
 		</li>
 		
 		
 		
 		<li class="list-group-item"><div id="recaptcha_render" ></div></li>
-		<li class="list-group-item"><input type="submit" class="btn btn-success" value="가입완료" onclick="signUp()" id="btnSignUp" ></li>
+		<li class="list-group-item"><input type="submit" class="btn btn-outline-primary" value="가입완료" onclick="signUp()" id="btnSignUp" ></li>
 				
 			
 				
@@ -212,6 +214,74 @@ label{
 <%@ include file="./footer.jsp" %>
 
 <script type="text/javascript">
+
+var timer = null;
+var isRunning = false;
+
+$('#sendPhoneNumber').click(function(){
+    let phoneNumber = $('#phone_textbox').val();
+    swal("인증번호 발송 완료");
+    var display = $('.time');
+    var leftSec = 180;
+    
+    if(isRunning){
+    	clearInterval(timer);
+    	display.html("");
+    	startTimer(leftSec, display);
+    }else{
+    	startTimer(leftSec, display);
+    }
+    
+    var docum = document.getElementById("checkBtn").disabled;
+    
+    $.ajax({
+        type: "POST",
+        url: "./sendSMS.do",
+        data: {"phoneNumber" : phoneNumber}, // 핸드폰 값이 넘어감
+        success: function(res){ // 인증번호 값이 넘어옴
+        	$('#checkBtn').click(function(){
+        		if($('#phoneCheck_textbox').val()=='') {
+            		swal('값을 입력하세요.');
+            	}else if(isRunning && $.trim(res)==$('#phoneCheck_textbox').val()){
+            		swal('인증 성공');
+            		clearInterval(timer);
+            		display.html("");
+            	}else{
+            		if(isRunning){
+            			swal('인증번호가 맞지 않습니다');
+            		} else {
+            			swal('시간이 초과되었습니다');
+            		}
+            	}
+        	})
+        }
+    })
+});
+function startTimer(count, display) {
+	var minutes, seconds;
+    timer = setInterval(
+function () {
+    minutes = parseInt(count / 60, 10);
+    seconds = parseInt(count % 60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.html(minutes + ":" + seconds);
+
+    // 타이머 끝
+    if (--count < 0) {
+     clearInterval(timer);
+     alert("시간초과");
+     display.html("시간초과");
+     $('#checkBtn').attr("disabled","disabled");
+     isRunning = false;
+    }
+}, 1000);
+     isRunning = true;
+}
+
+
 var onloadCallback = function() {
     grecaptcha.render('recaptcha_render', {
     	/* 사이트 키 */
@@ -256,17 +326,17 @@ function idDuplicateCheck() {
 		success: function(msg){
 			if(msg.isc=="성공"){
 				swal("중복된 아이디입니다");
-				$("#chkval").val(0);
 				$("#id_textbox").focus();
+				return false;
 				
 			}else{
 				swal("사용 가능한 아이디 입니다");
-				$("#chkval").val(1);
 				$("#pw_textbox").focus();
 			}
 		},
 		error :function(){
 			swal("회원가입 실패","에러가 발생하였습니다")
+			return false;
 		}
 		
 	})
@@ -275,6 +345,7 @@ function idDuplicateCheck() {
 
 
 $(document).ready(function(){
+		
 	$("#id_textbox").keyup(function(){
 		var idVal = $(this).val();
 		console.log(idVal);
@@ -285,10 +356,9 @@ $(document).ready(function(){
 		}else if(idVal.indexOf(" ") != -1){
 			$("#resultId").css("color","red");
 			$("#resultId").html("공백이 포함된 아이디는 사용할 수 업습니다.");
-			$("#chkval").val(0);
 		}else{
 			$("#resultId").html("")
-			$("#chkval").val(1);
+			return false;
 		}
 	});
 });
@@ -301,11 +371,10 @@ $(document).ready(function(){
 		console.log(pwVal);
 		if(pwVal.match(reg)){	
 			$("#resultPw").html("")
-			$("#chkval").val(1);
 		}else{
 			$("#resultPw").css("color","red");
 			$("#resultPw").html("최소 8 자 및 최대 20 자, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자 및 하나의 특수 문자 정규식");
-			$("#chkval").val(0);	
+			return false;
 		}
 	});
 });
@@ -317,11 +386,10 @@ $(document).ready(function(){
 		console.log(exPwVal);
 		if(pwVal.match(exPwVal)){
 			$("#resultPw2").html("")
-			$("#chkval").val(1);
 		}else{
 			$("#resultPw2").css("color","red");
 			$("#resultPw2").html("비밀번호를 다시 확인해주세요");
-			$("#chkval").val(0);
+			return false;
 		}
 	});
 });
@@ -332,11 +400,10 @@ $(document).ready(function(){
 		var reg = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})";
 		if(phoneVal.match(reg)){
 			$("#resultPhone").html("")
-			$("#chkval").val(1);
 		}else{
 			$("#resultPhone").css("color","red");
 			$("#resultPhone").html("핸드폰 번호를 다시 확인해주세요");
-			$("#chkval").val(0);
+			return false;
 		}
 	});
 });
@@ -353,7 +420,6 @@ $(document).ready(function(){
 		var reg = "^[0-9]{7,7}";
 		if(birthVal.match(reg)){
 			$("#resultBirth").html("")
-			$("#chkval").val(1);
 		}else{
 			console.log(birthVal.match(reg))
 			$("#resultBirth").css("color","red");
@@ -374,7 +440,6 @@ document.getElementById("btnSignUp").addEventListener("click",function(evt)
 		    return false;
 		  }
 		  else{
-			  swal("회원가입 성공","로그인페이지로 이동합니다");
 		     let msg = {
 		        'response': response,
 		    }
