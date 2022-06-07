@@ -22,4 +22,6 @@ public interface IReturnBookService {
 	public int delayLendingBook(String lending_seq);
 	public List<BookInfoVo> warehouseList();
 	public List<BookInfoVo> supplementList();
+	public void certifiedPhoneNumber(String phone, String name);
+	public int reserveSelfDel(String lending_seq);
 }
