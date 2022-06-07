@@ -164,6 +164,7 @@
   	WHERE MEMBER_CODE =#{member_code}
   	AND LENDING_SEQ =#{lending_seq})
   	FROM DUAL)
+  	WHERE MEMBER_CODE = #{member_code}
 	</update>  
 	
 	<!-- 연체 패널티 복구 BR_W_UM_023-->

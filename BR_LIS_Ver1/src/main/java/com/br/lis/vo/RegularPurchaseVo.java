@@ -122,4 +122,24 @@ public class RegularPurchaseVo {
 				+ ", receive_date=" + receive_date + "]";
 	}
 
+	public RegularPurchaseVo(String regular_serial, String purchase_code, String isbn, String title, String publisher,
+			String author, String translator, String price, String ea, String confirm, String history,
+			String receive_date) {
+		super();
+		this.regular_serial = regular_serial;
+		this.purchase_code = purchase_code;
+		this.isbn = isbn;
+		this.title = title;
+		this.publisher = publisher;
+		this.author = author;
+		this.translator = translator;
+		this.price = price;
+		this.ea = ea;
+		this.confirm = confirm;
+		this.history = history;
+		this.receive_date = receive_date;
+	}
+	
+	
+
 }

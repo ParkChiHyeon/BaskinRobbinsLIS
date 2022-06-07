@@ -14,6 +14,7 @@
  	<typeAlias type="com.br.lis.vo.RequestPurchaseVo" alias="RequestPurchaseVo"/>
  	<typeAlias type="com.br.lis.vo.LendBookBean" alias="LendBookBean"/>
  	<typeAlias type="com.br.lis.vo.Possessing_BookVo" alias="Possessing_BookVo"/>
+ 	<typeAlias type="com.br.lis.vo.ReservationVo" alias="ReservationVo"/>
  </typeAliases>
  <mappers>
  	<mapper resource="sqls/admin.xml"/>

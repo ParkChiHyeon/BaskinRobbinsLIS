@@ -42,6 +42,10 @@ window.onload=function(){
 .table_Area{
 	margin-top: 20px;
 }
+.dataTable{
+/* 	table-layout:fixed; */
+font-size: 12px;
+}
 </style>
 <body>
 
@@ -66,11 +70,10 @@ window.onload=function(){
 					<h3>통합검색</h3>
 					<form class="form-inline" onsubmit="return false">
 					<select class="form-control" id="searchKey" name="searchKey" title="검색 선택">
-						<option value="ALL">전체</option>
-						<option value="TITLE">서명</option>
-						<option value="AUTHOR">저자</option>
-						<option value="PUBLISHER">발행자</option>
-						<option value="KEYWORD">키워드</option>
+						<option value="title">서명</option>
+						<option value="author">저자</option>
+						<option value="publisher">출판사</option>
+						<option value="isbn">ISBN</option>
 					</select>
 						<input	type="text"  class="form-control" id="bookSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 80%">
 						<button class="btn btn-primary" onclick="bookSearchTotal()">검색</button>
@@ -98,11 +101,10 @@ window.onload=function(){
 					<h3>희망도서신청</h3>
 					<form class="form-inline" onsubmit="return false">
 					<select class="form-control" id="searchKey" name="searchKey" title="검색 선택">
-						<option value="ALL">전체</option>
-						<option value="TITLE">서명</option>
-						<option value="AUTHOR">저자</option>
-						<option value="PUBLISHER">발행자</option>
-						<option value="KEYWORD">키워드</option>
+						<option value="title">서명</option>
+						<option value="author">저자</option>
+						<option value="publisher">출판사</option>
+						<option value="isbn">ISBN</option>
 					</select>
 						<input	type="text"  class="form-control" id="requestSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 80%">
 						<button class="btn btn-primary" onclick="bookSearchTotal()">검색</button>
@@ -111,11 +113,6 @@ window.onload=function(){
 				</c:if>
 				<div class="table_Area">
 						<table id="bookSearchTotal" class="cell-border" style="float:right;"> 
-							<thead>
-								<tr>
-									<td>도서목록</td>
-								</tr>
-							</thead>
 						</table>
 				</div>
 		</div>
@@ -131,7 +128,7 @@ function dataTableMake(table_id){
     	//https://datatables.net/reference/option/language
     		"language": {
             "emptyTable": "검색을 해주시기 바랍니다.",
-            "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+            "lengthMenu": " _MENU_ 개씩 보기",
             "info": "현재 _START_ - _END_ / _TOTAL_건",
             "infoEmpty": "0/0",
             "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",

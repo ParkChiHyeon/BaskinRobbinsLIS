@@ -34,6 +34,8 @@
 해당 페이지에 들어가면 부트스트랩처럼 class로 테이블 디자인 설정 가능 -->
 <div id="middle" >
 		<div id="contbody">
+		
+		<!-- 왼쪽 메뉴바 -->
 			<div id="contleft" class="contleft">
 				<h2>정보마당</h2>
 				<div class="lnbBody" style="min-height: 550px;">
@@ -45,13 +47,20 @@
 					<div class="lnbBottom"></div>
 				</div>
 			</div>
+			
+			<!-- 테이블 -->
 			<div id="contentcore" style="margin-bottom: 30px">
 		<table id="noticeBoardTable" class="cell-border" style="float:right;"> 
 			<thead>
 				<tr>
+					<td>
+					<input type="checkbox" id="allCheck" onclick="checkAll(this.checked)" class="allCheckBox">
+					</td>
 					<td style="width: 50px">글번호</td>
 					<td>제목</td>
+					<c:if test="${kind=='notice'}">
 					<td>등록일</td>
+					</c:if>
 				</tr>
 			</thead>
 				
@@ -60,23 +69,34 @@
 					<c:set var="i" value="${i+1}"/>
 				<tr>
 					<c:if test="${kind == 'faq'}">
+					<td><input type="checkbox" name="ch" class="ch" value="${vo.faq_seq}"></td>
 						<td>${i}</td>
 					</c:if>
 					<c:if test="${kind=='notice'}">
+						<td><input type="checkbox" name="ch" class="ch" value="${vo.notice_seq}"></td>
 					<td>${vo.notice_seq}</td>
 					</c:if>
 					<td><a href="#">${vo.title}</a></td>
+					<c:if test="${kind=='notice'}">
 					<td>${vo.regdate}</td>
+					</c:if>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div>
-	<c:if test="${kind == 'notice' }">
-	<button class="btn btn-primary" onclick="javascript:location.href='./modifynotice.do'">공지작성</button>
-	</c:if>
-	<button class="btn btn-info" onclick="javascript:location.href='./home.do'"  style="float:right;">돌아가기</button>
-	</div>
+			<c:if test="${kind == 'notice' }">
+				<button class="btn btn-primary" onclick="javascript:location.href='./modifynotice.do'">공지작성</button>
+				<input class="btn btn-info btn-primary" type="submit" value="다중삭제">
+			</c:if>
+		
+			<c:if test="${kind == 'faq' }">
+				<button class="btn btn-primary" onclick="javascript:location.href='./modifynotice.do'">faq작성</button>
+				<input class="btn btn-info btn-primary" type="submit" value="다중삭제">
+			</c:if>
+			<button class="btn btn-info" onclick="javascript:location.href='./home.do'"  style="float:right;">돌아가기</button>
+		</div>
+	
 	</div>
 </div>
 	</div>
@@ -103,7 +123,7 @@ $(document).ready(function(){
                 "previous": "이전"
             }
         },
-        
+        responsive: true,
         lengthChange: true, // 표시 건수기능 숨기기
         searching: true, // 검색 기능 숨기기
         ordering: true, // 정렬 기능 숨기기

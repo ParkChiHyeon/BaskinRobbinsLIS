@@ -68,6 +68,18 @@ public class CalendarBoardVo {
 				+ ", content=" + content + ", regdate=" + regdate + ", start_date=" + start_date + ", end_date="
 				+ end_date + "]";
 	}
+
+	public CalendarBoardVo(String calendar_seq, String admin_id, String title, String content, String regdate,
+			String start_date, String end_date) {
+		super();
+		this.calendar_seq = calendar_seq;
+		this.admin_id = admin_id;
+		this.title = title;
+		this.content = content;
+		this.regdate = regdate;
+		this.start_date = start_date;
+		this.end_date = end_date;
+	}
 	
 	
 

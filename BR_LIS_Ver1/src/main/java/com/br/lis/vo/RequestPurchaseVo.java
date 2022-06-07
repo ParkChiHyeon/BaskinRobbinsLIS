@@ -131,4 +131,25 @@ public class RequestPurchaseVo {
 				+ ", history=" + history + ", receive_date=" + receive_date + "]";
 	}
 
+	public RequestPurchaseVo(String wish_serial, String member_id, String purchase_code, String isbn, String title,
+			String publisher, String author, String translator, String price, String ea, String confirm, String history,
+			String receive_date) {
+		super();
+		this.wish_serial = wish_serial;
+		this.member_id = member_id;
+		this.purchase_code = purchase_code;
+		this.isbn = isbn;
+		this.title = title;
+		this.publisher = publisher;
+		this.author = author;
+		this.translator = translator;
+		this.price = price;
+		this.ea = ea;
+		this.confirm = confirm;
+		this.history = history;
+		this.receive_date = receive_date;
+	}
+	
+	
+
 }
