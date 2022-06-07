@@ -140,4 +140,29 @@ public class BookInfoVo {
 				+ ", sp=" + sp + ", dg=" + dg + ", nm=" + nm + ", wh=" + wh + "]";
 	}
 
+	public BookInfoVo(String isbn, String title, String publisher, String author, String total_count, String category,
+			String book_serial, String regdate, String ld, String rv, String dl, String ba, String od, String sp,
+			String dg, String nm, String wh) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+		this.publisher = publisher;
+		this.author = author;
+		this.total_count = total_count;
+		this.category = category;
+		this.book_serial = book_serial;
+		this.regdate = regdate;
+		this.ld = ld;
+		this.rv = rv;
+		this.dl = dl;
+		this.ba = ba;
+		this.od = od;
+		this.sp = sp;
+		this.dg = dg;
+		this.nm = nm;
+		this.wh = wh;
+	}
+	
+	
+
 }

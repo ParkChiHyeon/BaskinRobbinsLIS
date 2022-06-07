@@ -33,6 +33,14 @@ public class AdminVo {
 	public String toString() {
 		return "AdminVo [admin_id=" + admin_id + ", password=" + password + ", hiredate=" + hiredate + "]";
 	}
+
+	public AdminVo(String admin_id, String password, String hiredate) {
+		super();
+		this.admin_id = admin_id;
+		this.password = password;
+		this.hiredate = hiredate;
+	}
+	
 	
 	
 

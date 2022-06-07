@@ -8,7 +8,7 @@ body {font-size:12px;}
 @font-face {font-family:'Nanum Gothic'; font-style:normal; font-weight:800; src:url(../../font/NanumGothic-ExtraBold.eot); src:url(../../font/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'), url(../../font/NanumGothic-ExtraBold.woff2) format('woff2'), url(../../font/NanumGothic-ExtraBold.woff) format('woff'), url(../../font/NanumGothic-ExtraBold.ttf) format('truetype');}
 html, body, div, span, iframe, p, h1, h2, h3, h4, h5, h6, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, select, table, th, td, article, aside, section {margin:0; padding:0;}
 figure, figcaption, img, fieldset {border:0;}
-table {width:100%; border-collapse:separate; border-spacing:0;  font-size:inherit;}
+table {width:100%; border-collapse:separate; border-spacing:0;  /* font-size:inherit; */}
 ol, ul {list-style:none;}
 img {max-width:100%; max-height:100%;}
 label, input, span, img {vertical-align:middle}
