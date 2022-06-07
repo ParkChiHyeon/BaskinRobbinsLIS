@@ -3,6 +3,8 @@ package com.br.lis.model.board.mapper;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,6 +21,7 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 	@Override
 	public Notice_FAQBoardVo viewDetailNotice(String seq) {
+		sqlSession.close();
 		return null;
 	}
 
@@ -30,11 +33,13 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 	@Override
 	public int modifyNotice(Notice_FAQBoardVo noticeVo) {
+		sqlSession.close();
 		return sqlSession.insert(NS+"modifyNotice",noticeVo);
 	}
 
 	@Override
 	public int insertNotice(Map<String, Object> map) {
+		sqlSession.close();
 		return sqlSession.insert(NS+"insertNotice",map);
 	}
 

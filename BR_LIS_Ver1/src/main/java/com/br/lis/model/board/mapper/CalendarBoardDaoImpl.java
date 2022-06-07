@@ -26,16 +26,19 @@ public class CalendarBoardDaoImpl implements ICalendarBoardDao {
 	
 	@Override
 	public int insertCalendar(Map<String, String> map) {
+		sqlSession.close();
 		return sqlSession.insert(NS+"insertCalendar", map);
 	}
 
 	@Override
 	public int modifyCalendar(Map<String, Object> map) {
+		sqlSession.close();
 		return sqlSession.update(NS+"modifyCalendar", map);
 	}
 
 	@Override
 	public int deleteCalendar(List<String> seqs) {
+		sqlSession.close();
 		return sqlSession.delete(NS+"deleteCalendar", seqs);
 	}
 
