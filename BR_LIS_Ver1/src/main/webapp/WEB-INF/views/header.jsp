@@ -44,10 +44,21 @@
 								</li>
 							</c:if>
 							
-							<c:if test="${member.auth eq null}"> 
+							<c:if test="${admin.admin_id != null}">
+								<li>
+								<a>로그인 정보 :${admin.admin_id}[관리자]</a>
+								<li><a href="./logout.do"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+								</li>
+							</c:if>
+							
+							<c:if test="${member.auth eq null && admin.admin_id == null }"> 
 							<li><a href="./loginPage.do">로그인</a></li>
 							</c:if>
+							
+							<c:if test="${member.auth eq null && admin.admin_id==null }"> 
 							<li class="mobileHide"><a href="./signUpPage.do">회원가입</a></li>
+							</c:if>
+							
 					<li class="mobileHide"><a href="/jungang/10091/40013/content.do">사이트맵</a></li>
 				</ul>
 			</div>
@@ -202,8 +213,10 @@
 					<ul class="MkSub">
 					<li id="gnb6_4_1" class=""><a href="/jungang/10066/40147/content.do" >이용시간/휴관일</a>
 							</li>
+							<c:if test="${member.auth eq null}"> 
 						<li id="gnb6_4_2" class=""><a href="/jungang/10067/40081/content.do" >회원가입</a>
 							</li>
+							</c:if>
 						<li id="gnb6_4_3" class=""><a href="/jungang/10068/40011/content.do" >관외대출</a>
 							</li>
 						<li id="gnb6_4_4" class=""><a href="/jungang/10069/40032/content.do" >반디움</a>
@@ -292,10 +305,14 @@
 			</li>
 	<li id="gnb9"><a href="/jungang/10094/30027/program.do" >회원</a>
 			<ul>
+			<c:if test="${member.auth eq null}"> 
 			<li id="gnb9_1" class=""><a href="/jungang/10094/30027/program.do" >로그인</a>
 					</li>
+					</c:if>
+				<c:if test="${member.auth eq null}"> 	
 				<li id="gnb9_2" class=""><a href="/member/join.do"  target="_self">회원가입</a>
 					</li>
+					</c:if>
 				<li id="gnb9_3" class=""><a href="/member/findId.do"  target="_self">아이디찾기</a>
 					</li>
 				<li id="gnb9_4" class=""><a href="/member/findPwd.do"  target="_self">비밀번호 재발급</a>

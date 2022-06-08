@@ -15,7 +15,7 @@ public interface ILibMemberDao {
 	
 	public LibMemberVo loginMember(Map<String, String> map);
 	
-	public LibMemberVo findId(Map<String, Object> map);
+	public String findId(Map<String, Object> map);
 
 	public int findPw(Map<String, Object> map);
 

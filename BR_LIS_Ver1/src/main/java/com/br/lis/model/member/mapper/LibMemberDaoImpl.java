@@ -69,7 +69,7 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 	}
 
 	@Override
-	public LibMemberVo findId(Map<String, Object> map) {
+	public String findId(Map<String, Object> map) {
 		return sqlSession.selectOne(NS+"findId", map);
 	}
 
