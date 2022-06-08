@@ -28,13 +28,12 @@
 
 body {
   font-family: 'Noto Sans KR', sans-serif;
-  justify-content: center;
-  align-items: center;
+/*   justify-content: center; */
+/*   align-items: center; */
 /*   background-color : #FFCCFF; */
 /*   background-image: url("../khu_images/�떎�뙣�옉4.png"); */
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 90%; 
   
 }
 
