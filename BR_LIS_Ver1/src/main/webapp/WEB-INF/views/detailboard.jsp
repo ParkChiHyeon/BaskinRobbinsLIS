@@ -50,24 +50,29 @@
 				</div>
 			</div>
 			
-			<div id="contentcore">
-
+			
+		<!-- 1.공지사항& 2.FAQ 상세보기 -->
+		<div id="contentcore">
+				
+				
+				<!-- 1.공지사항 상세보기 -->
+				<c:if test="${kind=='notice'}">
 				<div class="naviandtitle">
 					<h3>공지사항</h3>
-					<div class="navi"><a href="./home.do"><img src="/include/image/global/common/icon_home.gif" alt="홈"></a> 정보마당<span class="mobileHide"> &gt; <strong>공지사항</strong></span></div>
+					<div class="navi"><a href="./home.do"><img src="./include/image/global/common/icon_home.gif" alt="홈"></a> 정보마당<span class="mobileHide"> &gt; <strong>공지사항</strong></span></div>
 				</div>
 				<div class="contents" id="contents">
 
-			<div class="ttabWrap">
-				<ul id="ttab3" class="tabType5">
-					<li class="ttabLast"></li>
-				</ul>
-			</div>
+					<div class="ttabWrap">
+						<ul id="ttab3" class="tabType5">
+							<li class="ttabLast"></li>
+						</ul>
+					</div>
 
 					<!--Real Contents Start-->
 					<div class="boardWrap">
 						<table class="bd00view">
-							<caption>게시물 내용 상세보기 : 제목, 등록일, 조회수, 첨부파일, 내용의 상세보기표</caption>
+							<caption>게시물 내용 상세보기 : 제목, 등록일, 첨부파일, 작성자, 내용의 상세보기표</caption>
 							<colgroup>
 							<col style="width:15%;">
 							<col>
@@ -97,32 +102,28 @@
 							</tr>
 						</tbody></table>
 					</div>
+					
+					
 					<div class="btn_farm2 mt20">
 						<!-- Text Button -->
 						<span class="themeBtn sizeMiddle"><a href="./noticeboard.do" id="listBtn">목록</a></span>
 						<!-- Text Button -->
 					</div>
 
-
-
 				</div>
-			</div>
+			</c:if><!-- 공지사항상세보기 끝 -->
 			
 			
 			
-			
-			
-			
-			
+			<!-- FAQ 상세보기 -->
+			<!-- faq상세보기 상단 -->
+			<c:if test="${kind=='faq'}">
 			<div class="naviandtitle">
 					<h3>자주 묻는 질문</h3>
-					<div class="navi"><a href="./home.do"><img src="/include/image/global/common/icon_home.gif" alt="홈"></a> 정보마당<span class="mobileHide"> &gt; <strong>FAQ</strong></span></div>
-				</div>
-
-				<div class="contents" id="contents">
-					
-
-
+					<div class="navi"><a href="./home.do"><img src="./include/image/global/common/icon_home.gif" alt="홈"></a> 정보마당<span class="mobileHide"> &gt; <strong>FAQ</strong></span></div>
+			</div>
+				
+<!-- 			<div class="contents" id="contents"> -->
 			<div class="ttabWrap">
 				<ul id="ttab3" class="tabType5">
 					<li class="ttabLast"></li>
@@ -130,14 +131,8 @@
 			</div>
 			
 			
+			<!--faq상세보기 테이블-->
 			
-			
-			
-			
-			
-			
-			
-			<!--Real Contents2 Start-->
 					<div class="boardWrap">
 						<table class="bd00view">
 							<caption> 자주묻는 질문 내용 상세보기 : 제목, 내용의 상세보기표</caption>
@@ -151,11 +146,11 @@
 							
 							<tr>
 								<th class="bd01th" scope="row">제목</th>
-								<td colspan="3" class="bd01td">${fvo.title}</td>
+								<td colspan="3" class="bd01td">${vo.title}</td>
 							</tr>
 							<tr>
 								<th class="bd01th" scope="row">내용</th>
-								<td colspan="4" class="bd01tdC"><p><br></p><p style="">${fvo.content}</p><p><br></p></td>
+								<td colspan="4" class="bd01tdC"><p><br></p><p style="">${vo.content}</p><p><br></p></td>
 							</tr>
 						</tbody>
 						</table>
@@ -166,48 +161,13 @@
 						<!-- Text Button -->
 					</div>
 
+			</c:if>
 
-
-				</div>
-			</div>
-			
-			
-<!-- 		<div id="contentcore" style="margin-bottom: 30px"> -->
-<!-- 			<form action="#" class="form-horizontal"> -->
-<%-- 			<input class="form-control" type="text" value="${dto.title}">  --%>
-<%-- 			<input class="form-control" type="text" value="${dto.regdate}"> --%>
-<%-- 			<a><input class="form-control" type="text" value="${dto.file_path}"></a> --%>
-<!-- 			</form> -->
-<!-- 			<div class="form-group"> -->
-<%-- 			<textarea class="form-control" rows="30" id="comment">${dto.content}</textarea> --%>
-<!-- 			</div> -->
-<!-- 		<table class="bd00view"> -->
-<!-- 			<tbody> -->
-<!-- 				<tr> -->
-<!-- 					<td>제목</td> -->
-<%-- 					<td>${dto.title}</td> --%>
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td>등록일</td> -->
-<%-- 					<td>${dto.regdate}</td> --%>
-<!-- 					<td>작성자</td> -->
-<%-- 					<td>${dto.admin_id}</td> --%>
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td>첨부파일</td> -->
-<%-- 					<td><a>${dto.file_path}</a></td> --%>
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td> -->
-<%-- 						${dto.content} --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 			</tbody> -->
-<!-- 		</table>	 -->
-		
-<!-- 	</div> -->
-</div>
+		</div> <!-- 1.공지사항& 2.FAQ 상세보기 끝 -->
 	</div>
+</div>
+			
+</div>
 
 <script type="text/javascript">
 

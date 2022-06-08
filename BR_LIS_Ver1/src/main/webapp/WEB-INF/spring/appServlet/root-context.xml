@@ -15,12 +15,18 @@
 		
 		<context:property-placeholder location="classpath:properties/db.properties"/>
 
+
 	
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
 		<property name="driverClassName" value="${db.driver}"/>
 		<property name="url" value="${db.url}"/>
 		<property name="username" value="${db.user}"/>
 		<property name="password" value="${db.pw}"/>
+		<property name="initialSize" value="0"/>
+        <property name="maxActive" value="18"/>
+        <property name="maxIdle" value="10"/>
+        <property name="maxWait" value="5000"/>
+        <property name="defaultAutoCommit" value="true"/>
 	</bean>	
 	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">

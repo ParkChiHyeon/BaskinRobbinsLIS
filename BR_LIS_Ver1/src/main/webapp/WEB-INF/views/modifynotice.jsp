@@ -3,24 +3,6 @@
 <%@ page session="false" %>
 <html>
 <head>
-<style type="text/css">
-/* 왜?안돼? */
-#container {
-  font-family:'NanumGothic'; 
-  src:url('fonts/NanumGothicRegular.eot'); 
-  src:url('fonts/NanumGothicRegular.eot?#iefix') format(‘embedded-opentype’),
-  url('fonts/NanumGothicRegular.woff') format(‘woff’),
-  url('fonts/NanumGothicRegular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-#footer{
- 	position:absolute;
- 	bottom: 0;
- 	width: 100%
-}
-
-</style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.js"></script>
@@ -31,22 +13,58 @@
 </head>
 <body>
 
-<div class="container">
-	<h3><a href="./noticeboard.do?">공지사항 게시판</a></h3>
-<!-- 	<h3><a href="./ajaxTables.do">데이터테이블 아작스로 해보자!</a></h3> -->
-	<hr>
-	<div>
-		<h3>공지사항 작성폼</h3>
-		<form id="modifynotice" onsubmit="return modifynotice()" method="post">
-			작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
-			제목: <input type="text" id="title" name="title" class="form-control"><br>
-			내용: <textarea name="content" id="content"></textarea>
-			<input type="submit" class="btn btn-default" value="저장">
-			<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
-		</form>
-	</div>
+<div id="middle" >
+		<div id="contbody">
 		
+		<!-- 왼쪽 메뉴바 -->
+			<div id="contleft" class="contleft">
+				<h2>정보마당</h2>
+				<div class="lnbBody" style="min-height: 550px;">
+					<ul id="lnb" class="lnbul">
+						<li id="lnb4_1"><a id="lnb4_1_a" href="./noticeboard.do">공지사항</a></li>
+						<li id="lnb4_2"><a id="lnb4_2_a" href="./faqboard.do">FAQ</a></li>
+						<li id="lnb4_3"><a id="lnb4_3_a">도서관일정</a></li>
+					</ul>
+					<div class="lnbBottom"></div>
+				</div>
+			</div>
+			
+			<!--  -->
+			<div id="contentcore" style="margin-bottom: 30px">
+			
+				<hr>
+				<div>
+					<h3>정보마당 새 글 입력폼</h3>
+				<c:if test="${kind == 'notice' }">
+					<form id="modifynotice"  method="post" action="./insertNotice.do">
+						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
+						제목: <input type="text" id="title" name="title" class="form-control"><br>
+						내용: <textarea name="content" id="content"></textarea>
+						<input type="submit" class="btn btn-default" value="저장">
+						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
+					</form>
+				</c:if>
+				
+				<c:if test="${kind == 'faq' }">
+					<form id="modifyfaq" method="post" action="./insertFAQ.do">
+						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
+						제목: <input type="text" id="title" name="title" class="form-control"><br>
+						내용: <textarea name="content" id="content"></textarea>
+						<input type="submit" class="btn btn-default" value="저장">
+						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
+					</form>
+				</c:if>
+				
+				
+				
+			</div>
+			
+			
+			</div>
+	</div>
 </div>
+
+
  <script>
 CKEDITOR.replace( 'content' ,{
 									//language: 'en', //에디터의 언어 설정

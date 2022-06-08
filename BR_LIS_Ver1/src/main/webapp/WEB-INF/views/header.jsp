@@ -141,9 +141,9 @@
 			</li>
 	<li id="gnb4"><a href="./noticeboard.do" >정보마당</a>
 			<ul>
-			<li id="gnb4_1" class=""><a href="./noticeboard.do" >공지사항</a>
+			<li id="gnb4_1" class=""><a href="./noticeboard.do?kind=notice" >공지사항</a>
 					</li>
-				<li id="gnb4_2" class=""><a href="./faqboard.do" >FAQ</a>
+				<li id="gnb4_2" class=""><a href="./faqboard.do?kind=faq" >FAQ</a>
 					</li>
 				<li id="gnb4_3" class=""><a href="./calendarboard.do" >도서관일정</a>
 					</li>
