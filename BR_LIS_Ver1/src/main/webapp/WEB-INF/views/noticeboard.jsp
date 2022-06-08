@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
-<script type="text/javascript" src="./noticeboard.js"></script>
+<script type="text/javascript" src="./BR_js/noticeboard.js"></script>
 </head>
 <body>
 
@@ -41,8 +41,8 @@
 				<h2>정보마당</h2>
 				<div class="lnbBody" style="min-height: 550px;">
 					<ul id="lnb" class="lnbul">
-						<li id="lnb4_1"><a id="lnb4_1_a" href="./noticeboard.do?kind=notice">공지사항</a></li>
-						<li id="lnb4_2"><a id="lnb4_2_a" href="./faqboard.do?kind=faq">FAQ</a></li>
+						<li id="lnb4_1"><a id="lnb4_1_a" href="./viewAllBoard.do?kind=notice">공지사항</a></li>
+						<li id="lnb4_2"><a id="lnb4_2_a" href="./viewAllBoard.do?kind=faq">FAQ</a></li>
 						<li id="lnb4_3"><a id="lnb4_3_a">도서관일정</a></li>
 					</ul>
 					<div class="lnbBottom"></div>
@@ -52,50 +52,50 @@
 			<!-- 테이블 -->
 			<div id="contentcore" style="margin-bottom: 30px">
 		<table id="noticeBoardTable" class="cell-border" style="float:right;"> 
-			<thead>
-				<tr>
-					<td>
-					<input type="checkbox" id="allCheck" onclick="checkAll(this.checked)" class="allCheckBox">
-					</td>
-					<td style="width: 50px">글번호</td>
-					<td>제목</td>
-					<c:if test="${kind=='notice'}">
-					<td>등록일</td>
-					</c:if>
-				</tr>
-			</thead>
+<!-- 			<thead> -->
+<!-- 				<tr> -->
+<!-- 					<td> -->
+<!-- 					<input type="checkbox" id="allCheck" onclick="checkAll(this.checked)" class="allCheckBox"> -->
+<!-- 					</td> -->
+<!-- 					<td style="width: 50px">글번호</td> -->
+<!-- 					<td>제목</td> -->
+<%-- 					<c:if test="${kind=='notice'}"> --%>
+<!-- 					<td>등록일</td> -->
+<%-- 					</c:if> --%>
+<!-- 				</tr> -->
+<!-- 			</thead> -->
 				
-			<tbody id="test-idkd">
-				<c:forEach var="vo" items="${lists}"  varStatus="vs">
-					<c:set var="i" value="${i+1}"/>
-				<tr>
-					<c:if test="${kind == 'faq'}">
-					<td><input type="checkbox" name="ch" class="ch" value="${vo.faq_seq}"></td>
-						<td>${i}</td>
-					</c:if>
-					<c:if test="${kind=='notice'}">
-						<td><input type="checkbox" name="ch" class="ch" value="${vo.notice_seq}"></td>
-					<td>${vo.notice_seq}</td>
-					</c:if>
+<!-- 			<tbody id="test-idkd"> -->
+<%-- 				<c:forEach var="vo" items="${lists}"  varStatus="vs"> --%>
+<%-- 					<c:set var="i" value="${i+1}"/> --%>
+<!-- 				<tr> -->
+<%-- 					<c:if test="${kind == 'faq'}"> --%>
+<%-- 					<td><input type="checkbox" name="ch" class="ch" value="${vo.faq_seq}"></td> --%>
+<%-- 						<td>${i}</td> --%>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${kind=='notice'}"> --%>
+<%-- 						<td><input type="checkbox" name="ch" class="ch" value="${vo.notice_seq}"></td> --%>
+<%-- 					<td>${vo.notice_seq}</td> --%>
+<%-- 					</c:if> --%>
 
 										
-					<c:if test="${kind=='faq'}">
-					<td><a onclick="location.href='./detailfaq.do?seq='+${vo.faq_seq}">${vo.title}</a></td>
-					</c:if>
+<%-- 					<c:if test="${kind=='faq'}"> --%>
+<%-- 					<td><a onclick="location.href='./detailfaq.do?seq='+${vo.faq_seq}">${vo.title}</a></td> --%>
+<%-- 					</c:if> --%>
 
 					
-					<c:if test="${kind=='notice'}">
-					<td><a onclick="location.href='./detailnotice.do?seq='+${vo.notice_seq}">${vo.title}</a></td>
-					</c:if>
+<%-- 					<c:if test="${kind=='notice'}"> --%>
+<%-- 					<td><a onclick="location.href='./detailnotice.do?seq='+${vo.notice_seq}">${vo.title}</a></td> --%>
+<%-- 					</c:if> --%>
 					
 					
 					
-					<c:if test="${kind=='notice'}">
-					<td>${vo.regdate}</td>
-					</c:if>
-				</tr>
-				</c:forEach>
-			</tbody>
+<%-- 					<c:if test="${kind=='notice'}"> --%>
+<%-- 					<td>${vo.regdate}</td> --%>
+<%-- 					</c:if> --%>
+<!-- 				</tr> -->
+<%-- 				</c:forEach> --%>
+<!-- 			</tbody> -->
 		</table>
 		<div>
 			<c:if test="${kind == 'notice' }">
@@ -113,7 +113,10 @@
 	</div>
 </div>
 	</div>	
+<script type="text/javascript">
 
+
+</script>
 </body>
 <%@include file="./footer.jsp" %>
 </html>

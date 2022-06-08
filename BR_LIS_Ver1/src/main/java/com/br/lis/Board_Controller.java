@@ -71,7 +71,7 @@ public class Board_Controller {
 	private IAdminService iadminService;
 	
 	
-	
+	//글입력화면 이동
 	@RequestMapping(value = "/editor.do",method = RequestMethod.GET)
 	public String ckEditorView(String kind,Model model) {
 		logger.info("eidotr view 이동");
@@ -250,13 +250,13 @@ public class Board_Controller {
 	
 	
 	
-	//noticeboard메인화면 data tables
-	@RequestMapping(value = "/noticeboard.do", method = RequestMethod.GET)
+	//noticeboard & faq 전체 조회 화면 이동
+	@RequestMapping(value = "/viewAllBoard.do", method = RequestMethod.GET)
 	public String noticeBoardSelect(Model model,String kind) {
 		logger.info("Board_Controller noticeBoardSelect 리스트보기");
 //		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
-//		model.addAttribute("kind", kind);
 //		model.addAttribute("lists", lists);
+		model.addAttribute("kind", kind);
 		return "noticeboard";
 	}
 	
@@ -273,15 +273,15 @@ public class Board_Controller {
 //--------------------------------------------FAQ-----------------------------------
 
 	
-	//FAQ전체보기
-	@RequestMapping(value = "/faqboard.do", method = RequestMethod.GET)
-	public String faqBoardSelect(Model model,String kind) {
-		logger.info("Board_Controller faqBoardSelect");
-		List<Notice_FAQBoardVo> lists = ifaqService.viewAllFAQ();
-		model.addAttribute("kind", kind);
-		model.addAttribute("lists", lists);
-		return "noticeboard";
-	}
+//	//FAQ전체보기
+//	@RequestMapping(value = "/faqboard.do", method = RequestMethod.GET)
+//	public String faqBoardSelect(Model model,String kind) {
+//		logger.info("Board_Controller faqBoardSelect");
+//		List<Notice_FAQBoardVo> lists = ifaqService.viewAllFAQ();
+//		model.addAttribute("kind", kind);
+//		model.addAttribute("lists", lists);
+//		return "noticeboard";
+//	}
 	
 	//FAQ상세보기
 	@RequestMapping(value = "/detailfaq.do", method = RequestMethod.GET)
