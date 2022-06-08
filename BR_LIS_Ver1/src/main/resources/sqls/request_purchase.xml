@@ -41,18 +41,22 @@
 
 
 <!-- 신청도서 신청목록 조회(BR_W_BM_503) : 사용자가 신청한 도서의 목록을 조회할 수 있다. 구매코드로 조회 -->
-<select id="purchReqListSelectByCode" parameterType="java.lang.String" resultType="RequestPurchaseVo">
-	SELECT * FROM REQUEST_PURCHASE rp
-		WHERE PURCHASE_CODE = #{purchase_code}
-			ORDER BY WISH_SERIAL DESC
+<select id="purchReqListSelectByCode" parameterType="java.util.Map" resultType="RequestPurchaseVo">
+	SELECT * FROM REQUEST_PURCHASE
+		WHERE ${searchKey} = #{searchValue}
+			ORDER BY WISH_SERIAL DESC 
+
+<!-- 50개까지만 값이 나옴 -->
+<!-- 			OFFSET 0 ROWS FETCH NEXT 50 ROWS ONLY  -->
 </select>
 
+<!-- 위에거랑 합침 -->
 <!-- 신청도서 신청목록 조회(BR_W_BM_503) : 사용자가 신청한 도서의 목록을 조회할 수 있다. 사용자 ID로 조회 -->
-<select id="purchReqListSelectById" parameterType="java.lang.String" resultType="RequestPurchaseVo">
-	SELECT * FROM REQUEST_PURCHASE rp
-		WHERE MEMBER_ID = #{member_id}
-			ORDER BY WISH_SERIAL DESC
-</select>
+<!-- <select id="purchReqListSelectById" parameterType="java.lang.String" resultType="RequestPurchaseVo"> -->
+<!-- 	SELECT * FROM REQUEST_PURCHASE rp -->
+<!-- 		WHERE MEMBER_ID = #{member_id} -->
+<!-- 			ORDER BY WISH_SERIAL DESC -->
+<!-- </select> -->
 
 
 
