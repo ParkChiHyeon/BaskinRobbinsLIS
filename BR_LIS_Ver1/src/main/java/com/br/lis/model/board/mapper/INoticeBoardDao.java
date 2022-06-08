@@ -7,15 +7,11 @@ import com.br.lis.vo.Notice_FAQBoardVo;
 
 public interface INoticeBoardDao {
 
-	    //상세조회 엘라스틱
-		public Notice_FAQBoardVo viewDetailNotice(String seq);
-		//전체조회 엘라스틱
+		//전체조회 
 		public List<Notice_FAQBoardVo> viewAllNotice();
-
-		//관리자 게시글 전체 보기 엘라스틱
-		public List<Notice_FAQBoardVo> viewNoticeAllAdmin();
 		
-		//searchNotice 필요 엘라스틱
+		//상세조회 
+		public Notice_FAQBoardVo viewDetailNotice(String seq);
 		
 		//새 글 입력
 		public int insertNotice(Map<String, Object> map);
@@ -29,7 +25,6 @@ public interface INoticeBoardDao {
 		//페이징
 		public List<Notice_FAQBoardVo> selectPaging(Map<String, Object> map); 
 		public int getCountBoardList();
-
 		
 	
 }

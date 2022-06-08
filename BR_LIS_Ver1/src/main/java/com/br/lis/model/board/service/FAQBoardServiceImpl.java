@@ -43,4 +43,13 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 		logger.info("FAQBoardServiceImpl deleteFAQ()");
 		return dao.deleteFAQ(list);
 	}
+
+	@Override
+	public Notice_FAQBoardVo viewDetailFAQ(String seq) {
+		logger.info("FAQBoardServiceImpl viewDetailFAQ()");
+		return dao.viewDetailFAQ(seq);
+	}
+
+
+	
 }

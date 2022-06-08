@@ -8,7 +8,9 @@ import com.br.lis.vo.Notice_FAQBoardVo;
 public interface IFAQBoardDao {
 
 	List<Notice_FAQBoardVo> viewAllFAQ();
-
+	
+	public Notice_FAQBoardVo viewDetailFAQ(String seq);
+	
 	int insertFAQ(Map<String, String> map);
 
 	int modifyFAQ(Notice_FAQBoardVo vo);

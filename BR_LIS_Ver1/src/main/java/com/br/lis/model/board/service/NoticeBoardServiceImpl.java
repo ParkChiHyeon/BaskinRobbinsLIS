@@ -25,13 +25,6 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		return dao.viewDetailNotice(seq);
 	}
 	
-	@Override
-	public List<Notice_FAQBoardVo> viewNoticeAllAdmin() {
-		logger.info("NoticeBoardServiceImpl viewNoticeAllAdmin :");
-		
-		return null;
-	}
-	// 엘라스틱..ㅠㅠ
 
 	@Override
 	public int insertNotice(Map<String, Object> map) {
@@ -70,5 +63,4 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		logger.info("NoticeBoardServiceImpl viewaAllNotice()");
 		return dao.viewAllNotice();
 	}
-
 }

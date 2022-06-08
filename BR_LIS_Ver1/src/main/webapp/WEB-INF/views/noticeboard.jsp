@@ -76,7 +76,7 @@
 						<td><input type="checkbox" name="ch" class="ch" value="${vo.notice_seq}"></td>
 					<td>${vo.notice_seq}</td>
 					</c:if>
-					<td><a href="#">${vo.title}</a></td>
+					<td><a onclick="location.href='./detailnotice.do?seq='+${vo.notice_seq}">${vo.title}</a></td>
 					<c:if test="${kind=='notice'}">
 					<td>${vo.regdate}</td>
 					</c:if>

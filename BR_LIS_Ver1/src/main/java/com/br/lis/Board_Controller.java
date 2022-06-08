@@ -45,6 +45,7 @@ import com.br.lis.model.member.service.IAdminService;
 import com.br.lis.vo.AdminVo;
 import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.Notice_FAQBoardVo;
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.google.gson.Gson;
 
 
@@ -213,7 +214,9 @@ public class Board_Controller {
 		
 	}
 
-	@RequestMapping(value = "modifynotice.do", method = RequestMethod.POST)
+	
+	//공지게시판 수정
+	@RequestMapping(value = "/modifynotice.do", method = RequestMethod.POST)
 	public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
 		logger.info("Board_Controller modifynotice 에디터로 입력받음");
 		logger.info("map:{}", map);
@@ -231,7 +234,6 @@ public class Board_Controller {
 	}
 	
 	//noticeboard메인화면 data tables
-	
 	@RequestMapping(value = "/noticeboard.do", method = RequestMethod.GET)
 	public String noticeBoardSelect(Model model) {
 		logger.info("Board_Controller noticeBoardSelect 리스트보기");
@@ -241,6 +243,17 @@ public class Board_Controller {
 		model.addAttribute("lists", lists);
 		return "noticeboard";
 	}
+	
+	@RequestMapping(value = "/detailnotice.do", method = RequestMethod.GET)
+	public String viewDetailNotice(Model model,String seq) {
+		logger.info("Board_Controller_viewDetailNotice 공지사항 상세보기");
+		Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
+		model.addAttribute("dto", vo);
+		model.addAttribute("kind", "notice");
+		return "detailboard";
+	}
+	
+	
 
 	@RequestMapping(value = "/faqboard.do", method = RequestMethod.GET)
 	public String faqBoardSelect(Model model) {
@@ -251,6 +264,18 @@ public class Board_Controller {
 		model.addAttribute("lists", lists);
 		return "noticeboard";
 	}
+	
+	@RequestMapping(value = "/detailfaq.do", method = RequestMethod.GET)
+	public String viewDetailFAQ(Model model,String seq) {
+		logger.info("Board_Controller_viewDetailFAQ FAQ 상세보기");
+		logger.info("들어오니 ------------------------------------------------------{}",seq);
+		Notice_FAQBoardVo vo = ifaqService.viewDetailFAQ(seq);
+		model.addAttribute("fvo", vo);
+		model.addAttribute("kind", "notice");
+		return "detailfaq";
+	}
+	
+	
 	
 	
 	
@@ -263,33 +288,35 @@ public class Board_Controller {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/modifyNotice.do", method =  RequestMethod.POST, produces = "application/text; charset=UTF-8;")
-	@ResponseBody
-	public String modifyForm(String seq, @SessionAttribute("member") LibMemberVo mVo) {
-		logger.info("Board_Controller modifyForm:{}", seq);
-		Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime date = LocalDateTime.parse(vo.getRegdate(),formatter);
-		System.out.println(date.toLocalDate());
-		
-		JSONObject json = new JSONObject();
-		if(mVo.getMember_id().equals(vo.getAdmin_id())) {
-			json.put("isc", "true");
-			json.put("notice_seq", vo.getNotice_seq());
-			json.put("admin_id", vo.getAdmin_id());
-			json.put("title", vo.getTitle());
-			json.put("content", vo.getContent());
-			json.put("file_path", vo.getFile_path());
-			json.put("regdate", vo.getRegdate());
-		}else {
-			json.put("isc", "false");
-		}
-		return json.toString();
+	
+	
+//	@SuppressWarnings("unchecked")
+//	@RequestMapping(value = "/modifyNotice.do", method =  RequestMethod.POST, produces = "application/text; charset=UTF-8;")
+//	@ResponseBody
+//	public String modifyForm(String seq, @SessionAttribute("member") LibMemberVo mVo) {
+//		logger.info("Board_Controller modifyForm:{}", seq);
+//		int vo = inoticeService.modifyNotice(seq);
+//		
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//		LocalDateTime date = LocalDateTime.parse(vo.getRegdate(),formatter);
+//		System.out.println(date.toLocalDate());
+//		
+//		JSONObject json = new JSONObject();
+//		if(mVo.getMember_id().equals(vo.getAdmin_id())) {
+//			json.put("isc", "true");
+//			json.put("notice_seq", vo.getNotice_seq());
+//			json.put("admin_id", vo.getAdmin_id());
+//			json.put("title", vo.getTitle());
+//			json.put("content", vo.getContent());
+//			json.put("file_path", vo.getFile_path());
+//			json.put("regdate", vo.getRegdate());
+//		}else {
+//			json.put("isc", "false");
+//		}
+//		return json.toString();
 		
 				
-	}
+//	}
 	
 	@RequestMapping(value = "/modify.do", method = RequestMethod.POST, produces = "application/text; chatset=UTF-8;")
 	@ResponseBody

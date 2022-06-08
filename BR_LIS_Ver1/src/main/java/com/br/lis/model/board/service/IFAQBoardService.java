@@ -10,12 +10,13 @@ public interface IFAQBoardService {
 	
 	public List<Notice_FAQBoardVo> viewAllFAQ();
 	
+	public Notice_FAQBoardVo viewDetailFAQ(String seq);
+	
 	public int insertFAQ(Map<String, String> map); 
 	
 	public int modifyFAQ(Notice_FAQBoardVo vo);
 	
 	public int deleteFAQ(List<String> list);
+	
 
-	
-	
 }
