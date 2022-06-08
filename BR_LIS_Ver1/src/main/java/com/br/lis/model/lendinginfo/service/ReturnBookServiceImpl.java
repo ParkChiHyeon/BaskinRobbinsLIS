@@ -71,7 +71,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		return (n>0&&m>0&&o>0&&p>0)? 1:0;
 	}
 	
-	// 예약 있는 정상 반납의 경우 {LD:N, RV:N, DL:N, BA:Y, OD:N, DG:N, NM:Y}
+	// 예약 있는 정상 반납의 경우 {LD:N, RV:Y, DL:N, BA:Y, OD:N, DG:N, NM:Y}
 	@Override
 	public int existReserveReturnBook(String lending_seq, String member_code) {
 		logger.info("ReturnBookServiceImpl 정상반납(예약있음) {},{}", lending_seq, member_code);
@@ -97,8 +97,11 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		int m = dao.returnBookDate(lending_seq);
 		int o = dao.damegeReturnBook(lending_seq);
 		int p = dao.dgAndLsReturnBookStatus(lending_seq);
-		int q = dao.returnLendingBookCount(member_code);
-		return (n>0&&m>0&&o>0&&p>0&&q>0)? 1:0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lending_seq", lending_seq);
+		map.put("member_code", member_code);
+		int r = lDao.lendingPenalty(map);
+		return (n>0&&m>0&&o>0&&p>0&&r>0)? 1:0;
 		}
 
 	// 분실 반납의 경우 {LD:N,RV:N, DL:N, BA:Y,OD:N, DG:N, NM:N}, retrun_status=LS => 예약 여부 먼저 판단
@@ -109,15 +112,21 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		int m = dao.returnBookDate(lending_seq);
 		int o = dao.lossReturnBook(lending_seq);
 		int p = dao.dgAndLsReturnBookStatus(lending_seq);
-		int q = dao.returnLendingBookCount(member_code);
-		return (n>0&&m>0&&o>0&&p>0&&q>0)? 1:0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lending_seq", lending_seq);
+		map.put("member_code", member_code);
+		int r = lDao.lendingPenalty(map);
+		return (n>0&&m>0&&o>0&&p>0&&r>0)? 1:0;
 	}
 	
-	// 연체 처리
+	// 연체 처리(상태변경+관내회원권한변경)
 	@Override
 	public int overdueLendingBook() {
 		logger.info("ReturnBookServiceImpl 연체 처리");
-		return dao.overdueLendingBook();
+		System.out.println("연체처리 상태변경, 관내회원권한변경");
+		int n = dao.overdueLendingBook();
+		int m = dao.penaltyAuthModify();
+		return (n>0&&m>0)? 1:0;
 	}
 
 	// 연체 3일째 조회

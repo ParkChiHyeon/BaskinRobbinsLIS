@@ -68,7 +68,7 @@ public class ReturnBookController {
 	}
 	
 	// 파손반납
-	@RequestMapping(value = "/returnBookDamege.do", method = {RequestMethod.GET})
+	@RequestMapping(value = "/returnBookDamege.do", method = RequestMethod.GET)
 	public String returnBookDamege(HttpServletRequest request) {
 		logger.info("Welcome! ReturnBookController returnBookDamege");
 		String lending_seq = request.getParameter("lending_seq");
@@ -76,11 +76,39 @@ public class ReturnBookController {
 		String reserve_seq = request.getParameter("reserve_seq");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
+		// 예약자가 없을 경우 일반 파손반납진행
 		if(reserve_seq == null) {
+			iService.normalReturnBook(lending_seq, member_code);
 			iService.damegeReturnBook(lending_seq, member_code);
 		}else {
+		// 예약자가 있을 경우 알림문자 발송 후 파손반납진행
 			iService.certifiedPhoneNumber(phone, name);
 			iService.reserveSelfDel(reserve_seq);
+			iService.normalReturnBook(lending_seq, member_code);
+			iService.damegeReturnBook(lending_seq, member_code);
+		}
+		return "home";
+	}
+	
+	//분실 반납
+	@RequestMapping(value = "/returnBookLost.do", method = RequestMethod.GET)
+	public String returnBookLost(HttpServletRequest request) {
+		logger.info("Welcome! ReturnBookController returnBookLost");
+		String lending_seq = request.getParameter("lending_seq");
+		String member_code = request.getParameter("member_code");
+		String reserve_seq = request.getParameter("reserve_seq");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		// 예약자가 없을 경우 일반 분실반납진행
+		if(reserve_seq == null) {
+			iService.normalReturnBook(lending_seq, member_code);
+			iService.lossReturnBook(lending_seq, member_code);
+		}else {
+		// 예약자가 있을 경우 알림문자 발송 후 분실반납진행
+			iService.certifiedPhoneNumber(phone, name);
+			iService.reserveSelfDel(reserve_seq);
+			iService.normalReturnBook(lending_seq, member_code);
+			iService.lossReturnBook(lending_seq, member_code);
 		}
 		return "home";
 	}

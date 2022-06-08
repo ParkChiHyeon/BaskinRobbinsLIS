@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 .nanum {font-family:'Nanum Gothic' !important;}
-* {font-family:dotum, '돋움'; line-height:1.6em;}
+* {font-family:/*dotum, '돋움'*/"paybooc-Light", sans-serif; line-height:1.6em;}
 body {font-size:12px;}
 @font-face {font-family:'Nanum Gothic'; font-style:normal; font-weight:700; src:url(../../font/NanumGothic-Bold.eot); src:url(/include/font/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'), url(../../font/NanumGothic-Bold.woff2) format('woff2'), url(../../font/NanumGothic-Bold.woff) format('woff'), url(../../font/NanumGothic-Bold.ttf) format('truetype');}
 @font-face {font-family:'Nanum Gothic'; font-style:normal; font-weight:400; src:url(../../font/NanumGothic-Regular.eot); src:url(/include/font/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'), url(../../font/NanumGothic-Regular.woff2) format('woff2'), url(../../font/NanumGothic-Regular.woff) format('woff'), url(../../font/NanumGothic-Regular.ttf) format('truetype');}

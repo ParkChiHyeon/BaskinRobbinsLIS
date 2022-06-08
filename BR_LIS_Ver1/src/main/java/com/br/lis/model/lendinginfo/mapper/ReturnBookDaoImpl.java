@@ -1,5 +1,7 @@
 package com.br.lis.model.lendinginfo.mapper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +96,12 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	public ReservationVo returnBookReserveCheck(Map<String, Object> map) {
 		return sqlSession.selectOne(NS+"returnBookReserveCheck",map);
 	}
+
+	@Override
+	public int penaltyAuthModify() {
+		return sqlSession.update(NS+"penaltyAuthModify");
+	}
+
 
 
 
