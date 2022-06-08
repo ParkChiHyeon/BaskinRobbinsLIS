@@ -33,8 +33,6 @@ window.onload=function(){
 	}
 		dataTableMake('bookSearchTotal');
 	
-	
-	
  }
 </script>
 <style>
@@ -66,19 +64,45 @@ td:nth-child(odd){
 	cursor: pointer;
 	
 }
+#bookSearchTotal_wrapper{
+	margin-bottom: 50px;
+}
+#result_title{
+	font-weight: 800;
+    font-size: 30px;
+    padding: 7px 0;
+    color:#555;
+}
+
+.wrap-loading div{ /*로딩 이미지*/
+        top:30%;
+        left:40%;
+        position: fixed;
+    }
+    .wrap-loading img{
+    	width: 80%;
+    	height: 80%;
+     } 
+     .display-none{ /*감추기*/
+         display:none; 
+     }
+
 </style>
 <body>
 
 	<div id="middle">
+	<div class="wrap-loading display-none">
+		    	<div><img src="./img/loading.gif" /></div>
+			</div>
 		<div id="contbody">
 
 			<div id="contleft" class="contleft">
 				<h2>자료검색</h2>
 				<div class="lnbBody" style="min-height: 550px;">
 					<ul id="lnb" class="lnbul">
-						<li id="lnb1_1"><a id="lnb1_1_a" href="./bookSearch.do">통합검색</a></li>
-						<li id="lnb1_2"><a id="lnb1_2_a" href="./bookSearchDetail.do">상세검색</a></li>
-						<li id="lnb1_3"><a id="lnb1_3_a" href="./requestBookSearch.do">희망도서신청</a></li>
+						<li id="lnb1_1"><a id="lnb1_1_a" href="./bookSearch.do?kind=total">통합검색</a></li>
+						<li id="lnb1_2"><a id="lnb1_2_a" href="./bookSearch.do?kind=detail">상세검색</a></li>
+						<li id="lnb1_3"><a id="lnb1_3_a" href="./bookSearch.do?kind=request">희망도서신청</a></li>
 					</ul>
 					<div class="lnbBottom"></div>
 				</div>
@@ -107,11 +131,11 @@ td:nth-child(odd){
 						<input	type="text"  class="form-control" id="detail_title" name="searchKeyword"	autocomplete="off" placeholder="도서명을 입력해 주세요">
 						<input	type="text"  class="form-control" id="detail_author" name="searchKeyword"	autocomplete="off" placeholder="저자를 입력해 주세요">
 						<input	type="text"  class="form-control" id="detail_publisher" name="searchKeyword"	autocomplete="off" placeholder="출판사를 입력해 주세요">
-						<input	type="text"  class="form-control" id="detail_keyword" name="searchKeyword"	autocomplete="off" placeholder="키워드를 입력해 주세요">
+						<input	type="text"  class="form-control" id="detail_isbn" name="searchKeyword"	autocomplete="off" placeholder="ISBN을 입력해 주세요">
 <!-- 						<button class="w-btn w-btn-green" onclick="">검색</button> -->
-						<div style="text-align: center; margin-top: 10px">
+						<div style="text-align: left; margin-top: 10px">
+						<button class="btn btn-primary" onclick="bookSearchDetail()">검색</button>
 						<input type="reset" class="btn btn-default" value="초기화">
-						<button class="btn btn-primary" onclick="">검색</button>
 						</div>
 					</form>
 				</div>
@@ -138,11 +162,8 @@ td:nth-child(odd){
 		</div>
 	</div>
 </div>
-
+			 
 <script type="text/javascript">
-
-
-
 function dataTableMake(table_id){
     $("#"+table_id).DataTable({
     	//https://datatables.net/reference/option/language

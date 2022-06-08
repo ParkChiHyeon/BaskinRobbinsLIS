@@ -12,28 +12,14 @@ public class SearchBookController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	
+	/*도서 조회 화면 이동*/
 	@RequestMapping(value = "/bookSearch.do",method = RequestMethod.GET)
-	public String bookSearch(Model model) {
+	public String bookSearch(Model model,String kind) {
 		logger.info("HomeController bookSearch 이동");
-		model.addAttribute("kind", "total");
+		model.addAttribute("kind", kind);
 		return "booksearch";
 	}
 	
-	
-	@RequestMapping(value = "/bookSearchDetail.do",method = RequestMethod.GET)
-	public String bookSearchDetail(Model model) {
-		logger.info("HomeController bookSearchDetail 이동");
-		model.addAttribute("kind", "detail");
-		return "booksearch";
-	}
-	
-	@RequestMapping(value = "/requestBookSearch.do",method = RequestMethod.GET)
-	public String requestBookSearch(Model model) {
-		logger.info("HomeController requestBookSearch 이동");
-		model.addAttribute("kind", "request");
-		return "booksearch";
-	}
 	
 	
 

@@ -1,21 +1,21 @@
 var key ='15b0f156b4d728ec98c5b8c31a0d9193';
+var jsonSource = [];
 
 function bookSearchTotal(){
-	var jsonSource = [];
+	var table = $("#bookSearchTotal").DataTable();
+	table.destroy();
+	$("#bookSearchTotal").empty();
 	var regx = /^.{2,}$/
 	var queryStr;
 	var searchKey = $("#searchKey").val();
 	var bookSearchKeyword=$("#bookSearchKeyword").val();
 	if(!regx.test(bookSearchKeyword)){
-		queryStr={"from":"0","size":"50","query":{"wildcard":{[searchKey]:"*"+bookSearchKeyword+"*"}}};
-//		queryStr={"from":"0","size":"50","query":{"match":{[searchKey]:bookSearchKeyword}}};
+//		queryStr={"from":"0","size":"50","query":{"wildcard":{[searchKey]:"*"+bookSearchKeyword+"*"}}};
+		queryStr={"from":"0","size":"1000","query":{"match":{[searchKey]:bookSearchKeyword}}};
 	}else{
 		queryStr={"from":"0","size":"1000","query":{"wildcard":{[searchKey]:"*"+bookSearchKeyword+"*"}}};
-//		queryStr={"from":"0","size":"1000","query":{"exists":{[searchKey]:bookSearchKeyword}}};
 	}
 	
-	var table = $("#bookSearchTotal").DataTable();
-	table.destroy();
 
 	$.ajax({
 		method:"POST",
@@ -26,6 +26,9 @@ function bookSearchTotal(){
 //		headers:{
 //			"Authorization" : "Basic " + btoa("GD"+":"+"gd1234")
 //		},
+		beforeSend:function(){
+	        	 $(".wrap-loading").css("display","block");  
+	    },
 		success:function(res){
 			 var data = res.hits.hits;
 			console.log("--★★★★★★--");
@@ -38,6 +41,7 @@ function bookSearchTotal(){
 			for(let i=0; i<jsonSource.length;i++){
 				jsonSource[i].img=kakaoBookImg(jsonSource[i].isbn);
 			}
+				$(".wrap-loading").css("display","none");
 		}
 	})
 		.done(function(){
@@ -78,10 +82,10 @@ function bookSearchTotal(){
 		  		{ title:'도서',
 				 
 		          render:function(data,type,row){
-					var	html= row.title+'<br>'; 
+					var	html= '<p id="result_title">'+row.title+'</p>'; 
 					    html+= row.author+'<br>';
 					    html+= row.publisher+'<br>';
-					    html+= row.isbn;
+					    html+= row.isbn;						
 					return html;
 				  }
 				}
@@ -115,25 +119,25 @@ function kakaoBookImg(str){
 
 
 function bookSearchRequest(){
-	var jsonSource = [];
 	var str = $("#requestSearchKeyword").val();
 	var table = $("#bookSearchTotal").DataTable();
 	table.destroy();
+	$("#bookSearchTotal").empty();
 	
 		$.ajax({
 			method:"GET",
 			url:"https://dapi.kakao.com/v3/search/book",
 			data:{query:str,size:50},
 			headers:{Authorization:"KakaoAK "+key},
-			async:false,
+			beforeSend:function(){
+	        	 $(".wrap-loading").css("display","block");  
+	    	},
 			success:function(data){
-				console.log("--★★★★★★--");
-				console.log(data.documents.length);
 				jsonSource.splice(0, jsonSource.length);
 				for(let i=0; i<data.documents.length;i++){
 					jsonSource.push(data.documents[i])
-				}
-				console.log(jsonSource)
+				}				
+				$(".wrap-loading").css("display","none");
 			}
 		})
 		.done(function(){
@@ -181,27 +185,22 @@ function bookSearchRequest(){
 					return html;
 				  }
 				}
-		  	]
+		  	  ]
 		  });
-			
 		});
+}
+
+
+function bookSearchDetail(){
+	var title= $("#detail_title").val();
+	var author= $("#detail_title").val();
+	var publisher= $("#detail_title").val();
+	var isbn= $("#detail_title").val();
+	
 	
 	
 }
 
 
 
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
 	

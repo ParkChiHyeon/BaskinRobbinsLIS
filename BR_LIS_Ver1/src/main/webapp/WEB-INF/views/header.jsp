@@ -69,11 +69,11 @@
 	<ul id="topmenu">
 	<li id="gnb1"><a href="./bookSearch.do" >자료검색</a>
 			<ul>
-			<li id="gnb1_1" class=""><a href="./bookSearch.do" >통합검색</a>
+			<li id="gnb1_1" class=""><a href="./bookSearch.do?kind=total" >통합검색</a>
 					</li>
-				<li id="gnb1_2" class=""><a href="./bookSearchDetail.do" >상세검색</a>
+				<li id="gnb1_2" class=""><a href="./bookSearch.do?kind=detail" >상세검색</a>
 					</li>
-				<li id="gnb1_3" class=""><a href="./requestBookSearch.do" >희망도서신청</a>
+				<li id="gnb1_3" class=""><a href="./bookSearch.do?kind=request" >희망도서신청</a>
 					</li>
 				</ul>
 			</li>
