@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.br.lis.model.lendinginfo.mapper.ILendingBookDao;
@@ -121,6 +122,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 	
 	// 연체 처리(상태변경+관내회원권한변경)
 	@Override
+	@Scheduled(cron = "0 0 09 * * *?")
 	public int overdueLendingBook() {
 		logger.info("ReturnBookServiceImpl 연체 처리");
 		System.out.println("연체처리 상태변경, 관내회원권한변경");
