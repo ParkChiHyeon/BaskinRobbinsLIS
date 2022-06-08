@@ -63,10 +63,27 @@ public class TestLisJunit_JSJ {
 //		System.out.println(lists);
 		
 		
-		Map<String, String> map = new  HashMap<String, String>();
-		map.put("member_code", "M2205000005");
-		LendBookBean lb =dao.reserveLendingBook(map);
-		System.out.println(lb);
+		List<Map<String, Object>>  map = new ArrayList<Map<String,Object>>();
+		String membercode = "M2205000005";
+		
+		//map.put("member_code", "M2205000005");
+		List<Map<String, Object>> Ib =dao.reserveLendingBook(membercode);
+		Map<String, Object> a = Ib.get(0);
+		
+		String m= (String) a.get("MEMBER_CODE");
+		String n= (String) a.get("ISBN");
+		String o = (String) a.get("LENDING_SEQ");
+		String p = (String) a.get("TITLE");
+		String q= (String) a.get("PUBLISHER");
+		String r= (String) a.get("AUTHOR");
+		
+		System.out.println(Ib);
+		System.out.println(m);
+		System.out.println(n);
+		System.out.println(o);
+		System.out.println(p);
+		System.out.println(q);
+		System.out.println(r);
 
 		
 		
@@ -102,7 +119,7 @@ public class TestLisJunit_JSJ {
 	}
 	
 	// 조인쿼리-다시 
-	@Test
+//	@Test
 	public void lendingList() {
 		logger.info("lendingList  대출내역조회");
 		Map<String, Object> map = new HashMap<String, Object>();

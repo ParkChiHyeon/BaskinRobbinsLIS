@@ -35,9 +35,9 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	}
 
 	@Override
-	public LendBookBean reserveLendingBook(Map<String, String> map) {
+	public List<Map<String, Object>> reserveLendingBook(String member_code) {
 		logger.info("ILendingBookDao 회원 예약 목록 조회_reserveLendingBook");
-		return dao.reserveLendingBook(map);
+		return dao.reserveLendingBook(member_code);
 	}
 	
 	// BR_W_BM_204 대출 신청 Transction처리  : 대출 신청 후 대출가능여부변경 LD =Y , DG =N  + 대여가능권수변경

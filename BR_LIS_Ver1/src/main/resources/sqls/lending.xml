@@ -60,7 +60,7 @@ SELECT  BOOK_SERIAL ,ISBN ,LD ,RV
 
 <!--BR_W_BM_203 회원예약목록조회  
 	** 테이블 3개 조인..!   -->
-<select id="reserveLendingBook"  parameterType="java.util.Map" resultMap="LendBookBeanMap">
+<select id="reserveLendingBook"  parameterType="java.lang.String" resultType="java.util.Map">
 SELECT l.MEMBER_CODE,bi.ISBN ,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author,pb.RV 
       FROM LENDING l 
       JOIN POSSESSING_BOOK pb 
@@ -71,6 +71,16 @@ SELECT l.MEMBER_CODE,bi.ISBN ,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author,pb.
 
 </select>
 
+<select id="adminreserveLendingBook">
+SELECT l.MEMBER_CODE,bi.ISBN ,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author
+      FROM LENDING l 
+      JOIN POSSESSING_BOOK pb 
+    ON l.BOOK_SERIAL = pb.BOOK_SERIAL 
+      JOIN BOOK_INFO bi 
+      ON pb.ISBN = bi.ISBN 
+      WHERE  RV ='Y'
+
+</select>
 
 <!--BR_W_BM_204  대출 신청	-->
 <insert id="insertLendingBook" parameterType="LendingVo">
@@ -91,7 +101,8 @@ SELECT l.MEMBER_CODE,bi.ISBN ,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author,pb.
 
 <!--BR_W_BM_207 대출 내역 조회 
 	조인 쿼리-->
-<select id="lendingList"  parameterType="java.util.Map" resultMap="LendBookBeanMap">
+<!-- <select id="lendingList"  parameterType="java.util.Map" resultMap="LendBookBeanMap"> -->
+<select id="lendingList"  parameterType="java.util.Map" resultType="com.br.lis.vo.LendBookBean">
 	SELECT l.MEMBER_CODE, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, l.LENDING_DATE, l.END_DATE, l.BACK_DATE 
         FROM (SELECT *FROM BOOK_INFO bi, POSSESSING_BOOK pb WHERE bi.ISBN=pb.ISBN) A, LENDING l 
             WHERE l.MEMBER_CODE =#{member_code} AND l.BOOK_SERIAL=A.BOOK_SERIAL
