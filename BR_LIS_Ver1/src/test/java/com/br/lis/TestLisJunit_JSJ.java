@@ -43,8 +43,8 @@ public class TestLisJunit_JSJ {
 //	@Test
 	public void allReserveLending() {
 		logger.info("allReserveLending _ 예약한 목록 전체 조회");
-		List<BookInfoVo> lists= dao.allReserveLending();
-		System.out.println(lists);
+//		List<BookInfoVo> lists= dao.allReserveLending();
+//		System.out.println(lists);
 	}
 	
 	// OK	

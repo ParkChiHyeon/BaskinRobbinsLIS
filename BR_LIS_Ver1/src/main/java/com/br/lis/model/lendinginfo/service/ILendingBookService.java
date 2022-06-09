@@ -14,7 +14,8 @@ public interface ILendingBookService {
 		public List<LendingVo> nowLendingBook();
 		
 		//예약목록전체조회
-		public List<BookInfoVo> allReserveLending();
+//		public List<BookInfoVo> allReserveLending();
+		public List<LendBookBean> allReserveLending(Map<String, Object>map);
 		
 		//회원예약목록조회
 		public List<Map<String, Object>> reserveLendingBook(String member_code);

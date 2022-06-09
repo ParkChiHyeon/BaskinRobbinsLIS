@@ -27,7 +27,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	}
 
 	@Override
-	public List<BookInfoVo> allReserveLending() {
+//	public List<BookInfoVo> allReserveLending() {
+	public List<LendBookBean> allReserveLending(Map<String, Object>map){
 		return sqlSession.selectList(NS+"allReserveLending");
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
 import com.br.lis.vo.BookInfoVo;
@@ -30,12 +31,30 @@ public class LendingBookController {
 	
 	@RequestMapping(value = "/lendingBook.do", method = RequestMethod.GET, produces ="application/text; charset=UTF-8" )
 	public  String lendingLIst(Model model) {
-		logger.info("예약목록 전체조회 ");
-		List<BookInfoVo>lists = service.allReserveLending();
-		model.addAttribute("lists", lists);
 		
+		logger.info("이전대출도서내역");
+		Map<String, Object> map2 = new  HashMap<String, Object>();
+		map2.put("member_code", "M2205000004");
+		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
+		listBean= service.lendingList(map2);
+		model.addAttribute("listBean",listBean);
 		
-		logger.info("예약목록조회");
+//		List<LendingVo> lists = (List<LendingVo>) service.reserveLendingBook(map);
+		return "lendingBook";
+	}
+
+	
+	@RequestMapping(value ="/reserveBook.do", method = RequestMethod.GET)
+	public String reserveBook(String lending_seq, LendingVo vo, Model model) {
+		logger.info("예약목록 전체조회(관리자) ");
+//		List<BookInfoVo>lists = service.allReserveLending();
+		Map<String, Object> map1 = new  HashMap<String, Object>();
+		List<LendBookBean> reBook = new ArrayList<LendBookBean>();
+		reBook= service.allReserveLending(map1);
+		model.addAttribute("reBook",reBook);
+//		model.addAttribute("lists", lists);
+		
+		logger.info("예약목록조회(회원)");
 //		Map<String, String> map = new  HashMap<String, String>();
 		List<Map<String, Object>>  map = new ArrayList<Map<String,Object>>();
 		String membercode = "M2205000005";
@@ -50,6 +69,7 @@ public class LendingBookController {
 			lists2.add( (String) a.get("TITLE"));
 			lists2.add( (String) a.get("PUBLISHER"));
 			lists2.add( (String) a.get("AUTHOR"));
+//			lists2.add( (String) a.get("reserve_date"));
 			
 //			String m= (String) a.get("MEMBER_CODE");
 //			String n= (String) a.get("ISBN");
@@ -75,29 +95,39 @@ public class LendingBookController {
 		}
 		
 		
-//		map.put("member_code", "M2205000005");
-//		LendBookBean lb =service.reserveLendingBook(map);
-//		model.addAttribute("lb",lb);
+		return "reserveBook";
 		
-		logger.info("대출도서내역");
-		Map<String, Object> map2 = new  HashMap<String, Object>();
-		map2.put("member_code", "M2205000004");
-		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
-		listBean= service.lendingList(map2);
-		model.addAttribute("listBean",listBean);
 		
-//		List<LendingVo> lists = (List<LendingVo>) service.reserveLendingBook(map);
-		return "lendingBook";
+		
+		
+//		logger.info("대출신청하기");
+//		int n = service.confrimReserveBook(lending_seq, vo);
+//		if(n==1) {
+//			logger.info("대출 신청 완료됨??");
+//		}
+//		return (n==1)?"redirect:/reserveBook.do":"redirect:/reserveBook.do"; 
 	}
-
-	@RequestMapping(value ="/reserveBook.do", method = RequestMethod.GET)
-	public String reserveBook(String lending_seq, LendingVo vo) {
-		logger.info("대출신청하기");
-		int n = service.confrimReserveBook(lending_seq, vo);
-		if(n==1) {
-			logger.info("대출 신청 완료됨??");
-		}
-		return (n==1)?"redirect:/reserveBook.do":"redirect:/reserveBook.do"; 
+	
+	
+	@RequestMapping(value = "/cancelReseve.do", method = RequestMethod.POST) 
+	@ResponseBody
+	public String cancelReseve(String lending_seq, BookInfoVo vo) {
+		logger.info("회원이 예약 취소");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("j","lending_seq");
+		
+		int n  =service.selfDeleteResrve(lending_seq,vo);
+		
+//		if(n==1) {
+//			logger.info("취소중...........");
+//		}
+		return "redirect:/reserveBook.do";
 	}
 	
 }
+
+
+
+
+
+
