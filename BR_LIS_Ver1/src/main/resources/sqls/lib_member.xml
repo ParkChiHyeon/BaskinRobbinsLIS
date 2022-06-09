@@ -187,6 +187,12 @@
 	WHERE MEMBER_ID = #{member_id}
 	</update>
 	
+	<select id ="findPwOne"  parameterType="java.util.Map" resultType="java.lang.String">
+	SELECT PASSWORD
+	FROM LIB_MEMBER
+	WHERE MEMBER_ID =#{member_id} AND PHONE = #{phone}
+	</select>
+	
 	
 	
 </mapper>

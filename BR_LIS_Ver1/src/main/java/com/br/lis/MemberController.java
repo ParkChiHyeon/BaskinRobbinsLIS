@@ -33,7 +33,7 @@ import com.br.lis.vo.LibMemberVo;
 
 
 @Controller
-@SessionAttributes({"member","admin"})
+@SessionAttributes("member")
 public class MemberController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -51,6 +51,18 @@ public class MemberController {
 	@RequestMapping(value = "/loginPage.do",method = RequestMethod.GET)
 	public String test() {		
 		return "loginPage";
+	}
+	
+	/* 마이 페이지로 이동 */
+	@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
+	public String myPage() {		
+		return "myPage";
+	}
+	
+	/* 관리자 페이지로 이동 */
+	@RequestMapping(value = "/adminPage.do",method = RequestMethod.GET)
+	public String adminPage() {		
+		return "adminPage";
 	}
 	
 	
@@ -95,7 +107,7 @@ public class MemberController {
 		model.addAttribute("member", mVo);
 		logger.info("현재 세션의 정보는 :{}", mVo);
 //		model.addAttribute("admin", aVo);
-		return "home";
+		return "redirect:/home.do";
 	}
 	
 	/* 회원가입 폼 이동 */
@@ -143,6 +155,7 @@ public class MemberController {
 	        System.out.println("수신자 번호 : " + phone);
 	        System.out.println("인증번호 : " + numStr);
 	        cService.certifiedPhoneNumber(phone,numStr);
+	        
 	        return numStr;
 	    }
 	
@@ -185,10 +198,10 @@ public class MemberController {
 		
 		@RequestMapping(value = "/findPwChk.do", method = RequestMethod.POST)
 		public Map<String, Object> findPwChk(@RequestParam Map<String,Object> map) {
-			
+			System.out.println(map);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			
-			int cnt = service.resetUpdatePw(resultMap);
+			int cnt = service.resetUpdatePw(map);
 			
 			if(cnt == 0) {
 				resultMap.put("isc", "실패");

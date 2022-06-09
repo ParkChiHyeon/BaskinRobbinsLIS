@@ -143,10 +143,27 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 		return sqlSession.update(NS+"notificationYN",map);
 	}
 	
+//	@Override
+//	public int encryptPassword(Map<String, Object> map) {
+//		String enPassword = passwordEncoder.encode((String)map.get("password"));
+//		System.out.println("######"+enPassword);
+//		map.put("password", enPassword);
+//		System.out.println("######"+map);
+//		return sqlSession.update(NS+"encryptPassword",map);
+//	}
+
 	@Override
-	public int encryptPassword(Map<String, Object> map) {
-		String enPassword = passwordEncoder.encode((String)map.get("password"));
+	public String findPwOne(Map<String, Object> map) {
+		return sqlSession.selectOne(NS+"findPwOne",map);
+	}
+
+	
+	@Override
+	public int encryptPassword(String k, Map<String, Object> map) {
+		String enPassword = passwordEncoder.encode(k);
+		System.out.println("######"+enPassword);
 		map.put("password", enPassword);
+		System.out.println("######"+map);
 		return sqlSession.update(NS+"encryptPassword",map);
 	}
 

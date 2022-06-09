@@ -135,10 +135,10 @@ label{
 <%@ include file="./header.jsp" %>
 <body>
 	
-	<form action="#" method="POST" id="testForm">
+	<form action="./signUp.do" method="POST" id="testForm" onsubmit="return frmsubmit()">
 	<div class="container">
 	
-	<input type="text" value="1" id="chkVal">
+	<input type="text" value="0" id="chkVal">
 	
 		<ul class="list-group" id="ulForm">	
 		<li class="list-group-item" id="idInput">
@@ -218,6 +218,23 @@ label{
 
 <script type="text/javascript">
 
+function frmsubmit(){
+	var id = document.getElementById("id_textbox");
+	console.log(id.value)
+	if( id.value=="" || id.value.trim==""){
+		swal('아이디가 빈값입니다');
+		return false;
+	}
+	
+	
+	
+	return true;
+	
+}
+
+
+
+
 function signUp() {
 	var chk = document.getElementById("chkVal");
 	var frm = document.getElementById("testForm");
@@ -225,7 +242,7 @@ function signUp() {
 	frm.action = "./signUp.do";	
 	console.log(chk.value);
 	if(chk.value == 1){
-		frm.submit();
+// 		frm.submit();
 // 		location.href = "./signUp.do";	
 	console.log(chk.value)
 }else{
