@@ -17,6 +17,7 @@ import com.br.lis.model.lendinginfo.mapper.IReturnBookDao;
 import com.br.lis.model.lendinginfo.service.IReturnBookService;
 import com.br.lis.model.test.service.ITestService;
 import com.br.lis.vo.BookInfoVo;
+import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
 import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.ReservationVo;
@@ -101,7 +102,7 @@ public class TestLisJunit_HIK {
 //	@Test 
 	public void overdueThreeDayLendingBook() {
 		logger.info("단위테스트 overdueThreeDayLendingBook");
-		List<LendingVo> lists = dao.overdueThreeDayLendingBook();
+		List<LibMemberVo> lists = dao.overdueThreeDayLendingBook();
 		System.out.println(lists);
 	}
 	
@@ -172,10 +173,10 @@ public class TestLisJunit_HIK {
 	}
 	
 //	@Test
-	public void overdueThreeService() {
-		List<LendingVo> lists = service.overdueThreeDayLendingBook();
-		System.out.println(lists);
-	}
+//	public void overdueThreeService() {
+//		List<LibMemberVo> lists = service.overdueThreeDayLendingBook();
+//		System.out.println(lists);
+//	}
 	
 //	@Test
 	public void warehouseService() {
@@ -211,5 +212,9 @@ public class TestLisJunit_HIK {
 		System.out.println(vo);
 	}
 	
-	
+//	@Test
+	public void returnBookList() {
+		List<LendBookBean> lists = dao.returnBookList();
+		System.out.println(lists);
+	}
 }
