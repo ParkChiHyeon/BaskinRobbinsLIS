@@ -66,6 +66,12 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 		return sqlSession.selectList(NS+"lendingList",map);
 	}
 
+	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
+	@Override
+	public List<LendBookBean> possibleReserve(Map<String, Object> map) {
+		return sqlSession.selectOne(NS+"possibleReserve",map);
+	}
+	
 	@Override
 	public int reservationBook(LendingVo vo) {
 		return sqlSession.insert(NS+"reservationBook",vo);
@@ -82,8 +88,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	}
 
 	@Override
-	public int realReserBookUpdate(LendingVo vo) {
-		return sqlSession.update(NS+"realReserBookUpdate",vo);
+	public int realReserBookUpdate(String book_serial) {
+		return sqlSession.update(NS+"realReserBookUpdate",book_serial);
 	}
 
 	@Override
@@ -102,8 +108,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	}
 
 	@Override
-	public int reserveDelUpdate(BookInfoVo vo) {
-		return sqlSession.update(NS+"reserveDelUpdate",vo);
+	public int reserveDelUpdate(String book_serial) {
+		return sqlSession.update(NS+"reserveDelUpdate",book_serial);
 	}
 
 	@Override

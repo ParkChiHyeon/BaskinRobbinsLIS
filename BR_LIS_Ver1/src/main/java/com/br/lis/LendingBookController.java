@@ -1,10 +1,17 @@
 package com.br.lis;
 
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 
@@ -12,8 +19,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
@@ -32,7 +41,7 @@ public class LendingBookController {
 	@RequestMapping(value = "/lendingBook.do", method = RequestMethod.GET, produces ="application/text; charset=UTF-8" )
 	public  String lendingLIst(Model model) {
 		
-		logger.info("이전대출도서내역");
+		logger.info("대출한 도서내역");
 		Map<String, Object> map2 = new  HashMap<String, Object>();
 		map2.put("member_code", "M2205000004");
 		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
@@ -43,9 +52,8 @@ public class LendingBookController {
 		return "lendingBook";
 	}
 
-	
-	@RequestMapping(value ="/reserveBook.do", method = RequestMethod.GET)
-	public String reserveBook(String lending_seq, LendingVo vo, Model model) {
+	@RequestMapping(value = "/adminLenList.do", method=RequestMethod.GET)
+	public String adminLenList(Model model) {
 		logger.info("예약목록 전체조회(관리자) ");
 //		List<BookInfoVo>lists = service.allReserveLending();
 		Map<String, Object> map1 = new  HashMap<String, Object>();
@@ -53,11 +61,15 @@ public class LendingBookController {
 		reBook= service.allReserveLending(map1);
 		model.addAttribute("reBook",reBook);
 //		model.addAttribute("lists", lists);
-		
+		return "adminLenList";
+	}
+	
+	@RequestMapping(value ="/reserveBook.do", method = RequestMethod.GET)
+	public String reserveBook(String lending_seq, LendingVo vo, Model model) {
 		logger.info("예약목록조회(회원)");
 //		Map<String, String> map = new  HashMap<String, String>();
 		List<Map<String, Object>>  map = new ArrayList<Map<String,Object>>();
-		String membercode = "M2205000005";
+		String membercode = "M2205000004";
 		List<Map<String, Object>> lb =service.reserveLendingBook(membercode);
 
 		for (int i = 0;  i< lb.size(); i++) {
@@ -96,33 +108,55 @@ public class LendingBookController {
 		
 		
 		return "reserveBook";
-		
-		
-		
-		
-//		logger.info("대출신청하기");
-//		int n = service.confrimReserveBook(lending_seq, vo);
-//		if(n==1) {
-//			logger.info("대출 신청 완료됨??");
-//		}
-//		return (n==1)?"redirect:/reserveBook.do":"redirect:/reserveBook.do"; 
+
 	}
 	
 	
-	@RequestMapping(value = "/cancelReseve.do", method = RequestMethod.POST) 
-	@ResponseBody
-	public String cancelReseve(String lending_seq, BookInfoVo vo) {
+	@RequestMapping(value = "/cancelReseve.do", method = RequestMethod.GET) 
+	public String cancelReseve(/* @RequestParam String lending_seq, String book_serial, */HttpServletRequest req, HttpServletResponse response) throws IOException {
 		logger.info("회원이 예약 취소");
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("j","lending_seq");
-		
-		int n  =service.selfDeleteResrve(lending_seq,vo);
-		
-//		if(n==1) {
-//			logger.info("취소중...........");
-//		}
-		return "redirect:/reserveBook.do";
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("j","lending_seq");
+		String lending_seq = 	req.getParameter("lending_seq");
+		String book_serial = 	req.getParameter("book_serial");
+		int n  =service.selfDeleteResrve(lending_seq, book_serial);
+		if(n==1) {
+			PrintWriter out =response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('삭제되었습니다');</script>");
+			out.flush();
+			
+			return "reserveBook";
+		}else {
+			return "reserveBook";
+		}
 	}
+	
+	@RequestMapping(value = "/confrimReserve.do",method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String confrimReserve(String seq, String code, String member, HttpServletRequest req,HttpServletResponse response) throws IOException{
+		logger.info("예약된 도서 관리자가 대출 신청하기");
+	//	String lending_seq = 	req.getParameter("lending_seq");
+		//String book_serial = 	req.getParameter("book_serial");
+		//String member_code = 	req.getParameter("member_code");
+		System.out.println(seq+code+member);
+		int n = service.confrimReserveBook(seq.trim(), code.trim(), member.trim());
+		
+		System.out.println(n+"n의 갯수======================");
+		if(n>0) {
+	//		PrintWriter out =response.getWriter();
+	//		response.setContentType("text/html; charset=UTF-8");
+	//		out.println("<script>alert('대출되었습니다');</script>");
+	//		out.flush();
+			
+			return "true";
+		}else {
+			return "false";
+		}
+		
+	}
+	
+	
 	
 }
 

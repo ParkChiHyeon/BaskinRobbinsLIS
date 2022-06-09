@@ -64,6 +64,12 @@ public class LendingBookServiceImpl implements ILendingBookService {
 		return dao.lendingList(map);
 	}
 
+	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
+	@Override
+	public List<LendBookBean> possibleReserve(Map<String, Object> map) {
+		logger.info("ILendingBookDao 대출중,예약X 빠른대출일 조회 possibleReserve");
+		return dao.possibleReserve(map);
+	}
 	
 	//BR_W_BM_208 대출 예약 신청 RV=Y , DG=N 
 	// + 예약가능권수 초과하면 추가예약 불가
@@ -77,11 +83,12 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	//BR_W_BM_209 예약건 대출 확정 후 상태변경
 	// ++ 반납일이 빠른도서로 예약
 	@Override
-	public int confrimReserveBook(String lending_seq, LendingVo vo) {
+	public int confrimReserveBook(String lending_seq, String book_serial,String member_code) {
 		logger.info("confrimReserveBook 예약건 대출확정 후 상태변경");
 		int n = dao.realReserBook(lending_seq);
-		int m =dao.realReserBookUpdate(vo);
-		return (n>0&&m>0)?1:0;
+		int m =dao.realReserBookUpdate(book_serial);
+		int x = dao.lendingCount(member_code);
+		return (n>0&&m>0&&x>0)?1:0;
 	}
 	
 	@Override
@@ -93,20 +100,20 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	
 	//BR_W_BM_211 대출예약 자동취소 후 상태변경 RV  =N ,DG=Y
 	@Override
-	public int autoDeleteResrve(String lending_seq, BookInfoVo vo) {
+	public int autoDeleteResrve(String lending_seq, String book_serial) {
 		logger.info("autoDeleteResrve 대출 예약 자동취소 후 보유도서 상태변경");
 		int n =dao.reserveAutoDel(lending_seq);
-		int m = dao.reserveDelUpdate(vo);
+		int m = dao.reserveDelUpdate(book_serial);
 		return (n>0&&m>0)?1:0;
 	}
 	
 	
 	//BR_W_BM_212 대출예약 취소 후 상태변경 RV  =N ,DG=Y
 	@Override
-	public int selfDeleteResrve(String lending_seq, BookInfoVo vo) {
+	public int selfDeleteResrve(String lending_seq, String book_serial) {
 		logger.info("selfDeleteResrve 대출 예약 취소 후 보유도서 상태변경");
 		int n = dao.reserveSelfDel(lending_seq);
-		int m = dao.reserveDelUpdate(vo);
+		int m = dao.reserveDelUpdate(book_serial);
 		return (n>0&&m>0)?1:0;
 	}
 	

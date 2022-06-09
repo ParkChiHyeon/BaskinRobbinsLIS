@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.br.lis.model.lendinginfo.mapper.ILendingBookDao;
+import com.br.lis.model.lendinginfo.service.ILendingBookService;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
@@ -198,8 +199,8 @@ public class TestLisJunit_JSJ {
 		logger.info("realReserBookUpdate _예약 후 대출 확정 상태변경");
 		LendingVo vo = new LendingVo();
 		vo.setBook_serial("BKSR100030");
-		int n = dao.realReserBookUpdate(vo);
-		System.out.println(n);
+	//	int n = dao.realReserBookUpdate(vo);
+//		System.out.println(n);
 	}
 	
 	//ok
@@ -231,13 +232,13 @@ public class TestLisJunit_JSJ {
 	}
 	//OK
 //	@Test
-	public void reserveDelUpdate() {
-		logger.info("reserveDelUpdate  대출 예약 취소 상태변경");
-		BookInfoVo vo = new BookInfoVo();
-		vo.setBook_serial("BKSR100030");
-		int n = dao.reserveDelUpdate(vo);
-		System.out.println(n);
-	}
+//	public void reserveDelUpdate() {
+//		logger.info("reserveDelUpdate  대출 예약 취소 상태변경");
+//		BookInfoVo vo = new BookInfoVo();
+//		vo.setBook_serial("BKSR100030");
+//		int n = dao.reserveDelUpdate(vo);
+//		System.out.println(n);
+//	}
 	// 5권 이상일땐??-> 증가 안되게.?
 //	@Test
 	public void lendingCount() {
@@ -247,6 +248,18 @@ public class TestLisJunit_JSJ {
 		System.out.println(n);
 	}
 	
+	@Autowired
+	private ILendingBookService bService;
 	
+	@Test
+	public void lendingCount1() {
+		logger.info("test 중");
+		  
+		String lending_seq = "LEN220607000000002";
+		String book_serial = "BKSR155997";
+		String member_code = "M2205000788";
+		int n = bService.confrimReserveBook(lending_seq, book_serial, member_code);
+		System.out.println(n);
+	}
 
 }

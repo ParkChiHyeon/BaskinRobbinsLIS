@@ -38,6 +38,10 @@ public interface ILendingBookDao {
 	
 //	public LendBookBean lendingList(List<Map<String, String>> map);
 	
+	
+	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
+	public List<LendBookBean> possibleReserve(Map<String, Object>map);
+	
 	//대출 예약 신청
 	public int reservationBook(LendingVo vo);
 	
@@ -48,7 +52,7 @@ public interface ILendingBookDao {
 	public int realReserBook(String lending_seq);
 	
 	//예약 후 대출 확정 상태변겨
-	public int realReserBookUpdate(LendingVo vo);
+	public int realReserBookUpdate(String book_serial);
 	
 	//반납일이 빠른도서조회
 	public List<LendingVo> fastReturnDayBook(LendingVo vo);
@@ -60,7 +64,7 @@ public interface ILendingBookDao {
 	public int reserveSelfDel(String lending_seq);
 	
 	//대출 예약 취소후 상태변경
-	public int reserveDelUpdate(BookInfoVo vo);
+	public int reserveDelUpdate(String book_serial);
 	
 	//대여가능 권수
 	public int lendingCount(String member_code);
