@@ -29,7 +29,6 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 
 	@Override
 	public int insertFAQ(Map<String, String> map) {
-		sqlSession.close();
 		return sqlSession.insert(NS+"insertFAQ", map);
 	}
 

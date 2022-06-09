@@ -70,14 +70,47 @@ public class Board_Controller {
 	@Autowired
 	private IAdminService iadminService;
 	
-	//공지게시판 새글입력화면
-	@RequestMapping(value = "modifynotice.do", method = RequestMethod.GET)
-	public String noticeboard(Locale locale, Model model) {
-		logger.info("-----------공지게시판 새글입력------");
-		
+	
+	
+	@RequestMapping(value = "/editor.do",method = RequestMethod.GET)
+	public String ckEditorView(String kind,Model model) {
+		logger.info("eidotr view 이동");
+		model.addAttribute("kind", kind);
 		return "modifynotice";
+	}
+	
+	
+	
+	//공지게시판 새글입력
+	@RequestMapping(value = "/insertNotice.do", method = RequestMethod.POST)
+	public String insertNoticeBoard(Model model, Notice_FAQBoardVo vo) {
+		logger.info("-----------공지게시판 새글입력------");
+		System.out.println(vo);
+		model.addAttribute("kind", "notice");
+		
+		
+		
+		return "redirect:/noticeboard.do";
 		
 	}
+	
+	//공지게시판 수정
+		@RequestMapping(value = "/modifynotice.do", method = RequestMethod.POST)
+		public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
+			logger.info("Board_Controller modifynotice 에디터로 입력받음");
+			logger.info("map:{}", map);
+			int cnt = inoticeService.insertNotice(map);
+			
+			if (cnt>0) {
+				System.out.println("수정 후 이동");
+				List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
+				model.addAttribute("list"+lists);
+				return "noticeboard";
+				
+			}else {
+				return "redirect:/noticeboard.do";
+			}
+		}
 	
 	//희망도서 엑셀 업로드
 	@RequestMapping(value = "/fileupload.do", method = RequestMethod.POST)
@@ -215,35 +248,19 @@ public class Board_Controller {
 	}
 
 	
-	//공지게시판 수정
-	@RequestMapping(value = "/modifynotice.do", method = RequestMethod.POST)
-	public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
-		logger.info("Board_Controller modifynotice 에디터로 입력받음");
-		logger.info("map:{}", map);
-		int cnt = inoticeService.insertNotice(map);
-		
-		if (cnt>0) {
-			System.out.println("수정 후 이동");
-			List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
-			model.addAttribute("list"+lists);
-			return "noticeboard";
-			
-		}else {
-			return "redirect:/modifynotice.do";
-		}
-	}
+	
 	
 	//noticeboard메인화면 data tables
 	@RequestMapping(value = "/noticeboard.do", method = RequestMethod.GET)
-	public String noticeBoardSelect(Model model) {
+	public String noticeBoardSelect(Model model,String kind) {
 		logger.info("Board_Controller noticeBoardSelect 리스트보기");
-		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
-		String str = "notice";
-		model.addAttribute("kind", str);
-		model.addAttribute("lists", lists);
+//		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
+//		model.addAttribute("kind", kind);
+//		model.addAttribute("lists", lists);
 		return "noticeboard";
 	}
 	
+	//noticeboard 상세보기
 	@RequestMapping(value = "/detailnotice.do", method = RequestMethod.GET)
 	public String viewDetailNotice(Model model,String seq) {
 		logger.info("Board_Controller_viewDetailNotice 공지사항 상세보기");
@@ -253,42 +270,28 @@ public class Board_Controller {
 		return "detailboard";
 	}
 	
-	
+//--------------------------------------------FAQ-----------------------------------
 
+	
+	//FAQ전체보기
 	@RequestMapping(value = "/faqboard.do", method = RequestMethod.GET)
-	public String faqBoardSelect(Model model) {
+	public String faqBoardSelect(Model model,String kind) {
 		logger.info("Board_Controller faqBoardSelect");
 		List<Notice_FAQBoardVo> lists = ifaqService.viewAllFAQ();
-		String str = "faq";
-		model.addAttribute("kind", str);
+		model.addAttribute("kind", kind);
 		model.addAttribute("lists", lists);
 		return "noticeboard";
 	}
 	
+	//FAQ상세보기
 	@RequestMapping(value = "/detailfaq.do", method = RequestMethod.GET)
 	public String viewDetailFAQ(Model model,String seq) {
 		logger.info("Board_Controller_viewDetailFAQ FAQ 상세보기");
-		logger.info("들어오니 ------------------------------------------------------{}",seq);
 		Notice_FAQBoardVo vo = ifaqService.viewDetailFAQ(seq);
-		model.addAttribute("fvo", vo);
-		model.addAttribute("kind", "notice");
-		return "detailfaq";
+		model.addAttribute("vo", vo);
+		model.addAttribute("kind", "faq");
+		return "detailboard";
 	}
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/noticeMain.do", method = RequestMethod.GET)
-	public String noticeMain(Model model, @SessionAttribute("pageNum") Map<String, Object> map, HttpSession session) {
-		logger.info("-----메인화면이동------");
-		List<Notice_FAQBoardVo> list = inoticeService.selectPaging(map);
-		model.addAttribute("list", list);
-		return "noticeMain";
-	}
-	
-	
-	
 	
 //	@SuppressWarnings("unchecked")
 //	@RequestMapping(value = "/modifyNotice.do", method =  RequestMethod.POST, produces = "application/text; charset=UTF-8;")
@@ -314,43 +317,40 @@ public class Board_Controller {
 //			json.put("isc", "false");
 //		}
 //		return json.toString();
-		
-				
 //	}
 	
-	@RequestMapping(value = "/modify.do", method = RequestMethod.POST, produces = "application/text; chatset=UTF-8;")
-	@ResponseBody
-	public String modify(String seq, @SessionAttribute("member")AdminVo vo){
-		logger.info("Board_Controller modify : {}", seq);
-		Map<String, String> rmap = new HashMap<String, String>();
-//		int n = inoticeService.modifyNotice(vo);
-		
-//		String str = rmap.put("isc",(n==1) ? "true":"false");
-		
-		return "";
-		
-	}
 	
-	@RequestMapping(value = "/write.do", method = RequestMethod.POST)
-	public String write(@RequestParam Map<String, Object> map, @SessionAttribute("admin") AdminVo aVo,
-						HttpServletResponse response, HttpSession session) throws IOException {
-		map.put("id", aVo.getAdmin_id());
-		logger.info("noticeboard_Controller write:{}", map);
+
+	//FAQ게시판 새글 입력화면
+	@RequestMapping(value = "/insertFAQ.do", method = RequestMethod.POST)
+	public String insertFAQ(Model model, Notice_FAQBoardVo vo ){
+		logger.info("------FAQ게시판 새글입력--------");
+		System.out.println(vo);
 		
-		int n = inoticeService.insertNotice(map);
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("admin_id", vo.getAdmin_id());
+		map.put("title", vo.getTitle());
+		map.put("content", vo.getContent());
+
 		
-		return "redirect:/mainJsp.do";
+		model.addAttribute("kind", "faq");
+		ifaqService.insertFAQ(map);
+		
+		return "redirect:/faqboard.do";
+		
 	}
 
-
-
-	@RequestMapping(value = "/multiDel.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String multiDel(@RequestParam ArrayList<String> chk, @SessionAttribute("admin") AdminVo aVo,
+	
+	
+	
+	//FAQ 다중삭제
+	@RequestMapping(value = "/multiDelFAQ.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String multiDelFAQ(@RequestParam ArrayList<String> chk, @SessionAttribute("admin") AdminVo aVo,
 							HttpServletResponse response) throws IOException {
 		logger.info("Board_Controller multiDel:{}", chk);
 		int n = 0;
 		if (aVo.getAdmin_id().equals(aVo)) {
-			n = inoticeService.deleteNotice(chk);
+			n = ifaqService.deleteFAQ(chk);
 		
 		}else {
 			return (n>0)?"redirect:/mainJsp.do":"redirect:/logout.do";

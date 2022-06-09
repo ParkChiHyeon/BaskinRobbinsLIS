@@ -15,6 +15,7 @@
 		
 		<context:property-placeholder location="classpath:properties/db.properties"/>
 
+
 	
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
 		<property name="driverClassName" value="${db.driver}"/>

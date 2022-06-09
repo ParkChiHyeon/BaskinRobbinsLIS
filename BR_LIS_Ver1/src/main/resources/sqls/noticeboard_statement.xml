@@ -2,37 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.br.lis.model.board.mapper.NoticeBoardDaoImpl">
 
-<select id="viewAllNotice" resultType="Notice_FAQVo">
-			SELECT NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') REGDATE , FILE_PATH
+	<select id="viewAllNotice" resultType="Notice_FAQVo">
+		SELECT NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') REGDATE , FILE_PATH
 	   		FROM NOTICE_BOARD
-	   		ORDER BY REGDATE DESC
+	   			ORDER BY NOTICE_SEQ DESC
 	</select>
 	
 	<select id="viewDetailNotice" resultType="Notice_FAQVo">
 		SELECT NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH 
-		FROM NOTICE_BOARD
-				WHERE NOTICE_SEQ=#{seq}
+			FROM NOTICE_BOARD
+				WHERE NOTICE_SEQ=#{notice_seq}
 	</select>
 	
 
-<insert id="insertNotice" parameterType="java.util.Map">
-INSERT INTO NOTICE_BOARD(NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH)
-VALUES (NOTICE_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE,NULL)
-</insert>
+	<insert id="insertNotice" parameterType="java.util.Map">
+		INSERT INTO NOTICE_BOARD(NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH)
+			VALUES (NOTICE_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE,NULL)
+	</insert>
 
-<update id="modifyNotice" parameterType="Notice_FAQVo">
+	<update id="modifyNotice" parameterType="Notice_FAQVo">
+		UPDATE NOTICE_BOARD
+				SET TITLE = #{title}, 
+					CONTENT = #{content} 
+					WHERE NOTICE_SEQ=#{notice_seq}
+	</update>
 
-UPDATE NOTICE_BOARD
-		SET TITLE = #{title}, 
-			CONTENT = #{content} 
-			WHERE NOTICE_SEQ=#{notice_seq}
-</update>
-
-<delete id="deleteNotice" parameterType="java.util.List">
-	DELETE FROM NOTICE_BOARD WHERE NOTICE_SEQ IN
-		<foreach collection="list" item="seq" open="(" separator="," close=")">
-		#{seq}
-		</foreach>
+	<delete id="deleteNotice" parameterType="java.util.List">
+		DELETE FROM NOTICE_BOARD WHERE NOTICE_SEQ IN
+			<foreach collection="list" item="seq" open="(" separator="," close=")">
+				#{seq}
+			</foreach>
 	</delete>
 
 

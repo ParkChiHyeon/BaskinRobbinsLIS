@@ -5,22 +5,32 @@
 	<select id="viewAllFAQ" resultType="Notice_FAQVo">
 	SELECT FAQ_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE
 		FROM FAQ_BOARD
-		ORDER BY REGDATE DESC
+			ORDER BY REGDATE DESC
 	</select>
+	
+	<select id="viewDetailFAQ" resultType="Notice_FAQVo">
+	SELECT FAQ_SEQ, ADMIN_ID, TITLE, CONTENT
+		FROM FAQ_BOARD
+				WHERE FAQ_SEQ=#{faq_seq}
+	</select>
+	
 	<insert id="insertFAQ" parameterType="java.util.Map">
-	INSERT INTO FAQ_BOARD(FAQ_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE) 
+	INSERT INTO FAQ_BOARD(FAQ_SEQ, ADMIN_ID, TITLE, CONTENT) 
 		VALUES(FAQ_SEQ.NEXTVAL, #{admin_id}, #{title}, #{content})
 	</insert>
+	
 	<update id="modifyFAQ" parameterType="Notice_FAQVo">
-	UPDATE GD.FAQ_BOARD 
+	UPDATE FAQ_BOARD 
 		SET TITLE = #{title}, CONTENT = #{content} 
-		WHERE FAQ_SEQ = #{faq_seq}
+			WHERE FAQ_SEQ = #{faq_seq}
 	</update>
+	
 	<delete id="deleteFAQ">
 		DELETE FROM FAQ_BOARD
 			WHERE FAQ_SEQ IN
 			<foreach collection="list" item="faq_seq" open="(" close=")" separator=",">
-		#{faq_seq}
-	</foreach> 
+				#{faq_seq}
+			</foreach> 
 	</delete>
+	
 </mapper>
