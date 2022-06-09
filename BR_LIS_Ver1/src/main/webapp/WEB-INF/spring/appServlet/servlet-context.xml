@@ -27,9 +27,4 @@
 	<tx:annotation-driven/>
 	
 	<!-- Scheduler -->
-	<task:annotation-driven scheduler="scheduler"/>
-	<task:scheduler id="scheduler" pool-size="10"/>
-	<task:scheduled-tasks>
-		<task:scheduled ref="returnBookServiceImpl" method="overdueLendingBook" cron="* * 9 * * *?"/>
-	</task:scheduled-tasks>
 </beans:beans>
