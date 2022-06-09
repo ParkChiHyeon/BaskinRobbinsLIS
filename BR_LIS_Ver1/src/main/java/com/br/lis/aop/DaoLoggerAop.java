@@ -20,10 +20,10 @@ public class DaoLoggerAop {
 		}
 		
 	}
-	public void afterReturning(JoinPoint j) {
-		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
-		logger.warn("End Method:\t{}",j.getSignature().getName());
-	}
+//	public void afterReturning(JoinPoint j) {
+//		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
+//		logger.warn("End Method:\t{}",j.getSignature().getName());
+//	}
 	
 	public void afterThrowing(JoinPoint j, Exception exception) {
 		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
