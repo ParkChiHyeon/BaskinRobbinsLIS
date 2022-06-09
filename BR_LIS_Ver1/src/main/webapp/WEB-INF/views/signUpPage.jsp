@@ -134,10 +134,13 @@ label{
  <link href="./khu_css/style.css" rel="stylesheet">
 <%@ include file="./header.jsp" %>
 <body>
-	<form action="#" method="POST">
+	
+	<form action="#" method="POST" id="testForm">
 	<div class="container">
 	
-		<ul class="list-group" id="ulForm">				
+	<input type="text" value="1" id="chkVal">
+	
+		<ul class="list-group" id="ulForm">	
 		<li class="list-group-item" id="idInput">
 		<label>아이디</label>
 		<input type="text" class="form-control" placeholder="ID" id="id_textbox" name="member_id" required>
@@ -214,6 +217,28 @@ label{
 <%@ include file="./footer.jsp" %>
 
 <script type="text/javascript">
+
+function signUp() {
+	var chk = document.getElementById("chkVal");
+	var frm = document.getElementById("testForm");
+	
+	frm.action = "./signUp.do";	
+	console.log(chk.value);
+	if(chk.value == 1){
+		frm.submit();
+// 		location.href = "./signUp.do";	
+	console.log(chk.value)
+}else{
+		console.log(chk.value)
+		swal("에러","작성한 정보를 다시 확인하세요");
+		return false;
+	}
+	
+}
+
+
+
+
 
 var timer = null;
 var isRunning = false;
@@ -294,18 +319,7 @@ var onloadCallback = function() {
 
 
 
-function signUp() {
-	var chk = document.getElementById(chkVal).value;
-	if(chk == 1){
-		location.href = "./signUp.do";	
-	}
-	else{
-		console.log(chkVal)
-		swal("에러","작성한 정보를 다시 확인하세요");
-		return false;
-	}
-	
-}
+
 
 function kakaopost() {
     new daum.Postcode({
@@ -326,17 +340,19 @@ function idDuplicateCheck() {
 		success: function(msg){
 			if(msg.isc=="성공"){
 				swal("중복된 아이디입니다");
-				$("#id_textbox").focus();
-				return false;
+				$("#id_textbox").focus();	
+				$("#chkVal").val(0);
 				
 			}else{
 				swal("사용 가능한 아이디 입니다");
 				$("#pw_textbox").focus();
+				$("#chkVal").val(1);
 			}
 		},
 		error :function(){
 			swal("회원가입 실패","에러가 발생하였습니다")
-			return false;
+			$("#chkVal").val(0);
+		
 		}
 		
 	})
@@ -353,12 +369,15 @@ $(document).ready(function(){
 		if(idVal.length <6 || idVal.length >20){
 			$("#resultId").css("color","red");
 			$("#resultId").html("아이디의 길이는 5~20 입니다.");
+			$("#chkVal").val(0);
 		}else if(idVal.indexOf(" ") != -1){
 			$("#resultId").css("color","red");
 			$("#resultId").html("공백이 포함된 아이디는 사용할 수 업습니다.");
+			$("#chkVal").val(0);
 		}else{
 			$("#resultId").html("")
-			return false;
+			$("#chkVal").val(1);
+			
 		}
 	});
 });
@@ -371,10 +390,11 @@ $(document).ready(function(){
 		console.log(pwVal);
 		if(pwVal.match(reg)){	
 			$("#resultPw").html("")
+			$("#chkVal").val(1);
 		}else{
 			$("#resultPw").css("color","red");
 			$("#resultPw").html("최소 8 자 및 최대 20 자, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자 및 하나의 특수 문자 정규식");
-			return false;
+			$("#chkVal").val(0);
 		}
 	});
 });
@@ -386,10 +406,12 @@ $(document).ready(function(){
 		console.log(exPwVal);
 		if(pwVal.match(exPwVal)){
 			$("#resultPw2").html("")
+			$("#chkVal").val(1);
 		}else{
 			$("#resultPw2").css("color","red");
 			$("#resultPw2").html("비밀번호를 다시 확인해주세요");
-			return false;
+			$("#chkVal").val(0);
+
 		}
 	});
 });
@@ -400,10 +422,12 @@ $(document).ready(function(){
 		var reg = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})";
 		if(phoneVal.match(reg)){
 			$("#resultPhone").html("")
+			$("#chkVal").val(1);
 		}else{
 			$("#resultPhone").css("color","red");
 			$("#resultPhone").html("핸드폰 번호를 다시 확인해주세요");
-			return false;
+			$("#chkVal").val(0);
+
 		}
 	});
 });
@@ -414,17 +438,18 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#birth_textbox").keyup(function(){
 		var birthVal = $(this).val();
-		
+		console.log(birthVal)
 		//주민번호 정규화 다시
 // 		var reg = "^d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|[3][01])[1-4]";
 		var reg = "^[0-9]{7,7}";
 		if(birthVal.match(reg)){
 			$("#resultBirth").html("")
+			$("#chkVal").val(1);
 		}else{
-			console.log(birthVal.match(reg))
+			
 			$("#resultBirth").css("color","red");
 			$("#resultBirth").html("주민번호를 다시 확인해주세요");
-			$("#chkval").val(0);
+			$("#chkVal").val(0);
 		}
 	});
 });
@@ -437,9 +462,11 @@ document.getElementById("btnSignUp").addEventListener("click",function(evt)
 		  {
 		    swal("오류","자동가입 방지 체크를 해주세요");
 		    evt.preventDefault();
+		    
 		    return false;
 		  }
 		  else{
+			  
 		     let msg = {
 		        'response': response,
 		    }
@@ -459,18 +486,21 @@ document.getElementById("btnSignUp").addEventListener("click",function(evt)
 		            throw Error(response.status);
 		        }
 		        console.log(response);
+		        $("#chkVal").val(0);
 		        return response.json()
 		    })
 		    //성공
 		    .then(json => {
 		        if(json.success === true){
 		            console.log("Done completely");
+		            $("#chkVal").val(1);
 		        }
 
 		    })
 		    //에러
 		    .catch(err => {
 		        console.log("Error", err)
+		        $("#chkVal").val(0);
 		    })
 		  }
 		});

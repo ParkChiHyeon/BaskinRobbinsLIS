@@ -270,7 +270,16 @@ div.int-area2 i{
 				success:function(msg){
 					console.log(msg.isc, typeof msg);
 					if(msg.isc =="성공"){
+						$.ajax({
+							url:"./"
+							type:
+							data:
+							success:function(msg){
 								
+							}
+							
+						})
+						
 						swal({
 							title: "찾은 아이디 : '${mVo.member_id}'",
 							icon : "success",
@@ -358,7 +367,7 @@ div.int-area2 i{
     				url:"./loginCheck.do",
     				type:"post",
     				data:"member_id="+id.value+"&password="+pw.value,
-    				success:function(msg){     			
+    				success:function(msg){ 				
     					console.log(msg.isc , typeof msg);
     					if (msg.isc=="성공") {
     						swal({
