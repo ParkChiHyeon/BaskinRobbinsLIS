@@ -257,6 +257,7 @@ public class Board_Controller {
 //		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
 //		model.addAttribute("lists", lists);
 		model.addAttribute("kind", kind);
+		model.addAttribute("session", "admin");
 		return "noticeboard";
 	}
 	

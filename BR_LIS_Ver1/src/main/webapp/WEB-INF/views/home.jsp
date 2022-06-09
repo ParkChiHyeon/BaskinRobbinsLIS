@@ -8,12 +8,22 @@
 </head>
 <%@ include file="./header.jsp"%>
 <script>
+$(document).ready(function(){
+	var today = new Date();
+	var year = today.getFullYear(); // 년도
+	var month = today.getMonth() + 1;  // 월
+	
+	$(".HolYear").text(year);
+	$(".HolMonth").text(month);
+noticeList()
+})
 	$(function() {
 		$('#searchBoxArea').css('height', '73px');
 		$('#searchBoxArea').css('opacity', '1');
 		$('#searchBoxArea').show();
 	});
 </script>
+<script type="text/javascript" src="./BR_js/noticeboard.js"></script>
 <body class="body">
 	<!-- <div id="wrap"> -->
 	<script>
@@ -222,7 +232,7 @@
 							<div class="swiper-container swiper-popup">
 								<div class="swiper-wrapper">
 									<div class="swiper-slide">
-										<a href="http://cyber.uwlib.or.kr:81/" class="img"
+										<a href="#" class="img"
 											title="6-7월 모두북큐레이션(오디오북)"> <img
 											src="./attach/popupzone/jungang20220602155212422.jpg"
 											alt="6-7월 모두북큐레이션(오디오북)" />
@@ -231,7 +241,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16407"
+											href="#"
 											class="img" title="지역서점 지역화폐 소비지원금 안내"> <img
 											src="./attach/popupzone/jungang20220531134600746.jpg"
 											alt="지역서점 지역화폐" />
@@ -248,7 +258,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16398"
+											href="#"
 											class="img" title="독서동아리 기본교육과정 모락모락"> <img
 											src="./attach/popupzone/jungang20220526142425989.jpg"
 											alt="독서동아리 기본교육과정 모락모락" />
@@ -257,7 +267,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16397"
+											href="#"
 											class="img" title="메타버스로 만나는 독서동아리"> <img
 											src="./attach/popupzone/jungang20220526142350635.jpg"
 											alt="메타버스로 만나는 독서동아리" />
@@ -266,7 +276,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16386"
+											href="#"
 											class="img" title="6월 번개독서토론 운영 안내"> <img
 											src="./attach/popupzone/jungang20220524114320398.jpg"
 											alt="모집기간 5월 30일 오전 9시부터 선착순 접수 운영일시 6월 29일 오후 7시부터 8시 30분까지" />
@@ -275,7 +285,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16341"
+											href="#"
 											class="img" title="행복한 노후 아카데미 운영 안내"> <img
 											src="./attach/popupzone/jungang20220520172851343.jpg"
 											alt="운영일시: 2022. 6. 20.(월) ~ 7. 18.(월)매주 월,수 10:00 ~ 12:00  대상: 행복한 노후를 준비하는 의왕시민 20명 장소: 중앙도서관 문화교실 1 내용: 노후 대비 프로그램(총9회) 접수: 5.30.(월) 9시부터 선착순 접수" />
@@ -284,8 +294,8 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16321"
-											target="_blank" class="img" title="6월 포스트잇 독서토론 운영안내"> <img
+											href="#"
+										    class="img" title="6월 포스트잇 독서토론 운영안내"> <img
 											src="./attach/popupzone/jungang20220520091826107.jpg"
 											alt="누구나 참여하는 포스트잇 독서토론" />
 										</a>
@@ -293,7 +303,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16301"
+											href="#"
 											class="img" title="테마가 있는 작은도서관 6월 강좌 접수 안내"> <img
 											src="./attach/popupzone/jungang20220516111822114.jpg"
 											alt="테마가 있는 작은도서관 6월 강좌 접수 안내" />
@@ -304,7 +314,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10592/40213/content.do"
+											href="#"
 											class="img" title="의왕역 스마트도서관 운영안내"> <img
 											src="./attach/popupzone/jungang20220303171205121.jpg"
 											alt="의왕역 스마트도서관 운영안내" />
@@ -315,7 +325,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=15544"
+											href="#"
 											class="img" title="2022년 이동도서관 운행일정 안내"> <img
 											src="./attach/popupzone/jungang20220216161703083.jpg"
 											alt="- 운행기간: 2022. 2. 7. ~ 12. 16. - 운행장소: 18개소(시간표 참조) - 이용대상: 의왕시민(1인 5권/14일간)" />
@@ -334,7 +344,7 @@
 
 
 									<div class="swiper-slide">
-										<a href="http://cyber.uwlib.or.kr:81/Kyobo_T3/Default.asp"
+										<a href="#"
 											class="img" title="전자책도서관 신착도서를 만나보세요!"> <img
 											src="./attach/popupzone/jungang20220414161422687.jpg"
 											alt="전자책 135종, 오디오북 26종 이용방법: 도서관홈페이지 전자책도서관 or 리브로피아 모바일전자책" />
@@ -345,8 +355,8 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16191"
-											target="_blank" class="img" title="의왕역 스마트도서관 신착도서 안내"> <img
+											href="#"
+											class="img" title="의왕역 스마트도서관 신착도서 안내"> <img
 											src="./attach/popupzone/jungang20220427094931629.jpg"
 											alt="의왕역 스마트도서관 신간도서 안내" />
 										</a>
@@ -356,8 +366,8 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20013/bbsDetail.do?bbsIdx=13508"
-											target="_blank" class="img" title="의왕시 지역서점도서관 안내"> <img
+											href="#"
+											class="img" title="의왕시 지역서점도서관 안내"> <img
 											src="./attach/popupzone/jungang20220217144741386.jpg"
 											alt="의왕시 지역서점도서관 안내" />
 										</a>
@@ -435,27 +445,11 @@
 			</div>
 			<div id="section2">
 				<ul class="mainSvc">
-					<li><a href="/jungang/10018/40002/content.do"><img
-							src="./include/image/jungang/main/icon_svc01.png" alt="책드림서비스"></a></li>
-					<li><a href="/jungang/10362/40165/content.do"><img
-							src="./include/image/jungang/main/icon_svc02.png" alt="무인예약대출"></a></li>
-					<li><a a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
-							src="./include/image/jungang/main/icon_svc03.png" alt="전자책도서관"></a></li>
-					<li><a href="/jungang/10012/40001/content.do"><img
+					<li><a href="./bookSearch.do?kind=request"><img
 							src="./include/image/jungang/main/icon_svc09.png" alt="희망도서신청"></a></li>
-					<li><a href="/jungang/10553/baro/baroLogin.do"><img
-							src="./include/image/jungang/main/icon_svc10.png" alt="지역서점도서관"></a></li>
-					<li><a href="/jungang/10066/40147/content.do"><img
-							src="./include/image/jungang/main/icon_svc05.png" alt="이용안내"></a></li>
-					<!--<li><a href="/jungang/10073/40035/content.do"><img src="/include/image/jungang/main/icon_svc06.png" alt="찾아오시는길"></a></li>-->
-					<li><a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
-							src="./include/image/jungang/main/icon_svc07.png" alt="열람실좌석현황"></a></li>
-					<li><a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
-							src="./include/image/jungang/main/icon_svc08.png" alt="디지털정보실현황"
-							title="새 창 열림"></a></li>
 				</ul>
 			</div>
-
+foreach collection
 			<div id="section3">
 				<div class="sec3_1">
 
@@ -469,9 +463,8 @@
 						</div>
 						<div class="holiBody">
 							<div class="holYM">
-								<!-- 값 받아 와야함 -->
-								<p class="holYear">2022</p>
-								<p class="holMonth">6</p>
+								<p class="holYear"></p>
+								<p class="holMonth"></p>
 							</div>
 							<!--VIEW-TODO001 for문 처리 해야 함 아래는 예시-->
 							<ul>
@@ -496,40 +489,9 @@
 					<div class="noticeArea">
 						<h2 class="themeFC">공지사항</h2>
 						<ul class="noticeList">
-
-
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16421">[중앙도서관]
-										6월 그림책 연계 육아도서 전시(1층)</a></span> <span class="date">2022-06-02</span></li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16411">[사립작은도서관]
-										공공-작은도서관 상호대차시스템 구축 및 서비스 제공 도서관 모집 공고</a></span> <span class="date">2022-06-02</span>
-							</li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16410">2022년
-										청계숲고운도서관 기간제근로자 채용 공고</a></span> <span class="date">2022-06-02</span></li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16407">지역서점
-										지역화폐 소비지원금 안내(사용금액의10%마일리지로~)</a></span> <span class="date">2022-05-31</span>
-							</li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16398">[중앙]
-										독서동아리 기본교육과정 「모락모락」 운영</a></span> <span class="date">2022-05-26</span></li>
-
-
 						</ul>
 						<p class="btnMore">
-							<a href="/jungang/10041/20006/bbsList.do">더 보기</a>
+							<a href="./viewAllBoard.do?kind=notice">더 보기</a>
 						</p>
 					</div>
 				</div>
@@ -540,7 +502,6 @@
 
 					<script>
 						$(function() {
-
 							var mySwiper1 = new Swiper('.swiper-book1', {
 								loop : true,
 								grabCursor : true,
@@ -549,7 +510,6 @@
 								paginationClickable : true,
 								spaceBetween : 30
 							});
-
 							$('.swiper-button-prev1').click(function() {
 								mySwiper1.swipePrev();
 								return false;

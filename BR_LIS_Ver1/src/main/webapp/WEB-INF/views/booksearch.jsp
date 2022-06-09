@@ -92,7 +92,7 @@ td:nth-child(odd){
 
 	<div id="middle">
 	<div class="wrap-loading display-none">
-		    	<div><img src="./img/loading.gif" /></div>
+		    	<div><img src="./img/loading.gif"/></div>
 			</div>
 		<div id="contbody">
 
@@ -155,10 +155,12 @@ td:nth-child(odd){
 					</form>
 				</div>
 				</c:if>
+				<c:if test="${kind=='request'|| kind=='total' || kind=='detail'}">
 				<div class="table_Area">
 						<table id="bookSearchTotal" class="cell-border" style="float:right;"> 
 						</table>
 				</div>
+				</c:if>
 		</div>
 	</div>
 </div>

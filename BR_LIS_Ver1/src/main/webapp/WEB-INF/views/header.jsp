@@ -67,7 +67,7 @@
 			<div id="btnSearchTop"><a href="#link"><img src="./include/image/common/btn_serachTop.png" alt="검색창 열기"><span>검색</span></a></div>
 			<div id="indexNavi">
 	<ul id="topmenu">
-	<li id="gnb1"><a href="./bookSearch.do" >자료검색</a>
+	<li id="gnb1"><a href="./bookSearch.do?kind=total" >자료검색</a>
 			<ul>
 			<li id="gnb1_1" class=""><a href="./bookSearch.do?kind=total" >통합검색</a>
 					</li>

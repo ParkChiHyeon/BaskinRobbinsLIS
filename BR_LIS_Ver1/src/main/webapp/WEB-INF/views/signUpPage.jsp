@@ -295,7 +295,8 @@ var onloadCallback = function() {
 
 
 function signUp() {
-	var chk = document.getElementById(chkVal).value;
+	var chk = document.getElementById("chkVal").value;
+	console.log(chk)
 	if(chk == 1){
 		location.href = "./signUp.do";	
 	}
