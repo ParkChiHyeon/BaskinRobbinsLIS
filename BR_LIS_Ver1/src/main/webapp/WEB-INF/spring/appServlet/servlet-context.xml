@@ -20,16 +20,15 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- Scheduler -->
+	<task:annotation-driven scheduler="scheduler"/>
+	<task:scheduler id="scheduler" pool-size="10"/>
+	
 	<context:component-scan base-package="com.br.lis" />
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 	<tx:annotation-driven/>
 	
-	<!-- Scheduler -->
-	<task:annotation-driven scheduler="scheduler"/>
-	<task:scheduler id="scheduler" pool-size="10"/>
-	<task:scheduled-tasks>
-		<task:scheduled ref="returnBookServiceImpl" method="overdueLendingBook" cron="* * 9 * * *?"/>
-	</task:scheduled-tasks>
+	
 </beans:beans>
