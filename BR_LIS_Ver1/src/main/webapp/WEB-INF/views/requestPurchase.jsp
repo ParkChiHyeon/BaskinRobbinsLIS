@@ -22,7 +22,7 @@ function requestBook() {
 				"publisher":"출판사",
 				"author":"김작가",
 				"translator":"김번역",
-				"price":"15000",
+				"price":"15000"
 				},
 		dataType:"text",
 // 		async : false,

@@ -61,17 +61,17 @@ public class RequestPurchaseServiceImpl implements IRequestPurchaseService {
 
 	// 신청도서 신청목록 조회(BR_W_BM_503) : 사용자가 신청한 도서의 목록을 조회할 수 있다. 구매코드로 조회
 	@Override
-	public List<RequestPurchaseVo> purchReqListSelectByCode(String purchCodeVo) {
+	public List<RequestPurchaseVo> purchReqListSelectByCode(String searchKey, String searchValue) {
 		logger.info("RequestPurchaseServiceImpl purchReqListSelectByCode" );
-		return reqDao.purchReqListSelectByCode(purchCodeVo);
+		return reqDao.purchReqListSelectByCode(searchKey, searchValue);
 	}
 
 	// 신청도서 신청목록 조회(BR_W_BM_503) : 사용자가 신청한 도서의 목록을 조회할 수 있다. 사용자 ID로 조회
-	@Override
-	public List<RequestPurchaseVo> purchReqListSelectById(String memIdVo) {
-		logger.info("RequestPurchaseServiceImpl purchReqListSelectById" );
-		return reqDao.purchReqListSelectById(memIdVo);
-	}
+//	@Override
+//	public List<RequestPurchaseVo> purchReqListSelectById(String memIdVo) {
+//		logger.info("RequestPurchaseServiceImpl purchReqListSelectById" );
+//		return reqDao.purchReqListSelectById(memIdVo);
+//	}
 
 	// 신청도서 상태조회(BR_W_BM_504) : 사용자는 자신이 신청한 도서의 구매여부(승인이 됐는지)를 조회할 수 있다.(로그인 된 사용자의 것만 조회)
 	@Override

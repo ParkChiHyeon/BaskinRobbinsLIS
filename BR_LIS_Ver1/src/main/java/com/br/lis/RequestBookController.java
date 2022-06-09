@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.purchaseinfo.service.IPurchaseRegistrationService;
@@ -71,24 +72,31 @@ public class RequestBookController {
 	}
 	
 	
-	// (관리자) 신청도서 목록리스트(구매코드로 검색)
-//	@RequestMapping(value = "/requestBookList.do", method = RequestMethod.GET)
-//	public String requestBookListCode(Model model) {
-//		String purchCodeVo = "P2206";
-//		List<RequestPurchaseVo> reqList = reqPurcService.purchReqListSelectByCode(purchCodeVo);
-//		
-//		model.addAttribute("reqList", reqList);
-//		return "requestBookAdmin";
-//	}
-
-	// (관리자) 신청도서 목록리스트(id로 검색)
-	@RequestMapping(value = "/requestBookListId.do", method = RequestMethod.GET)
-	public String requestBookListId(Model model) {
-		String memIdVo = "gnldnd17";
-		List<RequestPurchaseVo> reqList = reqPurcService.purchReqListSelectById(memIdVo);
+	// (관리자) 신청도서 목록첫화면
+	@RequestMapping(value = "/requestBookList.do", method = {RequestMethod.POST, RequestMethod.GET})
+	public String requestBookListCodeTest(Model model) {
+		String searchKey = "PURCHASE_CODE"; 
+		String searchValue = "P2206";
+		List<RequestPurchaseVo> reqList = reqPurcService.purchReqListSelectByCode(searchKey, searchValue);
 		
 		model.addAttribute("reqList", reqList);
 		return "requestBookAdmin";
 	}
+	
+	// (관리자) 신청도서 목록리스트(아이디, 구매코드 중 하나를 선택하여 조회)
+	@RequestMapping(value = "/requestBookListCode.do", method = RequestMethod.POST)
+	@ResponseBody
+	public List<RequestPurchaseVo> requestBookListCode(HttpServletRequest req, HttpServletResponse resp, Model model) {
+		String searchKey = req.getParameter("searchKey");
+		String searchValue = req.getParameter("searchValue");	
+		
+		List<RequestPurchaseVo> reqList = reqPurcService.purchReqListSelectByCode(searchKey, searchValue);
+		
+		model.addAttribute("reqList", reqList);
+		return reqList;
+	}
+
+	
+	
 	
 }
