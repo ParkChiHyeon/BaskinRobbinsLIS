@@ -76,14 +76,12 @@ FROM LENDING l
 WHERE BACK_DATE IS NULL AND SYSDATE - END_DATE >= 1)
 </update>
 
-<select id="overdueThreeDayLendingBook" resultType="LendingVo">
-SELECT LENDING_SEQ
- FROM LENDING l 
- WHERE (SELECT TO_DATE(SYSDATE) - ED
- FROM (SELECT LENDING_SEQ ,TO_DATE(END_DATE) AS ED
- FROM LENDING) se 
- WHERE se.LENDING_SEQ=l.LENDING_SEQ)=3 
- AND BACK_DATE IS NULL
+<select id="overdueThreeDayLendingBook" resultType="LibMemberVo">
+SELECT lm.PHONE, lm.NAME , lm.MEMBER_CODE 
+FROM LIB_MEMBER lm 
+JOIN LENDING l2 
+ON lm.MEMBER_CODE = l2.MEMBER_CODE 
+WHERE TO_DATE(SYSDATE) - TO_DATE(l2.END_DATE) = 3 AND l2.BACK_DATE IS NULL
 </select>
 
 <update id="delayLendingBook" parameterType="java.lang.String">
@@ -108,6 +106,17 @@ WHERE MEMBER_CODE = (SELECT l.MEMBER_CODE M
 FROM LENDING l 
 WHERE SYSDATE-END_DATE>=1 AND BACK_DATE IS NULL)]]>
 </update>
+
+<select id="returnBookList" resultType="LendBookBean">
+SELECT bi.TITLE, l.LENDING_SEQ, l.BOOK_SERIAL, l.MEMBER_CODE, l.LENDING_DATE, l.END_DATE, l.BACK_DATE, l.RESERVE_DATE 
+FROM LENDING l
+JOIN POSSESSING_BOOK pb 
+ON l.BOOK_SERIAL =pb.BOOK_SERIAL 
+JOIN BOOK_INFO bi 
+ON bi.ISBN = pb.ISBN 
+WHERE l.BACK_DATE IS NOT NULL <![CDATA[AND ROWNUM < 50]]>
+</select>
+
 <resultMap type="com.br.lis.vo.LendingVo" id="lendingMap">
 <id property="lending_seq" column="LENDING_SEQ"/>
 <id property="member_code" column="MEMBER_CODE"/>

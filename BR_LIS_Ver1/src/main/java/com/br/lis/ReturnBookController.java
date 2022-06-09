@@ -3,6 +3,7 @@ package com.br.lis;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +16,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
 import com.br.lis.model.lendinginfo.service.IReturnBookService;
+import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
 import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.ReservationVo;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 public class ReturnBookController {
@@ -112,5 +118,15 @@ public class ReturnBookController {
 		}
 		return "home";
 	}
+	
+	
+	@RequestMapping(value = "/returnBookList.do", method = RequestMethod.GET)
+	public String ajaxTables(Model model) {
+		logger.info("HomeController ajaxTables 데이터테이블 아작스처리 페이지로 가기");
+		List<LendBookBean> lists = iService.returnBookList();
+		model.addAttribute("lists", lists);
+		return "returnBookList";
+	}
+
 	
 }

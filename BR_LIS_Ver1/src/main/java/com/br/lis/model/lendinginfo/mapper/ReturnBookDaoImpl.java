@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.br.lis.vo.BookInfoVo;
+import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
 import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.ReservationVo;
@@ -73,7 +74,7 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	}
 
 	@Override
-	public List<LendingVo> overdueThreeDayLendingBook() {
+	public List<LibMemberVo> overdueThreeDayLendingBook() {
 		return sqlSession.selectList(NS+"overdueThreeDayLendingBook");
 	}
 
@@ -100,6 +101,11 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	@Override
 	public int penaltyAuthModify() {
 		return sqlSession.update(NS+"penaltyAuthModify");
+	}
+
+	@Override
+	public List<LendBookBean> returnBookList() {
+		return sqlSession.selectList(NS+"returnBookList");
 	}
 
 
