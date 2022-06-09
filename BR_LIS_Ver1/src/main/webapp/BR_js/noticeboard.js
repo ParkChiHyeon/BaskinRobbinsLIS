@@ -1,67 +1,92 @@
-var jsonSource = [];
+function checkAll(bool){
+	console.log(bool);
+	var chs= document.getElementsByName("chkBox");
+	for(let i=0; i<chs.length; i++){
+		chs[i].checked=bool;
+	}
+}
+/*
+	하위 checkbox의 선택된 갯수를 판단하는 function	
+*/
 
-$(document).ready(function(){
-//	var table = $("#noticeBoardTable").DataTable();
-//	table.destroy();
+function chsConfirm(){
+	var chs=document.getElementsByName("chkBox");
+	var cnt=0;
+	for(let i=0; i<chs.length;i++){
+		if(chs[i].checked){
+			cnt++;
+		}
+	}
+	return cnt;
+}
+
+/*
+	하위에 있는 모든 checkbox가 체크가 된다면 모두 체크 
+	아닌경우 thead에 있는 checkbox를 false로 만든다
+*/
+window.onload = function(){
+	console.log("js onload");
+	var chkBox= document.getElementsByName("chkBox");
+	var allCheck=document.getElementById("allCheck");
 	
-	$.ajax({
-		method:"POST",
-		contentType:"application/json;",
-		url:"https://f087-211-197-28-137.jp.ngrok.io/notice_board/_search",		
-		data:JSON.stringify({"from":"0","size":"10000","sort":{"notice_seq":"desc"}}),
-		dataType:"json",
-		success:function(res){
-			 var data = res.hits.hits;
-			console.log("--공지사항이동--");
-			jsonSource.splice(0, jsonSource.length);
-			for(let i=0; i<data.length;i++){
-				jsonSource.push(data[i]._source)
+	for(let i=0; i<chkBox.length;i++){
+		chkBox[i].onclick=function(){
+			console.log(chkBox[i].value);
+			if(chkBox.length==chsConfirm()){
+				allCheck.checked=true;
+			}else{
+				allCheck.checked=false;
 			}
 		}
-	})
-		.done(function(){
-			 $("#noticeBoardTable").DataTable({
-			//https://datatables.net/reference/option/language
-    		"language": {
-            "emptyTable": "검색을 해주시기 바랍니다.",
-            "lengthMenu": " _MENU_ 개씩 보기",
-            "info": "현재 _START_ - _END_ / _TOTAL_건",
-            "infoEmpty": "0/0",
-            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
-            "zeroRecords": "일치하는 데이터가 없어요.",
-            "loadingRecords": "로딩중...",
-            "processing":     "잠시만 기다려 주세요...",
-            "paginate": {
-                "next": "다음",
-                "previous": "이전"
-            }
-        },
-        lengthChange: true, // 표시 건수기능 숨기기
-        searching: true, // 검색 기능 숨기기
-        ordering: true, // 정렬 기능 숨기기
-        info: true, // 정보 표시 숨기기
-        paging:true, // 페이징 기능 숨기기
-        order: [], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
-//      columnDefs: [{ targets: 1, width: 100 }] //열의 넓이 조절 
-//		lengthMenu: [ 10, 20, 30, 40, 50 ], //표시건수 
-//      displayLength: 50, //기본표시건수 설정
-        pagingType: "simple_numbers", // 페이징 타입 	
-		     data: jsonSource, 
-		 	 columns: [
-				{ 	
-					title:'글번호',
-					data:'notice_seq',
-				},
-		  		{ 
-				 	title:'제목',
-		          	render:function(data,type,row){
-					var	html= '<a href="./detailnotice.do?seq='+row.notice_seq+'">'+row.title+'</a>'; 
-					return html;
-				  }
-				}
-		  	]
-		  });
-			
-		});
-});
+	}
+}
+
+
+function multiDeleteFAQ(){
+	chsSubmit();
+}
+
+
+function chsSubmit(){
+	if(chsConfirm()>0){
+	swal({
+        title: "다중삭제",
+        text: "삭제를 진행하시겠습니까?",
+        type: "warning",
+        showCancelButton: true,
+        /*confirmButtonColor: "#DD6B55",*/
+		confirmButtonClass:"btn-danger" ,
+        confirmButtonText: "예",
+        cancelButtonText: "아니오",
+        closeOnConfirm: true,
+        closeOnCancel: false 
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            swal("삭제!", "작성글이 삭제 되었습니다.", "success");
+			submitForm();
+        } else {
+            swal("취소", "작성글 삭제를 취소합니다. :)", "error");
+        }
+    }
+	);
+	}else{
+		swal('','선택된글이 없습니다');
+	}
+	console.log("chsSubmit 마지막라인")
+	return false;
+}
+
+
+//sweetalert 처리방식
+//https://stackoverflow.com/questions/33414259/response-from-sweet-alert-confirm-dialog
+//https://sweetalert.js.org/ => confirm을 사용하여 처리=>callback
+
+/*
+ js document를 통해서 submit()함수를 실행
+기존형태 : input[type='submit'] -> <form action="">
+*/
+function submitForm(){
+	document.getElementById("formBoard").submit();
+}
+	

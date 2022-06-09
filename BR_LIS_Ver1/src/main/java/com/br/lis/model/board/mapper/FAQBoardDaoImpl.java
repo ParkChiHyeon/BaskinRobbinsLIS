@@ -34,13 +34,11 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 
 	@Override
 	public int modifyFAQ(Notice_FAQBoardVo vo) {
-		sqlSession.close();
 		return sqlSession.update(NS+"modifyFAQ", vo);
 	}
 
 	@Override
 	public int deleteFAQ(List<String> list) {
-		sqlSession.close();
 		return sqlSession.delete(NS+"deleteFAQ", list);
 	}
 
