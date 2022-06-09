@@ -47,7 +47,7 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	}
 
 	@Override
-	public String findId(Map<String, Object> map) {
+	public LibMemberVo findId(Map<String, Object> map) {
 		logger.info("Lib_MemberServiceImpl findId : {}", map);
 		return mDao.findId(map);
 	}

@@ -102,7 +102,7 @@ public class TestLisJunit_KHU {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", "김휘웅1");
 		map.put("phone", "01042935376");
-		String vo = mDao.findId(map);
+		LibMemberVo vo = mDao.findId(map);
 		logger.info("찾은 아이디 : {}", vo);
 	}
 	
@@ -111,7 +111,7 @@ public class TestLisJunit_KHU {
 	public void findPw() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("member_id", "gnldnd11");
-		map.put("password", "Clsclffk@12");
+//		map.put("password", "Clsclffk@12");
 		map.put("phone", "01042935376");
 		int cnt = mDao.findPw(map);
 		logger.info("비밀번호 인증 결과 : {}", cnt);
@@ -123,7 +123,7 @@ public class TestLisJunit_KHU {
 	public void resetPw() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("member_id", "gnldnd11");
-		map.put("password", "$2a$10$k16LX0byXeT39JfIBfkkSe1K72h1d.WFGFv22wXjLS2q.urYlDUS6");
+//		map.put("password", "$2a$10$k16LX0byXeT39JfIBfkkSe1K72h1d.WFGFv22wXjLS2q.urYlDUS6");
 		map.put("phone", "01042935376");
 		int cnt = mDao.resetPw(map);
 		logger.info("비밀번호 초기화결과 : {}", cnt);

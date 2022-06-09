@@ -46,6 +46,53 @@ div.int-area2 i{
   z-index: 9999;
 }
 
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close,.close2 {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.close2:hover,
+.close2:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
 </style>
 <body class="body">
 	<div id="forms">
@@ -64,25 +111,222 @@ div.int-area2 i{
                 <label for="pw">PASSWORD</label>
             </div>
             <div class="btn-area">
-                <button id="btn" type="button" name="signUp" onclick="loginCheck()">LOGIN</button>
+                <button id="btnLogin" type="button" name="signUp" onclick="loginCheck()">LOGIN</button>
             </div> 
             <div class="caption">
-            <a href="./findPwPage.do">Forgot PW?</a>
-            <a href="./findIdPage.do">Forgot ID?</a>
+            <button id="btnFindId" type="button" onclick="findIdForm()" class="btn btn-outline-dark">아이디 찾기</button>
+            <button id="#" type="button" onclick="findPwForm()" class="btn btn-outline-dark">비밀번호 찾기</button>
             <a href="./signUpPage.do">회원가입</a>
         </div>
        </form>
-       	
-        
-         
-        
+             
     </section>
 	</div>
+	
+	<!-- Trigger/Open The Modal -->
+<!-- The Modal -->
+<div id="idModal" class="modal">
+
+  <!-- findId Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+     <div class="container">
+        <h1>아이디 찾기</h1>
+		<form action="#" id="findIdForm" method="get">
+            <ul class = "list-group">
+            <li class="list-group-item">
+            <label>사용자 이름</label>
+                <input type="text" name="name" id="name" autocomplete="off" value="테스트이름" placeholder="찾을 아이디의 사용자 이름을 입력해주세요" required>
+            <label>사용자 전화번호</label>    
+                <input type="text" name="phone" id="phone" autocomplete="off" value="01085439648" placeholder="찾을 아이디의 전화번호를 입력해주세요" required maxlength="11">
+                <input type="button" id="btnFindForm" class="btn btn-outline-primary" value="아이디 찾기" onclick="find()">
+                </li>
+      		</ul>	 
+      	</form> 
+      </div>
+  </div>
+</div>	
+
+	<!-- Trigger/Open The Modal -->
+<!-- The Modal -->
+<div id="pwModal" class="modal">
+
+  <!-- findId Modal content -->
+  <div class="modal-content">
+    <span class="close2">&times;</span>
+     <div class="container">
+        <h1>비밀번호 찾기</h1>
+		<form action="#" id="findPwForm" method="POST">
+            <ul class = "list-group">
+            <li class="list-group-item">
+            <label>사용자 아이디</label>
+                <input type="text" name="member_id" id="form_member_id" autocomplete="off" value="test007" placeholder="찾을 아이디의 사용자 이름을 입력해주세요" required>
+            <label>사용자 전화번호</label>    
+                <input type="text" name="phone" id="form_phone" autocomplete="off" value="01042935376" placeholder="찾을 아이디의 전화번호를 입력해주세요" required maxlength="11">
+                <input type="submit" id="btnPwFindForm" class="btn btn-outline-primary" value="비밀번호 찾기" onclick="findPw()">
+                </li>
+      		</ul>	 
+      	</form> 
+      </div>
+  </div>
+</div>	
+	
+
 	<%@ include file="./footer.jsp" %>
 	  </body>
     <script type="text/javascript">
+    var result = document.getElementById("result");
+    // Get the modal
+    var idModal = document.getElementById("idModal");
+    var pwModal = document.getElementById("pwModal");
+    
+    function findIdForm(){
+    	idModal.style.display = "block";
+	}
+    
+    function findPwForm(){
+    	pwModal.style.display = "block";
+	}
+    
+    function findPw(){
+    	var id = document.getElementById("form_member_id");
+		var phone = document.getElementById("form_phone");
+		var frm = document.getElementById("findPwForm");
+		
+		console.log(id.value);
+		console.log(phone.value);
+		
+		if(id.value =="" || id.value.trim() ==""){
+			swal("사용자의 아이디를 입력해주세요");
+			id.value="";
+			id.focus();
+		}else if(phone.value =="" || phone.value.trim() ==""){
+			swal("사용자의 전화번호를 입력해주세요");
+			phone.value="";
+			phone.focus();
+		}else{
+			console.log(id.value);
+			console.log(phone.value);
+			
+			frm.action = "./sendSMS.do"
+			
+			$.ajax({
+				url :"./findPwChk.do",
+				type:"POST",
+				data:"member_id="+id.value+"&phone="+phone.value,
+				success:function(msg){
+					if(msg.isc =="성공"){
+						swal({
+							title: "입력하신 전화번호로 임시 비밀번호를 발송하였습니다",
+							icon : "success",
+							closeOnClickOutside: false
+							}, function(){
+								frm.submit();		
+								console.log(msg.isc);
+							});
+					}else{
+						swal("올바른 정보를 입력해주세요");
+					}
+				},
+				error:function(){
+					swal("에러발생");
+					console.log(id.value);
+	     			console.log(phone.value);
+				}
+			});
+				
+		}
+		
+    }
     
     
+    function find() {
+		var name = document.getElementById("name");
+		var phone = document.getElementById("phone");
+		var frm = document.getElementById("findIdForm");
+		var result = document.getElementById("result");
+		
+		console.log("name",name.value);
+		console.log("phone",phone.value);
+		
+		frm.action = "./findId.do"
+		
+		if(name.value =="" || name.value.trim()==""){
+			swal("사용자의 이름을 입력해주세요");
+			name.value="";
+			name.focus();
+		}else if(phone.value=="" || phone.value.trim()==""){
+			swal("전화번호를 입력해 주세요");
+			phone.value="";
+			phone.focus();
+		}else{
+			
+			console.log("name",name.value);
+			console.log("phone",phone.value);
+			$.ajax({
+				url :"./findIdChk.do",
+				type:"get",
+				data:"name="+name.value+"&phone="+phone.value,
+				success:function(msg){
+					console.log(msg.isc, typeof msg);
+					if(msg.isc =="성공"){
+								
+						swal({
+							title: "찾은 아이디 : '${mVo.member_id}'",
+							icon : "success",
+							closeOnClickOutside: false
+							}, function(){
+								frm.submit();		
+								console.log(msg.isc);
+							});
+					}else{
+						swal("올바른 정보를 입력해주세요");
+					}
+				},
+				error:function(){
+					swal("에러발생");
+					console.log(name.value);
+	     			console.log(phone.value);
+				}
+			});
+		}
+		
+		
+	}
+    
+    
+    
+   
+    
+    
+    
+
+
+    // Get the button that opens the modal
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    var span2 = document.getElementsByClassName("close2")[0];
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      idModal.style.display = "none";
+    }
+    
+    span2.onclick = function() {
+        pwModal.style.display = "none";
+      }
+    
+    
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == idModal || event.target == pwModal) {
+        idModal.style.display = "none";
+        pwModal.style.display = "none";
+      }
+    }
     
    
     

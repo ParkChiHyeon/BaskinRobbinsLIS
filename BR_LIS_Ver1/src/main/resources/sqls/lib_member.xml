@@ -55,7 +55,7 @@
 	
 	
 	<!-- 회원 아이디 찾기 BR_W_UM_011 -->
-	<select id="findId" parameterType="java.util.Map" resultType="java.lang.String">
+	<select id="findId" parameterType="java.util.Map" resultType="LibMemberVo">
 	SELECT MEMBER_ID 
   	FROM LIB_MEMBER lm 
   	WHERE NAME =#{name} AND PHONE=#{phone}
@@ -64,20 +64,20 @@
 	
 	<!-- 회원 비밀번호 찾기 BR_W_UM_012  -->
 	<select id="findPw" parameterType="java.util.Map" resultType="java.lang.Integer">
-	SELECT COUNT(*) MEMBER_ID
+	SELECT COUNT (*) MEMBER_ID
    	FROM LIB_MEMBER
-   	WHERE MEMBER_ID=#{member_id} AND PASSWORD = #{password} AND PHONE= #{phone}
+   	WHERE MEMBER_ID=#{member_id} AND PHONE= #{phone}
 	</select>
 	
 	<!-- 회원 비밀번호 1로 초기화  BR_W_UM013-->
 	<update id="resetPw" parameterType="java.util.Map">
 	UPDATE LIB_MEMBER 
   	SET PASSWORD ='1'
-  	WHERE MEMBER_ID=#{member_id} AND PASSWORD = #{password} AND PHONE =#{phone}
+  	WHERE MEMBER_ID=#{member_id} AND PHONE =#{phone}
 	</update>
 	
 	<!-- 임시 비밀번호 발급  BR_W_UM014 -->
-	<update id="updateNewPw">
+	<update id="updateNewPw" parameterType="java.util.Map">
 	UPDATE LIB_MEMBER 
   	SET PASSWORD =TRUNC(DBMS_RANDOM.VALUE(10000000,9000000))
   	WHERE PASSWORD = '1' AND MEMBER_ID=#{member_id} AND PHONE =#{phone}

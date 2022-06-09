@@ -11,8 +11,6 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	
-
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -29,6 +27,5 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 	<tx:annotation-driven/>
-	
 	
 </beans:beans>

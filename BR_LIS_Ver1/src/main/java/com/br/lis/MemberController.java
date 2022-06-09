@@ -1,6 +1,7 @@
 package com.br.lis;
 
-import java.net.http.HttpResponse;
+
+
 import java.util.HashMap;
 
 import java.util.List;
@@ -132,19 +133,18 @@ public class MemberController {
 	/* sms 인증 */
 	@RequestMapping(value = "/sendSMS.do",method = RequestMethod.POST)
 	@ResponseBody
-	public String sendSMS(String phoneNumber) {
+	public String sendSMS(String phone) {
 		  Random rand  = new Random(); // 인증번호를 위한 난수 생성
 	        String numStr = "";
 	        for(int i=0; i<8; i++) {
 	            String ran = Integer.toString(rand.nextInt(10));
 	            numStr+=ran;
 	        }
-	        System.out.println("수신자 번호 : " + phoneNumber);
+	        System.out.println("수신자 번호 : " + phone);
 	        System.out.println("인증번호 : " + numStr);
-	        cService.certifiedPhoneNumber(phoneNumber,numStr);
+	        cService.certifiedPhoneNumber(phone,numStr);
 	        return numStr;
 	    }
-	
 	
 	/* 회원가입 폼 이동 */
 	@RequestMapping(value = "/findIdPage.do")
@@ -152,17 +152,55 @@ public class MemberController {
 		return "findIdPage";	
 	}
 	
-	@RequestMapping(value = "/findId.do" ,method = RequestMethod.POST)
-	public String findId(@RequestParam Map<String,Object> map, Model model) {
+	@RequestMapping(value = "/findIdChk.do" ,method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> findIdChk(@RequestParam Map<String,Object> map, Model model) {
 		logger.info("MemberController",map);
-		String s = service.findId(map);
-		logger.info("찾은아이디 : {}",s);
 		
-		model.addAttribute("mId",s);
-	
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		return "";		
+		LibMemberVo mVo = service.findId(map);
+		
+		logger.info("찾은아이디 : {}",mVo);
+		
+		if(mVo == null) {
+			resultMap.put("isc", "실패");
+		}else if(mVo != null){
+			resultMap.put("isc", "성공");
+		}	
+		
+				
+		return resultMap;		
 	}
+	
+	
+		@RequestMapping(value = "/findId.do", method=RequestMethod.GET)
+		public String findId(@RequestParam Map<String, Object> map,Model model) {
+	
+		LibMemberVo mVo = service.findId(map);
+		model.addAttribute("mVo",mVo);
+		
+		return "loginPage";
+	}
+		
+		@RequestMapping(value = "/findPwChk.do", method = RequestMethod.POST)
+		public Map<String, Object> findPwChk(@RequestParam Map<String,Object> map) {
+			
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
+			int cnt = service.resetUpdatePw(resultMap);
+			
+			if(cnt == 0) {
+				resultMap.put("isc", "실패");
+			}else if(cnt != 0) {
+				resultMap.put("isc", "성공");
+			}
+			
+			return resultMap;
+			
+		}
+
+	
 	
 	
 	
