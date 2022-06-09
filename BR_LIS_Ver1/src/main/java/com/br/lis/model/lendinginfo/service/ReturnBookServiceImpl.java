@@ -219,4 +219,19 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		logger.info("ReturnBookServiceImpl 반납 완료 목록");
 		return dao.returnBookList();
 	}
+
+	
+	//DATATABLE 대출중 목록
+	@Override
+	public List<LendBookBean> yetReturnBookList() {
+		logger.info("ReturnBookServiceImpl 대출중 목록");
+		return dao.yetReturnBookList();
+	}
+
+	// 보유도서 목록
+	@Override
+	public List<BookInfoVo> possessingBookList() {
+		logger.info("ReturnBookServiceImpl 보유도서 목록");
+		return dao.possessingBookList();
+	}
 }

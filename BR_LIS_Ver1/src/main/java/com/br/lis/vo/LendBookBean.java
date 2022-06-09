@@ -17,11 +17,18 @@ public class LendBookBean {
 	private String lending_date;
 	private String end_date;
 	private String back_date;
+	private String member_id;
 
 	
 	
 	
 	
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
 	public String getLending_seq() {
 		return lending_seq;
 	}
@@ -89,19 +96,20 @@ public class LendBookBean {
 		this.back_date = back_date;
 	}
 	
-
+	
+	
 	@Override
 	public String toString() {
 		return "LendBookBean [lending_seq=" + lending_seq + ", member_code=" + member_code + ", isbn=" + isbn
 				+ ", title=" + title + ", publisher=" + publisher + ", author=" + author + ", book_serial="
 				+ book_serial + ", lending_delay=" + lending_delay + ", lending_date=" + lending_date + ", end_date="
-				+ end_date + ", back_date=" + back_date + "]";
+				+ end_date + ", back_date=" + back_date + ", member_id=" + member_id + "]";
 	}
 	
 	
 	public LendBookBean(String lending_seq, String member_code, String isbn, String title, String publisher,
 			String author, String book_serial, String lending_delay, String lending_date, String end_date,
-			String back_date) {
+			String back_date, String member_id) {
 		super();
 		this.lending_seq = lending_seq;
 		this.member_code = member_code;
@@ -114,7 +122,9 @@ public class LendBookBean {
 		this.lending_date = lending_date;
 		this.end_date = end_date;
 		this.back_date = back_date;
+		this.member_id = member_id;
 	}
+	
 	public LendBookBean() {
 	}
 	

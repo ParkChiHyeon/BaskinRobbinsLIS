@@ -217,4 +217,16 @@ public class TestLisJunit_HIK {
 		List<LendBookBean> lists = dao.returnBookList();
 		System.out.println(lists);
 	}
+	
+//	@Test
+	public void yetReturnBookList() {
+		List<LendBookBean> lists = dao.yetReturnBookList();
+		System.out.println(lists);
+	}
+	
+//	@Test
+	public void possessingBookList() {
+		List<BookInfoVo> lists = dao.possessingBookList();
+		System.out.println(lists);
+	}
 }
