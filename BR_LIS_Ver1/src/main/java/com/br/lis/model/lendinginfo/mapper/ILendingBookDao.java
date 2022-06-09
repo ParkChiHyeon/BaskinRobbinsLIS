@@ -13,14 +13,13 @@ public interface ILendingBookDao {
 	//즉시대출도서
 	public List<LendingVo> nowLendingBook();
 	
-	//예약목록전체조회
-	public List<BookInfoVo> allReserveLending();
+	//예약목록전체조회(관리자)
+//	public List<BookInfoVo> allReserveLending();
+	public List<LendBookBean> allReserveLending(Map<String, Object>map);
 	
-	//회원예약목록조회
+	//회원예약목록조회(회원)
 	public List<Map<String, Object>> reserveLendingBook(String member_code);
 //	public LendBookBean reserveLendingBook(Map<String, String> map);
-	
-
 	
 	
 	//대출 신청

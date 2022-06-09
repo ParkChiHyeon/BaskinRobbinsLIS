@@ -29,9 +29,10 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	}
 
 	@Override
-	public List<BookInfoVo> allReserveLending() {
+//	public List<BookInfoVo> allReserveLending() {
+	public List<LendBookBean> allReserveLending(Map<String, Object>map){
 		logger.info("ILendingBookDao 예약한 목록 전체 조회_allReserveLending");
-		return dao.allReserveLending();
+		return dao.allReserveLending(map);
 	}
 
 	@Override
