@@ -141,7 +141,7 @@
 					</li>
 				</ul>
 			</li>
-	<li id="gnb4"><a href="./noticeboard.do" >정보마당</a>
+	<li id="gnb4"><a href="./viewAllBoard.do?kind=notice"" >정보마당</a>
 			<ul>
 			<li id="gnb4_1" class=""><a href="./viewAllBoard.do?kind=notice" >공지사항</a>
 					</li>
