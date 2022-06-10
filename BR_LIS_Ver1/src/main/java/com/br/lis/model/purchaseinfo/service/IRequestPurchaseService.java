@@ -38,5 +38,6 @@ public interface IRequestPurchaseService {
 	
 	// 신청도서 전체목록 조회(BR_W_BM_506) : 신청도서 중 구매 승인이 된 도서의 목록을 조회한다(리스트 전체조회)
 	public List<RequestPurchaseVo> purchReqConfirmYList(String purchCodeVo);
+
 	
 }

@@ -7,22 +7,24 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.map.HashedMap;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.purchaseinfo.service.IPurchaseRegistrationService;
 import com.br.lis.model.purchaseinfo.service.IPurchaseService;
 import com.br.lis.model.purchaseinfo.service.IRequestPurchaseService;
+import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.RequestPurchaseVo;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 public class RequestBookController {
@@ -93,10 +95,62 @@ public class RequestBookController {
 		List<RequestPurchaseVo> reqList = reqPurcService.purchReqListSelectByCode(searchKey, searchValue);
 		
 		model.addAttribute("reqList", reqList);
+		
+		// 신청도서의 목록을 success:function(msg)리턴
 		return reqList;
 	}
+	
+	// 메세지 전송 페이지로 이동
+	@RequestMapping(value = "/requestMessagePage.do", method = RequestMethod.GET)
+	public String requestMessagePage() {
+		
+		return "requestMessage";
+	}
+	
+	// 사용자의 아이디로 휴대폰 번호를 조회
+	@RequestMapping(value = "/searchPhoneNumber.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String searchPhoneNumber(HttpServletRequest req, Model model) {
+		String searchPhoneNumber = req.getParameter("searchPhoneNumber");
+		LibMemberVo phoneNumber = reqPurcService.purchReqPhoneSelect(searchPhoneNumber);
+		
+		String phoneNumResult = phoneNumber.getPhone();
+		
+		model.addAttribute("phoneNumResult",phoneNumResult);
+		
+		return phoneNumResult;
+	}
+	
+	// modal에서 신청도서 알림 문자메시지를 전송
+	@RequestMapping(value = "/sendMessage.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String sendMessage(HttpServletRequest req) {
+		// 화면에서 전달받은 휴대폰 번호와 메세지
+		String phoneNumber = req.getParameter("phoneNumber");
+		String requestBookMessage = req.getParameter("requestBookMessage");
+		
+		// SMS 인증키
+		String api_key = "NCSZADE5ZEC1DZR3"; // coolSMS 사이트에서 받은 인증키
+        String api_secret = "HQMRDEF5F5WUBE15UHVGMYSOY4PVFBJS"; // coolSMS 자체에 발급된 비밀키
+        Message coolsms = new Message(api_key, api_secret);
 
-	
-	
+        // 4개의 입력값 필요
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("to", phoneNumber);    // 수신전화번호
+        params.put("from", "01073780203");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨 -> 발신전화 번호는 coolSMS에 등록해줘야됨
+        params.put("type", "SMS");// type 방식
+        params.put("text", requestBookMessage);
+  	    params.put("app_version", "test app 1.2"); // application name and version
+
+  	    try {
+        	JSONObject obj = (JSONObject) coolsms.send(params);
+            System.out.println(obj.toString());
+        } catch (CoolsmsException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCode());
+            return "fail";
+        }
+	        return "sucssess";
+	}
 	
 }
