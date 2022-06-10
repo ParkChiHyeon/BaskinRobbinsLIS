@@ -49,7 +49,6 @@ import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.google.gson.Gson;
 
 
-
 @Controller
 @SessionAttributes("pageNum")
 public class Board_Controller {
