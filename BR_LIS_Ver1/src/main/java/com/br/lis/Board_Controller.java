@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -270,6 +271,19 @@ public class Board_Controller {
 		return "detailboard";
 	}
 	
+	//Notice 다중삭제
+	@RequestMapping(value = "/multiDelNotice.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String multiDelNotice(@RequestParam List<String> chkBox) {
+		logger.info("Board_Controller multiDelNotice:{}", chkBox);
+//		if (aVo.getAdmin_id().equals(aVo)) {
+		int n = inoticeService.deleteNotice(chkBox);
+		
+//		}else { //세션 붙일경우 고쳐야함
+//			return (n>0)?"redirect:/noticeboard.do":"redirect:/noticeboard.do";
+//		}
+		return "redirect:/noticeboard.do";
+	}
+		
 //--------------------------------------------FAQ-----------------------------------
 
 	
@@ -345,18 +359,15 @@ public class Board_Controller {
 	
 	//FAQ 다중삭제
 	@RequestMapping(value = "/multiDelFAQ.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String multiDelFAQ(@RequestParam ArrayList<String> chk, @SessionAttribute("admin") AdminVo aVo,
-							HttpServletResponse response) throws IOException {
-		logger.info("Board_Controller multiDel:{}", chk);
-		int n = 0;
-		if (aVo.getAdmin_id().equals(aVo)) {
-			n = ifaqService.deleteFAQ(chk);
+	public String multiDelFAQ(@RequestParam List<String> chkBox) {
+		logger.info("Board_Controller multiDel:{}", chkBox);
+//		if (aVo.getAdmin_id().equals(aVo)) {
+		int n = ifaqService.deleteFAQ(chkBox);
 		
-		}else {
-			return (n>0)?"redirect:/mainJsp.do":"redirect:/logout.do";
-		}
-		return "redirect:/logout.do";
-		
+//		}else { //세션 붙일경우 고쳐야함
+//			return (n>0)?"redirect:/noticeboard.do":"redirect:/noticeboard.do";
+//		}
+		return "redirect:/noticeboard.do";
 	}
 	
 	

@@ -16,7 +16,6 @@ public interface IFAQBoardService {
 	
 	public int modifyFAQ(Notice_FAQBoardVo vo);
 	
-	public int deleteFAQ(List<String> list);
+	public int deleteFAQ(List<String> list); 
 	
-
 }

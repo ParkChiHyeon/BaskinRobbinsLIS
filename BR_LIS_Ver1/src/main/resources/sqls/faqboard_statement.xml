@@ -25,11 +25,11 @@
 			WHERE FAQ_SEQ = #{faq_seq}
 	</update>
 	
-	<delete id="deleteFAQ">
+	<delete id="deleteFAQ" parameterType="java.util.List">
 		DELETE FROM FAQ_BOARD
 			WHERE FAQ_SEQ IN
-			<foreach collection="list" item="faq_seq" open="(" close=")" separator=",">
-				#{faq_seq}
+			<foreach collection="list" item="seq" open="(" close=")" separator=",">
+				#{seq}
 			</foreach> 
 	</delete>
 	

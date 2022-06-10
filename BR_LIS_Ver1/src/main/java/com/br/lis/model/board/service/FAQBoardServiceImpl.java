@@ -38,11 +38,6 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 		return dao.modifyFAQ(vo);
 	}
 
-	@Override
-	public int deleteFAQ(List<String> list) {
-		logger.info("FAQBoardServiceImpl deleteFAQ()");
-		return dao.deleteFAQ(list);
-	}
 
 	@Override
 	public Notice_FAQBoardVo viewDetailFAQ(String seq) {
@@ -50,6 +45,11 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 		return dao.viewDetailFAQ(seq);
 	}
 
-
+	@Override
+	public int deleteFAQ(List<String> list) {
+		logger.info("FAQBoardServiceImpl deleteFAQ()");
+		return dao.deleteFAQ(list);
+	}
+	
 	
 }

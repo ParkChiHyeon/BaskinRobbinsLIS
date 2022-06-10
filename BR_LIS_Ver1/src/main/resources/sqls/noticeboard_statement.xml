@@ -13,7 +13,6 @@
 			FROM NOTICE_BOARD
 				WHERE NOTICE_SEQ=#{notice_seq}
 	</select>
-	
 
 	<insert id="insertNotice" parameterType="java.util.Map">
 		INSERT INTO NOTICE_BOARD(NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH)
@@ -27,12 +26,11 @@
 					WHERE NOTICE_SEQ=#{notice_seq}
 	</update>
 
-	<delete id="deleteNotice" parameterType="java.util.List">
+	<delete id="deleteNotice" parameterType="java.lang.String">
 		DELETE FROM NOTICE_BOARD WHERE NOTICE_SEQ IN
 			<foreach collection="list" item="seq" open="(" separator="," close=")">
 				#{seq}
 			</foreach>
 	</delete>
-
 
 </mapper>
