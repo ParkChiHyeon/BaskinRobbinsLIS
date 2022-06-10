@@ -20,6 +20,9 @@
 <script type="text/javascript">
 window.onload=function(){
 	var kind = '<c:out value="${kind}"/>'
+	var isc = '<c:out value="${homeSearch.searchLibraryArr}"/>'
+	var searchKey = '<c:out value="${homeSearch.searchKey}"/>'
+	var searchKeyword = '<c:out value="${homeSearch.searchKeyword}"/>'
 		console.log(kind)
 	if(kind=="total"){
 		$("#lnb1_1_a").css("color","#E2427F");
@@ -32,6 +35,9 @@ window.onload=function(){
 		$("#lnb1_3_a").css("background","#fff url(./include/image/jungang/common/bg_lnbSubOn.png) 170px 50% no-repeat");
 	}
 		dataTableMake('bookSearchTotal');
+		if(isc=='MA'){
+			bookSearchHome(searchKey,searchKeyword);
+		}
 	
  }
 </script>
@@ -92,7 +98,7 @@ td:nth-child(odd){
 
 	<div id="middle">
 	<div class="wrap-loading display-none">
-		    	<div><img src="./img/loading.gif" /></div>
+		    	<div><img src="./img/loading.gif"/></div>
 			</div>
 		<div id="contbody">
 
@@ -155,10 +161,12 @@ td:nth-child(odd){
 					</form>
 				</div>
 				</c:if>
+				<c:if test="${kind=='request'|| kind=='total' || kind=='detail'}">
 				<div class="table_Area">
 						<table id="bookSearchTotal" class="cell-border" style="float:right;"> 
 						</table>
 				</div>
+				</c:if>
 		</div>
 	</div>
 </div>

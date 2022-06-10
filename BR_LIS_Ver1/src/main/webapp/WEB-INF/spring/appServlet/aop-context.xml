@@ -12,7 +12,7 @@
 			<aop:before method="before" pointcut-ref="daoPoint"/>
 		</aop:aspect>
 	</aop:config>
-	
+<!-- 			<aop:after-throwing method="afterThrowing" pointcut-ref="daoPoint" throwing="exception"/> -->
 	
 	
 </beans>

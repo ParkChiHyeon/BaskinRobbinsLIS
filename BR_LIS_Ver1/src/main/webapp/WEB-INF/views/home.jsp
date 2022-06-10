@@ -8,12 +8,24 @@
 </head>
 <%@ include file="./header.jsp"%>
 <script>
+$(document).ready(function(){
+	var today = new Date();
+	var year = today.getFullYear(); // 년도
+	var month = today.getMonth() + 1;  // 월
+	
+	$(".HolYear").text(year);
+	$(".HolMonth").text(month);
+noticeList(); //홈화면 공지사항 목록
+faqList(); // 홈화면 FAQ 목록
+homeNewBook(); // 홈화면 신간도서 url
+})
 	$(function() {
 		$('#searchBoxArea').css('height', '73px');
 		$('#searchBoxArea').css('opacity', '1');
 		$('#searchBoxArea').show();
 	});
 </script>
+<script type="text/javascript" src="./BR_js/home.js"></script>
 <body class="body">
 	<!-- <div id="wrap"> -->
 	<script>
@@ -34,8 +46,15 @@
 				form.searchKeyword.focus();
 				return;
 			}
-			form.action = "/jungang/10010/booksearch/searchSimple.do";
+			form.action = "./homeSearch.do";
 			form.submit();
+		}
+		function isEmpty(str){
+			if(str.length==0){
+				return true;
+			}else{
+				return false;
+			}
 		}
 	</script>
 
@@ -44,7 +63,7 @@
 		<a href="#link" id="blackBG">이전 상태로 변경</a>
 	</div>
 
-	<!--Top SerachBox -->
+	<!--Top SerachBox ~~~-->
 	<div id="searchBoxArea" style="height: 0px; display: none">
 		<div id="searchBox">
 			<div class="searchBox">
@@ -53,11 +72,10 @@
 					<input type="hidden" name="searchLibraryArr" value="MA" />
 					<div class="bgWhite">
 						<select name="searchKey" title="검색방식선택">
-							<option value="ALL" selected="selected">전체</option>
-							<option value="TITLE">서명</option>
-							<option value="AUTHOR">저자</option>
-							<option value="PUBLISHER">출판사</option>
-							<option value="KEYWORD">키워드</option>
+							<option value="title">서명</option>
+							<option value="author">저자</option>
+							<option value="publisher">출판사</option>
+							<option value="isbn">ISBN</option>
 						</select> <input type="text" name="searchKeyword" id="topSearchKeyword"
 							class="schInput1" title="검색어 입력" />
 					</div>
@@ -222,7 +240,7 @@
 							<div class="swiper-container swiper-popup">
 								<div class="swiper-wrapper">
 									<div class="swiper-slide">
-										<a href="http://cyber.uwlib.or.kr:81/" class="img"
+										<a href="#" class="img"
 											title="6-7월 모두북큐레이션(오디오북)"> <img
 											src="./attach/popupzone/jungang20220602155212422.jpg"
 											alt="6-7월 모두북큐레이션(오디오북)" />
@@ -231,7 +249,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16407"
+											href="#"
 											class="img" title="지역서점 지역화폐 소비지원금 안내"> <img
 											src="./attach/popupzone/jungang20220531134600746.jpg"
 											alt="지역서점 지역화폐" />
@@ -248,7 +266,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16398"
+											href="#"
 											class="img" title="독서동아리 기본교육과정 모락모락"> <img
 											src="./attach/popupzone/jungang20220526142425989.jpg"
 											alt="독서동아리 기본교육과정 모락모락" />
@@ -257,7 +275,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16397"
+											href="#"
 											class="img" title="메타버스로 만나는 독서동아리"> <img
 											src="./attach/popupzone/jungang20220526142350635.jpg"
 											alt="메타버스로 만나는 독서동아리" />
@@ -266,7 +284,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16386"
+											href="#"
 											class="img" title="6월 번개독서토론 운영 안내"> <img
 											src="./attach/popupzone/jungang20220524114320398.jpg"
 											alt="모집기간 5월 30일 오전 9시부터 선착순 접수 운영일시 6월 29일 오후 7시부터 8시 30분까지" />
@@ -275,7 +293,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16341"
+											href="#"
 											class="img" title="행복한 노후 아카데미 운영 안내"> <img
 											src="./attach/popupzone/jungang20220520172851343.jpg"
 											alt="운영일시: 2022. 6. 20.(월) ~ 7. 18.(월)매주 월,수 10:00 ~ 12:00  대상: 행복한 노후를 준비하는 의왕시민 20명 장소: 중앙도서관 문화교실 1 내용: 노후 대비 프로그램(총9회) 접수: 5.30.(월) 9시부터 선착순 접수" />
@@ -284,8 +302,8 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16321"
-											target="_blank" class="img" title="6월 포스트잇 독서토론 운영안내"> <img
+											href="#"
+										    class="img" title="6월 포스트잇 독서토론 운영안내"> <img
 											src="./attach/popupzone/jungang20220520091826107.jpg"
 											alt="누구나 참여하는 포스트잇 독서토론" />
 										</a>
@@ -293,7 +311,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16301"
+											href="#"
 											class="img" title="테마가 있는 작은도서관 6월 강좌 접수 안내"> <img
 											src="./attach/popupzone/jungang20220516111822114.jpg"
 											alt="테마가 있는 작은도서관 6월 강좌 접수 안내" />
@@ -304,7 +322,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10592/40213/content.do"
+											href="#"
 											class="img" title="의왕역 스마트도서관 운영안내"> <img
 											src="./attach/popupzone/jungang20220303171205121.jpg"
 											alt="의왕역 스마트도서관 운영안내" />
@@ -315,7 +333,7 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=15544"
+											href="#"
 											class="img" title="2022년 이동도서관 운행일정 안내"> <img
 											src="./attach/popupzone/jungang20220216161703083.jpg"
 											alt="- 운행기간: 2022. 2. 7. ~ 12. 16. - 운행장소: 18개소(시간표 참조) - 이용대상: 의왕시민(1인 5권/14일간)" />
@@ -334,7 +352,7 @@
 
 
 									<div class="swiper-slide">
-										<a href="http://cyber.uwlib.or.kr:81/Kyobo_T3/Default.asp"
+										<a href="#"
 											class="img" title="전자책도서관 신착도서를 만나보세요!"> <img
 											src="./attach/popupzone/jungang20220414161422687.jpg"
 											alt="전자책 135종, 오디오북 26종 이용방법: 도서관홈페이지 전자책도서관 or 리브로피아 모바일전자책" />
@@ -345,8 +363,8 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20006/bbsDetail.do?bbsIdx=16191"
-											target="_blank" class="img" title="의왕역 스마트도서관 신착도서 안내"> <img
+											href="#"
+											class="img" title="의왕역 스마트도서관 신착도서 안내"> <img
 											src="./attach/popupzone/jungang20220427094931629.jpg"
 											alt="의왕역 스마트도서관 신간도서 안내" />
 										</a>
@@ -356,8 +374,8 @@
 
 									<div class="swiper-slide">
 										<a
-											href="https://www.uwlib.or.kr/jungang/10041/20013/bbsDetail.do?bbsIdx=13508"
-											target="_blank" class="img" title="의왕시 지역서점도서관 안내"> <img
+											href="#"
+											class="img" title="의왕시 지역서점도서관 안내"> <img
 											src="./attach/popupzone/jungang20220217144741386.jpg"
 											alt="의왕시 지역서점도서관 안내" />
 										</a>
@@ -435,27 +453,8 @@
 			</div>
 			<div id="section2">
 				<ul class="mainSvc">
-					<li><a href="/jungang/10018/40002/content.do"><img
-							src="./include/image/jungang/main/icon_svc01.png" alt="책드림서비스"></a></li>
-					<li><a href="/jungang/10362/40165/content.do"><img
-							src="./include/image/jungang/main/icon_svc02.png" alt="무인예약대출"></a></li>
-					<li><a a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
-							src="./include/image/jungang/main/icon_svc03.png" alt="전자책도서관"></a></li>
-					<li><a href="/jungang/10012/40001/content.do"><img
-							src="./include/image/jungang/main/icon_svc09.png" alt="희망도서신청"></a></li>
-					<li><a href="/jungang/10553/baro/baroLogin.do"><img
-							src="./include/image/jungang/main/icon_svc10.png" alt="지역서점도서관"></a></li>
-					<li><a href="/jungang/10066/40147/content.do"><img
-							src="./include/image/jungang/main/icon_svc05.png" alt="이용안내"></a></li>
-					<!--<li><a href="/jungang/10073/40035/content.do"><img src="/include/image/jungang/main/icon_svc06.png" alt="찾아오시는길"></a></li>-->
-					<li><a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
-							src="./include/image/jungang/main/icon_svc07.png" alt="열람실좌석현황"></a></li>
-					<li><a href="under_construction.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"><img
-							src="./include/image/jungang/main/icon_svc08.png" alt="디지털정보실현황"
-							title="새 창 열림"></a></li>
 				</ul>
 			</div>
-
 			<div id="section3">
 				<div class="sec3_1">
 
@@ -469,9 +468,8 @@
 						</div>
 						<div class="holiBody">
 							<div class="holYM">
-								<!-- 값 받아 와야함 -->
-								<p class="holYear">2022</p>
-								<p class="holMonth">6</p>
+								<p class="holYear"></p>
+								<p class="holMonth"></p>
 							</div>
 							<!--VIEW-TODO001 for문 처리 해야 함 아래는 예시-->
 							<ul>
@@ -492,498 +490,25 @@
 					</div>
 				</div>
 				<div class="sec3_2">
-
 					<div class="noticeArea">
 						<h2 class="themeFC">공지사항</h2>
-						<ul class="noticeList">
-
-
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16421">[중앙도서관]
-										6월 그림책 연계 육아도서 전시(1층)</a></span> <span class="date">2022-06-02</span></li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16411">[사립작은도서관]
-										공공-작은도서관 상호대차시스템 구축 및 서비스 제공 도서관 모집 공고</a></span> <span class="date">2022-06-02</span>
-							</li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16410">2022년
-										청계숲고운도서관 기간제근로자 채용 공고</a></span> <span class="date">2022-06-02</span></li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16407">지역서점
-										지역화폐 소비지원금 안내(사용금액의10%마일리지로~)</a></span> <span class="date">2022-05-31</span>
-							</li>
-
-
-							<li><span class="noticex"><a
-									href="/jungang/10041/20006/bbsDetail.do?bbsIdx=16398">[중앙]
-										독서동아리 기본교육과정 「모락모락」 운영</a></span> <span class="date">2022-05-26</span></li>
-
-
+						<ul class="noticeList" id="noticeList">
 						</ul>
 						<p class="btnMore">
-							<a href="/jungang/10041/20006/bbsList.do">더 보기</a>
+							<a href="./viewAllBoard.do?kind=notice">더 보기</a>
 						</p>
 					</div>
 				</div>
 
 				<div class="sec3_3">
-
-
-
-					<script>
-						$(function() {
-
-							var mySwiper1 = new Swiper('.swiper-book1', {
-								loop : true,
-								grabCursor : true,
-								slidesPerView : 3,
-								slidesPerGroup : 3,
-								paginationClickable : true,
-								spaceBetween : 30
-							});
-
-							$('.swiper-button-prev1').click(function() {
-								mySwiper1.swipePrev();
-								return false;
-							});
-
-							$('.swiper-button-next1').click(function() {
-								mySwiper1.swipeNext();
-								return false;
-							});
-
-							var mySwiper2 = new Swiper('.swiper-book2', {
-								loop : true,
-								grabCursor : true,
-								slidesPerView : 3,
-								slidesPerGroup : 3,
-								paginationClickable : true,
-								spaceBetween : 30
-							});
-
-							$('.swiper-button-prev2').click(function() {
-								mySwiper2.swipePrev();
-								return false;
-							});
-
-							$('.swiper-button-next2').click(function() {
-								mySwiper2.swipeNext();
-								return false;
-							});
-
-							var mySwiper3 = new Swiper('.swiper-book3', {
-								loop : true,
-								grabCursor : true,
-								slidesPerView : 3,
-								slidesPerGroup : 3,
-								paginationClickable : true,
-								spaceBetween : 30
-							});
-
-							$('.swiper-button-prev3').click(function() {
-								mySwiper3.swipePrev();
-								return false;
-							});
-
-							$('.swiper-button-next3').click(function() {
-								mySwiper3.swipeNext();
-								return false;
-							});
-
-							var $bookTab = $('.bookTabList'), $tabLink = $bookTab
-									.find('h2 a'), $toggTab = $('.bookZone');
-
-							$toggTab.first().css('z-index', '888');
-							$tabLink.first().addClass('on');
-
-							$tabLink.click(function() {
-								$toggTab.hide();
-								$tabLink.removeClass('on');
-								$(this).addClass('on');
-								$($(this).attr('href')).show();
-								return false;
-							});
-						});
-
-						function fnSearchNewBookResultDetail(regKey, bookKey,
-								publishFormCode) {
-							var form = document.newBookForm;
-							form.recKey.value = regKey;
-							form.bookKey.value = bookKey;
-							form.publishFormCode.value = publishFormCode;
-							form.action = "/jungang/10011/booksearch/searchNew.do";
-							form.submit();
-						}
-
-						function fnSearchLoanBestResultDetail(regKey, bookKey,
-								publishFormCode) {
-							var form = document.loanBestBookForm;
-							form.recKey.value = regKey;
-							form.bookKey.value = bookKey;
-							form.publishFormCode.value = publishFormCode;
-							form.action = "/jungang/10384/booksearch/loanBest.do";
-							form.submit();
-						}
-					</script>
-
-					<form id="newBookForm" name="newBookForm" method="get">
-						<input type="hidden" name="searchType" value="NEW"> <input
-							type="hidden" name="recKey"> <input type="hidden"
-							name="bookKey"> <input type="hidden"
-							name="publishFormCode">
-					</form>
-					<form id="loanBestBookForm" name="loanBestBookForm" method="get">
-						<input type="hidden" name="searchType" value="LOANBEST"> <input
-							type="hidden" name="recKey"> <input type="hidden"
-							name="bookKey"> <input type="hidden"
-							name="publishFormCode">
-					</form>
-					<div class="bookGroup">
-						<ul class="bookTabList">
-							<li>
-								<h2>
-									<a href="#newarrival">신간도서</a>
-								</h2>
-								<div id="newarrival" class="bookZone">
-									<div class="device-book">
-										<div class="swiper-container swiper-book1">
-											<div class="swiper-wrapper">
-
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698023','978698025','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/224/326/22432645.jpg?type=m1&udate=20220430"
-														alt="(최고 전문가들이 추천하는) 돈 되는 해외 ETF">
-													</a> <span class="txt">(최고 전문가들이 추천하는) 돈 되는 해외 ETF</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698018','978698020','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/223/615/22361587.jpg?type=m1&udate=20220518"
-														alt="(게으르게 투자하고 확실하게 수익 내는) 나의 첫 ETF 포트폴리오">
-													</a> <span class="txt">(게으르게 투자하고 확실하게 수익 내는) 나의 첫 ETF
-														포트폴리오</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698013','978698015','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/150/703/15070398.jpg?type=m1&udate=20190710"
-														alt="치과의 거짓말  : 과잉 진료 치과 의사가 절대 말하지 않는 영업의 기술">
-													</a> <span class="txt">치과의 거짓말 : 과잉 진료 치과 의사가 절대 말하지 않는
-														영업의 기술</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698126','978698128','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/175/473/17547367.jpg?type=m1&udate=20201208"
-														alt="어휘천재의 비법노트  : 2단계">
-													</a> <span class="txt">어휘천재의 비법노트 : 2단계</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698081','978698083','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/175/473/17547366.jpg?type=m1&udate=20201209"
-														alt="어휘천재의 비법노트  : 1단계">
-													</a> <span class="txt">어휘천재의 비법노트 : 1단계</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698151','978698153','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/124/305/12430503.jpg?type=m1&udate=20211225"
-														alt="세계사천재의 비법노트  : 원시와 고대">
-													</a> <span class="txt">세계사천재의 비법노트 : 원시와 고대</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698205','978698207','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/208/474/20847467.jpg?type=m1&udate=20210819"
-														alt="한국사천재의 비법노트  : 선사 시대부터 남북국 시대">
-													</a> <span class="txt">한국사천재의 비법노트 : 선사 시대부터 남북국 시대</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698220','978698222','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/121/948/12194812.jpg?type=m1&udate=20191022"
-														alt="과학천재의 비법노트  : 생물">
-													</a> <span class="txt">과학천재의 비법노트 : 생물</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchNewBookResultDetail('978698141','978698143','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/175/473/17547364.jpg?type=m1&udate=20201209"
-														alt="어휘천재의 비법노트  : 4단계">
-													</a> <span class="txt">어휘천재의 비법노트 : 4단계</span>
-												</div>
-
-
-											</div>
-										</div>
-										<!-- Add Arrows -->
-
-										<div class="button-next swiper-button-next1"></div>
-										<div class="button-prev swiper-button-prev1"></div>
-
-										<!-- more -->
-									</div>
-									<p class="btnMore">
-										<a href="/jungang/10011/30003/program.do">더 보기</a>
-									</p>
-								</div>
-							</li>
-							<li>
-								<h2>
-									<a href="#storeBest">추천도서</a>
-								</h2>
-								<div id="storeBest" class="bookZone">
-									<div class="device-book">
-										<div class="swiper-container swiper-book2">
-											<div class="swiper-wrapper">
-
-
-
-
-
-
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=13082"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220602141305949.jpg"
-														alt="날씨가 좋으면 찾아가겠어요  : 이도우 장편소설">
-													</a> <span class="txt">날씨가 좋으면 찾아가겠어요 : 이도우 장편소설</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=13081"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220602140929989.jpg"
-														alt="천장이 높은 식당  : 이정연 장편소설">
-													</a> <span class="txt">천장이 높은 식당 : 이정연 장편소설</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=13036"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220512142745571.jpg"
-														alt="빌리 밀러">
-													</a> <span class="txt">빌리 밀러</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=13035"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220512142703496.jpg"
-														alt="경옥">
-													</a> <span class="txt">경옥</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=13014"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220502090659832.jpg"
-														alt="공부의 쓸모  : 서울대 의대 수석의 혼공 바이블">
-													</a> <span class="txt">공부의 쓸모 : 서울대 의대 수석의 혼공 바이블</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=13013"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220502090552343.jpg"
-														alt="날마다 만우절 : 윤성희 소설">
-													</a> <span class="txt">날마다 만우절 : 윤성희 소설</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=12936"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220403113612447.jpg"
-														alt="단어의 여왕">
-													</a> <span class="txt">단어의 여왕</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=12935"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220403113527843.jpg"
-														alt="너는 나의 모든 계절이야">
-													</a> <span class="txt">너는 나의 모든 계절이야</span>
-												</div>
-
-
-												<div class="swiper-slide">
-													<a
-														href="/jungang/10042/book/recommendBookDetail.do?bookIdx=12934"
-														class="img"> <img
-														src="./attach/book/recommend/jungang20220401173629433.jpg"
-														alt="어느 날 멀쩡하던 행거가 무너졌다">
-													</a> <span class="txt">어느 날 멀쩡하던 행거가 무너졌다</span>
-												</div>
-
-
-											</div>
-										</div>
-										<!-- Add Arrows -->
-
-										<div class="button-next swiper-button-next2"></div>
-										<div class="button-prev swiper-button-prev2"></div>
-
-										<!-- more -->
-										<p class="btnMore">
-											<a href="/jungang/10042/30009/program.do">더 보기</a>
-										</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<h2>
-									<a href="#cateBest">대출베스트</a>
-								</h2>
-								<div id="cateBest" class="bookZone">
-									<div class="device-book">
-										<div class="swiper-container swiper-book3">
-											<div class="swiper-wrapper">
-
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('962725979','962725981','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/180/044/18004469.jpg?type=m1&udate=20210316"
-														alt="(흔한남매)불꽃 튀는 우리말. 1">
-													</a> <span class="txt">(흔한남매)불꽃 튀는 우리말. 1</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('963059952','963059954','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/179/367/17936710.jpg?type=m1&udate=20210607"
-														alt="말이야와 친구들 : 본격 가족 명랑 시트콤 만화. 1">
-													</a> <span class="txt">말이야와 친구들 : 본격 가족 명랑 시트콤 만화. 1</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('972433660','972433662','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/211/666/21166638.jpg?type=m1&udate=20211108"
-														alt="비밀요원 레너드. 9, 산타클로스는 정말 있을까?">
-													</a> <span class="txt">비밀요원 레너드. 9, 산타클로스는 정말 있을까?</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('965033970','965033972','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/170/131/17013150.jpg?type=m1&udate=20201203"
-														alt="에그박사  : 자연 생물 관찰 만화. 2">
-													</a> <span class="txt">에그박사 : 자연 생물 관찰 만화. 2</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('968814981','968814983','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/137/459/13745994.jpg?type=m1&udate=20191013"
-														alt="(무엇이든 해결단)허팝 연구소. 1, 우당탕 시청 대소동">
-													</a> <span class="txt">(무엇이든 해결단)허팝 연구소. 1, 우당탕 시청 대소동</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('972434098','972434100','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/212/922/21292291.jpg?type=m1&udate=20220106"
-														alt="(흔한남매)겨울밤 대소동">
-													</a> <span class="txt">(흔한남매)겨울밤 대소동</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('972437388','972437390','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/212/961/21296168.jpg?type=m1&udate=20211202"
-														alt="웃소. 2">
-													</a> <span class="txt">웃소. 2</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('973288009','973266291','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/207/679/20767908.jpg?type=m1&udate=20210729"
-														alt="어몽어스 크루원의 일기. 2, 임포스터의 복수">
-													</a> <span class="txt">어몽어스 크루원의 일기. 2, 임포스터의 복수</span>
-												</div>
-
-												<div class="swiper-slide">
-													<a href="#link"
-														onclick="javascript:fnSearchLoanBestResultDetail('930454522','930454524','BO'); return false;"
-														class="img"> <img
-														src="https://bookthumb-phinf.pstatic.net/cover/134/954/13495493.jpg?type=m1&udate=20180411"
-														alt="Go Go 카카오프렌즈. 2, 영국">
-													</a> <span class="txt">Go Go 카카오프렌즈. 2, 영국</span>
-												</div>
-
-
-											</div>
-										</div>
-										<!-- Add Arrows -->
-
-										<div class="button-next swiper-button-next3"></div>
-										<div class="button-prev swiper-button-prev3"></div>
-
-										<!-- more -->
-										<p class="btnMore">
-											<a href="/jungang/10384/30097/program.do">더 보기</a>
-										</p>
-									</div>
-								</div>
-							</li>
+					<div class="noticeArea">
+						<h2 class="themeFC">FAQ</h2>
+						<ul class="noticeList" id="faqList">
 						</ul>
-					</div>
+						<p class="btnMore">
+							<a href="./viewAllBoard.do?kind=faq">더 보기</a>
+						</p>
+					</div>	
 				</div>
 			</div>
 		</div>
