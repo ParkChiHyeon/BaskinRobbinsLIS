@@ -4,30 +4,29 @@ package com.br.lis;
 
 import java.util.HashMap;
 
-import java.util.List;
+
 import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.br.lis.model.member.service.API_Service;
 import com.br.lis.model.member.service.IAdminService;
 import com.br.lis.model.member.service.ILibMemberService;
-import com.br.lis.vo.AdminVo;
+
 import com.br.lis.vo.LibMemberVo;
 
 
@@ -41,9 +40,7 @@ public class MemberController {
 	@Autowired
 	private ILibMemberService service;
 	
-	@Autowired
-	private IAdminService aService;
-	
+
 	@Autowired
 	private API_Service cService;
 	
@@ -54,10 +51,10 @@ public class MemberController {
 	}
 	
 	/* 마이 페이지로 이동 */
-	@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
-	public String myPage() {		
-		return "myPage";
-	}
+//	@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
+//	public String myPage() {		
+//		return "myPage";
+//	}
 	
 	/* 관리자 페이지로 이동 */
 	@RequestMapping(value = "/adminPage.do",method = RequestMethod.GET)
@@ -211,6 +208,37 @@ public class MemberController {
 			
 			return resultMap;
 			
+		}
+		
+		/*회원정보 수정 화면 이동*/
+		@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
+		public String bookSearch(Model model,String page) {
+			logger.info("mypage memberInfoUpdate 이동");
+			model.addAttribute("page", page);
+			return "myPage";
+		}
+		
+		@RequestMapping(value = "/memberInfoUpdate.do",method = RequestMethod.GET)
+		public String passwordForUpdate(@RequestParam Map<String, String> map, Model model, HttpSession session) {
+			logger.info("memberInfoUpdate passwordForUpdate 이동");
+			
+			LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+			
+			model.addAttribute("member",mVo);
+			model.addAttribute("page", "update");
+			return "myPage";
+		}
+		
+		
+		@RequestMapping(value = "/membertt.do",method = RequestMethod.GET)
+		public String membertt (@RequestParam Map<String, String> map, Model model, HttpSession session) {
+			logger.info("memberInfoUpdate passwordForUpdate 이동");
+			
+			LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+			
+			model.addAttribute("member",mVo);
+			model.addAttribute("page", "tt");
+			return "myPage";
 		}
 
 	
