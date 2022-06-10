@@ -94,6 +94,7 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 	SELECT l.MEMBER_CODE, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, l.LENDING_DATE, l.END_DATE, l.BACK_DATE 
         FROM (SELECT *FROM BOOK_INFO bi, POSSESSING_BOOK pb WHERE bi.ISBN=pb.ISBN) A, LENDING l 
             WHERE l.MEMBER_CODE =#{member_code} AND l.BOOK_SERIAL=A.BOOK_SERIAL
+            ORDER BY LENDING_DATE DESC
 </select>
 
 <!-- 추가  : 예약전 도서선택후 ISBN으로 대출중이고 예약이 안된책의 빠른대출일 조회
@@ -118,7 +119,7 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 </select>
 
 <!--BR_W_BM_208   대출예약 신청후 상태변경-->
-<update id="reservationBookUpdate">
+<update id="reservationBookUpdate"  parameterType="java.lang.String">
 	UPDATE POSSESSING_BOOK SET RV  ='Y'  , DG ='N'  WHERE BOOK_SERIAL =#{book_serial}
 </update>
 
@@ -129,7 +130,7 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 </update>
 
 <!--BR_W_BM_209  예약후 대출확정 상태변경 -->
-<update id="realReserBookUpdate">
+<update id="realReserBookUpdate"  parameterType="java.lang.String">
 	UPDATE POSSESSING_BOOK SET LD  ='Y'  , RV  ='N'  WHERE BOOK_SERIAL =#{book_serial}
 </update>
 
