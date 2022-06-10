@@ -84,46 +84,44 @@
 	
 <!-- 도서신청목록 -->	
 <div>
-	<form action="./requestBookListId.do" method="post" >
-		<table id="reqBookList">
-			<thead>
+	<table id="reqBookList">
+		<thead>
+			<tr>
+				<th>신청구매코드</th>
+				<th>id</th>
+				<th>구매코드</th>
+				<th>ISBN</th>
+				<th>제목</th>
+				<th>출판사</th>
+				<th>지은이</th>
+				<th>번역</th>
+				<th>가격</th>
+				<th>신청수량</th>
+				<th>확정여부</th>
+				<th>비고</th>
+				<th>입고일</th>
+			</tr>
+		</thead>
+		<tbody id="requestList">
+			<c:forEach var="reqList" items="${reqList}" varStatus="vs" >
 				<tr>
-					<th>신청구매코드</th>
-					<th>id</th>
-					<th>구매코드</th>
-					<th>ISBN</th>
-					<th>제목</th>
-					<th>출판사</th>
-					<th>지은이</th>
-					<th>번역</th>
-					<th>가격</th>
-					<th>신청수량</th>
-					<th>확정여부</th>
-					<th>비고</th>
-					<th>입고일</th>
+					<td>${reqList.wish_serial}</td>
+					<td>${reqList.member_id}</td>
+					<td>${reqList.purchase_code}</td>
+					<td>${reqList.isbn}</td>
+					<td>${reqList.title}</td>
+					<td>${reqList.publisher}</td>
+					<td>${reqList.author}</td>
+					<td>${reqList.translator}</td>
+					<td>${reqList.price}</td>
+					<td>${reqList.ea}</td>
+					<td>${reqList.confirm}</td>
+					<td>${reqList.history}</td>
+					<td>${reqList.receive_date}</td>
 				</tr>
-			</thead>
-			<tbody id="requestList">
-				<c:forEach var="reqList" items="${reqList}" varStatus="vs" >
-					<tr>
-						<td>${reqList.wish_serial}</td>
-						<td>${reqList.member_id}</td>
-						<td>${reqList.purchase_code}</td>
-						<td>${reqList.isbn}</td>
-						<td>${reqList.title}</td>
-						<td>${reqList.publisher}</td>
-						<td>${reqList.author}</td>
-						<td>${reqList.translator}</td>
-						<td>${reqList.price}</td>
-						<td>${reqList.ea}</td>
-						<td>${reqList.confirm}</td>
-						<td>${reqList.history}</td>
-						<td>${reqList.receive_date}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</form>
+			</c:forEach>
+		</tbody>
+	</table>
 </div>
 
 

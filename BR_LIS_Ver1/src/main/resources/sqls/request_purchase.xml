@@ -66,6 +66,8 @@
 		FROM REQUEST_PURCHASE rp
 			WHERE MEMBER_ID = #{member_id}
 		 	ORDER BY WISH_SERIAL DESC
+		 		OFFSET 0 ROWS FETCH NEXT 50 ROWS ONLY
+		 	
 </select>
 
 <!-- 신청도서 알림관리(BR_W_BM_505) : 신청도서 중 구매승인이 된 도서에 한하여 신청한 사용자에게 알린다. -->

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class RequestBookController {
 	@Autowired
 	private IPurchaseRegistrationService registService;
 	
-	// 희망도서 신청 링크
+	// 희망도서 신청 링크 이동
 	@RequestMapping(value = "/requestPage.do", method = RequestMethod.GET)
 	public String requestPage() {
 		
@@ -76,7 +77,7 @@ public class RequestBookController {
 	
 	// (관리자) 신청도서 목록첫화면
 	@RequestMapping(value = "/requestBookList.do", method = {RequestMethod.POST, RequestMethod.GET})
-	public String requestBookListCodeTest(Model model) {
+	public String requestBookListAdmin(Model model) {
 		String searchKey = "PURCHASE_CODE"; 
 		String searchValue = "P2206";
 		List<RequestPurchaseVo> reqList = reqPurcService.purchReqListSelectByCode(searchKey, searchValue);
@@ -98,13 +99,6 @@ public class RequestBookController {
 		
 		// 신청도서의 목록을 success:function(msg)리턴
 		return reqList;
-	}
-	
-	// 메세지 전송 페이지로 이동
-	@RequestMapping(value = "/requestMessagePage.do", method = RequestMethod.GET)
-	public String requestMessagePage() {
-		
-		return "requestMessage";
 	}
 	
 	// 사용자의 아이디로 휴대폰 번호를 조회
@@ -152,5 +146,24 @@ public class RequestBookController {
         }
 	        return "sucssess";
 	}
+	
+	// 사용자 희망도서 목록 조회 페이지로 이동
+	@RequestMapping(value = "/requestBookUserPage.do", method = RequestMethod.GET)
+	public String requestBookUserPage() {
+		return "redirect:/myRequestBookList.do";
+	}
+	
+	//member 유저세션 admin 관리자세션
+	// 사용자가 신청한 도서의 목록(구매여부) 조회(50개 까지만 조회 가능)
+	@RequestMapping(value = "/myRequestBookList.do", method = RequestMethod.GET)
+	public String myRequestBook(HttpSession session, Model model) {
+		String member_id = "gnldnd17";
+		List<RequestPurchaseVo> myRequestBookList = reqPurcService.purchReqConfirmSelect(member_id);
+		
+		model.addAttribute("myRequestBookList",myRequestBookList);
+		
+		return "requestBookUser";
+	}
+	
 	
 }
