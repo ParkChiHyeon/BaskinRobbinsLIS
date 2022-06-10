@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.container{
+	position: relative;
+	top: 20px;
+	width: 1000px;
+	margin: auto;
+	min-width: 900px;
+	padding-bottom: 100px;
+}
+#dataTable{
+	font-size : 8pt;
+}
+
+
+.paginate_button current{
+	color: yellowgreen;
+	border: 1px solid white;
+	background: pink; 
+}

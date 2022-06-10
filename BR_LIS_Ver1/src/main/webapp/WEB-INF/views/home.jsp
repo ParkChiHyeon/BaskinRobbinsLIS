@@ -444,7 +444,7 @@ homeNewBook(); // 홈화면 신간도서 url
 								</a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc05.png"
 									alt=""> <a
-									href="/jungang/10085/mypage/visit/visitList.do"> 견학신청 </a></li>
+									href="./lendingBookListUser.do">대출현황(대출중)</a></li>
 							</ul>
 						</div>
 					</div>

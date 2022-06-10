@@ -90,15 +90,19 @@ UPDATE LENDING SET LENDING_DELAY='Y', END_DATE=LENDING_DATE+21
 </update>
 
 <select id="warehouseList" resultType="BookInfoVo">
-SELECT * 
+SELECT pb.BOOK_SERIAL, bi.TITLE, bi.AUTHOR, bi.PUBLISHER, bi.ISBN, pb.NM
  FROM POSSESSING_BOOK pb 
- WHERE WH = 'Y'
+ JOIN BOOK_INFO bi
+ ON pb.ISBN  = bi.ISBN 
+ <![CDATA[WHERE pb.WH = 'Y' AND ROWNUM <100]]>
 </select>
 
 <select id="supplementList" resultType="BookInfoVo">
-SELECT * 
+SELECT pb.BOOK_SERIAL, bi.TITLE, bi.AUTHOR, bi.PUBLISHER, bi.ISBN, pb.NM
  FROM POSSESSING_BOOK pb 
- WHERE SP = 'Y'
+ JOIN BOOK_INFO bi
+ ON pb.ISBN  = bi.ISBN 
+ <![CDATA[WHERE pb.SP = 'Y' AND ROWNUM <100]]>
 </select>
 <update id="penaltyAuthModify">
 <![CDATA[UPDATE LIB_MEMBER SET AUTH ='NM' 
@@ -115,6 +119,24 @@ ON l.BOOK_SERIAL =pb.BOOK_SERIAL
 JOIN BOOK_INFO bi 
 ON bi.ISBN = pb.ISBN 
 WHERE l.BACK_DATE IS NOT NULL <![CDATA[AND ROWNUM < 50]]>
+</select>
+
+<select id="yetReturnBookList" resultType="LendBookBean">
+SELECT bi.TITLE, l.LENDING_SEQ, l.BOOK_SERIAL, l.MEMBER_CODE, l.LENDING_DATE, l.END_DATE, l.BACK_DATE, l.RESERVE_DATE 
+FROM LENDING l
+JOIN POSSESSING_BOOK pb 
+ON l.BOOK_SERIAL =pb.BOOK_SERIAL 
+JOIN BOOK_INFO bi 
+ON bi.ISBN = pb.ISBN 
+WHERE l.BACK_DATE IS NULL AND l.LENDING_DATE IS NOT NULL
+</select>
+
+<select id="possessingBookList" resultType="BookInfoVo">
+SELECT pb.BOOK_SERIAL, bi.TITLE, bi.AUTHOR, bi.PUBLISHER, bi.ISBN, pb.NM
+FROM POSSESSING_BOOK pb 
+JOIN BOOK_INFO bi 
+ON pb.ISBN  = bi.ISBN 
+<![CDATA[WHERE ROWNUM < 100 ]]>
 </select>
 
 <resultMap type="com.br.lis.vo.LendingVo" id="lendingMap">

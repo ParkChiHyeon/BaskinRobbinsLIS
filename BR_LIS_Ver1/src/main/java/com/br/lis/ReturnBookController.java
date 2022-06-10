@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
 import com.br.lis.model.lendinginfo.service.IReturnBookService;
+import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
 import com.br.lis.vo.LibMemberVo;
@@ -30,31 +31,32 @@ import com.google.gson.GsonBuilder;
 
 @Controller
 public class ReturnBookController {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private IReturnBookService iService;
 	
 	@Autowired
 	private ILendingBookService lService;
-	
-	// 반납 페이지 
+
+
+	// 반납 페이지
 	@RequestMapping(value = "/returnBookPage.do", method = RequestMethod.GET)
-	public String returnBookPage (Model model) {
+	public String returnBookPage(Model model) {
 		logger.info("Welcome! ReturnBookController returnBookPage");
 		String book_serial = "BKSR155997";
 		LendingVo vo = iService.lendingDetailForReturnBook(book_serial);
-		model.addAttribute("vo",vo);
+		model.addAttribute("vo", vo);
 		Map<String, Object> rMap = new HashMap<String, Object>();
 		rMap.put("book_serial", book_serial);
-		ReservationVo rVo = iService.returnBookReserveCheck(rMap); 
+		ReservationVo rVo = iService.returnBookReserveCheck(rMap);
 		model.addAttribute("rVo", rVo);
 		LibMemberVo mVo = iService.lendingDetailForReturnUser(vo.getMember_code());
-		model.addAttribute("mVo",mVo);
+		model.addAttribute("mVo", mVo);
 		return "returnBookPage";
 	}
-	
+
 	// 정상반납
 	@RequestMapping(value = "/returnNomal.do", method = RequestMethod.GET)
 	public String returnBookProcessing(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -64,15 +66,15 @@ public class ReturnBookController {
 		String reserve = request.getParameter("reserve_seq");
 		if (reserve != null) {
 			iService.existReserveReturnBook(lending_seq, member_code);
-		}else {
+		} else {
 			iService.normalReturnBook(lending_seq, member_code);
 		}
 		PrintWriter out = response.getWriter();
-		out.println("<script>alert('반납완료');</script>");//외않됨?
+		out.println("<script>alert('반납완료');</script>");// 외않됨?
 		logger.info(lending_seq, member_code);
 		return "home";
 	}
-	
+
 	// 파손반납
 	@RequestMapping(value = "/returnBookDamege.do", method = RequestMethod.GET)
 	public String returnBookDamege(HttpServletRequest request) {
@@ -83,11 +85,11 @@ public class ReturnBookController {
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		// 예약자가 없을 경우 일반 파손반납진행
-		if(reserve_seq == null) {
+		if (reserve_seq == null) {
 			iService.normalReturnBook(lending_seq, member_code);
 			iService.damegeReturnBook(lending_seq, member_code);
-		}else {
-		// 예약자가 있을 경우 알림문자 발송 후 파손반납진행
+		} else {
+			// 예약자가 있을 경우 알림문자 발송 후 파손반납진행
 			iService.certifiedPhoneNumber(phone, name);
 			iService.reserveSelfDel(reserve_seq);
 			iService.normalReturnBook(lending_seq, member_code);
@@ -95,8 +97,8 @@ public class ReturnBookController {
 		}
 		return "home";
 	}
-	
-	//분실 반납
+
+	// 분실 반납
 	@RequestMapping(value = "/returnBookLost.do", method = RequestMethod.GET)
 	public String returnBookLost(HttpServletRequest request) {
 		logger.info("Welcome! ReturnBookController returnBookLost");
@@ -106,11 +108,11 @@ public class ReturnBookController {
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		// 예약자가 없을 경우 일반 분실반납진행
-		if(reserve_seq == null) {
+		if (reserve_seq == null) {
 			iService.normalReturnBook(lending_seq, member_code);
 			iService.lossReturnBook(lending_seq, member_code);
-		}else {
-		// 예약자가 있을 경우 알림문자 발송 후 분실반납진행
+		} else {
+			// 예약자가 있을 경우 알림문자 발송 후 분실반납진행
 			iService.certifiedPhoneNumber(phone, name);
 			iService.reserveSelfDel(reserve_seq);
 			iService.normalReturnBook(lending_seq, member_code);
@@ -118,15 +120,67 @@ public class ReturnBookController {
 		}
 		return "home";
 	}
-	
-	
+
+	// 반납 완료 목록
 	@RequestMapping(value = "/returnBookList.do", method = RequestMethod.GET)
-	public String ajaxTables(Model model) {
-		logger.info("HomeController ajaxTables 데이터테이블 아작스처리 페이지로 가기");
+	public String returnBookList(Model model) {
+		logger.info("Welcome! ReturnBookController returnBookList");
 		List<LendBookBean> lists = iService.returnBookList();
 		model.addAttribute("lists", lists);
 		return "returnBookList";
 	}
 
+	// 대출 중인 목록 - 관리자
+	@RequestMapping(value = "/lendingBookListAdmin.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String lendingBookListAdmin() {
+		logger.info("Welcome! ReturnBookController lendingBookListAdmin");
+		List<LendBookBean> Lists = iService.yetReturnBookList();
+		Gson data = new GsonBuilder().create();
+		return data.toJson(Lists); 
+	}
+	// 대출중인 목록 - 회원
+	@RequestMapping(value = "/lendingBookListUser.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String lendingBookListUser(HttpSession session, Model model) {
+		LibMemberVo lVo = (LibMemberVo)session.getAttribute("member");
+		logger.info("Welcome! ReturnBookController lendingBookListAdmin");
+		logger.info("세션확인이라네@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {}",lVo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("member_id", lVo.getMember_id());
+		List<LendBookBean> lists = lService.lendingList(map);
+		model.addAttribute("lists",lists);
+		return "lendingBookListUser";
+	}
 	
+	// 보유 도서 목록
+		@RequestMapping(value = "/possessingBookList.do", method = RequestMethod.GET)
+		public String possessingBookList(Model model) {
+			logger.info("Welcome! ReturnBookController possessingBookList");
+			List<BookInfoVo> lists = iService.possessingBookList();
+			model.addAttribute("lists", lists);
+			return "possessingBookList";
+		}
+		
+	// 서고에 있는 책목록
+	@RequestMapping(value = "/warehouseBookList.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String warehouseBookList() {
+		logger.info("Welcome! ReturnBookController warehouseBookList");
+		List<BookInfoVo> Lists = iService.warehouseList();
+		Gson data = new GsonBuilder().create();
+		return data.toJson(Lists); 
+	}
+	
+	// 부록 있는 책목록
+	@RequestMapping(value = "/supplyBookList.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String supplyBookList() {
+		logger.info("Welcome! ReturnBookController supplyBookList");
+		List<BookInfoVo> Lists = iService.supplementList();
+		Gson data = new GsonBuilder().create();
+		return data.toJson(Lists); 
+	}
+	
+
 }

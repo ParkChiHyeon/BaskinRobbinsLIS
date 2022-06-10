@@ -28,4 +28,6 @@ public interface IReturnBookDao {
 	public ReservationVo returnBookReserveCheck(Map<String, Object> map);
 	public int penaltyAuthModify();
 	public List<LendBookBean> returnBookList();
+	public List<LendBookBean> yetReturnBookList();
+	public List<BookInfoVo> possessingBookList();
 }
