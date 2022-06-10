@@ -18,9 +18,9 @@
 <%@ include file="./header.jsp" %>
 <style>
 #footer{
- 	position:absolute;
- 	bottom: 0;
- 	width: 100%
+  	position:absolute;
+  	bottom : 0;
+	width: 100% ;
 }
 
 div.int-area2{
@@ -90,6 +90,10 @@ div.int-area2 i{
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.body{
+height: 100%;
 }
 
 
@@ -170,8 +174,6 @@ div.int-area2 i{
       </div>
   </div>
 </div>	
-	
-
 	<%@ include file="./footer.jsp" %>
 	  </body>
     <script type="text/javascript">

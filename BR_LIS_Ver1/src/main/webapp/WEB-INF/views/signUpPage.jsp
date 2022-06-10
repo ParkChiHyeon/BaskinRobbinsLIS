@@ -52,6 +52,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<script src="https://kit.fontawesome.com/37d6185271.js" crossorigin="anonymous"></script>
 
 <style type="text/css">
 #id_textbox{
@@ -125,6 +126,18 @@ label{
 	margin : 40px auto; display: table; border: 2px solid;
 }
 
+div #eye {
+    position: relative;
+}
+
+div#eye i{
+	position :absolute;
+    left: 35%;
+    top : 53px;
+    color: black;
+}
+
+
 
 
 
@@ -150,9 +163,11 @@ label{
 		
 		
 		
-		
 		<li class="list-group-item" id="idInput">
-		<label>비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required> 
+		<div id="eye">
+		<label>비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required>
+		<i class="fa-solid fa-eye fa-lg"></i> 
+		</div>
 		</li>
 		<li class="list-group-item"><span id="resultPw"><a></a></span></li>
 		
@@ -160,7 +175,10 @@ label{
 		
 		
 		<li class="list-group-item" id="idInput">
+		<div id="eye">
 		<label>비밀번호 확인</label><input type="password" class="form-control"  id="pwChk_textbox" required>
+		<i class="fa-solid fa-eye fa-lg"></i> 
+		</div>
 		</li>
 		<li class="list-group-item"><span id="resultPw2"><a></a></span></li>
 		
@@ -182,10 +200,11 @@ label{
 		
 		
 		<li class="list-group-item" id="idInput">
+		
 		<label>전화번호</label><input type="text" class="form-control" placeholder="ex)01012345678" id="phone_textbox" name="phone" maxlength="11" required>
+		
 		<input type="button" class="btn btn-outline-primary" value="인증번호 전송" id="sendPhoneNumber">
 		</li>
-		<li class="list-group-item"><span id="resultPhone"><a>하이픈(-) 제외</a></span></li>
 		
 		
 		
@@ -198,7 +217,7 @@ label{
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>주소</label><input type="text" class="form-control" id="detailAddress_textbox" placeholder="상세주소" name="address" autocomplete="name" required>
+		<label>주소</label><input type="text" class="form-control" id="detailAddress_textbox" name="address" autocomplete="name" required>
 		<input type="button" class="btn btn-outline-primary" value="우편번호 찾기" id="zipSearch_textbox" onclick="kakaopost()">
 		</li>
 		
@@ -220,12 +239,21 @@ label{
 
 function frmsubmit(){
 	var id = document.getElementById("id_textbox");
+	var birth = document.getElementById("birth_textbox");
+	
 	console.log(id.value)
 	if( id.value=="" || id.value.trim==""){
-		swal('아이디가 빈값입니다');
+		swal('아이디는 필수 입력사항입니다');
 		return false;
 	}
 	
+	if(birth.value==""||birth.value.trim==""){
+		swal("주민번호는 필수 입력사항입니다");
+		return false;
+	}else if(birth.value.length != 7){
+		swal('주민번호는 앞 6자리 뒷 1자리입니다');
+		return false;
+	}
 	
 	
 	return true;
@@ -537,7 +565,18 @@ document.getElementById("btnSignUp").addEventListener("click",function(evt)
 
 // \d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}
 
-
+ $(document).ready(function(){
+        $('#eye i').on('click',function(){
+            $('#eye input').toggleClass('active');
+            if($('input').hasClass('active')){
+                $(this).attr('class',"fa fa-eye-slash fa-lg")
+                .prev('input').attr('type',"text");
+            }else{
+                $(this).attr('class',"fa fa-eye fa-lg")
+                .prev('input').attr('type','password');
+            }
+        });
+    });
 
 
 </script>

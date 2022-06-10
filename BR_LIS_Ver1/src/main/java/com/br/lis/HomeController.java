@@ -34,6 +34,25 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	
+//	@RequestMapping(value = "/home.do", method= {RequestMethod.POST,RequestMethod.GET})
+//	public ModelAndView home(HttpSession session) {
+//		logger.info("HomeController Welcome home!");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		
+//		LibMemberVo mVo = (LibMemberVo) session.getAttribute("member");
+//		AdminVo aVo = (AdminVo) session.getAttribute("admin");
+//		
+//		mav.addObject("member",mVo);
+//		mav.addObject("admin",aVo);
+//		
+//		mav.setViewName("home");
+//		
+//		
+//		
+//		return mav;
+//	}
+	
 	@RequestMapping(value = "/home.do", method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView home(HttpSession session) {
 		logger.info("HomeController Welcome home!");
@@ -48,11 +67,10 @@ public class HomeController {
 		
 		mav.setViewName("home");
 		
-		
-		
 		return mav;
 	}
 	
+
 	
 	
 	//로그아웃

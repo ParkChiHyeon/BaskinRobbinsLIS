@@ -1,0 +1,84 @@
+#id_textbox{
+	width: 300px;
+	height: 40px;
+}
+
+#pw_textbox{
+	width: 300px;
+	height: 40px;	
+}
+
+#pwChk_textbox{
+	width: 300px;
+	height: 40px;	
+}
+
+#name_textbox{
+	width: 300px;
+	height: 40px;	
+}
+
+label{
+	font-size: 20px;
+}
+
+#birth_textbox{
+	width : 100px;
+	height: 40px;
+	margin-right: 0 auto;
+}
+
+#birth2_textbox{
+	width : 40px;
+	height: 40px;
+}
+
+#btnSignUp{
+	width : 800px;
+	margin-top: 100px;
+	margin: 20px auto;
+	margin-bottom: 30px;	
+	display: inline-block;
+	text-align: center;
+}
+
+#zipSearch_textbox{
+}
+
+#phone_textbox{
+	width: 300px;
+	height: 40px;
+}
+
+#detailAddress_textbox{
+	width: 600px;
+	height: 40px;
+		
+}
+
+#phoneCheck_textbox{
+	width : 100px;
+	height: 40px;
+}
+
+#idInput{
+/* 	display: flex; */
+}
+
+#ulForm{
+	margin : 40px auto; display: table; border: 2px solid;
+}
+
+div #eye {
+    position: relative;
+}
+
+div#eye i{
+	position :absolute;
+    left: 35%;
+    top : 53px;
+    color: black;
+}
+ 
+ 
+ 

@@ -407,7 +407,7 @@ homeNewBook(); // 홈화면 신간도서 url
 							<c:if test="${member.auth eq 'NM'|| member.auth eq 'GH'}">
 							<span
 								class="txtBtn_darkGray sizeSmall ml10"><a
-								href="myPage.do">마이 페이지</a></span>	
+								href="./myPage.do">마이 페이지</a></span>	
 								</c:if>
 							<c:if test="${member.auth eq null && admin.admin_id == null }"> 
 							<span
