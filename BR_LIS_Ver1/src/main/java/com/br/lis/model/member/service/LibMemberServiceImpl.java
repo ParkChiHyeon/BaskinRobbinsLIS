@@ -64,10 +64,13 @@ public class LibMemberServiceImpl implements ILibMemberService {
 		logger.info("Lib_MemberServiceImpl resetPw : {}", map);
 		int n = mDao.resetPw(map);
 		int m = mDao.updateNewPw(map);
-		int k = mDao.encryptPassword(map);
+		String k = mDao.findPwOne(map);
+		logger.info(k);
+		int j = mDao.encryptPassword(k, map);
 		
 		
-		return (n>0||m>0||k>0)? 1:0;
+		
+		return (n>0||m>0||k!=null || j>0)? 1:0;
 	}
 
 	@Override

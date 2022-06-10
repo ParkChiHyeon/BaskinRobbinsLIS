@@ -45,13 +45,19 @@ public interface ILibMemberDao {
 
 	public int notificationYN(Map<String, Object> map);
 
-	public int encryptPassword(Map<String, Object> map);
+//	public int encryptPassword(String k);
 	
 	//비밀번호 확인
 	public String pwChk(Map<String, Object> map);
 		
 	//아이디 확인
 	public int idCheck(String id);
+	
+	public String findPwOne(Map<String, Object> map);
+
+	public int encryptPassword(String k, Map<String, Object> map); 
+		
+	
 		
 
 }

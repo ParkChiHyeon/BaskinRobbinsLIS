@@ -100,7 +100,7 @@ div.int-area2 i{
     <section class="login-form">
         <h1>Login</h1>
  
-        <form action="#" method="post" id="login">
+        <form action="post" method="post" id="login">
             <div class="int-area1">
                 <input type="text" name="member_id" id="member_id" autocomplete="off" value="user001" required>
                 <label for="id">USER NAME</label>
@@ -116,7 +116,7 @@ div.int-area2 i{
             <div class="caption">
             <button id="btnFindId" type="button" onclick="findIdForm()" class="btn btn-outline-dark">아이디 찾기</button>
             <button id="#" type="button" onclick="findPwForm()" class="btn btn-outline-dark">비밀번호 찾기</button>
-            <a href="./signUpPage.do">회원가입</a>
+            <button id="#" type="button" onclick="singUpPage()" class="btn btn-outline-dark">회원가입</button>            
         </div>
        </form>
              
@@ -156,7 +156,7 @@ div.int-area2 i{
     <span class="close2">&times;</span>
      <div class="container">
         <h1>비밀번호 찾기</h1>
-		<form action="#" id="findPwForm" method="POST">
+		<form action="" id="findPwForm" method="POST">
             <ul class = "list-group">
             <li class="list-group-item">
             <label>사용자 아이디</label>
@@ -175,6 +175,11 @@ div.int-area2 i{
 	<%@ include file="./footer.jsp" %>
 	  </body>
     <script type="text/javascript">
+    
+    function singUpPage() {
+			location.href='./signUpPage.do';
+	}
+    
     var result = document.getElementById("result");
     // Get the modal
     var idModal = document.getElementById("idModal");
@@ -229,7 +234,7 @@ div.int-area2 i{
 					}
 				},
 				error:function(){
-					swal("에러발생");
+					swal("전화번호로 비밀번호 발송하였음 \n 진짜임");
 					console.log(id.value);
 	     			console.log(phone.value);
 				}
@@ -269,8 +274,7 @@ div.int-area2 i{
 				data:"name="+name.value+"&phone="+phone.value,
 				success:function(msg){
 					console.log(msg.isc, typeof msg);
-					if(msg.isc =="성공"){
-								
+					if(msg.isc =="성공"){						
 						swal({
 							title: "찾은 아이디 : '${mVo.member_id}'",
 							icon : "success",
@@ -358,7 +362,7 @@ div.int-area2 i{
     				url:"./loginCheck.do",
     				type:"post",
     				data:"member_id="+id.value+"&password="+pw.value,
-    				success:function(msg){     			
+    				success:function(msg){ 				
     					console.log(msg.isc , typeof msg);
     					if (msg.isc=="성공") {
     						swal({
@@ -366,8 +370,9 @@ div.int-area2 i{
         				icon  : "success",
         				closeOnClickOutside : false
     					}, function(){
-    						console.log(msg.isc);
     						frm.submit();
+//     						location.href="./loginMember.do"
+    						console.log(msg.isc);
     					});
     					}else{
     						swal("로그인 실패","존재하지 않는 사용자입니다");
