@@ -1,7 +1,5 @@
 package com.br.lis;
 
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 
@@ -24,13 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
+import com.br.lis.model.member.service.IAdminService;
+import com.br.lis.model.member.service.ILibMemberService;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
+import com.br.lis.vo.LibMemberVo;
 
 @Controller
+@SessionAttributes("member")
 public class LendingBookController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,14 +42,32 @@ public class LendingBookController {
 	@Autowired
 	private ILendingBookService service;
 	
+	@Autowired
+	private ILibMemberService mService;
+	
+	@Autowired
+	private IAdminService aService;
+	
 	@RequestMapping(value = "/lendingBook.do", method = RequestMethod.GET, produces ="application/text; charset=UTF-8" )
-	public  String lendingLIst(Model model) {
+	public  String lendingLIst(/*HttpSession session,@RequestParam Map<String, String> map,*/Model model) {
 		
 		logger.info("대출한 도서내역");
+		logger.info("해당아이디로 조회하기-> 마이페이지 가야함");
 		Map<String, Object> map2 = new  HashMap<String, Object>();
-		map2.put("member_code", "M2205000004");
+		//아이디 직접입력
+		map2.put("member_id", "user001");
+		
+		
+		//세션받아서 id 값 가져와야함
+//		LibMemberVo mVo = (LibMemberVo) session.getAttribute("member");
+//		String mb =mVo.getMember_id();
+//		System.out.println(mb+"멤버아이디1111&&&&&&&&&&&&&&");
+//		System.out.println(mVo+"멤버아이디22222&&&&&&&&&&&&&&");
+//		model.addAttribute("mb", mb);
+		
 		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
 		listBean= service.lendingList(map2);
+		
 		model.addAttribute("listBean",listBean);
 		
 //		List<LendingVo> lists = (List<LendingVo>) service.reserveLendingBook(map);

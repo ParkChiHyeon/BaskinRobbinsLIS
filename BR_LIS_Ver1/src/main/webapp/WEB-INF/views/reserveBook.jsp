@@ -55,8 +55,8 @@
 	</div>
 	
 	
-<div id="container">
 		<h1>회원예약목록조회(회원)</h1>
+<div id="container">
 		<form action="./reserveBook.do" >
 			<table  id="dataTable" class="cell-border">
 				<thead>

@@ -42,7 +42,7 @@
 	 </div>
 	</div> 
 
-
+${mb}
 <h1>대출도서내역</h1>
 <div class="container">		
 		<table  id="dataTable" class="cell-border">
