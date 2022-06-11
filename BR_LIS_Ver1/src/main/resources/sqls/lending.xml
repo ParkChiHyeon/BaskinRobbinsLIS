@@ -60,21 +60,27 @@ SELECT l.MEMBER_CODE,bi.ISBN,l.BOOK_SERIAL ,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER
 <!--BR_W_BM_203 회원예약목록조회  _회원
 	** 테이블 3개 조인..!   -->
 <select id="reserveLendingBook"  parameterType="java.lang.String" resultType="java.util.Map">
-SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author,pb.RV ,l.reserve_date
+SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author,pb.RV ,TO_CHAR(l.reserve_date,'YYYY.MM.DD') reseveDate
       FROM LENDING l 
       JOIN POSSESSING_BOOK pb 
   	  ON l.BOOK_SERIAL = pb.BOOK_SERIAL 
       JOIN BOOK_INFO bi 
       ON pb.ISBN = bi.ISBN 
-      WHERE l.MEMBER_CODE = #{member_code} AND RV ='Y'
+      WHERE l.MEMBER_CODE =(SELECT MEMBER_CODE 
+            FROM LIB_MEMBER lm
+            WHERE lm.MEMBER_ID= #{member_id}) AND RV ='Y'
 </select>
 
 
 <!--BR_W_BM_204  대출 신청	-->
 <insert id="insertLendingBook" parameterType="LendingVo">
 	INSERT INTO LENDING
-		(LENDING_SEQ, BOOK_SERIAL, MEMBER_CODE, lending_delay,RETURN_STATUS, LENDING_DATE, END_DATE, BACK_DATE,reserve_date)
-		VALUES('LEN'||TO_CHAR(SYSDATE,'YYMMDD')||LPAD(LENDING_SEQ.NEXTVAL,9,0),#{book_serial}, #{member_code},'Y','NM', SYSDATE, SYSDATE+14, '','')
+			(LENDING_SEQ, BOOK_SERIAL, MEMBER_CODE, 
+			lending_delay,RETURN_STATUS, TO_CHAR(LENDING_DATE,'YYYY.MM.DD'), 
+			TO_CHAR(END_DATE,'YYYY.MM.DD'), TO_CHAR(BACK_DATE,'YYYY.MM.DD'),TO_CHAR(reserve_date,'YYYY.MM.DD'))
+		VALUES('LEN'||TO_CHAR(SYSDATE,'YYMMDD')||LPAD(LENDING_SEQ.NEXTVAL,9,0),#{book_serial}, #{member_code},
+			'Y','NM', SYSDATE, 
+			SYSDATE+14, '','')
 </insert>
 
 <!--BR_W_BM_204  대출 신청_상태변경	-->
@@ -90,8 +96,8 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 <!--BR_W_BM_207 대출 내역 조회 
 	조인 쿼리-->
 <!-- <select id="lendingList"  parameterType="java.util.Map" resultMap="LendBookBeanMap"> -->
-<select id="lendingList"  parameterType="java.util.Map" resultType="LendBookBean">
-	SELECT l.MEMBER_CODE, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, l.LENDING_DATE, l.END_DATE, l.BACK_DATE 
+<select id="lendingList"  parameterType="java.lang.String" resultType="LendBookBean">
+	SELECT l.MEMBER_CODE,l.BOOK_SERIAL, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, TO_CHAR(l.LENDING_DATE,'YYYY.MM.DD'), TO_CHAR(l.END_DATE,'YYYY.MM.DD'), TO_CHAR(l.BACK_DATE,'YYYY.MM.DD') 
         FROM (SELECT *FROM BOOK_INFO bi, POSSESSING_BOOK pb WHERE bi.ISBN=pb.ISBN) A, LENDING l 
             WHERE l.MEMBER_CODE =(SELECT MEMBER_CODE 
             FROM LIB_MEMBER lm

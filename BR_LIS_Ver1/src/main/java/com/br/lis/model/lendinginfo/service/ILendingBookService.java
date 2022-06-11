@@ -28,7 +28,7 @@ public interface ILendingBookService {
 		public List<LibMemberVo> deleyPenalty();
 		
 		//대출 내역조회
-		public List<LendBookBean> lendingList(Map<String, Object>map);
+		public List<LendBookBean> lendingList(String member_code);
 		
 		//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
 		public List<LendBookBean> possibleReserve(Map<String, Object>map);

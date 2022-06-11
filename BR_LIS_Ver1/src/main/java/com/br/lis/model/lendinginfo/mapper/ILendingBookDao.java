@@ -34,7 +34,7 @@ public interface ILendingBookDao {
 	
 	//	BR_W_BM_207 
 	//대출 내역조회
-	public List<LendBookBean> lendingList(Map<String, Object>map);
+	public List<LendBookBean> lendingList(String member_code);
 	
 //	public LendBookBean lendingList(List<Map<String, String>> map);
 	

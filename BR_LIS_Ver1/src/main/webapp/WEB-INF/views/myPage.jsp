@@ -30,7 +30,7 @@
 
 <script src="https://kit.fontawesome.com/37d6185271.js" crossorigin="anonymous"></script>
 
-
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js" defer></script>
 
 
 
@@ -41,7 +41,7 @@
 
 <!-- css넣어라 -->
 <link rel="stylesheet" href="./khu_css/myPage.css"/>
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
 
 
 
@@ -55,7 +55,7 @@
 
 
 <!-- js 넣어라 -->
-
+<script src="./BR_js/jsj_dataTable.js"><</script>
 
 
 
@@ -87,8 +87,8 @@
 				<li id="lnb_2" class=""><a href="./membertt.do" >회원탈퇴 신청</a></li>
 				<li id="lnb_3" class=""><a href="./memberInfoUpdate.do" >알림 수신 변경</a></li>
 				<li id="lnb_4" class=""><a href="./memberInfoUpdate.do" >도서대출 현황</a></li>
-				<li id="lnb_5" class=""><a href="./memberInfoUpdate.do" >도서대출 이용 현황</a></li>
-				<li id="lnb_6" class=""><a href="./memberInfoUpdate.do" >예약 현황</a></li>
+				<li id="lnb_5" class=""><a href="./lendingBookMem.do" >도서대출 이용 현황</a></li>
+				<li id="lnb_6" class=""><a href="./reserveBook.do" >예약 현황</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >신청도서 조회</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >8</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >9</a></li>
@@ -495,7 +495,7 @@
 	
 	
 			
-			</div>
+<!-- 			</div> -->
 			<!-- 휘웅 영역 끝 -->	
 			<!-- 인경영역 -->
 			
@@ -897,96 +897,96 @@
 
 
 <!-- 인경 영역 끝 -->
-<!-- 수진 영역-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 수진 영역  // 900~1599 -->
+<c:if test="${page=='lendingLIst'}">
+ <div id="contentcore">
+	
+		<!-- 제목 영역 -->
+		<div class="naviandtitle"> 
+			<h3>도서대출 이용현황</h3>
+		</div>
+
+		<!-- 내용 영역  -->
+<%-- 		<c:if test="${member.member_id eq 'member_id'}"> --%>
+		
+		<table  id="dataTable" class="cell-border">
+<!-- 		<table  id="dataTable" class="table table-hover"> -->
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>도서코드</th>
+						<th>도서제목</th>
+						<th>대출일</th>
+						<th>반납일</th>
+						<th>상태</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="lBean" items="${listBean}" varStatus="vs">
+					<tr>
+						<td>${vs.count}</td>
+						<td>${lBean.book_serial}</td>
+						<td>${lBean.title}</td>
+						<td>${lBean.lending_date}</td>
+						<td>${lBean.back_date}</td>
+						<td></td>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+<%-- 		</c:if> --%>
+
+	</div>
+</c:if>
+
+
+
+
+
+<c:if test="${page=='reserveListMem'}">
+	<div id="contentcore">
+
+		<!-- 제목 영역 -->
+		<div class="naviandtitle"> 
+			<h3>도서 예약 현황</h3>
+		</div>
+	
+		<!-- 내용 영역  -->
+		<form action="./reserveBook.do" >
+			<table  id="dataTable" class="table table-hover">
+					<thead>
+						<tr id="reserveList">
+							<th>예약번호</th>
+							<th>ISBN</th>
+							<th>도서코드</th>
+							<th>도서제목</th>
+	<!-- 						<th>출판사</th> -->
+	<!-- 						<th>저자</th> -->
+							<th>예약일</th>
+						</tr>
+					</thead>
+					<tbody>
+				<%-- 			<c:forEach var="a" items="${a}" varStatus="vs"> --%>
+						<tr id="reserveListVal">
+							<td id="lending_seq"><input type="hidden" name="lending_seq" value="${a.LENDING_SEQ}">${a.LENDING_SEQ}</td>
+							<td>${a.ISBN}</td>
+							<td id="book_serial"><input type="hidden" name="book_serial" value=" ${a.BOOK_SERIAL}"> ${a.BOOK_SERIAL}</td>
+							<td>${a.TITLE}</td>
+	<%-- 						<td>${a.PUBLISHER}</td> --%>
+	<%-- 						<td>${a.AUTHOR}</td> --%>
+							<td>${a.RESERVE_DATE}</td>
+						</tr>
+				<%-- 			</c:forEach> --%>
+					</tbody>
+				</table>
+				<c:if test="${a ne null }">
+					<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button>
+				</c:if>
+			</form>
+			
+
+	</div>
+</c:if>
 
 
 
@@ -1998,7 +1998,7 @@
 
 
 <!-- 슬기영역 끝 -->
-
+</div>
 
 
 

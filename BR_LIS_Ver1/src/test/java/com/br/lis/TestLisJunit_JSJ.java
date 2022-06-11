@@ -121,13 +121,13 @@ public class TestLisJunit_JSJ {
 	
 	// 조인쿼리-다시 
 //	@Test
-	public void lendingList() {
-		logger.info("lendingList  대출내역조회");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member_code", "M2205000004");
-		List<LendBookBean> lists = new ArrayList<LendBookBean>();
-		lists =dao.lendingList(map);
-		System.out.println(lists);
+//	public void lendingList() {
+//		logger.info("lendingList  대출내역조회");
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("member_code", "M2205000004");
+//		List<LendBookBean> lists = new ArrayList<LendBookBean>();
+//		lists =dao.lendingList(map);
+//		System.out.println(lists);
 		
 		
 //		List<Map<String, String>> list = new  ArrayList<Map<String,String>>();
@@ -150,7 +150,7 @@ public class TestLisJunit_JSJ {
 //		LibMemberVo vo = new LibMemberVo();
 //		vo.setMember_code("M2205000004");
 //		System.out.println(vo);
-	}
+//	}
 	
 	
 	// OK

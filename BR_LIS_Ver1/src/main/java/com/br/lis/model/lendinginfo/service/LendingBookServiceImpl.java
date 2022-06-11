@@ -59,9 +59,9 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	}
 
 	@Override
-	public List<LendBookBean> lendingList(Map<String, Object> map) {
+	public List<LendBookBean> lendingList(String member_code) {
 		logger.info("ILendingBookDao 대출내역조회_lendingList");
-		return dao.lendingList(map);
+		return dao.lendingList(member_code);
 	}
 
 	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
