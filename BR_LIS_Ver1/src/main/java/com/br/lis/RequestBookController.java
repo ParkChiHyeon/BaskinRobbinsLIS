@@ -160,9 +160,13 @@ public class RequestBookController {
 		String member_id = "gnldnd17";
 		List<RequestPurchaseVo> myRequestBookList = reqPurcService.purchReqConfirmSelect(member_id);
 		
-		model.addAttribute("myRequestBookList",myRequestBookList);
+//		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
 		
-		return "requestBookUser";
+		model.addAttribute("myRequestBookList",myRequestBookList);
+		model.addAttribute("reqPage","userRequestBook");
+		
+//		return "requestBookUser";
+		return "myPage";
 	}
 	
 	

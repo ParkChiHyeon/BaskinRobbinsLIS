@@ -41,6 +41,7 @@
 
 <!-- css넣어라 -->
 <link rel="stylesheet" href="./khu_css/myPage.css"/>
+<link rel="stylesheet" href="./hsg_css/myPageReq.css"/>
 
 
 
@@ -89,7 +90,7 @@
 				<li id="lnb_4" class=""><a href="./memberInfoUpdate.do" >도서대출 현황</a></li>
 				<li id="lnb_5" class=""><a href="./memberInfoUpdate.do" >도서대출 이용 현황</a></li>
 				<li id="lnb_6" class=""><a href="./memberInfoUpdate.do" >예약 현황</a></li>
-				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >신청도서 조회</a></li>
+				<li id="lnb_7" class=""><a href="./myRequestBookList.do" >신청도서 조회</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >8</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >9</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >10</a></li>
@@ -495,7 +496,7 @@
 	
 	
 			
-			</div>
+<!-- 			</div> -->
 			<!-- 휘웅 영역 끝 -->	
 			<!-- 인경영역 -->
 			
@@ -1598,404 +1599,41 @@
 
 <!--수진 영역 끝  -->
 <!-- 슬기 영역 -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<c:if test="${reqPage=='userRequestBook'}">
+	<h1 id="myRequestBookH1">나의 신청도서</h1>
+	<div id="myRequestBookDiv">
+		<!-- 사용자의 신청도서 승인여부를 볼 수 있는 리스트 -->
+		<table id="myRequestBookTable">
+			<thead id="myRequestBookThead">
+				<tr>
+					<th>도서명</th>
+					<th>지은이</th>
+					<th>출판사</th>
+					<th>승인여부</th>
+				</tr>			
+			</thead>
+			<tbody id="">
+				<c:forEach var="myRequestBookList" items="${myRequestBookList}" varStatus="vs">
+					<tr>
+						<td>${myRequestBookList.title}</td>
+						<td>${myRequestBookList.author}</td>
+						<td>${myRequestBookList.publisher}</td>
+						<!-- 승인여부 조회결과가 Y면 승인, N이면 미승인 -->
+						<c:choose>
+							<c:when test="${myRequestBookList.confirm == 'Y'}">
+								<td>승인</td>
+							</c:when>
+							<c:when test="${myRequestBookList.confirm == 'N'}">
+								<td>미승인</td>
+							</c:when>
+						</c:choose>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>	
+	</c:if>
+</div>
 
 <!-- 슬기영역 끝 -->
 
