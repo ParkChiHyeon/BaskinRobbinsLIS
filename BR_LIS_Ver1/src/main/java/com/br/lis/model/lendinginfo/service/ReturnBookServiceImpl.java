@@ -234,4 +234,11 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		logger.info("ReturnBookServiceImpl 보유도서 목록");
 		return dao.possessingBookList();
 	}
+
+	// 대출중인 관내회원의 대출목록
+	@Override
+	public List<LendBookBean> lendingListUser(String member_id) {
+		logger.info("ReturnBookServiceImpl 대출중인 관내회원의 대출목록");
+		return dao.lendingListUser(member_id);
+	}
 }

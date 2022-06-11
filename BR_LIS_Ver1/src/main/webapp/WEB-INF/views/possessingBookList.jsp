@@ -16,7 +16,6 @@
 </head>
 <body>
 <div class="container">
-	<p>책상태 : Y=정상 / N=파손,분실</p>
 	<table id="dataTable" class="hover">
 		<thead>
 			<tr>
@@ -43,7 +42,7 @@
 	</table>
 	<button onclick="javascript:location.reload();" class="btn btn-primary" >보유도서목록</button>
 	<button onclick="warehouseBookList()" class="btn btn-success" >서고자료목록</button>
-	<button onclick="supplyBookList()" class="btn btn-info">부록목록</button>
+	<button onclick="supplyBookList()" class="btn btn-info">부록목록</button><div id="nmMessege">책상태 : Y=정상 / N=파손,분실</div>
 </div>
 </body>
 </html>

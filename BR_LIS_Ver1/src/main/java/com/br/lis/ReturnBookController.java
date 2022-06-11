@@ -37,8 +37,6 @@ public class ReturnBookController {
 	@Autowired
 	private IReturnBookService iService;
 	
-	@Autowired
-	private ILendingBookService lService;
 
 
 	// 반납 페이지
@@ -141,16 +139,22 @@ public class ReturnBookController {
 	}
 	// 대출중인 목록 - 회원
 	@RequestMapping(value = "/lendingBookListUser.do", method = RequestMethod.GET)
-	@ResponseBody
 	public String lendingBookListUser(HttpSession session, Model model) {
 		LibMemberVo lVo = (LibMemberVo)session.getAttribute("member");
 		logger.info("Welcome! ReturnBookController lendingBookListAdmin");
 		logger.info("세션확인이라네@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {}",lVo);
+		List<LendBookBean> lists = iService.lendingListUser(lVo.getMember_id());
+//		for (int i = 0; i < lists.size(); i++) {
+//			if(lists.get(i).getBack_date()==0) {
+//				
+//			}
+//			
+//		}
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member_id", lVo.getMember_id());
-		List<LendBookBean> lists = lService.lendingList(map);
 		model.addAttribute("lists",lists);
-		return "lendingBookListUser";
+		logger.info("목록 {}", lists);
+		model.addAttribute("page", "lendingBookListUserHIK");
+		return "myPage";
 	}
 	
 	// 보유 도서 목록

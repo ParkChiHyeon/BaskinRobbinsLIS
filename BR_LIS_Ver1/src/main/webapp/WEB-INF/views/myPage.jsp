@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>의왕시중앙도서관 책마루</title>
+<title>woowang Library MyPage</title>
 <link href="./include/css/custom.css" rel="stylesheet" type="text/css"/>
 <link href="./include/css/jungang/sub.css" rel="stylesheet" type="text/css"/>
 <script src="./include/js/jquery-1.12.2.min.js"></script>
@@ -41,7 +41,7 @@
 
 <!-- css넣어라 -->
 <link rel="stylesheet" href="./khu_css/myPage.css"/>
-
+<link rel="stylesheet" href="./hik_css/myPageHIK.css"/>
 
 
 
@@ -86,7 +86,7 @@
 				<li id="lnb_1" class=""><a href="./memberInfoUpdate.do" >내 정보 수정</a></li> 
 				<li id="lnb_2" class=""><a href="./membertt.do" >회원탈퇴 신청</a></li>
 				<li id="lnb_3" class=""><a href="./memberInfoUpdate.do" >알림 수신 변경</a></li>
-				<li id="lnb_4" class=""><a href="./memberInfoUpdate.do" >도서대출 현황</a></li>
+				<li id="lnb_4" class=""><a href="./lendingBookListUser.do" >도서대출 현황</a></li>
 				<li id="lnb_5" class=""><a href="./memberInfoUpdate.do" >도서대출 이용 현황</a></li>
 				<li id="lnb_6" class=""><a href="./memberInfoUpdate.do" >예약 현황</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >신청도서 조회</a></li>
@@ -278,6 +278,7 @@
 	</ul>
 	</div>
 				</form>	
+			</div>
 			</div>
 				</c:if>
 			
@@ -495,56 +496,55 @@
 	
 	
 			
-			</div>
+			
 			<!-- 휘웅 영역 끝 -->	
 			<!-- 인경영역 -->
+	<c:if test="${page=='lendingBookListUserHIK'}">
+	<div id="contentcore">
+			
+		
+	<!-- 제목 영역 -->
+	<div class="naviandtitle"> 
+	<h3>대출현황</h3>
+	</div>
+	
+	<!-- 내용 영역 넣고싶은거 넣으셈 -->
+	<form class="form-inline">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th><input type="checkbox" id="chkAllHIK"></th>
+					<th>번호</th>
+					<th>책번호</th>
+					<th>제목</th>
+					<th>대출일</th>
+					<th>반납예정일</th>
+					<th>연체일</th>
+				</tr>
+			</thead>
+			<c:forEach var="lists" items="${lists}" varStatus="vs">
+				<tbody>
+					<tr>
+						<td><input type="checkbox" ></td>
+						<td>${vs.count}</td>
+						<td>${lists.book_serial}</td>
+						<td>${lists.title}</td>
+						<td>${lists.lending_date}</td>
+						<td>${lists.end_date}</td>
+						<td>${lists.back_date}</td>
+					</tr>
+				<tbody>
+			</c:forEach>
+		</table>			
+	</form>	
+	</div>
+</div>		
+			</c:if>
 			
 			
 			
 			
 			
-			
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -12,9 +12,8 @@
 	font-size : 8pt;
 }
 
-
-.paginate_button current{
-	color: yellowgreen;
-	border: 1px solid white;
-	background: pink; 
+#nmMessege{
+	float: right;
+	color: red;
+	font-size: 8pt;
 }

@@ -229,4 +229,11 @@ public class TestLisJunit_HIK {
 		List<BookInfoVo> lists = dao.possessingBookList();
 		System.out.println(lists);
 	}
+	
+	@Test
+	public void lendingListUser() {
+		String member_id = "dlsruddl";
+		List<LendBookBean> lists = dao.lendingListUser(member_id);
+		System.out.println(lists);
+	}
 }

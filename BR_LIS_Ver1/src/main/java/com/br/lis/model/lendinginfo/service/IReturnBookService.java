@@ -28,4 +28,5 @@ public interface IReturnBookService {
 	public List<LendBookBean> returnBookList();
 	public List<LendBookBean> yetReturnBookList();
 	public List<BookInfoVo> possessingBookList();
+	public List<LendBookBean> lendingListUser(String member_id);
 }

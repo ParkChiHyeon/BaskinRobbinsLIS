@@ -118,6 +118,11 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 		return sqlSession.selectList(NS+"possessingBookList");
 	}
 
+	@Override
+	public List<LendBookBean> lendingListUser(String member_id) {
+		return sqlSession.selectList(NS+"lendingListUser", member_id);
+	}
+
 
 
 
