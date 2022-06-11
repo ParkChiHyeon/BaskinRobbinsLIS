@@ -13,7 +13,6 @@ public final class CalendarUtil {
 		return (m.length()==1) ? "0"+m:m; 
 	}
 	
-	
 	//요일별 날짜 표기의 색 변경
 	public static String fontColor(int date, int dayOfWeek) {
 		int dayCal = (dayOfWeek-1+date)%7;

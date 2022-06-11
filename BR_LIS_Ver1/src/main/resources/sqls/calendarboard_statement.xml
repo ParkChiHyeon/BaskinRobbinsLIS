@@ -2,9 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.br.lis.model.board.mapper.CalendarBoardDaoImpl">
 	
-	<select id="viewAllCalendar" resultType="Notice_FAQVo">
+	<select id="viewAllCalendar" resultType="CalendarBoardVo">
 		SELECT CALENDAR_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, START_DATE, END_DATE
 	   		FROM CALENDAR_BOARD
+	   		ORDER BY START_DATE DESC
+	</select>
+	
+	<select id="viewDetailCalendar" resultType="CalendarBoardVo">
+	SELECT FAQ_SEQ, ADMIN_ID, TITLE, CONTENT
+		FROM FAQ_BOARD
+				WHERE FAQ_SEQ=#{faq_seq}
 	</select>
 	
 	<insert id="insertCalendar" parameterType="java.util.Map">
@@ -13,13 +20,13 @@
 						#{start_date}, #{end_date})  
 	</insert>
 	
-	<update id="modifyCalendar" parameterType="Notice_FAQVo">
+	<update id="modifyCalendar" parameterType="CalendarBoardVo">
 		UPDATE CALENDAR_BOARD
 			SET TITLE = #{title}, CONTENT = #{content} 
 				WHERE START_DATE=#{start_date}
 	</update>
 	
-	<delete id="deleteCalendar">
+	<delete id="deleteCalendar" parameterType="java.util.List">
 		DELETE FROM CALENDAR_BOARD WHERE CALENDAR_SEQ IN
 				<foreach collection="list" item="calendar_seq" open="(" separator="," close=")">
 				#{calendar_seq}

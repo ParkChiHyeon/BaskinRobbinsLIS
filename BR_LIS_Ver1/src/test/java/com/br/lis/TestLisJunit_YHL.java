@@ -155,7 +155,7 @@ public class TestLisJunit_YHL {
 	}
 	
 //	@Test
-	public void deleteNotice() {
+	public void deleteNotice(List<String> chkBox) {
 		System.out.println("JUnit deleteNotice");
 		List<String> list = new ArrayList<String>();
 		
@@ -163,7 +163,7 @@ public class TestLisJunit_YHL {
 		list.add("");
 		list.add("");
 		
- 		int cnt = serviceNotice.deleteNotice(list);
+ 		int cnt = serviceNotice.multiDelNotice(chkBox);
  		
 		if (cnt>0) {
 			System.out.println("글 삭제에 성공하였습니다 삭제한 글의 개수 : "+cnt);
@@ -177,7 +177,7 @@ public class TestLisJunit_YHL {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("admin_id", "admin001");
-		List<CalendarBoardVo> lists = serviceCalendar.viewAllCalendar(map);
+		List<CalendarBoardVo> lists = serviceCalendar.viewAllCalendar();
 		System.out.println(lists);
 		assertNotNull(lists);
 		
@@ -217,7 +217,7 @@ public class TestLisJunit_YHL {
 //	@Test
 	public void modifyCalendar(){
 		System.out.println("Junit_modifyCalendar notice수정");
-		String notice_seq = "8";
+		String calendar_seq = "8";
 		String admin_id ="admin001" ;
 		String title = "여름휴가지를 도서관으로!";
 		String content = "6월, 여름휴가지로 떠나지 않는 여러분을 위해 도서관에서 서비스를 제공합니다. 영화 상영 및 컨텐츠를 제공하고 있으니, 세부 일정은 공지사항을 확인 부탁드립니다.";

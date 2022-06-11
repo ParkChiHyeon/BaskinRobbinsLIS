@@ -147,7 +147,7 @@
 					</li>
 				<li id="gnb4_2" class=""><a href="./viewAllBoard.do?kind=faq" >FAQ</a>
 					</li>
-				<li id="gnb4_3" class=""><a href="#" >도서관일정</a>
+				<li id="gnb4_3" class=""><a href="./viewAllBoard.do?kind=calendar" >도서관일정</a>
 					</li>
 				</ul>
 			</li>

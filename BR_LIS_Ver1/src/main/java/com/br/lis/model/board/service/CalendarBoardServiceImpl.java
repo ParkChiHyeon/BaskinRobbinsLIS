@@ -23,9 +23,15 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 
 	
 	@Override
-	public List<CalendarBoardVo> viewAllCalendar(Map<String, Object> map) {
-		logger.info("CalendarBoardServiceImpl viewAllNotice:{}", map);
-		return dao.viewAllCalendar(map);
+	public List<CalendarBoardVo> viewAllCalendar() {
+		logger.info("CalendarBoardServiceImpl viewAllNotice:{}");
+		return dao.viewAllCalendar();
+	}
+	
+	@Override
+	public CalendarBoardVo viewDetailCalendar(String seq) {
+		logger.info("CalendarBoardServiceImpl viewAllNotice:{}");
+		return dao.viewDetailCalendar(seq);
 	}
 	
 	@Override
@@ -45,5 +51,7 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 		logger.info("CalendarBoardServiceImpl deleteCalendar : {}",seqs);
 		return dao.deleteCalendar(seqs);
 	}
+
+
 	
 }
