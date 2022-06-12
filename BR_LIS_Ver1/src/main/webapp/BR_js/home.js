@@ -33,6 +33,30 @@ function faqList(){
 		}
 	})	
 }
+function getDateCal(date){
+	var week = ['일', '월', '화', '수', '목', '금', '토'];
+	var dayOfWeek = week[new Date(date).getDay()];
+	return dayOfWeek;
+}
+function calList(){
+	var now = new Date();
+	var month = (now.getMonth()+1);
+	var html='';
+	$.ajax({
+		method:"GET",
+		contentType:"application/json;",
+		url:"./calendarAjax.do",		
+		dataType:"json",
+		success:function(data){	 
+		for(let i=0;i<data.length;i++){
+			if((data[i].start.substr(5,2))==(month)){
+				html+='<li>'+data[i].start.substr(8,2)+'('+getDateCal(data[i].start.substr(0,10))+')<a href="./detailcalendar.do?seq='+data[i].seq+'">'+data[i].title+'</a></li>'
+			}
+		}
+				$("#calendarList").append(html);
+		}
+	})	
+}
 
 function homeNewBook(){
 	var html='';

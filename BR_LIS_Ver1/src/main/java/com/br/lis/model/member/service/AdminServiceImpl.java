@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.lis.model.member.mapper.IAdminDao;
-import com.br.lis.model.test.mapper.ITestDao;
 import com.br.lis.vo.AdminVo;
 
 @Service

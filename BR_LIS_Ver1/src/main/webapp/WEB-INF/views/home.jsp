@@ -18,6 +18,7 @@ $(document).ready(function(){
 noticeList(); //홈화면 공지사항 목록
 faqList(); // 홈화면 FAQ 목록
 homeNewBook(); // 홈화면 신간도서 url
+calList();//도서관일정 목록
 })
 	$(function() {
 		$('#searchBoxArea').css('height', '73px');
@@ -92,8 +93,6 @@ homeNewBook(); // 홈화면 신간도서 url
 		<div id="contbodym">
 			<div id="section1">
 				<div class="fl">
-
-
 					<script>
 						$(function() {
 							var popupSwiper = new Swiper('.swiper-popup', {
@@ -371,7 +370,6 @@ homeNewBook(); // 홈화면 신간도서 url
 									</div>
 
 
-
 									<div class="swiper-slide">
 										<a
 											href="#"
@@ -461,7 +459,7 @@ homeNewBook(); // 홈화면 신간도서 url
 
 					<div class="mainHoli">
 						<div class="holiHead themeColor">
-							<h2>휴관일</h2>
+							<h2>도서관일정</h2>
 							<p class="btnMore">
 								<a href="./viewAllBoard.do?kind=calendar">더보기</a>
 							</p>
@@ -472,19 +470,8 @@ homeNewBook(); // 홈화면 신간도서 url
 								<p class="holMonth"></p>
 							</div>
 							<!--VIEW-TODO001 for문 처리 해야 함 아래는 예시-->
-							<ul>
-								<li>01(수) <a href="#" title="정기휴관일">정기휴관일</a></li>
-								<li>01(수) <a href="#" title="휴관: 지방선거">휴관: 지방선거</a></li>
-								<li>06(월) <a href="#" title="휴관: 현충일">휴관: 현충일</a></li>
-<!-- 								<li>09(목) <a href="#" title="북스타트2기: 꼼지락꼼지락 동화읽기A">북스타트2기: -->
-<!-- 										꼼지락꼼지락 동화읽기A</a></li> -->
-<!-- 								<li>13(월) <a href="#" title="정기휴관일">정기휴관일</a></li> -->
-<!-- 								<li>16(목) <a href="#" title="북스타트2기: 꼼지락꼼지락 동화읽기A">북스타트2기: -->
-<!-- 										꼼지락꼼지락 동화읽기A</a></li> -->
-<!-- 								<li>20(월) <a href="#" title="정기휴관일">정기휴관일</a></li> -->
-<!-- 								<li>22(수) <a href="#" title="북스타트2기: 그림책으로 떠나는 감정여행">북스타트2기: -->
-<!-- 										그림책으로 떠나는 감정여행</a></li> -->
-<!-- 								<li>27(월) <a href="#" title="정기휴관일">정기휴관일</a></li> -->
+							<ul id="calendarList">
+								<li>매주 금 <a href="./viewAllBoard.do?kind=calendar" title="정기휴관일">정기휴관일</a></li>
 							</ul>
 						</div>
 					</div>
