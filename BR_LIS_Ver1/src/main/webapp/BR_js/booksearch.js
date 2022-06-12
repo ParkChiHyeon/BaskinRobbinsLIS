@@ -11,9 +11,9 @@ function bookSearchTotal(){
 	var bookSearchKeyword=$("#bookSearchKeyword").val();
 	if(!regx.test(bookSearchKeyword)){
 //		queryStr={"from":"0","size":"50","query":{"wildcard":{[searchKey]:"*"+bookSearchKeyword+"*"}}};
-		queryStr={"from":"0","size":"1000","query":{"match":{[searchKey]:bookSearchKeyword}}};
+		queryStr={"from":"0","size":"10000","query":{"match":{[searchKey]:bookSearchKeyword}}};
 	}else{
-		queryStr={"from":"0","size":"1000","query":{"match":{[searchKey]:searchKeyword}}};
+		queryStr={"from":"0","size":"10000","query":{"match":{[searchKey]:bookSearchKeyword}}};
 	}
 	
 	$.ajax({

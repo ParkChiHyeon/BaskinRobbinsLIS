@@ -323,7 +323,7 @@
 	
 	
     <build>
-    <finalName>woowangLibrary</finalName>
+    <finalName>BR_LIS_Ver1</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
