@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.br.lis.model.lendinginfo.mapper.IReturnBookDao;
 import com.br.lis.model.lendinginfo.service.IReturnBookService;
-import com.br.lis.model.test.service.ITestService;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;

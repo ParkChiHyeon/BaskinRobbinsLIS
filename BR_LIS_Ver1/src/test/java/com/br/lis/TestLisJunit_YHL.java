@@ -23,7 +23,6 @@ import com.br.lis.model.board.service.ICalendarBoardService;
 import com.br.lis.model.board.service.IFAQBoardService;
 import com.br.lis.model.board.service.INoticeBoardService;
 import com.br.lis.model.board.service.NoticeBoardServiceImpl;
-import com.br.lis.model.test.service.ITestService;
 import com.br.lis.vo.CalendarBoardVo;
 import com.br.lis.vo.Notice_FAQBoardVo;
 import com.google.j2objc.annotations.AutoreleasePool;

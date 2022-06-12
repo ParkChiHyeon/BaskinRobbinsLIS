@@ -2,7 +2,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
  <typeAliases>
- 	<typeAlias type="com.br.lis.vo.TestVo" alias="TestVo"/>
  	<typeAlias type="com.br.lis.vo.AdminVo" alias="AdminVo"/>
  	<typeAlias type="com.br.lis.vo.BookInfoVo" alias="BookInfoVo"/>
  	<typeAlias type="com.br.lis.vo.CalendarBoardVo" alias="CalendarBoardVo"/>
@@ -24,7 +23,6 @@
  	<mapper resource="sqls/lib_member.xml"/>
  	<mapper resource="sqls/noticeboard_statement.xml"/>
  	<mapper resource="sqls/return_book.xml"/>
- 	<mapper resource="sqls/test_statement.xml"/>
  	<mapper resource="sqls/request_purchase.xml"/>
  	<mapper resource="sqls/purchase.xml"/>
  	<mapper resource="sqls/purchase_registration.xml"/>

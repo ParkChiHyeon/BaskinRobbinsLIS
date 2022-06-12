@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.lis.model.purchaseinfo.mapper.IRequestPurchaseDao;
-import com.br.lis.model.test.mapper.ITestDao;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.RequestPurchaseVo;
