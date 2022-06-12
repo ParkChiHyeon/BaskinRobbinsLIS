@@ -68,16 +68,6 @@
 	height: 82px;
 	text-align: center;
 }
-#indexNavi {
-	position: absolute;
-	z-index: 119;
-	left: 0;
-	top: 30px;
-	margin:0 auto; 
-	overflow: hidden;
-	height: 82px;
-	text-align: center;
-}
 #indexNavi > ul{
 	display:inline-block;
 	zoom:1;
