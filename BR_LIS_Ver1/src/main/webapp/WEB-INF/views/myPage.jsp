@@ -1,36 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<title>의왕시중앙도서관 책마루</title>
-<link href="./include/css/custom.css" rel="stylesheet" type="text/css"/>
-<link href="./include/css/jungang/sub.css" rel="stylesheet" type="text/css"/>
-<script src="./include/js/jquery-1.12.2.min.js"></script>
-<script src="./include/js/jquery.stringify.js"></script>
-<script src="./include/js/common.js"></script>
-<script src="./include/js/gnb.js"></script>
-<script src="./include/js/jquery.cookie.js"></script>
-
-<link rel="stylesheet" href="./include/booksearch/css/search.css" type="text/css" />
-
-<link rel="stylesheet" href="./include/booksearch/css/jquery-ui.css" type="text/css" />
-
-<script src="./include/booksearch/js/jquery-ui.min.js"></script>
-
-<script src="./include/booksearch/js/jquery.ui.datepicker-ko.js"></script>
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>woowang Library MyPage</title>
+</head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-
 <script src="https://kit.fontawesome.com/37d6185271.js" crossorigin="anonymous"></script>
-
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js" defer></script>
+<%@ include file="./header.jsp" %>
+
 
 
 
@@ -41,11 +26,8 @@
 
 <!-- css넣어라 -->
 <link rel="stylesheet" href="./khu_css/myPage.css"/>
+<link rel="stylesheet" href="./hik_css/myPageHIK.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
-
-
-
-
 
 
 
@@ -55,11 +37,10 @@
 
 
 <!-- js 넣어라 -->
-<script src="./BR_js/jsj_dataTable.js"><</script>
 
 
-
-
+<script type="text/javascript" src="./BR_js/myPageHIK.js"></script> 
+<script type="text/javascript" src="./BR_js/myPageJSJ.js"></script> 
 
 
 
@@ -71,8 +52,8 @@
 <!-- js 끝 -->
 
 
-<%@ include file="./header.jsp" %>
-</head>
+
+
 <body class="body">
 		<!-- 마이페이지 시작 -->
 		<div id="contbody">
@@ -86,7 +67,7 @@
 				<li id="lnb_1" class=""><a href="./memberInfoUpdate.do" >내 정보 수정</a></li> 
 				<li id="lnb_2" class=""><a href="./membertt.do" >회원탈퇴 신청</a></li>
 				<li id="lnb_3" class=""><a href="./memberInfoUpdate.do" >알림 수신 변경</a></li>
-				<li id="lnb_4" class=""><a href="./memberInfoUpdate.do" >도서대출 현황</a></li>
+				<li id="lnb_4" class=""><a href="./lendingBookListUser.do" >도서대출 현황</a></li>
 				<li id="lnb_5" class=""><a href="./lendingBookMem.do" >도서대출 이용 현황</a></li>
 				<li id="lnb_6" class=""><a href="./reserveBook.do" >예약 현황</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >신청도서 조회</a></li>
@@ -125,6 +106,25 @@
 			
 			
 			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -495,67 +495,67 @@
 	
 	
 			
-<!-- 			</div> -->
+			
 			<!-- 휘웅 영역 끝 -->	
 			<!-- 인경영역 -->
+	<c:if test="${page=='lendingBookListUserHIK'}">
+	<div id="contentcore">
+			
+		
+	<!-- 제목 영역 -->
+	<div class="naviandtitle"> 
+	<h3>대출현황</h3>
+	</div>
+	
+	<!-- 내용 영역 넣고싶은거 넣으셈 -->
+	<form class="form-inline">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th><input type="checkbox" id="chkAllHIK"></th>
+					<th>번호</th>
+					<th>책번호</th>
+					<th>제목</th>
+					<th>대출일</th>
+					<th>반납예정일</th>
+					<th>연체일</th>
+					<th>연장</th>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="lists" items="${lists}" varStatus="vs">
+					<tr>
+						<td><input type="checkbox" ></td>
+						<td>${vs.count}</td>
+						<td>${lists.book_serial}</td>
+						<td>${lists.title}</td>
+						<td>${lists.lending_date}</td>
+						<td>${lists.end_date}</td>
+						<td><c:choose>
+						<c:when test="${lists.back_date eq 0}">
+
+						</c:when>
+						<c:otherwise>
+						${lists.back_date}
+						</c:otherwise>
+						</c:choose> 
+						</td>
+						<td>
+						<c:if test="${empty lists.lending_delay && lists.back_date eq 0}">
+						<input type="button" value="연장하기" onclick="./">
+						</c:if></td>
+					</tr>
+			</c:forEach>
+			</tbody>
+		</table>			
+	</form>	
+	</div>
+			</c:if>
 			
 			
 			
 			
 			
-			
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -923,6 +923,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="lBean" items="${listBean}" varStatus="vs">
+					<c:if test="${lBean.back_date ne null }">
 					<tr>
 						<td>${vs.count}</td>
 						<td>${lBean.book_serial}</td>
@@ -931,6 +932,7 @@
 						<td>${lBean.back_date}</td>
 						<td></td>
 					</tr>
+					</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -960,8 +962,6 @@
 							<th>ISBN</th>
 							<th>도서코드</th>
 							<th>도서제목</th>
-	<!-- 						<th>출판사</th> -->
-	<!-- 						<th>저자</th> -->
 							<th>예약일</th>
 						</tr>
 					</thead>
@@ -972,15 +972,15 @@
 							<td>${a.ISBN}</td>
 							<td id="book_serial"><input type="hidden" name="book_serial" value=" ${a.BOOK_SERIAL}"> ${a.BOOK_SERIAL}</td>
 							<td>${a.TITLE}</td>
-	<%-- 						<td>${a.PUBLISHER}</td> --%>
-	<%-- 						<td>${a.AUTHOR}</td> --%>
 							<td>${a.RESERVE_DATE}</td>
 						</tr>
 				<%-- 			</c:forEach> --%>
 					</tbody>
 				</table>
+				<br>
+				<br>
 				<c:if test="${a ne null }">
-					<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button>
+					<button class="btn btn-outline-secondary" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button>
 				</c:if>
 			</form>
 			
@@ -1998,32 +1998,33 @@
 
 
 <!-- 슬기영역 끝 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+	<!--footer-->
+	<!--footer-->
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-			
-	<!--footer-->
-	<%@ include file="./footer.jsp" %>
-	<!--footer-->
-
 </body>
+	<%@ include file="./footer.jsp" %>
+</html>

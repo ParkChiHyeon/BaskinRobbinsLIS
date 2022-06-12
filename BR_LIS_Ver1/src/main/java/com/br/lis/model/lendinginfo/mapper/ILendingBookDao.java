@@ -11,7 +11,7 @@ import com.br.lis.vo.LibMemberVo;
 public interface ILendingBookDao {
 	
 	//즉시대출도서
-	public List<LendingVo> nowLendingBook();
+	public List<LendBookBean> nowLendingBook(String book_serial);
 	
 	//예약목록전체조회(관리자)
 //	public List<BookInfoVo> allReserveLending();

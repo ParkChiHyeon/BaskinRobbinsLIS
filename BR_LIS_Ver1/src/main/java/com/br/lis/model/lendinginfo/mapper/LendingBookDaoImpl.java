@@ -21,9 +21,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	private final String  NS="com.br.lis.model.lendinginfo.mapper.LendingBookDaoImpl.";
 
 	@Override
-	public List<LendingVo> nowLendingBook() {
-		
-		return sqlSession.selectList(NS+"nowLendingBook");
+	public List<LendBookBean> nowLendingBook(String book_serial) {
+		return sqlSession.selectOne(NS+"nowLendingBook");
 	}
 
 	@Override

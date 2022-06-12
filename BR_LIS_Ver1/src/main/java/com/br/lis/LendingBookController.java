@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
 import com.br.lis.model.member.service.IAdminService;
 import com.br.lis.model.member.service.ILibMemberService;
+import com.br.lis.vo.AdminVo;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
@@ -167,18 +168,22 @@ public class LendingBookController {
 		}
 		
 	}
-//	
-//	@RequestMapping(value = "/membertt.do",method = RequestMethod.GET)
-//	public String membertt (@RequestParam Map<String, String> map, Model model, HttpSession session) {
-//		logger.info("memberInfoUpdate passwordForUpdate 이동");
-//		
-//		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
-//		
-//		model.addAttribute("member",mVo);
-//		model.addAttribute("page", "tt");
-//		return "myPage";
-//	}
-//	
+	
+	@RequestMapping(value = "/lendingBookAdmin.do",method = RequestMethod.GET)
+	public String lendingBookAdmin (@RequestParam Map<String, Object> map, Model model, HttpSession session) {
+		logger.info("lendingBookAdmin _ 관리자 즉시대출화면으로 가기");
+
+//		AdminVo aVo = aService.loginAdmin(map);	
+//		model.addAttribute("admin", aVo);
+		
+		String book_serial = "BKSR100213";
+		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
+		listBean= service.nowLendingBook(book_serial);
+		model.addAttribute("listBean",listBean);
+		System.out.println(listBean+"즉시대출%%%%%%%%%%%%%%%");
+		return "lendingBook";
+	}
+	
 	
 }
 

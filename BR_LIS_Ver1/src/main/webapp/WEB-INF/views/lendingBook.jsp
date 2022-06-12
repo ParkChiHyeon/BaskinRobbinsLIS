@@ -13,37 +13,42 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js" defer></script>
 
-  <style>
-/*     .row.content {height: 1500px} */
-    
-    .sidenav {
-      background-color: #f1f1f1;
-/*       height: 100%; */
-    }
-    
-    
-  </style>
-
 <%@ include file="./header.jsp"%>
 <body>
-<div class="container-fluid">
-  <div class="row content">
-    <div class="col-sm-3 sidenav">
-			<h2>나의 도서관</h2>
-			<ul class="nav nav-pills nav-stacked">
-				<li class="side2m1 sel">	<a href="./adminLenList.do">예약목록전체조회(관리자)</a></li>
-				<li class="side2m1 sel">	<a href="./reserveBook.do">예약조회(회원)</a></li>
-				<li class="side2m1 sel">	<a href="./lendingBook.do">이전대출도서내역</a></li>
-				<li class="side2m1 sel">	<a href="./lendingBook.do">예약내역</a></li>
-				<li class="side2m3 "><a href="./index.php?g_page=mypage&amp;m_page=mypage03">대출신청</a></li>
-				<li class="side2m4 "><a href="/dls_lu/member/index.php?act=joinAct&step=userJoin">기본정보</a></li>
-			</ul>
-		</div>		
-	 </div>
-	</div> 
 
-${mb}
-<h1>대출도서내역</h1>
+
+<h1>즉시대출 신청</h1>
+<h2>도서정보</h2>
+${listBean}
+<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>대출코드</th>
+				<th>ISBN</th>
+				<th>도서제목</th>
+				<th>저자</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="lBean" items="${listBean}" varStatus="vs">
+			<tr>
+				<td>${lBean.lending_seq}</td>
+				<td>${lBean.member_code}</td>
+				<td>${lBean.title}</td>
+				<td>${lBean.author}</td>
+				<td>${lBean.lending_delay}</td>
+				<td>${lBean.lending_date}</td>
+				<td>${lBean.end_date}</td>
+				<td>${lBean.back_date}</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
+
+
+
 <div class="container">		
 		<table  id="dataTable" class="cell-border">
 		<thead>

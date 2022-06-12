@@ -30,15 +30,18 @@ public class TestLisJunit_JSJ {
 	@Autowired
 	private ILendingBookDao dao;
 	
+	@Autowired
+	private ILendingBookService bService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 // OK
-//	@Test  
+	@Test  
 	public void nowLendingBook() {
 		logger.info("nowLendingBook _ 즉시대출 가능한 도서조회");
-		List<LendingVo> lists= dao.nowLendingBook();
-		System.out.println(lists);
+		String book_serial = "BKSR100213";
+		List<LendBookBean> n= dao.nowLendingBook(book_serial);
+		System.out.println(n);
 	}
 	// OK	
 //	@Test
@@ -248,10 +251,8 @@ public class TestLisJunit_JSJ {
 		System.out.println(n);
 	}
 	
-	@Autowired
-	private ILendingBookService bService;
 	
-	@Test
+//	@Test
 	public void lendingCount1() {
 		logger.info("test 중");
 		  

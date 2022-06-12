@@ -23,9 +23,9 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
-	public List<LendingVo> nowLendingBook() {
+	public List<LendBookBean> nowLendingBook(String book_serial) {
 		logger.info("ILendingBookDao 즉시대출도서목록_nowLendingBook");
-		return dao.nowLendingBook();
+		return dao.nowLendingBook(book_serial);
 	}
 
 	@Override
