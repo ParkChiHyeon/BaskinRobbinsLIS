@@ -79,21 +79,21 @@ SELECT REGULAR_SERIAL, PURCHASE_CODE , ISBN , TITLE , PUBLISHER , AUTHOR , TRANS
 
 <!-- 발주(BR_W_BM_607) : (관리자)구매할 책의 총 가격, 권수, 구매 업체의 이메일 업데이트 -->
 <update id="purchTotalUpdate" parameterType="java.util.Map">
-	UPDATE GD.PURCHASE
+	UPDATE PURCHASE
 		SET TOTAL_PRICE= #{total_price}, TOTAL_EA= #{total_ea}, DISTRIBUTOR_EMAIL= #{distributor_email}
 			WHERE PURCHASE_CODE= #{purchase_code}
 </update>
 
 <!-- 발주(BR_W_BM_607) : (관리자)주문날짜, 확졍여부(발주O) 업데이트 -->
 <update id="purchOrderDateUpdate" parameterType="java.lang.String">
-	UPDATE GD.PURCHASE
+	UPDATE PURCHASE
 		SET ORDER_DATE= CURRENT_DATE, CONFIRM='O'
 			WHERE PURCHASE_CODE = #{purchase_code}
 </update>
 
 <!-- 발주(BR_W_BM_607) : (관리자)확정일, 확졍여부(반입C) 업데이트 -->
 <update id="purchConfirmDateUpdate" parameterType="java.lang.String">
-	UPDATE GD.PURCHASE
+	UPDATE PURCHASE
 		SET CONFIRM_DATE=CURRENT_DATE, CONFIRM='C'
 			WHERE PURCHASE_CODE = #{purchase_code}
 </update>
