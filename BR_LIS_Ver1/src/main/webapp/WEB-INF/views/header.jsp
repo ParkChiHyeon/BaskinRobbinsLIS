@@ -69,6 +69,8 @@
 			<div id="btnSearchTop"><a href="#link"><img src="./include/image/common/btn_serachTop.png" alt="검색창 열기"><span>검색</span></a></div>
 			<div id="indexNavi">
 	<ul id="topmenu">
+	
+	
 	<li id="gnb1"><a href="./bookSearch.do?kind=total" >자료검색</a>
 			<ul>
 			<li id="gnb1_1" class=""><a href="./bookSearch.do?kind=total" >통합검색</a>
@@ -115,33 +117,8 @@
 					</li>
 				</ul>
 			</li>
-	<li id="gnb3"><a href="/jungang/10028/30004/program.do" >문화마당</a>
-			<ul>
-			<li id="gnb3_1" class=""><a href="/jungang/10028/30004/program.do" >문화강좌신청</a>
-					<ul class="MkTab">
-					<li id="gnb3_1_1" class=""><a href="/jungang/10028/30004/program.do" >중앙</a>
-							</li>
-						<li id="gnb3_1_2" class=""><a href="/jungang/10029/30004/program.do" >내손</a>
-							</li>
-						<li id="gnb3_1_3" class=""><a href="/jungang/10030/30004/program.do" >글로벌</a>
-							</li>
-						<li id="gnb3_1_4" class=""><a href="/jungang/10526/30004/program.do" >포일어울림</a>
-							</li>
-						<li id="gnb3_1_5" class=""><a href="/jungang/10703/30004/program.do" >백운호수</a>
-							</li>
-						</ul>
-					</li>
-				<li id="gnb3_2" class=""><a href="/jungang/10031/30005/program.do" >체험형동화구연</a>
-					</li>
-				<li id="gnb3_3" class=""><a href="/jungang/10032/30006/program.do" >어린이책마루 견학</a>
-					</li>
-				<li id="gnb3_4" class=""><a href="/jungang/10034/30083/program.do" >토요동화구연</a>
-					</li>
-				<li id="gnb3_5" class=""><a href="/jungang/10035/30007/program.do" >영화상영</a>
-					</li>
-				</ul>
-			</li>
-	<li id="gnb4"><a href="./viewAllBoard.do?kind=notice"" >정보마당</a>
+	
+	<li id="gnb4"><a href="./viewAllBoard.do?kind=notice">정보마당</a>
 			<ul>
 			<li id="gnb4_1" class=""><a href="./viewAllBoard.do?kind=notice" >공지사항</a>
 					</li>
@@ -151,28 +128,38 @@
 					</li>
 				</ul>
 			</li>
-	<li id="gnb5"><a href="/jungang/10048/20026/bbsList.do" >참여마당</a>
+			
+			<c:if test="${admin.admin_id != null }">
+	<li id="gnb3"><a href="/jungang/10028/30004/program.do" >도서구매</a>
 			<ul>
-			<li id="gnb5_1" class=""><a href="/jungang/10048/20026/bbsList.do" >도서관에바란다</a>
+			<li id="gnb3_1" class=""><a href="/jungang/10028/30004/program.do" >정기도서 구매관리</a>
 					</li>
-				<li id="gnb5_2" class=""><a href="/jungang/10049/20028/bbsList.do" >질문및답변</a>
+				<li id="gnb3_2" class=""><a href="/jungang/10031/30005/program.do" >신청도서 구매관리</a>
 					</li>
-				<li id="gnb5_3" class=""><a href="/jungang/10050/20010/bbsList.do" >자주하는질문</a>
+				<li id="gnb3_3" class=""><a href="/jungang/10032/30006/program.do" >발주관리</a>
 					</li>
-				<li id="gnb5_4" class=""><a href="/jungang/10268/40006/content.do" >도서관동아리</a>
-					<ul class="MkTab">
-					<li id="gnb5_4_1" class=""><a href="/jungang/10268/40006/content.do" >중앙</a>
-							</li>
-						<li id="gnb5_4_2" class=""><a href="/jungang/10269/40007/content.do" >내손</a>
-							</li>
-						<li id="gnb5_4_3" class=""><a href="/jungang/10270/40008/content.do" >글로벌</a>
-							</li>
-						</ul>
+				<li id="gnb3_4" class=""><a href="/jungang/10034/30083/program.do" >구매도서 등록</a>
 					</li>
-				<li id="gnb5_5" class=""><a href="/jungang/10052/20011/bbsList.do" >자유게시판</a>
+				<li id="gnb3_5" class=""><a href="/jungang/10035/30007/program.do" >신규도서 조회</a>
+					</li>
+				</ul>
+			</li>		
+			</c:if>
+			
+			<c:if test="${admin.admin_id != null }">
+	<li id="gnb5"><a href="/jungang/10048/20026/bbsList.do" >대출/반납</a>
+			<ul>
+			<li id="gnb5_1" class=""><a href="/jungang/10048/20026/bbsList.do" >대출</a>
+					</li>
+				<li id="gnb5_2" class=""><a href="/jungang/10049/20028/bbsList.do" >반납</a>
+					</li>
+				<li id="gnb5_3" class=""><a href="/jungang/10050/20010/bbsList.do" >대출목록</a>
+					</li>
+				<li id="gnb5_4" class=""><a href="/jungang/10268/40006/content.do" >보유도서 목록</a>
 					</li>
 				</ul>
 			</li>
+			</c:if>
 	<li id="gnb6"><a href="/jungang/10054/40025/content.do" >도서관소개</a>
 			<ul>
 			<li id="gnb6_1" class=""><a href="/jungang/10054/40025/content.do" >도서관안내</a>

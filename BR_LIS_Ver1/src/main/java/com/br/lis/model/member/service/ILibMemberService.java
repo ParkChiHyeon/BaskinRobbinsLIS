@@ -30,8 +30,6 @@ public interface ILibMemberService {
 
 	public LibMemberVo selectMyInfo(Map<String, Object> map);
 
-	public int updateMyInfo(Map<String, Object> map);
-
 	public int quitRequest(Map<String, Object> map);
 
 	public int quitApprove(Map<String, Object> map);
@@ -49,5 +47,15 @@ public interface ILibMemberService {
 		
 	//아이디 확인
 	public int idCheck(String id);
+
+	public int updateMyInfoName(Map<String, Object> map);
+
+	public int updateMyInfoPhone(Map<String, Object> map);
+
+	public int updateMyInfoPw(Map<String, Object> map);
+
+	public	int updateMyInfoAddress(Map<String, Object> map);
+
+	public int updateMyInfoEmail(Map<String, Object> map);
 	
 }

@@ -204,16 +204,16 @@ public class TestLisJunit_KHU {
 		
 	/* 개인정보 수정 BR_W_UM_018 */
 //	@Test
-	public void updateMyInfo() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("phone", "01042997777");
-		map.put("email", "gnldnd125852@gmail.com");
-		map.put("address", "수정된 주소");
-		map.put("password", "Clsclffk@123");
-		map.put("member_id", "gnldnd125852");
-		int cnt = mDao.updateMyInfo(map);
-		logger.info("개인정보 수정 결과 :{}", cnt);
-	}
+//	public void updateMyInfo() {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("phone", "01042997777");
+//		map.put("email", "gnldnd125852@gmail.com");
+//		map.put("address", "수정된 주소");
+//		map.put("password", "Clsclffk@123");
+//		map.put("member_id", "gnldnd125852");
+//		int cnt = mDao.updateMyInfo(map);
+//		logger.info("개인정보 수정 결과 :{}", cnt);
+//	}
 	
 	/* 회원탈퇴 신청 BR_W_UM_019 */
 //	@Test

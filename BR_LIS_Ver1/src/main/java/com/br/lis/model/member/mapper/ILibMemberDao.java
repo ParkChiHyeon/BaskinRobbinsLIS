@@ -31,7 +31,15 @@ public interface ILibMemberDao {
 
 	public LibMemberVo selectMyInfo(Map<String, Object> map);
 
-	public int updateMyInfo(Map<String, Object> map);
+	public int updateMyInfoName(Map<String, Object> map);
+	
+	public int updateMyInfoPw(Map<String, Object> map);
+	
+	public int updateMyInfoPhone(Map<String, Object> map);
+	
+	public int updateMyInfoAddress(Map<String, Object> map);
+	
+	public int updateMyInfoEmail(Map<String, Object> map);
 
 	public int quitRequest(Map<String, Object> map);
 
@@ -55,8 +63,11 @@ public interface ILibMemberDao {
 	
 	public String findPwOne(Map<String, Object> map);
 
-	public int encryptPassword(String k, Map<String, Object> map); 
-		
+	public int encryptPassword(String k, Map<String, Object> map);
+
+	
+
+	
 	
 		
 
