@@ -86,7 +86,12 @@ WHERE TO_DATE(SYSDATE) - TO_DATE(l2.END_DATE) = 3 AND l2.BACK_DATE IS NULL
 
 <update id="delayLendingBook" parameterType="java.lang.String">
 UPDATE LENDING SET LENDING_DELAY='Y', END_DATE=LENDING_DATE+21
- WHERE LENDING_SEQ = #{lending_seq}
+ WHERE LENDING_SEQ = #{lending_seq} 
+</update>
+
+<update id="delayPossessingBook" parameterType="java.lang.String">
+ UPDATE POSSESSING_BOOK pb SET OD = 'Y'
+ WHERE pb.BOOK_SERIAL=(SELECT l.BOOK_SERIAL FROM LENDING l WHERE l.LENDING_SEQ = #{lending_seq});
 </update>
 
 <select id="warehouseList" resultType="BookInfoVo">
@@ -139,11 +144,12 @@ ON pb.ISBN  = bi.ISBN
 <![CDATA[WHERE ROWNUM < 100 ]]>
 </select>
 <select id="lendingListUser"  parameterType="java.lang.String" resultType="LendBookBean">
-SELECT l.BOOK_SERIAL, l.MEMBER_CODE, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, TO_CHAR(l.LENDING_DATE,'YYYY-MM-DD') AS LENDING_DATE, TO_CHAR(l.LENDING_DATE,'YYYY-MM-DD') AS LENDING_DATE, TO_CHAR(l.END_DATE,'YYYY-MM-DD')AS END_DATE, GREATEST(TRUNC(l.END_DATE-SYSDATE),0) AS BACK_DATE  
+SELECT l.BOOK_SERIAL, l.MEMBER_CODE, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, TO_CHAR(l.LENDING_DATE,'YYYY-MM-DD') AS LENDING_DATE, TO_CHAR(l.LENDING_DATE,'YYYY-MM-DD') AS LENDING_DATE, TO_CHAR(l.END_DATE,'YYYY-MM-DD')AS END_DATE, GREATEST(TRUNC(SYSDATE-l.END_DATE),0) AS BACK_DATE  
         FROM (SELECT *FROM BOOK_INFO bi, POSSESSING_BOOK pb WHERE bi.ISBN=pb.ISBN) A, LENDING l 
             WHERE l.MEMBER_CODE =(SELECT MEMBER_CODE 
             FROM LIB_MEMBER lm
-            WHERE lm.MEMBER_ID= #{member_id}) AND l.BOOK_SERIAL=A.BOOK_SERIAL AND l.BACK_DATE IS NULL
+            WHERE lm.MEMBER_ID= #{member_id}) AND l.BOOK_SERIAL=A.BOOK_SERIAL AND l.BACK_DATE IS NULL 
+            ORDER BY l.LENDING_SEQ DESC
 </select>
 <resultMap type="com.br.lis.vo.LendingVo" id="lendingMap">
 <id property="lending_seq" column="LENDING_SEQ"/>

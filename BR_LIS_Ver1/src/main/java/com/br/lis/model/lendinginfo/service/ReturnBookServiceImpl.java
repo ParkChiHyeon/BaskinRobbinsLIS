@@ -167,7 +167,9 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 	@Override
 	public int delayLendingBook(String lending_seq) {
 		logger.info("ReturnBookServiceImpl 대출 연장, {}", lending_seq);
-		return dao.delayLendingBook(lending_seq);
+		int n = dao.delayLendingBook(lending_seq);
+		int m = dao.delayPossessingBook(lending_seq);
+		return (n > 0 && m > 0) ? 1 : 0;
 	}
 
 	// 서고 자료 조회

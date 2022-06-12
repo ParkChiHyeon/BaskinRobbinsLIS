@@ -144,18 +144,17 @@ public class ReturnBookController {
 		logger.info("Welcome! ReturnBookController lendingBookListAdmin");
 		logger.info("세션확인이라네@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {}",lVo);
 		List<LendBookBean> lists = iService.lendingListUser(lVo.getMember_id());
-//		for (int i = 0; i < lists.size(); i++) {
-//			if(lists.get(i).getBack_date()==0) {
-//				
-//			}
-//			
-//		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		model.addAttribute("lists",lists);
 		logger.info("목록 {}", lists);
 		model.addAttribute("page", "lendingBookListUserHIK");
 		return "myPage";
 	}
+//	// 대출 연장하기 - 회원
+//	@RequestMapping(value = "/delayLendingBook.do")
+//	public String delayLendingBook(String lending_seq) {
+//		
+//	}
 	
 	// 보유 도서 목록
 		@RequestMapping(value = "/possessingBookList.do", method = RequestMethod.GET)

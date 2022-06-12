@@ -23,6 +23,7 @@ public interface IReturnBookDao {
 	public int overdueLendingBook();
 	public List<LibMemberVo> overdueThreeDayLendingBook();
 	public int delayLendingBook(String lending_seq);
+	public int delayPossessingBook(String lending_seq);
 	public List<BookInfoVo> warehouseList();
 	public List<BookInfoVo> supplementList();
 	public ReservationVo returnBookReserveCheck(Map<String, Object> map);

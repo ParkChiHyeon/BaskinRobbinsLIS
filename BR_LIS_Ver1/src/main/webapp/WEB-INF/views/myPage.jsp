@@ -57,7 +57,7 @@
 <!-- js 넣어라 -->
 
 
-
+<script type="text/javascript" src="./BR_js/myPageHIK.js"></script> 
 
 
 
@@ -510,8 +510,7 @@
 	
 	<!-- 내용 영역 넣고싶은거 넣으셈 -->
 	<form class="form-inline">
-		<table class="table table-bordered">
-			<thead>
+		<table class="">
 				<tr>
 					<th><input type="checkbox" id="chkAllHIK"></th>
 					<th>번호</th>
@@ -520,10 +519,9 @@
 					<th>대출일</th>
 					<th>반납예정일</th>
 					<th>연체일</th>
+					<th>연장</th>
 				</tr>
-			</thead>
 			<c:forEach var="lists" items="${lists}" varStatus="vs">
-				<tbody>
 					<tr>
 						<td><input type="checkbox" ></td>
 						<td>${vs.count}</td>
@@ -531,9 +529,20 @@
 						<td>${lists.title}</td>
 						<td>${lists.lending_date}</td>
 						<td>${lists.end_date}</td>
-						<td>${lists.back_date}</td>
+						<td><c:choose>
+						<c:when test="${lists.back_date eq 0}">
+
+						</c:when>
+						<c:otherwise>
+						${lists.back_date}
+						</c:otherwise>
+						</c:choose> 
+						</td>
+						<td>
+						<c:if test="${empty lists.lending_delay && lists.back_date eq 0}">
+						<input type="button" value="연장하기" onclick="./">
+						</c:if></td>
 					</tr>
-				<tbody>
 			</c:forEach>
 		</table>			
 	</form>	

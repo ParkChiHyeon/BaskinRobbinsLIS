@@ -82,6 +82,11 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	public int delayLendingBook(String lending_seq) {
 		return sqlSession.update(NS+"delayLendingBook", lending_seq);
 	}
+	
+	@Override
+	public int delayPossessingBook(String lending_seq) {
+		return sqlSession.update(NS+"delayPossessingBook", lending_seq);
+	}
 
 	@Override
 	public List<BookInfoVo> warehouseList() {
@@ -122,6 +127,7 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	public List<LendBookBean> lendingListUser(String member_id) {
 		return sqlSession.selectList(NS+"lendingListUser", member_id);
 	}
+
 
 
 
