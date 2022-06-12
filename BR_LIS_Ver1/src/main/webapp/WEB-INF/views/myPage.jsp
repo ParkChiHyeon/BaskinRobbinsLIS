@@ -1,50 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 <title>woowang Library MyPage</title>
-<link href="./include/css/custom.css" rel="stylesheet" type="text/css"/>
-<link href="./include/css/jungang/sub.css" rel="stylesheet" type="text/css"/>
-<script src="./include/js/jquery-1.12.2.min.js"></script>
-<script src="./include/js/jquery.stringify.js"></script>
-<script src="./include/js/common.js"></script>
-<script src="./include/js/gnb.js"></script>
-<script src="./include/js/jquery.cookie.js"></script>
-
-<link rel="stylesheet" href="./include/booksearch/css/search.css" type="text/css" />
-
-<link rel="stylesheet" href="./include/booksearch/css/jquery-ui.css" type="text/css" />
-
-<script src="./include/booksearch/js/jquery-ui.min.js"></script>
-
-<script src="./include/booksearch/js/jquery.ui.datepicker-ko.js"></script>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-
-<script src="https://kit.fontawesome.com/37d6185271.js" crossorigin="anonymous"></script>
-
-
-
-
-
-
-
-
-
+</head>
+<%@ include file="./header.jsp" %>
+<!--   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!--   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- css넣어라 -->
 <link rel="stylesheet" href="./khu_css/myPage.css"/>
 <link rel="stylesheet" href="./hik_css/myPageHIK.css"/>
-
-
-
 
 
 
@@ -64,15 +36,19 @@
 
 
 
-
+<style>
+table>thead{
+	border-bottom: 3px solid black;
+}
+</style>
 
 
 
 <!-- js 끝 -->
 
 
-<%@ include file="./header.jsp" %>
-</head>
+
+
 <body class="body">
 		<!-- 마이페이지 시작 -->
 		<div id="contbody">
@@ -278,7 +254,6 @@
 	</ul>
 	</div>
 				</form>	
-			</div>
 			</div>
 				</c:if>
 			
@@ -510,7 +485,8 @@
 	
 	<!-- 내용 영역 넣고싶은거 넣으셈 -->
 	<form class="form-inline">
-		<table class="">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
 					<th><input type="checkbox" id="chkAllHIK"></th>
 					<th>번호</th>
@@ -521,6 +497,8 @@
 					<th>연체일</th>
 					<th>연장</th>
 				</tr>
+			</thead>
+			<tbody>
 			<c:forEach var="lists" items="${lists}" varStatus="vs">
 					<tr>
 						<td><input type="checkbox" ></td>
@@ -544,10 +522,10 @@
 						</c:if></td>
 					</tr>
 			</c:forEach>
+			</tbody>
 		</table>			
 	</form>	
 	</div>
-</div>		
 			</c:if>
 			
 			
@@ -2032,7 +2010,8 @@
 			
 			
 	<!--footer-->
-	<%@ include file="./footer.jsp" %>
 	<!--footer-->
-
+</div>
 </body>
+	<%@ include file="./footer.jsp" %>
+</html>
