@@ -463,7 +463,7 @@ homeNewBook(); // 홈화면 신간도서 url
 						<div class="holiHead themeColor">
 							<h2>휴관일</h2>
 							<p class="btnMore">
-								<a href="/jungang/10046/30011/program.do">더보기</a>
+								<a href="./viewAllBoard.do?kind=calendar">더보기</a>
 							</p>
 						</div>
 						<div class="holiBody">
