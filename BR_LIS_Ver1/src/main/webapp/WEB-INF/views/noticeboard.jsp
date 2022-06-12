@@ -261,7 +261,7 @@ $(document).ready(function(){
               { 
                 title:'제목',
                    render:function(data,type,row){
-               var   html= '<a href="./detailnotice.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
+               var   html= '<a href="./detailfaq.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
                return html;
               }
             },
@@ -311,7 +311,7 @@ $(document).ready(function(){
                  { 
                    title:'제목',
                       render:function(data,type,row){
-                  var   html= '<a href="./detailnotice.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
+                  var   html= '<a href="./detailfaq.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
                   return html;
                  }
                },

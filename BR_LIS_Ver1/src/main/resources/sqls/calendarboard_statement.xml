@@ -9,9 +9,9 @@
 	</select>
 	
 	<select id="viewDetailCalendar" resultType="CalendarBoardVo">
-	SELECT FAQ_SEQ, ADMIN_ID, TITLE, CONTENT
-		FROM FAQ_BOARD
-				WHERE FAQ_SEQ=#{faq_seq}
+	SELECT CALENDAR_SEQ, ADMIN_ID, TITLE, CONTENT, START_DATE, END_DATE
+		FROM CALENDAR_BOARD
+				WHERE CALENDAR_SEQ=#{seq}
 	</select>
 	
 	<insert id="insertCalendar" parameterType="java.util.Map">

@@ -1,6 +1,6 @@
 //fullcalendar
-var listData=[];
-document.addEventListener('DOMContentLoaded ', callList());
+var listData;
+document.addEventListener('DOMContentLoaded', callList());
 
 function callList(){
 	$.ajax({
@@ -8,82 +8,66 @@ function callList(){
 		url: "./calendarAjax.do",
 		dataType: "json",
 		success: function(data) {
-			for(let i=0; i<data.length;i++){
-				listData.push(data[i])
-			}
-			var calendarEl = document.getElementById('calendar');
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				googleCalendarApiKey: 'AIzaSyDXoZq9SLsEWRNRIpAZO25rN82M23hQZwI', // 구글캘린더 키
-				initialView: 'dayGridMonth',
-				eventSources: [
-					{
-						// 구글 캘린더에서 가져올 이벤트의 ID
-						googleCalendarId: "ko.south_korea.official#holiday@group.v.calendar.google.com"
-						// 클릭 이벤트를 제거하기 위해 넣은 클래스
-						, className: "koHolidays"
-						, editable: false
-						//이벤트의 색
-						, color: "#ff0000"
-						//이벤트의 텍스트 컬러
-						, textColor: "#FFFFFF"
-					}
-				],
-				editable: false,
-				events:listData,
-				eventDrop: function(info) {
-					console.log(dateFormat(info.event.start));
-					console.log(dateFormat(info.event.end));
-					console.log(info.event.id);
-					// info.event.start(Thu May 12 2022 09:30:00 GMT+0900 (한국 표준시)) 를 202205120903 형식으로 바꾸어 
-					// updateDragAjax를 통해 일정 업데이트
-					updateDragAjax(dateFormat(info.event.start), dateFormat(info.event.end), info.event.id);
-				}
-			});
-			// 달력 초기화시 필수
-			calendar.render();
+				listData=data;
+				console.log(listData)
+			selectCalendar("onload");
 		}
-
 	});
 }
 
-
-function selectCalendar() {
-	var table = $("#calendarBoardTable").DataTable();
-	table.destroy();
-	$("#calendarBoardTable").empty();
+function selectCalendar(str){
+	if(str!='onload'){
+		var table = $("#calendarBoardTable").DataTable();
+		table.destroy();
+		$("#calendarBoardTable").empty();
+		$(".calendar-btn").css("display","none");
+		$(".table-btn").css("display","block");
+	}
+	
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-				googleCalendarApiKey: 'AIzaSyDXoZq9SLsEWRNRIpAZO25rN82M23hQZwI', // 구글캘린더 키
+				googleCalendarApiKey: 'AIzaSyDt2NdqBPid1Q3tIC7l5LK296WGe1il3YE', // 구글캘린더 윤혜림키
 				initialView: 'dayGridMonth',
 				eventSources: [
 					{
 						// 구글 캘린더에서 가져올 이벤트의 ID
 						googleCalendarId: "ko.south_korea.official#holiday@group.v.calendar.google.com"
 						// 클릭 이벤트를 제거하기 위해 넣은 클래스
-						, className: "koHolidays"
+						, className: "regularHoliday"
 						, editable: false
 						//이벤트의 색
 						, color: "#ff0000"
+						//이벤트의 텍스트 컬러
+						, textColor: "#FFFFFF"
+					},
+					{
+						// 구글 캘린더에서 가져올 이벤트의 ID
+						googleCalendarId: "1hsqii2d9rdu0upsqfh31h4o20@group.calendar.google.com"
+						// 클릭 이벤트를 제거하기 위해 넣은 클래스
+						, className: "regularHoliday"
+						, editable: false
+						//이벤트의 색
+						, color: "#CE2939"
 						//이벤트의 텍스트 컬러
 						, textColor: "#FFFFFF"
 					}
 				],
 				editable: false,
 				events:listData,
-				eventDrop: function(info) {
-					console.log(dateFormat(info.event.start));
-					console.log(dateFormat(info.event.end));
-					console.log(info.event.id);
-					// info.event.start(Thu May 12 2022 09:30:00 GMT+0900 (한국 표준시)) 를 202205120903 형식으로 바꾸어 
-					// updateDragAjax를 통해 일정 업데이트
-					updateDragAjax(dateFormat(info.event.start), dateFormat(info.event.end), info.event.id);
-				}
+				eventClick: function(data) {
+					var seq = data.event._def.extendedProps.seq
+				   		location.href="./detailcalendar.do?seq="+seq;
+					console.log(seq);			    
+//			        arg.jsEvent.preventDefault() // don't navigate in main tab
+			      }
 			});
 			// 달력 초기화시 필수
 			calendar.render();
 }
 
 function selectTable() {
+		$(".calendar-btn").css("display","block");
+		$(".table-btn").css("display","none");
 	$("#calendar").empty();
 			$("#calendarBoardTable").DataTable({
          //https://datatables.net/reference/option/language
@@ -117,7 +101,8 @@ function selectTable() {
             {    
             	title:'일정',
                render:function(data,type,row){
-                  var   html= '<span><a href="#">'+row.title+'</a></span> <span style="float: right;">'+row.start.substr(0,10)+'</span>';  
+					console.log(row.seq)
+                  var   html= '<span><a href="./detailcalendar.do?seq='+row.seq+'">'+row.title+'</a></span> <span style="float: right;">'+row.start.substr(0,10)+'</span>';  
                return html;
                }
 			}

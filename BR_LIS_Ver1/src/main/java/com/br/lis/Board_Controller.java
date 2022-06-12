@@ -1,27 +1,20 @@
 package com.br.lis;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -34,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -44,12 +36,8 @@ import com.br.lis.model.board.service.ICalendarBoardService;
 import com.br.lis.model.board.service.IFAQBoardService;
 import com.br.lis.model.board.service.INoticeBoardService;
 import com.br.lis.model.member.service.IAdminService;
-import com.br.lis.vo.AdminVo;
 import com.br.lis.vo.CalendarBoardVo;
-import com.br.lis.vo.LibMemberVo;
 import com.br.lis.vo.Notice_FAQBoardVo;
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
-import com.google.gson.Gson;
 
 
 @Controller
@@ -82,18 +70,43 @@ public class Board_Controller {
 		return "modifynotice";
 	}
 	
-	
+	//noticeboard & faq & calendar전체 조회 화면 이동
+	@RequestMapping(value = "/viewAllBoard.do", method = RequestMethod.GET)
+	public String noticeBoardSelect(Model model,String kind) {
+		logger.info("Board_Controller noticeBoardSelect 리스트보기");
+//		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
+//		model.addAttribute("lists", lists);
+		model.addAttribute("kind", kind);
+		model.addAttribute("session", "admin");
+		if(kind.equals("faq")||kind.equals("notice")) {
+			return "noticeboard";
+		}
+		else if(kind.equals("calendar")){
+			return "calendarboard";
+		}
+		else {
+			return "home";
+		}
+	}
 	
 	//공지게시판 새글입력
 	@RequestMapping(value = "/insertNotice.do", method = RequestMethod.POST)
-	public String insertNoticeBoard(Model model, Notice_FAQBoardVo vo) {
-		logger.info("-----------공지게시판 새글입력------");
-		System.out.println(vo);
+	public String insertNoticeBoard(Model model, @RequestParam Map<String, Object> map) {
+		logger.info("Board_Controller insertNoticeBoard : {}",map);
+		System.out.println(map);
 		model.addAttribute("kind", "notice");
+		int n = inoticeService.insertNotice(map);
 		
-		
-		
-		return "redirect:/noticeboard.do";
+		if(n>0) {
+			return "redirect:/viewAllBoard.do";
+		}else {
+			StringBuffer sb= new StringBuffer();
+			sb.append("<script>");
+			sb.append("alert('입력실패 관리자에게 문의하세요');");
+			sb.append("location.href='./home.do'");
+			sb.append("</script>");
+			return sb.toString();
+		}
 		
 	}
 	
@@ -253,24 +266,7 @@ public class Board_Controller {
 	
 	
 	
-	//noticeboard & faq 전체 조회 화면 이동
-	@RequestMapping(value = "/viewAllBoard.do", method = RequestMethod.GET)
-	public String noticeBoardSelect(Model model,String kind) {
-		logger.info("Board_Controller noticeBoardSelect 리스트보기");
-//		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
-//		model.addAttribute("lists", lists);
-		model.addAttribute("kind", kind);
-		model.addAttribute("session", "admin");
-		if(kind.equals("faq")||kind.equals("notice")) {
-			return "noticeboard";
-		}
-		else if(kind.equals("calendar")){
-			return "calendarboard";
-		}
-		else {
-			return "home";
-		}
-	}
+
 	
 	//noticeboard 상세보기
 	@RequestMapping(value = "/detailnotice.do", method = RequestMethod.GET)
@@ -395,10 +391,11 @@ public class Board_Controller {
 				for (CalendarBoardVo vo : lists) {
 					JSONObject obj = new JSONObject();
 					obj.put("id", vo.getAdmin_id());
+					obj.put("seq", vo.getCalendar_seq());
 					obj.put("title", vo.getTitle());
 					obj.put("content", vo.getContent());
 					obj.put("start", vo.getStart_date());
-					obj.put("end", vo.getEnd_date());
+					obj.put("end", vo.getStart_date());
 					arr.add(obj);
 				}
 				logger.info("JSONArray 파싱한 값 : {}", arr);

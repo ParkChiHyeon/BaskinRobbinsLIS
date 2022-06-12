@@ -42,9 +42,9 @@
 				<h2>정보마당</h2>
 				<div class="lnbBody" style="min-height: 550px;">
 					<ul id="lnb" class="lnbul">
-						<li id="lnb4_1"><a id="lnb4_1_a" href="./noticeboard.do">공지사항</a></li>
-						<li id="lnb4_2"><a id="lnb4_2_a" href="./faqboard.do">FAQ</a></li>
-						<li id="lnb4_3"><a id="lnb4_3_a">도서관일정</a></li>
+						 <li id="lnb4_1"><a id="lnb4_1_a" href="./viewAllBoard.do?kind=notice">공지사항</a></li>
+		                 <li id="lnb4_2"><a id="lnb4_2_a" href="./viewAllBoard.do?kind=faq">FAQ</a></li>
+		                 <li id="lnb4_3"><a id="lnb4_3_a" href="./viewAllBoard.do?kind=calendar">도서관일정</a></li>
 					</ul>
 					<div class="lnbBottom"></div>
 				</div>
@@ -79,13 +79,14 @@
 							<col style="width:15%;">
 							<col style="width:35%;">
 							</colgroup>
-							<tbody><tr>
+							<tbody>
+							<tr>
 								<th class="bd01th" scope="row">제목</th>
 								<td colspan="3" class="bd01td">${dto.title}</td>
 							</tr>
 							<tr>
 								<th class="bd01th" scope="row">등록일</th>
-								<td class="bd01td">${dto.regdate}</td>
+								<td class="bd01td">${fn:substring(dto.regdate,0,10)}</td>
 								<th class="bd01th">작성자</th>
 								<td class="bd01td">${dto.admin_id}</td>
 							</tr>
@@ -100,13 +101,14 @@
 							<tr>
 								<td colspan="4" class="bd01tdC"><p><br></p><p style="">${dto.content}</p><p><br></p></td>
 							</tr>
-						</tbody></table>
+							</tbody>
+						</table>
 					</div>
 					
 					
 					<div class="btn_farm2 mt20">
 						<!-- Text Button -->
-						<span class="themeBtn sizeMiddle"><a href="./noticeboard.do" id="listBtn">목록</a></span>
+						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=notice" id="listBtn">목록</a></span>
 						<!-- Text Button -->
 					</div>
 
@@ -150,34 +152,71 @@
 							</tr>
 							<tr>
 								<th class="bd01th" scope="row">내용</th>
-								<td colspan="4" class="bd01tdC"><p><br></p><p style="">${vo.content}</p><p><br></p></td>
+								<td colspan="3" class="bd01tdC"><p><br></p><p style="">${vo.content}</p><p><br></p></td>
 							</tr>
 						</tbody>
 						</table>
 					</div>
 					<div class="btn_farm2 mt20">
 						<!-- Text Button -->
-						<span class="themeBtn sizeMiddle"><a href="./faqboard.do" id="listBtn">목록</a></span>
+						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=faq" id="listBtn">목록</a></span>
 						<!-- Text Button -->
 					</div>
 
 			</c:if>
-
-		</div> <!-- 1.공지사항& 2.FAQ 상세보기 끝 -->
-		
-		
-		
-		
-		
-		
-	</div>
-</div>
+			<c:if test="${kind=='calendar'}">
+				<div class="naviandtitle">
+					<h3>도서관 일정</h3>
+					<div class="navi"><a href="./home.do"><img src="./include/image/global/common/icon_home.gif" alt="홈"></a> 정보마당<span class="mobileHide"> &gt; <strong>도서관일정</strong></span></div>
+			</div>
+				
+<!-- 			<div class="contents" id="contents"> -->
+			<div class="ttabWrap">
+				<ul id="ttab3" class="tabType5">
+					<li class="ttabLast"></li>
+				</ul>
+			</div>
+			<!--CALENDAR 상세보기 테이블-->
 			
-</div>
+					<div class="boardWrap">
+						<table class="bd00view">
+							<caption> 일정 게시판 내용 상세보기 : 제목, 내용의 상세보기표</caption>
+							<colgroup>
+							<col style="width:15%;">
+							<col>
+							<col style="width:15%;">
+							<col style="width:35%;">
+							</colgroup>
+							<tbody><tr>
+								<th class="bd01th" scope="row">제목</th>
+								<td colspan="3" class="bd01td">${dto.title}</td>
+							</tr>
+							<tr>
+								<th class="bd01th" scope="row">일정 시작일</th>
+								<td class="bd01td">${fn:substring(vo.start_date,0,10)}</td>
+								<th class="bd01th">일정 종료일</th>
+								<td class="bd01td">${fn:substring(vo.end_date,0,10)}</td>
+							</tr>
+							
+							<tr>
+								<th class="bd01th" scope="row">내용</th>
+								<td colspan="3" class="bd01tdC"><p><br></p><p style="">${vo.content}</p><p><br></p></td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+					<div class="btn_farm2 mt20">
+						<!-- Text Button -->
+						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=calendar" id="listBtn">목록</a></span>
+						<!-- Text Button -->
+					</div>
 
-<script type="text/javascript">
-
-</script>
+			</c:if>
+			
+		</div> <!-- 1.공지사항& 2.FAQ 상세보기 끝 -->
+		</div>
+	</div>
+			
 </body>
 <%@include file="./footer.jsp" %>
 </html>

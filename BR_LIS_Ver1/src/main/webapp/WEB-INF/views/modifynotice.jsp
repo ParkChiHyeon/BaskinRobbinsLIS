@@ -21,9 +21,9 @@
 				<h2>정보마당</h2>
 				<div class="lnbBody" style="min-height: 550px;">
 					<ul id="lnb" class="lnbul">
-						<li id="lnb4_1"><a id="lnb4_1_a" href="./noticeboard.do">공지사항</a></li>
-						<li id="lnb4_2"><a id="lnb4_2_a" href="./faqboard.do">FAQ</a></li>
-						<li id="lnb4_3"><a id="lnb4_3_a">도서관일정</a></li>
+						 <li id="lnb4_1"><a id="lnb4_1_a" href="./viewAllBoard.do?kind=notice">공지사항</a></li>
+		                 <li id="lnb4_2"><a id="lnb4_2_a" href="./viewAllBoard.do?kind=faq">FAQ</a></li>
+		                 <li id="lnb4_3"><a id="lnb4_3_a" href="./viewAllBoard.do?kind=calendar">도서관일정</a></li>
 					</ul>
 					<div class="lnbBottom"></div>
 				</div>
