@@ -30,7 +30,7 @@ function selectCalendar(str){
 				initialView: 'dayGridMonth',
 				eventSources: [
 					{
-						// 구글 캘린더에서 가져올 이벤트의 ID
+						// 구글 캘린더에서 가져올 이벤트의 ID 공휴일
 						googleCalendarId: "ko.south_korea.official#holiday@group.v.calendar.google.com"
 						// 클릭 이벤트를 제거하기 위해 넣은 클래스
 						, className: "regularHoliday"
@@ -41,7 +41,7 @@ function selectCalendar(str){
 						, textColor: "#FFFFFF"
 					},
 					{
-						// 구글 캘린더에서 가져올 이벤트의 ID
+						// 구글 캘린더에서 가져올 이벤트의 ID 도서관 휴무일
 						googleCalendarId: "1hsqii2d9rdu0upsqfh31h4o20@group.calendar.google.com"
 						// 클릭 이벤트를 제거하기 위해 넣은 클래스
 						, className: "regularHoliday"
@@ -101,14 +101,20 @@ function selectTable() {
             {    
             	title:'일정',
                render:function(data,type,row){
-					console.log(row.seq)
-                  var   html= '<span><a href="./detailcalendar.do?seq='+row.seq+'">'+row.title+'</a></span> <span style="float: right;">'+row.start.substr(0,10)+'</span>';  
+                  var   html= '<span><a href="./detailcalendar.do?seq='+row.seq+'">'+row.title+'</a></span>';  
                return html;
                }
+			},
+			{    
+	        	title:'일정 시작일',
+				width:'70px',
+	           render:function(data,type,row){
+	              var   html= '<span style="float:right;">'+row.start.substr(0,10)+'</span>';  
+	           return html;
+	           }
 			}
            ]
         });
-		
 }
 
 
