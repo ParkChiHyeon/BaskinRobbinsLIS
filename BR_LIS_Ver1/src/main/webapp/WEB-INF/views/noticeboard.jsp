@@ -29,7 +29,7 @@
                <ul id="lnb" class="lnbul">
                   <li id="lnb4_1"><a id="lnb4_1_a" href="./viewAllBoard.do?kind=notice">공지사항</a></li>
                   <li id="lnb4_2"><a id="lnb4_2_a" href="./viewAllBoard.do?kind=faq">FAQ</a></li>
-                  <li id="lnb4_3"><a id="lnb4_3_a">도서관일정</a></li>
+                  <li id="lnb4_3"><a id="lnb4_3_a" href="./viewAllBoard.do?kind=calendar">도서관일정</a></li>
                </ul>
                <div class="lnbBottom"></div>
             </div>
@@ -43,19 +43,33 @@
       </table>
       </form>
       <div>
+      
+       <form action="./multiDelNotice.do" method="post" onsubmit="return false" id="formBoard">
+      <table id="noticeBoardTable" class="cell-border" style="float:right;"> 
+      </table>
+      </form>
+      
+       <form action="./multiDelCalendar.do" method="post" onsubmit="return false" id="formBoard">
+      <table id="calendarBoardTable" class="cell-border" style="float:right;"> 
+      </table>
+      </form>
+      
+      <div>
+      
          <c:if test="${kind == 'notice' && session !='user'}">
             <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">공지작성</button>
-            <input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" value="다중삭제">
+            <input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 90px;" value="다중삭제">
          </c:if>
       
          <c:if test="${kind =='faq' && session !='user'}">
             <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">FAQ작성</button>
-            <input class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" value="다중삭제">
+            <input class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 90px;" value="다중삭제">
          </c:if>
          
          <button class="btn btn-success" onclick="javascript:location.href='./home.do'" style="float:right;">HOME</button>
       </div>
    	</div>
+  </div>
   </div>
   </div>
 <script type="text/javascript">
@@ -247,7 +261,7 @@ $(document).ready(function(){
               { 
                 title:'제목',
                    render:function(data,type,row){
-               var   html= '<a href="./detailnotice.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
+               var   html= '<a href="./detailfaq.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
                return html;
               }
             },
@@ -297,7 +311,7 @@ $(document).ready(function(){
                  { 
                    title:'제목',
                       render:function(data,type,row){
-                  var   html= '<a href="./detailnotice.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
+                  var   html= '<a href="./detailfaq.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
                   return html;
                  }
                },

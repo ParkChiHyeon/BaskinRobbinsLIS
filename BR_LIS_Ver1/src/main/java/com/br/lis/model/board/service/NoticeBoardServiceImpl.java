@@ -33,12 +33,7 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	}
 
 
-	@Override
-	public int deleteNotice(List<String> seqs) {
-		logger.info("NoticeBoardServiceImpl deleteNotice :{}", seqs);
-		return dao.deleteNotice(seqs) ;
-	}
-	
+
 
 	@Override
 	public List<Notice_FAQBoardVo> selectPaging(Map<String, Object> map) {
@@ -63,4 +58,12 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		logger.info("NoticeBoardServiceImpl viewaAllNotice()");
 		return dao.viewAllNotice();
 	}
+
+
+	@Override
+	public int multiDelNotice(List<String> chkBox) {
+		logger.info("NoticeBoardServiceImpl deleteNotice :{}");
+		return dao.multiDelNotice(chkBox) ;
+	}
+	
 }

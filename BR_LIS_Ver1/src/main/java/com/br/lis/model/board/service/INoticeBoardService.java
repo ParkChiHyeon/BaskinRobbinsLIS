@@ -21,11 +21,13 @@ public interface INoticeBoardService {
 	public int modifyNotice(Notice_FAQBoardVo noticeVo);
 
 	
-	//삭제
-	public int deleteNotice(List<String> seqs);
+	//다중삭제
+	public int multiDelNotice(List<String> chkBox);
 
+	
 	//페이징
 	public List<Notice_FAQBoardVo> selectPaging(Map<String, Object> map); 
 	public int getCountBoardList();
+
 	
 }

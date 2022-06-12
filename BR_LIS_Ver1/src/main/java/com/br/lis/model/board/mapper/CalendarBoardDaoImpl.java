@@ -20,8 +20,13 @@ public class CalendarBoardDaoImpl implements ICalendarBoardDao {
 	private final String  NS="com.br.lis.model.board.mapper.CalendarBoardDaoImpl.";
 
 	@Override
-	public List<CalendarBoardVo> viewAllCalendar(Map<String, Object> map) {
-		return sqlSession.selectList(NS+"viewAllCalendar", map);
+	public List<CalendarBoardVo> viewAllCalendar() {
+		return sqlSession.selectList(NS+"viewAllCalendar");
+	}
+	
+	@Override
+	public CalendarBoardVo viewDetailCalendar(String seq) {
+		return sqlSession.selectOne(NS+"viewDetailCalendar", seq);
 	}
 	
 	@Override
@@ -41,6 +46,8 @@ public class CalendarBoardDaoImpl implements ICalendarBoardDao {
 		sqlSession.close();
 		return sqlSession.delete(NS+"deleteCalendar", seqs);
 	}
+
+
 
 
 	

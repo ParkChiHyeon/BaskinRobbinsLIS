@@ -19,7 +19,10 @@ public interface INoticeBoardDao {
 		public int modifyNotice(Notice_FAQBoardVo noticeVo);
 		
 		//삭제
-		public int deleteNotice(List<String> seqs);
+		public int multiDelNotice(List<String> list);
+		
+		
+		
 		
 
 		//페이징

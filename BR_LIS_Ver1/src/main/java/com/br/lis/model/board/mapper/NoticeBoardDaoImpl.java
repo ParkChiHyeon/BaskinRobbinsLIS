@@ -41,8 +41,8 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 	
 	@Override
-	public int deleteNotice(List<String> seqs) {
-		return sqlSession.delete(NS+"deleteBoard", seqs);
+	public int multiDelNotice(List<String> list) {
+		return sqlSession.delete(NS+ "multiDelNotice", list);
 	}
 
 	
