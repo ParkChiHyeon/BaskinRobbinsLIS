@@ -107,10 +107,9 @@ public class Board_Controller {
 			sb.append("</script>");
 			return sb.toString();
 		}
-		
 	}
 	
-	//공지게시판 수정
+		//공지게시판 수정
 		@RequestMapping(value = "/modifynotice.do", method = RequestMethod.POST)
 		public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
 			logger.info("Board_Controller modifynotice 에디터로 입력받음");

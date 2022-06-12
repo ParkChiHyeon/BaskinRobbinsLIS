@@ -90,6 +90,11 @@ function blockToList(){
 		</div>
 	</div>
 </div>
+		<div>
+			<button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">FAQ작성</button>
+            <input class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 90px;" value="다중삭제">
+            <button class="btn btn-success" onclick="javascript:location.href='./home.do'" style="float:right;">HOME</button>
+        </div>
 	
 </body>
 <%@include file="./footer.jsp" %>
