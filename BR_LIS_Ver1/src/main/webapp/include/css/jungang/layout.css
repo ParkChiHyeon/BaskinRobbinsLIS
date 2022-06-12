@@ -100,8 +100,6 @@
 #topmenu > li {
 	float: left;
 	margin: 0;
-	margin-left:-1px;
-	z-index:1;
 	list-style: none;
 	position: relative;
 	min-width: 115px;
