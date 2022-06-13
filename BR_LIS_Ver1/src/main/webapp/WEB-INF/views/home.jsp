@@ -19,7 +19,7 @@ noticeList(); //홈화면 공지사항 목록
 faqList(); // 홈화면 FAQ 목록
 homeNewBook(); // 홈화면 신간도서 url
 calList();//도서관일정 목록
-//mypage 버튼 화면제어 해야함
+//mypage 버튼 화면제어 해야함,, webhootk
 })
 	$(function() {
 		$('#searchBoxArea').css('height', '73px');
