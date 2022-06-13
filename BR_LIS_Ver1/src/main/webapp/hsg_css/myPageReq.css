@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+
+#myRequestBookH1{
+/* 	margin-top : 500px; */
+	margin-left: 300px;
+}
+
+
+#myRequestBookDiv{
+	margin-left: 250px;
+	margin-top: 100px;
+}
+
+
+#myRequestBookTable {
+	border: solid 3px;
+	margin-left: 50px;
+/* 	float: left; */
+}
+
+td th{
+	 border: 1px solid #444444;
+}
