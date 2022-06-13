@@ -69,7 +69,7 @@ public class TestLisJunit_YHL {
 		String title = "대출한 책을 가까운 도서관에 반납할 수 있나요?";
 		String content = "불가능 합니다. 죄송하지만 본 도서관은 상호대차 서비스를 제공하지 않고 있습니다.";
 		
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("admin_id", admin_id);
 		map.put("title", title);
 		map.put("content", content);

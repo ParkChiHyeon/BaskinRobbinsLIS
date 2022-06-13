@@ -57,12 +57,12 @@
       <div>
          <c:if test="${kind == 'notice' && session !='user'}">
             <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">공지작성</button>
-            <input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 90px;" value="다중삭제">
+            <button class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 90px;">다중삭제</button>
          </c:if>
       
          <c:if test="${kind =='faq' && session !='user'}">
             <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">FAQ작성</button>
-            <input class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 90px;" value="다중삭제">
+            <button class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 90px;">다중삭제</button>
          </c:if>
          
          <button class="btn btn-success" onclick="javascript:location.href='./home.do'" style="float:right;">HOME</button>

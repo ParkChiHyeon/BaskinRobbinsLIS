@@ -12,7 +12,7 @@ public interface IFAQBoardService {
 	
 	public Notice_FAQBoardVo viewDetailFAQ(String seq);
 	
-	public int insertFAQ(Map<String, String> map); 
+	public int insertFAQ(Map<String, Object> map); 
 	
 	public int modifyFAQ(Notice_FAQBoardVo vo);
 	

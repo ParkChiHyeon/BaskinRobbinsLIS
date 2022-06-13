@@ -24,7 +24,6 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		logger.info("NoticeBoardServiceImpl viewDetailNotice :{}", seq);
 		return dao.viewDetailNotice(seq);
 	}
-	
 
 	@Override
 	public int insertNotice(Map<String, Object> map) {
@@ -32,20 +31,17 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		return dao.insertNotice(map);
 	}
 
-
-
-
-	@Override
-	public List<Notice_FAQBoardVo> selectPaging(Map<String, Object> map) {
-		logger.info("NoticeBoardServiceImpl selectPaging :", map);
-		return dao.selectPaging(map);
-	}
-
-	@Override
-	public int getCountBoardList() {
-		logger.info("NoticeBoardServiceImpl getCountBoardList :{}");
-		return dao.getCountBoardList();
-	}
+//	@Override
+//	public List<Notice_FAQBoardVo> selectPaging(Map<String, Object> map) {
+//		logger.info("NoticeBoardServiceImpl selectPaging :", map);
+//		return dao.selectPaging(map);
+//	}
+//
+//	@Override
+//	public int getCountBoardList() {
+//		logger.info("NoticeBoardServiceImpl getCountBoardList :{}");
+//		return dao.getCountBoardList();
+//	}
 
 	@Override
 	public int modifyNotice(Notice_FAQBoardVo noticeVo) {
@@ -59,11 +55,9 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		return dao.viewAllNotice();
 	}
 
-
 	@Override
 	public int multiDelNotice(List<String> chkBox) {
 		logger.info("NoticeBoardServiceImpl deleteNotice :{}");
 		return dao.multiDelNotice(chkBox) ;
 	}
-	
 }

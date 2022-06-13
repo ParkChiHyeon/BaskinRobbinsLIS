@@ -11,7 +11,7 @@ public interface IFAQBoardDao {
 	
 	public Notice_FAQBoardVo viewDetailFAQ(String seq);
 	
-	int insertFAQ(Map<String, String> map);
+	int insertFAQ(Map<String, Object> map);
 
 	int modifyFAQ(Notice_FAQBoardVo vo);
 

@@ -28,7 +28,7 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 	}
 
 	@Override
-	public int insertFAQ(Map<String, String> map) {
+	public int insertFAQ(Map<String, Object> map) {
 		return sqlSession.insert(NS+"insertFAQ", map);
 	}
 
@@ -41,6 +41,4 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 	public int deleteFAQ(List<String> list) {
 		return sqlSession.delete(NS+"deleteFAQ", list);
 	}
-
-
 }
