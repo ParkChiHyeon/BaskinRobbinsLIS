@@ -150,11 +150,15 @@ public class ReturnBookController {
 		model.addAttribute("page", "lendingBookListUserHIK");
 		return "myPage";
 	}
-//	// 대출 연장하기 - 회원
-//	@RequestMapping(value = "/delayLendingBook.do")
-//	public String delayLendingBook(String lending_seq) {
-//		
-//	}
+	// 대출 연장하기 - 회원
+	@RequestMapping(value = "/delayLendingBook.do", method = RequestMethod.GET)
+	public String delayLendingBook(HttpServletRequest req) {
+		logger.info("Welcome! ReturnBookController delayLendingBook");
+		String lending_seq = req.getParameter("lending_seq");
+		logger.info("대출 번호 {}", lending_seq);
+		iService.delayLendingBook(lending_seq);
+		return "redirect:/lendingBookListUser.do";
+	}
 	
 	// 보유 도서 목록
 		@RequestMapping(value = "/possessingBookList.do", method = RequestMethod.GET)
