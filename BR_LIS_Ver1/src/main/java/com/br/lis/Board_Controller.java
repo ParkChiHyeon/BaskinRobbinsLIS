@@ -70,8 +70,8 @@ public class Board_Controller {
 	
 	//noticeboard & faq & calendar전체 조회 화면 이동
 	@RequestMapping(value = "/viewAllBoard.do", method = RequestMethod.GET)
-	public String noticeBoardSelect(Model model,String kind) {
-		logger.info("Board_Controller noticeBoardSelect 리스트보기");
+	public String BoardSelect(Model model,String kind) {
+		logger.info("Board_Controller BoardSelect 리스트보기");
 //		List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
 //		model.addAttribute("lists", lists);
 		model.addAttribute("kind", kind);
@@ -121,7 +121,7 @@ public class Board_Controller {
 				return "noticeboard";
 				
 			}else {
-				return "redirect:/noticeboard.do";
+				return "redirect:/viewAllBoard.do";
 			}
 		}
 	
@@ -269,13 +269,11 @@ public class Board_Controller {
 			logger.info("Board_Controller multiDelNotice:{}", chkBox);
 //			if (aVo.getAdmin_id().equals(aVo)) {
 				int n = inoticeService.multiDelNotice(chkBox);
-			
 //			}else { //세션 붙일경우 고쳐야함
-//				return (n>0)?"redirect:/noticeboard.do":"redirect:/noticeboard.do";
+//				return (n>0)?"redirect:/viewAllBoard.do":"redirect:/viewAllBoard.do";
 //			}
-			return "redirect:/noticeboard.do";
+			return "redirect:/viewAllBoard.do?kind=notice";
 		}
-		
 //--------------------------------------------FAQ-----------------------------------
 	
 	//FAQ상세보기
@@ -319,7 +317,7 @@ public class Board_Controller {
 	public String insertFAQ(Model model, @RequestParam Map<String, Object> map) {
 		logger.info("Board_Controller insertNoticeBoard : {}",map);
 		System.out.println(map);
-		model.addAttribute("kind", "notice");
+		model.addAttribute("kind", "faq");
 		int n = ifaqService.insertFAQ(map);
 		
 		if(n>0) {
@@ -340,11 +338,10 @@ public class Board_Controller {
 		logger.info("Board_Controller multiDel:{}", chkBox);
 //		if (aVo.getAdmin_id().equals(aVo)) {
 			int n = ifaqService.deleteFAQ(chkBox);
-		
 //		}else { //세션 붙일경우 고쳐야함
-//			return (n>0)?"redirect:/noticeboard.do":"redirect:/noticeboard.do";
+//			return (n>0)?"redirect:/viewAllBoard.do":"redirect:/viewAllBoard.do";
 //		}
-		return "redirect:/noticeboard.do";
+		return "redirect:/viewAllBoard.do?kind=faq";
 	}
 //-------------------------------------Calendar-------------------------------------
 	
@@ -384,12 +381,22 @@ public class Board_Controller {
 	
 			//일정게시판 새글입력
 			@RequestMapping(value = "/insertCalendar.do", method = RequestMethod.POST)
-			public String insertCalendarBoard(Model model, CalendarBoardVo vo) {
-				logger.info("-----------일정게시판 새글입력------");
-				System.out.println(vo);
+			public String insertCalendarBoard(Model model, @RequestParam Map<String, Object> map) {
+				logger.info("Board_Controller  insertCalendarBoard : {}",map);
+				System.out.println(map);
 				model.addAttribute("kind", "calendar");
+				int n = icalService.insertCalendar(map);
 				
-				return "calendarboard";
+				if(n>0) {
+					return "redirect:/viewAllBoard.do";
+				}else {
+					StringBuffer sb= new StringBuffer();
+					sb.append("<script>");
+					sb.append("alert('입력실패 관리자에게 문의하세요');");
+					sb.append("location.href='./home.do'");
+					sb.append("</script>");
+					return sb.toString();
+				}
 			}
 		
 			//일정게시판 수정
@@ -408,6 +415,18 @@ public class Board_Controller {
 				}else {
 					return "calendarboard";
 				}
+			}
+			
+			//일정게시판 삭제
+			@RequestMapping(value = "/multiDelCalendar.do", method = {RequestMethod.GET, RequestMethod.POST})
+			public String multiDelCalendar(@RequestParam List<String> chkBox) {
+				logger.info("Board_Controller multiDelCalendar:{}", chkBox);
+//				if (aVo.getAdmin_id().equals(aVo)) {
+					int n = icalService.multiDelCalendar(chkBox);
+//				}else { //세션 붙일경우 고쳐야함
+//					return (n>0)?"redirect:/viewAllBoard.do":"redirect:/viewAllBoard.do";
+//				}
+				return "calendarboard";
 			}
 	
 }

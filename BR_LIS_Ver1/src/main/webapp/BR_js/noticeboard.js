@@ -42,15 +42,9 @@ window.onload = function(){
 }
 
 
-function multiDeleteFAQ(){
+function multiDelete(){
 	chsSubmit();
 }
-
-//function multiDeleteNotice(){
-//	chsSubmit();
-//}
-
-
 
 function chsSubmit(){
 	if(chsConfirm()>0){
@@ -82,7 +76,6 @@ function chsSubmit(){
 	return false;
 }
 
-
 //sweetalert 처리방식
 //https://stackoverflow.com/questions/33414259/response-from-sweet-alert-confirm-dialog
 //https://sweetalert.js.org/ => confirm을 사용하여 처리=>callback
@@ -92,6 +85,5 @@ function chsSubmit(){
 기존형태 : input[type='submit'] -> <form action="">
 */
 function submitForm(){
-	document.getElementById("formBoard").submit();
+	document.getElementsByName("formBoard")[0].submit();
 }
-	

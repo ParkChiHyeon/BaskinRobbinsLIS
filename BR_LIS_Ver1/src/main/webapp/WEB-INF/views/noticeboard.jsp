@@ -11,6 +11,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script type="text/javascript" src="./BR_js/noticeboard.js"></script>
 </head>
 
@@ -37,40 +39,29 @@
          
          <!-- 테이블 -->
      <div id="contentcore" style="margin-bottom: 30px">
-     
-     <form action="./multiDelFAQ.do" method="post" onsubmit="return false" id="formBoard">
-      <table id="noticeBoardTable" class="cell-border" style="float:right;"> 
-      </table>
-      </form>
-      <div>
-      
-       <form action="./multiDelNotice.do" method="post" onsubmit="return false" id="formBoard">
-      <table id="noticeBoardTable" class="cell-border" style="float:right;"> 
-      </table>
-      </form>
-      
-       <form action="./multiDelCalendar.do" method="post" onsubmit="return false" id="formBoard">
-      <table id="calendarBoardTable" class="cell-border" style="float:right;"> 
-      </table>
-      </form>
-      
-      <div>
-         <c:if test="${kind == 'notice' && session !='user'}">
-            <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">공지작성</button>
-            <button class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 90px;">다중삭제</button>
-         </c:if>
-      
-         <c:if test="${kind =='faq' && session !='user'}">
-            <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">FAQ작성</button>
-            <button class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 90px;">다중삭제</button>
-         </c:if>
-         
-         <button class="btn btn-success" onclick="javascript:location.href='./home.do'" style="float:right;">HOME</button>
-      </div>
-   	</div>
+      	<div>
+      		<div>
+		         <c:if test="${kind == 'notice' && session !='user'}">
+				      <form action="./multiDelNotice.do" method="post" onsubmit="return false" name="formBoard">
+					      <table id="noticeBoardTable" class="cell-border" style="float:right;"></table>
+				      </form>
+			          <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">공지작성</button>
+			          <button class="btn btn-info btn-primary" onclick="multiDelete()" style="width: 90px;">다중삭제</button>
+		         </c:if>
+		      
+		         <c:if test="${kind =='faq' && session !='user'}">
+				    <form action="./multiDelFAQ.do" method="post" onsubmit="return false" name="formBoard">
+				   	   <table id="noticeBoardTable" class="cell-border" style="float:right;"></table>
+				    </form>
+		            <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">FAQ작성</button>
+		            <button class="btn btn-info btn-primary" onclick="multiDelete()" style="width: 90px;">다중삭제</button>
+		         </c:if>
+		         <button class="btn btn-success" onclick="javascript:location.href='./home.do'" style="float:right;">HOME</button>
+     		</div>
+   		</div>
+  	</div>
   </div>
-  </div>
-  </div>
+</div>
 <script type="text/javascript">
 var kind = '<c:out value="${kind}"/>'
 var jsonSource = [];

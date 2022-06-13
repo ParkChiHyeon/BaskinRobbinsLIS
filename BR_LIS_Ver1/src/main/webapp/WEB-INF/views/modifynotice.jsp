@@ -29,14 +29,14 @@
 				</div>
 			</div>
 			
-			<!--  -->
+		<!--  -->
 			<div id="contentcore" style="margin-bottom: 30px">
-			
 				<hr>
 				<div>
-					<h3>정보마당 새 글 입력폼</h3>
+				
 				<c:if test="${kind == 'notice' }">
-					<form id="modifynotice"  method="post" action="./insertNotice.do">
+					<h3>공지사항 새 글 입력폼</h3>
+					<form id="insertNotice"  method="post" action="./insertNotice.do">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
 						제목: <input type="text" id="title" name="title" class="form-control"><br>
 						내용: <textarea name="content" id="content"></textarea>
@@ -46,7 +46,8 @@
 				</c:if>
 				
 				<c:if test="${kind == 'faq' }">
-					<form id="modifyfaq" method="post" action="./insertFAQ.do">
+					<h3>FAQ 새 글 입력폼</h3>
+					<form id="insertFAQ" method="post" action="./insertFAQ.do">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
 						제목: <input type="text" id="title" name="title" class="form-control"><br>
 						내용: <textarea name="content" id="content"></textarea>
@@ -55,15 +56,23 @@
 					</form>
 				</c:if>
 				
-				
+				<c:if test="${kind == 'calendar' }">
+					<h3>도서관일정 새 글 입력폼</h3>
+					<form id="insertCalendar" method="post" action="./insertCalendar.do">
+						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
+						제목: <input type="text" id="title" name="title" class="form-control"><br>
+						내용: <textarea name="content" id="content"></textarea>
+						일정시작일: <input type="date" id="start_date" name="start_date" class="form-control"><br>
+						일정종료일: <input type="date" id="end_date" name="end_date" class="form-control"><br>
+						<input type="submit" class="btn btn-default" value="저장">
+						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
+					</form>
+				</c:if>
 				
 			</div>
-			
-			
-			</div>
+		</div> <!-- contentcore끝 -->
 	</div>
 </div>
-
 
  <script>
 CKEDITOR.replace( 'content' ,{
@@ -74,7 +83,6 @@ CKEDITOR.replace( 'content' ,{
 								    '여기에 글을 입력하거나 파일을 드래그해주세요...', 
   									filebrowserUploadUrl: "fileupload.do", //여기참고하세요 하나는 파일 업로드 하나는 이미지 업로드
 									uploadUrl:"fileupload.do", //여기 참고하세용
-							
 }
 );
 
@@ -131,7 +139,6 @@ function modifynotice(){
 	}else{
 		modifynotice.submit();
 	}
-
 }
 </script>              
 </body>
