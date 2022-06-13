@@ -55,7 +55,6 @@
       </form>
       
       <div>
-      
          <c:if test="${kind == 'notice' && session !='user'}">
             <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">공지작성</button>
             <input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 90px;" value="다중삭제">

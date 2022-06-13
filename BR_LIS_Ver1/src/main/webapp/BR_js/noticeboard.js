@@ -46,6 +46,11 @@ function multiDeleteFAQ(){
 	chsSubmit();
 }
 
+//function multiDeleteNotice(){
+//	chsSubmit();
+//}
+
+
 
 function chsSubmit(){
 	if(chsConfirm()>0){

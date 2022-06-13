@@ -59,15 +59,14 @@ function blockToList(){
 	selectTable();  
 }
 
-
 </script>
+
 <body>
 	<div id="middle">
 		<div id="contbody">
-
 			<div id="contleft" class="contleft">
 			   <h2>정보마당</h2>
-            <div class="lnbBody" style="min-height: 550px;">
+            	<div class="lnbBody" style="min-height: 550px;">
 	               <ul id="lnb" class="lnbul">
 	                  <li id="lnb4_1"><a id="lnb4_1_a" href="./viewAllBoard.do?kind=notice">공지사항</a></li>
 	                  <li id="lnb4_2"><a id="lnb4_2_a" href="./viewAllBoard.do?kind=faq">FAQ</a></li>
@@ -76,21 +75,20 @@ function blockToList(){
 	               <div class="lnbBottom"></div>
 	            </div>
 			</div>
-
 			<div id="contentcore">
 				<div class="naviandtitle">
+						<button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
+				        <input class="btn btn-info btn-primary" onclick="multiDeleteCalendar()" style="width: 90px;" value="다중삭제">
 					<button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
 					<button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
 				</div>
 				<div class="naviandtitle">
+					<table id="calendarBoardTable" class="cell-border" style="float:right;"></table>
 					<div id="calendar"></div>
-					<table id="calendarBoardTable" class="cell-border" style="float:right;"> 
-					</table>
 				</div>
+			</div>
 		</div>
 	</div>
-</div>
-	
 </body>
 <%@include file="./footer.jsp" %>
 </html>
