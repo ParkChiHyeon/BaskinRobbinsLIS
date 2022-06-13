@@ -7,31 +7,39 @@
 <meta charset="UTF-8">
 <title>woowang Library MyPage</title>
 </head>
-<%@ include file="./header.jsp" %>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<%@ include file="./header.jsp"%>
+<link	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"	rel="stylesheet"	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"	crossorigin="anonymous">
+<link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script type="text/javascript"	src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script type="text/javascript"	src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css"	href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
+
 <!-- css넣어라 -->
-<link rel="stylesheet" href="./khu_css/myPage.css"/>
-<link rel="stylesheet" href="./hik_css/myPageHIK.css"/>
+<link rel="stylesheet" href="./khu_css/myPage.css" />
+<link rel="stylesheet" href="./hik_css/myPageHIK.css" />
+
+
 <!-- css끝 -->
 <!-- js 넣어라 -->
 <script type="text/javascript" src="./khu_js/myPage.js"></script>
-<script type="text/javascript" src="./BR_js/myPageHIK.js"></script> 
+<script type="text/javascript" src="./BR_js/myPageHIK.js"></script>
+
+
 <!-- js 끝 -->
 
+
+
 <body class="body">
-		<!-- 마이페이지 시작 -->
-		<div id="contbody">
-		
+	<!-- 마이페이지 시작 -->
+	<div id="contbody">
 		<!-- 메뉴탭 -->
 		<div id="contleft" class="contleft">
 			<h2>마이페이지</h2>
 			<div class="lnbBody" style="min-height: 550px;">
 				<ul id="lnb" class="lnbul">
 				<!-- 각자 메뉴 -->
-				<li id="lnb_1" class=""><a href="./memberInfoUpdatePage.do" >내 정보 변경</a></li> 
-				<li id="lnb_2" class=""><a href="./memberQuitRequestPage.do" >회원탈퇴 신청</a></li>
+				<li id="lnb_1" class=""><a href="./memberInfoUpdate.do" >내 정보 수정</a></li> 
+				<li id="lnb_2" class=""><a href="./membertt.do" >회원탈퇴 신청</a></li>
 				<li id="lnb_3" class=""><a href="./memberInfoUpdate.do" >알림 수신 변경</a></li>
 				<li id="lnb_4" class=""><a href="./lendingBookListUser.do" >도서대출 현황</a></li>
 				<li id="lnb_5" class=""><a href="./memberInfoUpdate.do" >도서대출 이용 현황</a></li>
@@ -44,9 +52,8 @@
 				<div class="lnbBottom"></div>
 			</div>
 		</div>
-			
-			
-		
+
+						
 			<!--  휘웅영역-->
 			<!-- 컨텐츠 영역 -->
 			
@@ -165,12 +172,12 @@
 				</form>	
 			</div>
 				</c:if>
-			
 
 
-						
-			<!-- 휘웅 영역 끝 -->	
-			<!-- 인경영역 -->
+
+		<!-- 휘웅 영역 끝 -->
+		<!-- 인경영역 -->
+				<!-- 인경영역 -->
 	<c:if test="${page=='lendingBookListUserHIK'}">
 	<div id="contentcore">
 			
@@ -182,7 +189,7 @@
 	
 	<!-- 내용 영역 넣고싶은거 넣으셈 -->
 	<form class="form-inline">
-		<table class="table table-bordered">
+		<table id="dataTableHIK" class="table-bordered">
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="chkAllHIK"></th>
@@ -197,6 +204,7 @@
 			</thead>
 			<tbody>
 			<c:forEach var="lists" items="${lists}" varStatus="vs">
+			<input type="hidden" name="lending_seq" id="lend" value="${lists.lending_seq}">
 					<tr>
 						<td><input type="checkbox" ></td>
 						<td>${vs.count}</td>
@@ -215,23 +223,19 @@
 						</td>
 						<td>
 						<c:if test="${empty lists.lending_delay && lists.back_date eq 0}">
-						<input type="button" value="연장하기" onclick="./">
-						</c:if></td>
+						<a href="./delayLendingBook.do" class="btn">버튼</a>
+<!-- 						<input type="button" value="연장하기" onclick="delayLendingBook()"> -->
+						</c:if>
+						</td>
 					</tr>
 			</c:forEach>
 			</tbody>
 		</table>			
 	</form>	
 	</div>
+		<input type="button" value="일괄연장하기">
 			</c:if>
-			
-			
-			
-			
-			
 
-<!--수진 영역 끝  -->
-<!-- 슬기 영역 -->
 
 
 
@@ -569,6 +573,8 @@
 
 
 
+						<!-- 인경 영역 끝 -->
+						<!-- 수진 영역-->
 
 
 
@@ -631,7 +637,6 @@
 
 
 
-<!-- 슬기영역 끝 -->
 
 
 
@@ -654,150 +659,1213 @@
 
 
 
-			
-			
-	<!--footer-->
-	<!--footer-->
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						>>>>>>> branch 'ingyeong' of
+						https://github.com/ParkChiHyeon/BaskinRobbinsLIS.git
+						<!--수진 영역 끝  -->
+						<!-- 슬기 영역 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<!-- 슬기영역 끝 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<!--footer-->
+						<!--footer-->
+						</div>
 </body>
-	
-	
-	
-	
+
 <script type="text/javascript">
-var khu_timer = null;
-var khu_isRunning = false;
-var khu_btn = document.getElementById("khu_btnUpdatePhone"); 
-var khu_btn2 = document.getElementById("khu_btnUpdateEmail"); 
-$('#khu_sendPhoneNumber').click(function(){
-			
-			    let phoneNumber = $('#khu_phone_textbox').val();
-			    swal("인증번호 발송 완료");
-			    var display = $('.khu_time');
-			    var leftSec = 180;
-			    
-			    if(khu_isRunning){
-			    	clearInterval(khu_timer);
-			    	display.html("");
-			    	startkhu_timer(leftSec, display);
-			    }else{
-			    	startkhu_timer(leftSec, display);
-			    }
-			    
-			    var docum = document.getElementById("khu_checkBtn").disabled;
-			    
-			    $.ajax({
-			        type: "POST",
-			        url: "./sendSMS.do",
-			        data: {"phone" : phoneNumber}, // 핸드폰 값이 넘어감
-			        success: function(res){ // 인증번호 값이 넘어옴
-			        	$('#khu_checkBtn').click(function(){
-			        		if($('#khu_phoneCheck_textbox').val()=='') {
-			            		swal('값을 입력하세요.');
-			            	}else if(khu_isRunning && $.trim(res)==$('#khu_phoneCheck_textbox').val()){
-			            		swal('인증 성공');
-			            		khu_btn.disabled = false;
-			            		clearInterval(khu_timer);
-			            		display.html("");
-			            	}else{
-			            		if(khu_isRunning){
-			            			swal('인증번호가 맞지 않습니다');
-			            		} else {
-			            			swal('시간이 초과되었습니다');
-			            		}
-			            	}
-			        	})
-			        }
-			    })
-			});
-			function startkhu_timer(count, display) {
-				var minutes, seconds;
-			    khu_timer = setInterval(
-			function () {
-			    minutes = parseInt(count / 60, 10);
-			    seconds = parseInt(count % 60, 10);
+	var khu_timer = null;
+	var khu_isRunning = false;
+	var khu_btn = document.getElementById("khu_btnUpdatePhone");
+	var khu_btn2 = document.getElementById("khu_btnUpdateEmail");
+	$('#khu_sendPhoneNumber')
+			.click(
+					function() {
 
-			    minutes = minutes < 10 ? "0" + minutes : minutes;
-			    seconds = seconds < 10 ? "0" + seconds : seconds;
+						let phoneNumber = $('#khu_phone_textbox').val();
+						swal("인증번호 발송 완료");
+						var display = $('.khu_time');
+						var leftSec = 180;
 
-			    display.html(minutes + ":" + seconds);
+						if (khu_isRunning) {
+							clearInterval(khu_timer);
+							display.html("");
+							startkhu_timer(leftSec, display);
+						} else {
+							startkhu_timer(leftSec, display);
+						}
 
-			    // 타이머 끝
-			    if (--count < 0) {
-			     clearInterval(khu_timer);
-			     alert("시간초과");
-			     display.html("시간초과");
-			     $('#khu_checkBtn').attr("disabled","disabled");
-			     khu_isRunning = false;
-			    }
-			}, 1000);
-			     khu_isRunning = true;
+						var docum = document.getElementById("khu_checkBtn").disabled;
+
+						$
+								.ajax({
+									type : "POST",
+									url : "./sendSMS.do",
+									data : {
+										"phone" : phoneNumber
+									}, // 핸드폰 값이 넘어감
+									success : function(res) { // 인증번호 값이 넘어옴
+										$('#khu_checkBtn')
+												.click(
+														function() {
+															if ($(
+																	'#khu_phoneCheck_textbox')
+																	.val() == '') {
+																swal('값을 입력하세요.');
+															} else if (khu_isRunning
+																	&& $
+																			.trim(res) == $(
+																			'#khu_phoneCheck_textbox')
+																			.val()) {
+																swal('인증 성공');
+																khu_btn.disabled = false;
+																clearInterval(khu_timer);
+																display
+																		.html("");
+															} else {
+																if (khu_isRunning) {
+																	swal('인증번호가 맞지 않습니다');
+																} else {
+																	swal('시간이 초과되었습니다');
+																}
+															}
+														})
+									}
+								})
+					});
+	function startkhu_timer(count, display) {
+		var minutes, seconds;
+		khu_timer = setInterval(function() {
+			minutes = parseInt(count / 60, 10);
+			seconds = parseInt(count % 60, 10);
+
+			minutes = minutes < 10 ? "0" + minutes : minutes;
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			display.html(minutes + ":" + seconds);
+
+			// 타이머 끝
+			if (--count < 0) {
+				clearInterval(khu_timer);
+				alert("시간초과");
+				display.html("시간초과");
+				$('#khu_checkBtn').attr("disabled", "disabled");
+				khu_isRunning = false;
 			}
+		}, 1000);
+		khu_isRunning = true;
+	}
 
-			
-$('#sendEmailNumber').click(function(){		
-			    let emailNumber = $('#khu_email_textbox').val();
-			    swal("인증번호 발송 완료");
-			    var display = $('.khu_time2');
-			    var leftSec = 180;
-			    
-			    if(khu_isRunning){
-			    	clearInterval(khu_timer);
-			    	display.html("");
-			    	startkhu_timer(leftSec, display);
-			    }else{
-			    	startkhu_timer(leftSec, display);
-			    }
-			    
-			    var docum = document.getElementById("khu_btnEmailCheck").disabled;
-			    
-			   $.ajax({
-		        type: "POST",
-		        url: "./memberInfoUpdateEmailChk.do",
-		        data: {"email" : emailNumber}, // 핸드폰 값이 넘어감
-		        success: function(res){ // 인증번호 값이 넘어옴
-		        	$('#khu_btnEmailCheck').click(function(){
-		        		if($('#khu_emailCheck_textbox').val()=='') {
-		            		swal('값을 입력하세요.');
-		            	}else if(khu_isRunning && $.trim(res)==$('#khu_emailCheck_textbox').val()){
-		            		swal('인증 성공');
-		            		khu_btn2.disabled = false;
-		            		clearInterval(khu_timer);
-		            		display.html("");
-		            	}else{
-		            		if(khu_isRunning){
-		            			swal('인증번호가 맞지 않습니다');
-		            		} else {
-		            			swal('시간이 초과되었습니다');
-		            		}
-		            	}
-		        	})
-		        }
-		    })
-		});
-			function startkhu_timer(count, display) {
-				var minutes, seconds;
-			    khu_timer = setInterval(
-			function () {
-			    minutes = parseInt(count / 60, 10);
-			    seconds = parseInt(count % 60, 10);
+	$('#sendEmailNumber')
+			.click(
+					function() {
+						let emailNumber = $('#khu_email_textbox').val();
+						swal("인증번호 발송 완료");
+						var display = $('.khu_time2');
+						var leftSec = 180;
 
-			    minutes = minutes < 10 ? "0" + minutes : minutes;
-			    seconds = seconds < 10 ? "0" + seconds : seconds;
+						if (khu_isRunning) {
+							clearInterval(khu_timer);
+							display.html("");
+							startkhu_timer(leftSec, display);
+						} else {
+							startkhu_timer(leftSec, display);
+						}
 
-			    display.html(minutes + ":" + seconds);
+						var docum = document
+								.getElementById("khu_btnEmailCheck").disabled;
 
-			    // 타이머 끝
-			    if (--count < 0) {
-			     clearInterval(khu_timer);
-			     alert("시간초과");
-			     display.html("시간초과");
-			     $('#khu_btnEmailCheck').attr("disabled","disabled");
-			     khu_isRunning = false;
-			    }
-			}, 1000);
-			     khu_isRunning = true;
-			}			
-		</script>			
-<%@ include file="./footer.jsp" %>
+						$
+								.ajax({
+									type : "POST",
+									url : "./memberInfoUpdateEmailChk.do",
+									data : {
+										"email" : emailNumber
+									}, // 핸드폰 값이 넘어감
+									success : function(res) { // 인증번호 값이 넘어옴
+										$('#khu_btnEmailCheck')
+												.click(
+														function() {
+															if ($(
+																	'#khu_emailCheck_textbox')
+																	.val() == '') {
+																swal('값을 입력하세요.');
+															} else if (khu_isRunning
+																	&& $
+																			.trim(res) == $(
+																			'#khu_emailCheck_textbox')
+																			.val()) {
+																swal('인증 성공');
+																khu_btn2.disabled = false;
+																clearInterval(khu_timer);
+																display
+																		.html("");
+															} else {
+																if (khu_isRunning) {
+																	swal('인증번호가 맞지 않습니다');
+																} else {
+																	swal('시간이 초과되었습니다');
+																}
+															}
+														})
+									}
+								})
+					});
+	function startkhu_timer(count, display) {
+		var minutes, seconds;
+		khu_timer = setInterval(function() {
+			minutes = parseInt(count / 60, 10);
+			seconds = parseInt(count % 60, 10);
+
+			minutes = minutes < 10 ? "0" + minutes : minutes;
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			display.html(minutes + ":" + seconds);
+
+			// 타이머 끝
+			if (--count < 0) {
+				clearInterval(khu_timer);
+				alert("시간초과");
+				display.html("시간초과");
+				$('#khu_btnEmailCheck').attr("disabled", "disabled");
+				khu_isRunning = false;
+			}
+		}, 1000);
+		khu_isRunning = true;
+	}
+</script>
+<%@ include file="./footer.jsp"%>
 </html>

@@ -6,3 +6,19 @@ th, td{
 /* 	border: 1px solid black; */
 	height: 10px;
 }
+#contbody .contleft .lnbBody > UL > LI > A {
+    font-size: 13px;
+    padding-left: 14px;
+    display: block;
+    font-family: 'Nanum Gothic';
+    margin: 0;
+    line-height: 47px;
+    color: #333;
+    font-weight: bold;
+    background: #fff url(../../image/jungang/common/bg_lnbSubOff.png) 170px 50% no-repeat;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.table-bordered>:not(caption)>*>* {
+    border-width: 1px;
+}
