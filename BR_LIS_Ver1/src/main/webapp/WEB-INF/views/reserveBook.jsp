@@ -81,13 +81,13 @@
 						<td>${a.TITLE}</td>
 						<td>${a.PUBLISHER}</td>
 						<td>${a.AUTHOR}</td>
-						<td>${a.RESERVE_DATE}</td>
+						<td>${a.reseveDate}</td>
 					</tr>
 		<%-- 			</c:forEach> --%>
 				</tbody>
 			</table>
 <!-- 			<input type="button" class="btn btn-warning" value="예약취소" onclick="cancel()"> -->
-	<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button>
+<!-- 	<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button> -->
 		</form>	
 </div>	
 <script type="text/javascript">

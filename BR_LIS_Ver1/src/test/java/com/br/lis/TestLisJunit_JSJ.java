@@ -30,15 +30,18 @@ public class TestLisJunit_JSJ {
 	@Autowired
 	private ILendingBookDao dao;
 	
+	@Autowired
+	private ILendingBookService bService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 // OK
-//	@Test  
+	@Test  
 	public void nowLendingBook() {
 		logger.info("nowLendingBook _ 즉시대출 가능한 도서조회");
-		List<LendingVo> lists= dao.nowLendingBook();
-		System.out.println(lists);
+		String book_serial = "BKSR100213";
+		List<LendBookBean> n= dao.nowLendingBook(book_serial);
+		System.out.println(n);
 	}
 	// OK	
 //	@Test
@@ -121,13 +124,13 @@ public class TestLisJunit_JSJ {
 	
 	// 조인쿼리-다시 
 //	@Test
-	public void lendingList() {
-		logger.info("lendingList  대출내역조회");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member_code", "M2205000004");
-		List<LendBookBean> lists = new ArrayList<LendBookBean>();
-		lists =dao.lendingList(map);
-		System.out.println(lists);
+//	public void lendingList() {
+//		logger.info("lendingList  대출내역조회");
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("member_code", "M2205000004");
+//		List<LendBookBean> lists = new ArrayList<LendBookBean>();
+//		lists =dao.lendingList(map);
+//		System.out.println(lists);
 		
 		
 //		List<Map<String, String>> list = new  ArrayList<Map<String,String>>();
@@ -150,7 +153,7 @@ public class TestLisJunit_JSJ {
 //		LibMemberVo vo = new LibMemberVo();
 //		vo.setMember_code("M2205000004");
 //		System.out.println(vo);
-	}
+//	}
 	
 	
 	// OK
@@ -248,10 +251,8 @@ public class TestLisJunit_JSJ {
 		System.out.println(n);
 	}
 	
-	@Autowired
-	private ILendingBookService bService;
 	
-	@Test
+//	@Test
 	public void lendingCount1() {
 		logger.info("test 중");
 		  

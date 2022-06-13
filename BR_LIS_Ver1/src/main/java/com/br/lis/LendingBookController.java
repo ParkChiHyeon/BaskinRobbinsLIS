@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
 import com.br.lis.model.member.service.IAdminService;
 import com.br.lis.model.member.service.ILibMemberService;
+import com.br.lis.vo.AdminVo;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
@@ -48,32 +49,38 @@ public class LendingBookController {
 	@Autowired
 	private IAdminService aService;
 	
-	@RequestMapping(value = "/lendingBook.do", method = RequestMethod.GET, produces ="application/text; charset=UTF-8" )
-	public  String lendingLIst(/*HttpSession session,@RequestParam Map<String, String> map,*/Model model) {
+	@RequestMapping(value = "/lendingBookMem.do", method = RequestMethod.GET )
+	public  String lendingLIst(HttpSession session,Model model) {
 		
 		logger.info("대출한 도서내역");
 		logger.info("해당아이디로 조회하기-> 마이페이지 가야함");
 		Map<String, Object> map2 = new  HashMap<String, Object>();
 		//아이디 직접입력
-		map2.put("member_id", "user001");
+//		map2.put("member_id", "user001");
 		
 		
 		//세션받아서 id 값 가져와야함
-//		LibMemberVo mVo = (LibMemberVo) session.getAttribute("member");
 //		String mb =mVo.getMember_id();
 //		System.out.println(mb+"멤버아이디1111&&&&&&&&&&&&&&");
 //		System.out.println(mVo+"멤버아이디22222&&&&&&&&&&&&&&");
-//		model.addAttribute("mb", mb);
 		
+		LibMemberVo mVo = (LibMemberVo) session.getAttribute("member");
+		String memberid = mVo.getMember_id();
 		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
-		listBean= service.lendingList(map2);
+		listBean= service.lendingList(memberid);
+		
+		System.out.println(map2+"1111%%%%%%%%%%%%%%%%%%%%%%");
+		System.out.println(listBean+"2222%%%%%%%%%%%%%%%%%%%%%");
 		
 		model.addAttribute("listBean",listBean);
-		
-//		List<LendingVo> lists = (List<LendingVo>) service.reserveLendingBook(map);
-		return "lendingBook";
+		model.addAttribute("member",mVo);
+		model.addAttribute("page", "lendingLIst");
+		return "myPage";
 	}
 
+	
+	
+	
 	@RequestMapping(value = "/adminLenList.do", method=RequestMethod.GET)
 	public String adminLenList(Model model) {
 		logger.info("예약목록 전체조회(관리자) ");
@@ -87,12 +94,14 @@ public class LendingBookController {
 	}
 	
 	@RequestMapping(value ="/reserveBook.do", method = RequestMethod.GET)
-	public String reserveBook(String lending_seq, LendingVo vo, Model model) {
+	public String reserveBook(Model model, HttpSession session) {
 		logger.info("예약목록조회(회원)");
 //		Map<String, String> map = new  HashMap<String, String>();
-		List<Map<String, Object>>  map = new ArrayList<Map<String,Object>>();
-		String membercode = "M2205000004";
-		List<Map<String, Object>> lb =service.reserveLendingBook(membercode);
+//		List<Map<String, Object>>  map = new ArrayList<Map<String,Object>>();
+		
+		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+		String memberid = mVo.getMember_id();
+		List<Map<String, Object>> lb =service.reserveLendingBook(memberid);
 
 		for (int i = 0;  i< lb.size(); i++) {
 			Map<String, Object> a = lb.get(i);
@@ -103,33 +112,15 @@ public class LendingBookController {
 			lists2.add( (String) a.get("TITLE"));
 			lists2.add( (String) a.get("PUBLISHER"));
 			lists2.add( (String) a.get("AUTHOR"));
-//			lists2.add( (String) a.get("reserve_date"));
-			
-//			String m= (String) a.get("MEMBER_CODE");
-//			String n= (String) a.get("ISBN");
-//			String o = (String) a.get("LENDING_SEQ");
-//			String p = (String) a.get("TITLE");
-//			String q= (String) a.get("PUBLISHER");
-//			String r= (String) a.get("AUTHOR");
-			
-//			String[] m= (String[]) a.get("MEMBER_CODE");
-//			String[] n= (String[]) a.get("ISBN");
-//			String[] o = (String[]) a.get("LENDING_SEQ");
-//			String[] p = (String[]) a.get("TITLE");
-//			String[] q= (String[]) a.get("PUBLISHER");
-//			String[] r= (String[]) a.get("AUTHOR");
+			lists2.add( (String) a.get("RESERVE_DATE"));
+
 			
 			model.addAttribute("a",a);
-//			model.addAttribute("m",m);
-//			model.addAttribute("n",n);
-//			model.addAttribute("o",o);
-//			model.addAttribute("p",p);
-//			model.addAttribute("q",q);
-//			model.addAttribute("r",r);
+
 		}
+		model.addAttribute("page", "reserveListMem");
 		
-		
-		return "reserveBook";
+		return "myPage";
 
 	}
 	
@@ -148,9 +139,9 @@ public class LendingBookController {
 			out.println("<script>alert('삭제되었습니다');</script>");
 			out.flush();
 			
-			return "reserveBook";
+			return "redirect:/myPage";
 		}else {
-			return "reserveBook";
+			return "redirect:/myPage";
 		}
 	}
 	
@@ -178,6 +169,20 @@ public class LendingBookController {
 		
 	}
 	
+	@RequestMapping(value = "/lendingBookAdmin.do",method = RequestMethod.GET)
+	public String lendingBookAdmin (@RequestParam Map<String, Object> map, Model model, HttpSession session) {
+		logger.info("lendingBookAdmin _ 관리자 즉시대출화면으로 가기");
+
+//		AdminVo aVo = aService.loginAdmin(map);	
+//		model.addAttribute("admin", aVo);
+		
+		String book_serial = "BKSR100213";
+		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
+		listBean= service.nowLendingBook(book_serial);
+		model.addAttribute("listBean",listBean);
+		System.out.println(listBean+"즉시대출%%%%%%%%%%%%%%%");
+		return "lendingBook";
+	}
 	
 	
 }

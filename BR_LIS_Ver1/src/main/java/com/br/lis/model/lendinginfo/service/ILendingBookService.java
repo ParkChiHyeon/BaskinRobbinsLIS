@@ -11,7 +11,7 @@ import com.br.lis.vo.LibMemberVo;
 public interface ILendingBookService {
 	
 		//즉시대출도서
-		public List<LendingVo> nowLendingBook();
+	public List<LendBookBean> nowLendingBook(String book_serial);
 		
 		//예약목록전체조회
 //		public List<BookInfoVo> allReserveLending();
@@ -28,7 +28,7 @@ public interface ILendingBookService {
 		public List<LibMemberVo> deleyPenalty();
 		
 		//대출 내역조회
-		public List<LendBookBean> lendingList(Map<String, Object>map);
+		public List<LendBookBean> lendingList(String member_code);
 		
 		//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
 		public List<LendBookBean> possibleReserve(Map<String, Object>map);

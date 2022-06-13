@@ -232,6 +232,95 @@
 
 						<!-- 인경 영역 끝 -->
 						<!-- 수진 영역-->
+<c:if test="${page=='lendingLIst'}">
+ <div id="contentcore">
+	
+		<!-- 제목 영역 -->
+		<div class="naviandtitle"> 
+			<h3>도서대출 이용현황</h3>
+		</div>
+
+		<!-- 내용 영역  -->
+<%-- 		<c:if test="${member.member_id eq 'member_id'}"> --%>
+		
+		<table  id="dataTable" class="cell-border">
+<!-- 		<table  id="dataTable" class="table table-hover"> -->
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>도서코드</th>
+						<th>도서제목</th>
+						<th>대출일</th>
+						<th>반납일</th>
+						<th>상태</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="lBean" items="${listBean}" varStatus="vs">
+					<c:if test="${lBean.back_date ne null }">
+					<tr>
+						<td>${vs.count}</td>
+						<td>${lBean.book_serial}</td>
+						<td>${lBean.title}</td>
+						<td>${lBean.lending_date}</td>
+						<td>${lBean.back_date}</td>
+						<td></td>
+					</tr>
+					</c:if>
+					</c:forEach>
+				</tbody>
+			</table>
+<%-- 		</c:if> --%>
+
+	</div>
+</c:if>
+
+
+
+
+
+<c:if test="${page=='reserveListMem'}">
+	<div id="contentcore">
+
+		<!-- 제목 영역 -->
+		<div class="naviandtitle"> 
+			<h3>도서 예약 현황</h3>
+		</div>
+	
+		<!-- 내용 영역  -->
+		<form action="./reserveBook.do" >
+			<table  id="dataTable" class="table table-hover">
+					<thead>
+						<tr id="reserveList">
+							<th>예약번호</th>
+							<th>ISBN</th>
+							<th>도서코드</th>
+							<th>도서제목</th>
+							<th>예약일</th>
+						</tr>
+					</thead>
+					<tbody>
+				<%-- 			<c:forEach var="a" items="${a}" varStatus="vs"> --%>
+						<tr id="reserveListVal">
+							<td id="lending_seq"><input type="hidden" name="lending_seq" value="${a.LENDING_SEQ}">${a.LENDING_SEQ}</td>
+							<td>${a.ISBN}</td>
+							<td id="book_serial"><input type="hidden" name="book_serial" value=" ${a.BOOK_SERIAL}"> ${a.BOOK_SERIAL}</td>
+							<td>${a.TITLE}</td>
+							<td>${a.RESERVE_DATE}</td>
+						</tr>
+				<%-- 			</c:forEach> --%>
+					</tbody>
+				</table>
+				<br>
+				<br>
+				<c:if test="${a ne null }">
+					<button class="btn btn-outline-secondary" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button>
+				</c:if>
+			</form>
+			
+
+	</div>
+</c:if>
 
 						
 						<!--수진 영역 끝  -->
@@ -442,4 +531,3 @@
 </script>
 <%@ include file="./footer.jsp"%>
 </html>
-

@@ -21,9 +21,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	private final String  NS="com.br.lis.model.lendinginfo.mapper.LendingBookDaoImpl.";
 
 	@Override
-	public List<LendingVo> nowLendingBook() {
-		
-		return sqlSession.selectList(NS+"nowLendingBook");
+	public List<LendBookBean> nowLendingBook(String book_serial) {
+		return sqlSession.selectOne(NS+"nowLendingBook");
 	}
 
 	@Override
@@ -62,8 +61,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	
 	@Override
 //	public LendBookBean lendingList(List<Map<String, String>>  map) {
-	public List<LendBookBean> lendingList(Map<String, Object>map) {
-		return sqlSession.selectList(NS+"lendingList",map);
+	public List<LendBookBean> lendingList(String member_code) {
+		return sqlSession.selectList(NS+"lendingList",member_code);
 	}
 
 	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
