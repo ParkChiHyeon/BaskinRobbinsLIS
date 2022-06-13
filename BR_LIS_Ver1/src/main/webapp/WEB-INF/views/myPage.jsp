@@ -37,12 +37,12 @@
 			<div class="lnbBody" style="min-height: 550px;">
 				<ul id="lnb" class="lnbul">
 				<!-- 각자 메뉴 -->
-				<li id="lnb_1" class=""><a href="./memberInfoUpdate.do" >내 정보 수정</a></li> 
-				<li id="lnb_2" class=""><a href="./membertt.do" >회원탈퇴 신청</a></li>
+				<li id="lnb_1" class=""><a href="./memberInfoUpdatePage.do" >내 정보 변경</a></li> 
+				<li id="lnb_2" class=""><a href="./memberQuitRequestPage.do" >회원탈퇴 신청</a></li>
 				<li id="lnb_3" class=""><a href="./memberInfoUpdate.do" >알림 수신 변경</a></li>
 				<li id="lnb_4" class=""><a href="./lendingBookListUser.do" >도서대출 현황</a></li>
-				<li id="lnb_5" class=""><a href="./memberInfoUpdate.do" >도서대출 이용 현황</a></li>
-				<li id="lnb_6" class=""><a href="./memberInfoUpdate.do" >예약 현황</a></li>
+				<li id="lnb_5" class=""><a href="./lendingBookMem.do" >도서대출 이용 현황</a></li>
+                <li id="lnb_6" class=""><a href="./reserveBook.do" >예약 현황</a></li> 
 				<li id="lnb_7" class=""><a href="./myRequestBookList.do" >신청도서 조회</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >8</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >9</a></li>
