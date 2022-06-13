@@ -108,10 +108,7 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 		return sqlSession.selectOne(NS+"selectMyInfo",map);
 	}
 
-	@Override
-	public int updateMyInfo(Map<String, Object> map) {
-		return sqlSession.update(NS+"updateMyInfo",map);
-	}
+	
 
 	@Override
 	public int quitRequest(Map<String, Object> map) {
@@ -165,6 +162,34 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 		map.put("password", enPassword);
 		System.out.println("######"+map);
 		return sqlSession.update(NS+"encryptPassword",map);
+	}
+
+	@Override
+	public int updateMyInfoName(Map<String, Object> map) {
+		return sqlSession.update(NS+"updateMyInfoName",map);
+	}
+
+	@Override
+	public int updateMyInfoPw(Map<String, Object> map) {
+		String enPassword = passwordEncoder.encode((String)map.get("password"));		
+		map.put("password", enPassword);
+		System.out.println("Spring security에 의해서 암호화된 비밀번호 :" + map.get("password"));
+		return sqlSession.update(NS+"updateMyInfoPw", map);
+	}
+
+	@Override
+	public int updateMyInfoPhone(Map<String, Object> map) {
+		return sqlSession.update(NS+"updateMyInfoPhone",map);
+	}
+
+	@Override
+	public int updateMyInfoAddress(Map<String, Object> map) {
+		return sqlSession.update(NS+"updateMyInfoAddress",map);
+	}
+
+	@Override
+	public int updateMyInfoEmail(Map<String, Object> map) {
+		return sqlSession.update(NS+"updateMyInfoEmail",map);
 	}
 
 	

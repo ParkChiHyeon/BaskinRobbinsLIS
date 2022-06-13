@@ -2,6 +2,7 @@ package com.br.lis;
 
 
 
+
 import java.util.HashMap;
 
 
@@ -24,9 +25,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 import com.br.lis.model.member.service.API_Service;
-import com.br.lis.model.member.service.IAdminService;
-import com.br.lis.model.member.service.ILibMemberService;
 
+import com.br.lis.model.member.service.ILibMemberService;
+import com.br.lis.model.member.service.EmailService;
 import com.br.lis.vo.LibMemberVo;
 
 
@@ -39,6 +40,9 @@ public class MemberController {
 	
 	@Autowired
 	private ILibMemberService service;
+	
+	@Autowired
+	private EmailService eService;
 	
 
 	@Autowired
@@ -162,6 +166,7 @@ public class MemberController {
 		return "findIdPage";	
 	}
 	
+	/* 아이디 찾기 ajax */
 	@RequestMapping(value = "/findIdChk.do" ,method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> findIdChk(@RequestParam Map<String,Object> map, Model model) {
@@ -183,7 +188,7 @@ public class MemberController {
 		return resultMap;		
 	}
 	
-	
+		/* 아이디 찾기 */
 		@RequestMapping(value = "/findId.do", method=RequestMethod.GET)
 		public String findId(@RequestParam Map<String, Object> map,Model model) {
 	
@@ -192,7 +197,7 @@ public class MemberController {
 		
 		return "loginPage";
 	}
-		
+		/* 비밀번호 찾기 아작스 */
 		@RequestMapping(value = "/findPwChk.do", method = RequestMethod.POST)
 		public Map<String, Object> findPwChk(@RequestParam Map<String,Object> map) {
 			System.out.println(map);
@@ -210,7 +215,7 @@ public class MemberController {
 			
 		}
 		
-		/*회원정보 수정 화면 이동*/
+		/*마이페이지 화면 이동*/
 		@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
 		public String bookSearch(Model model,String page) {
 			logger.info("mypage memberInfoUpdate 이동");
@@ -218,33 +223,121 @@ public class MemberController {
 			return "myPage";
 		}
 		
-		@RequestMapping(value = "/memberInfoUpdate.do",method = RequestMethod.GET)
-		public String passwordForUpdate(@RequestParam Map<String, String> map, Model model, HttpSession session) {
+		/* 회원정보 수정 페이지 이동 */
+		@RequestMapping(value = "/memberInfoUpdatePage.do",method = RequestMethod.GET)
+		public String memberInfoUpdatePage(@RequestParam Map<String, Object> map, Model model, HttpSession session) {
 			logger.info("memberInfoUpdate passwordForUpdate 이동");
 			
 			LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+			
+//			int n = service.updateMyInfo(map);
 			
 			model.addAttribute("member",mVo);
 			model.addAttribute("page", "update");
+//			
 			return "myPage";
+		}
+				
+		@RequestMapping(value = "/memberInfoUpdatePw.do", method = RequestMethod.GET)
+		public String memberInfoUpdatePw(@RequestParam Map<String, Object> map) {
+			logger.info("MemberController = > memberInfoUpdate");
+			int n = service.updateMyInfoPw(map);
+			
+			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
+		}
+		
+		@RequestMapping(value = "/memberInfoUpdateName.do", method = RequestMethod.GET)
+		public String memberInfoUpdateName(@RequestParam Map<String, Object> map) {
+			logger.info("MemberController = > memberInfoUpdate");
+			int n = service.updateMyInfoName(map);
+			
+			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
+		}
+		
+		@RequestMapping(value = "/memberInfoUpdatePhone.do", method = RequestMethod.GET)
+		public String memberInfoUpdatePhone(@RequestParam Map<String, Object> map) {
+			logger.info("MemberController = > memberInfoUpdate");
+			int n = service.updateMyInfoPhone(map);
+			
+			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
+		}
+		
+		@RequestMapping(value = "/memberInfoUpdateAddress.do", method = RequestMethod.GET)
+		public String memberInfoUpdateAddress(@RequestParam Map<String, Object> map) {
+			logger.info("MemberController = > memberInfoUpdate");
+			int n = service.updateMyInfoAddress(map);
+			
+			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
+		}
+		
+		@RequestMapping(value = "/memberInfoUpdateEmailChk.do", method = RequestMethod.POST)
+		@ResponseBody
+		public String memberInfoUpdateEmailChk(String email) throws Exception {
+			Random rand  = new Random(); // 인증번호를 위한 난수 생성
+	        String numStr = "";
+	        for(int i=0; i<8; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+	        
+	        System.out.println("수신자 이메일 : " + email);
+	        System.out.println("인증번호 : " + numStr);
+			
+	        eService.sendMail(email,numStr);
+	        
+			return numStr;
+			
 		}
 		
 		
-		@RequestMapping(value = "/membertt.do",method = RequestMethod.GET)
-		public String membertt (@RequestParam Map<String, String> map, Model model, HttpSession session) {
-			logger.info("memberInfoUpdate passwordForUpdate 이동");
+		@RequestMapping(value = "/memberInfoUpdateEmail.do", method = RequestMethod.GET)
+		public String memberInfoUpdateEmail(@RequestParam Map<String, Object> map) {
+			logger.info("MemberController = > memberInfoUpdate");
+			int n = service.updateMyInfoEmail(map);
+			
+			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
+		}
+		
+		
+		@RequestMapping(value = "/memberQuitRequestPage.do", method = RequestMethod.GET)
+		public String memberQuitRequestPage(@RequestParam Map<String, Object> map, Model model, String quitRequest, HttpSession session) {
 			
 			LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
-			
+						
 			model.addAttribute("member",mVo);
-			model.addAttribute("page", "tt");
-			return "myPage";
+			model.addAttribute("page","quitRequest");
+			return "myPage";		
 		}
-
-	
-	
-	
-	
-	
+		
+		@RequestMapping(value = "/memberQuitRequestChk.do", method = RequestMethod.POST)
+		public Map<String, Object> memberQuitRequestChk(@RequestParam Map<String,String> map) {
+			
+			Map<String, Object> resultMap = new HashMap<String, Object>(map);
+			
+			LibMemberVo mVo = service.loginMember(map);
+				
+			if(mVo == null) {
+				resultMap.put("isc", "실패");
+			}else if(mVo != null){
+				resultMap.put("isc", "성공");
+			}	
+			
+			return resultMap;
+					
+		}
+		
+		@RequestMapping(value = "/memberQuitRequest.do", method = RequestMethod.GET)
+		public String memberQuitRequest(@RequestParam Map<String, Object> map, Model model) {
+			
+			int n = service.quitRequest(map);
+				
+			return (n==1)?"redirect:/logout.do":"redirect:/myPage.do";		
+		}
+		
+		
+//		./memberQuitRequest.do
+		
+		
+		
 	
 }

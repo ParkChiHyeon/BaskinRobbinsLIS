@@ -103,10 +103,38 @@ public class LibMemberServiceImpl implements ILibMemberService {
 		return mDao.selectMyInfo(map);
 	}
 
+	
 	@Override
-	public int updateMyInfo(Map<String, Object> map) {
-		logger.info("Lib_MemberServiceImpl  updateMyInfo : {} ", map);
-		return mDao.updateMyInfo(map);
+	public int updateMyInfoName(Map<String, Object> map) {
+		logger.info("Lib_MemberServiceImpl  updateMyInfoId : {} ", map);
+		return mDao.updateMyInfoName(map);
+	}
+	
+	@Override
+	public int updateMyInfoPhone(Map<String, Object> map) {
+		logger.info("Lib_MemberServiceImpl  updateMyInfoPhone : {} ", map);
+		return mDao.updateMyInfoPhone(map);
+	}
+	
+	
+	@Override
+	public int updateMyInfoPw(Map<String, Object> map) {
+		logger.info("Lib_MemberServiceImpl  updateMyInfoPw : {} ", map);
+		return mDao.updateMyInfoPw(map);
+	}
+	
+	
+	@Override
+	public int updateMyInfoAddress(Map<String, Object> map) {
+		logger.info("Lib_MemberServiceImpl  updateMyInfoAddress : {} ", map);
+		return mDao.updateMyInfoAddress(map);
+	}
+	
+	
+	@Override
+	public int updateMyInfoEmail(Map<String, Object> map) {
+		logger.info("Lib_MemberServiceImpl  updateMyInfoEmail : {} ", map);
+		return mDao.updateMyInfoEmail(map);
 	}
 
 	@Override

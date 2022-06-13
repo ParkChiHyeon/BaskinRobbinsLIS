@@ -1,39 +1,39 @@
-#id_textbox{
+#khu_id_textbox{
 	width: 300px;
 	height: 40px;
 }
 
-#pw_textbox{
+#khu_pw_textbox{
 	width: 300px;
 	height: 40px;	
 }
 
-#pwChk_textbox{
+#khu_pwChk_textbox{
 	width: 300px;
 	height: 40px;	
 }
 
-#name_textbox{
+#khu_name_textbox{
 	width: 300px;
 	height: 40px;	
 }
 
-label{
+#khu_label{
 	font-size: 20px;
 }
 
-#birth_textbox{
+#khu_birth_textbox{
 	width : 100px;
 	height: 40px;
 	margin-right: 0 auto;
 }
 
-#birth2_textbox{
+#khu_birth2_textbox{
 	width : 40px;
 	height: 40px;
 }
 
-#btnSignUp{
+#khu_btnSignUp{
 	width : 800px;
 	margin-top: 100px;
 	margin: 20px auto;
@@ -42,30 +42,30 @@ label{
 	text-align: center;
 }
 
-#zipSearch_textbox{
+#khu_zipSearch_textbox{
 }
 
-#phone_textbox{
+#khu_phone_textbox{
 	width: 300px;
 	height: 40px;
 }
 
-#detailAddress_textbox{
+#khu_detailAddress_textbox{
 	width: 600px;
 	height: 40px;
 		
 }
 
-#phoneCheck_textbox{
+#khu_phoneCheck_textbox{
 	width : 100px;
 	height: 40px;
 }
 
-#idInput{
+#khu_idInput{
 /* 	display: flex; */
 }
 
-#ulForm{
+#khu_ulForm{
 	margin : 40px auto; display: table; border: 2px solid;
 }
 
@@ -75,9 +75,14 @@ div #eye {
 
 div#eye i{
 	position :absolute;
-    left: 35%;
+    left: 46.5%;
     top : 53px;
     color: black;
+}
+
+#khu_quitRequestForm{
+	text-align: center;
+	padding: 200px;
 }
  
  

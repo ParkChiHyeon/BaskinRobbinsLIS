@@ -18,8 +18,6 @@
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="./include/js/gnb.js"></script>
 <script src="./include/js/idangerous.swiper.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <!-- <script src="./include/js/jquery-1.12.2.min.js"></script> -->
 <!-- <script src="./include/js/jquery.stringify.js"></script> -->
 <!-- <script src="./include/js/common.js"></script> -->
@@ -68,6 +66,8 @@
 			<div id="btnSearchTop"><a href="#link"><img src="./include/image/common/btn_serachTop.png" alt="검색창 열기"><span>검색</span></a></div>
 			<div id="indexNavi">
 	<ul id="topmenu">
+	
+	
 	<li id="gnb1"><a href="./bookSearch.do?kind=total" >자료검색</a>
 			<ul>
 			<li id="gnb1_1" class=""><a href="./bookSearch.do?kind=total" >통합검색</a>
@@ -140,7 +140,8 @@
 <!-- 					</li> -->
 <!-- 				</ul> -->
 <!-- 			</li> -->
-	<li id="gnb4"><a href="./viewAllBoard.do?kind=notice"" >정보마당</a>
+	
+	<li id="gnb4"><a href="./viewAllBoard.do?kind=notice">정보마당</a>
 			<ul>
 			<li id="gnb4_1" class=""><a href="./viewAllBoard.do?kind=notice" >공지사항</a>
 					</li>
@@ -172,6 +173,38 @@
 <!-- 					</li> -->
 <!-- 				</ul> -->
 <!-- 			</li> -->
+			
+			<c:if test="${admin.admin_id != null }">
+	<li id="gnb3"><a href="/jungang/10028/30004/program.do" >도서구매</a>
+			<ul>
+			<li id="gnb3_1" class=""><a href="/jungang/10028/30004/program.do" >정기도서 구매관리</a>
+					</li>
+				<li id="gnb3_2" class=""><a href="/jungang/10031/30005/program.do" >신청도서 구매관리</a>
+					</li>
+				<li id="gnb3_3" class=""><a href="/jungang/10032/30006/program.do" >발주관리</a>
+					</li>
+				<li id="gnb3_4" class=""><a href="/jungang/10034/30083/program.do" >구매도서 등록</a>
+					</li>
+				<li id="gnb3_5" class=""><a href="/jungang/10035/30007/program.do" >신규도서 조회</a>
+					</li>
+				</ul>
+			</li>		
+			</c:if>
+			
+			<c:if test="${admin.admin_id != null }">
+	<li id="gnb5"><a href="/jungang/10048/20026/bbsList.do" >대출/반납</a>
+			<ul>
+			<li id="gnb5_1" class=""><a href="/jungang/10048/20026/bbsList.do" >대출</a>
+					</li>
+				<li id="gnb5_2" class=""><a href="/jungang/10049/20028/bbsList.do" >반납</a>
+					</li>
+				<li id="gnb5_3" class=""><a href="/jungang/10050/20010/bbsList.do" >대출목록</a>
+					</li>
+				<li id="gnb5_4" class=""><a href="/jungang/10268/40006/content.do" >보유도서 목록</a>
+					</li>
+				</ul>
+			</li>
+			</c:if>
 	<li id="gnb6"><a href="/jungang/10054/40025/content.do" >도서관소개</a>
 			<ul>
 			<li id="gnb6_1" class=""><a href="/jungang/10054/40025/content.do" >도서관안내</a>
