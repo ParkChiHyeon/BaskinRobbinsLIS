@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.br.lis.model.member.mapper.ILibMemberDao;
 import com.br.lis.vo.LibMemberVo;
@@ -60,12 +61,13 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	}
 
 	@Override
+	@Transactional
 	public int resetUpdatePw(Map<String, Object> map) {
 		logger.info("Lib_MemberServiceImpl resetPw : {}", map);
-		int n = mDao.resetPw(map);
-		int m = mDao.updateNewPw(map);
-		String k = mDao.findPwOne(map);
-		logger.info(k);
+		int n = mDao.resetPw(map); //비밀번호 1로 초기화
+		int m = mDao.updateNewPw(map); //비밀번호 새로 전송
+		String k = mDao.findPwOne(map); // password <<
+		logger.info("새로 발급받은 비밀번호: {}" ,k);
 		int j = mDao.encryptPassword(k, map);
 		
 		
@@ -168,7 +170,7 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	}
 
 	@Override
-	public int notificationYN(Map<String, Object> map) {
+	public boolean notificationYN(Map<String, Object> map) {
 		logger.info("Lib_MemberServiceImpl notificationYN : {} ", map);
 		return mDao.notificationYN(map);
 	}

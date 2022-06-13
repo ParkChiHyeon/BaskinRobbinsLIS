@@ -262,8 +262,8 @@ public class TestLisJunit_KHU {
 	public void notificationYN() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("member_id", "gnldnd125852");
-		int cnt = mDao.notificationYN(map);
-		logger.info("알림 설정 결과 :{}", cnt);
+//		int cnt = mDao.notificationYN(map);
+//		logger.info("알림 설정 결과 :{}", cnt);
 	}
 	
 	
