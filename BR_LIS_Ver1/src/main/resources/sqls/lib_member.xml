@@ -112,7 +112,7 @@
 	<select id="selectMyInfo" parameterType="java.util.Map" resultType="LibMemberVo">
 	SELECT MEMBER_ID,PASSWORD,PHONE, 
 	NAME, ADDRESS, EMAIL, 
-	AUTH, NOTIFICATION,BIRTH
+	AUTH, NOTIFICATION,BIRTH,member_code,RENTAL_COUNT
 	FROM LIB_MEMBER
 	WHERE MEMBER_ID =#{member_id}
 	</select>

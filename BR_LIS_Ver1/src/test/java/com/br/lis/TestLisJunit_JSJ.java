@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.br.lis.model.lendinginfo.mapper.ILendingBookDao;
 import com.br.lis.model.lendinginfo.service.ILendingBookService;
+import com.br.lis.model.member.mapper.ILibMemberDao;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.LendBookBean;
 import com.br.lis.vo.LendingVo;
@@ -29,6 +30,9 @@ public class TestLisJunit_JSJ {
 	
 	@Autowired
 	private ILendingBookDao dao;
+	
+	@Autowired
+	private ILibMemberDao iDao;
 	
 	@Autowired
 	private ILendingBookService bService;
@@ -43,6 +47,16 @@ public class TestLisJunit_JSJ {
 		List<LendBookBean> n= dao.nowLendingBook(book_serial);
 		System.out.println(n);
 	}
+	
+//	@Test  
+	public void memberSelect() {
+		logger.info("memberSelect _ 회원조회");
+		Map<String,Object> mMap = new HashMap<String, Object>();
+		mMap.put("member_id","user001");
+		LibMemberVo vo = iDao.selectMyInfo(mMap);
+		System.out.println(vo);
+	}
+	
 	// OK	
 //	@Test
 	public void allReserveLending() {
@@ -101,8 +115,8 @@ public class TestLisJunit_JSJ {
 		vo.setBook_serial("BKSR100035");
 		vo.setMember_code("M2205000050");
 		
-		int n = dao.insertLendingBook(vo);
-		System.out.println(n);
+//		int n = dao.insertLendingBook(vo);
+		System.out.println();
 	}
 	// OK
 //	@Test
@@ -110,8 +124,8 @@ public class TestLisJunit_JSJ {
 		logger.info("insertLendingBookUpdate _대출 신청 상태변경");
 		LendingVo vo = new LendingVo();
 		vo.setBook_serial("BKSR100035");
-		int n = dao.insertLendingBookUpdate(vo);
-		System.out.println(n);
+//		int n = dao.insertLendingBookUpdate(vo);
+		System.out.println();
 	}
 	// OK -
 //	@Test

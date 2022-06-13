@@ -22,7 +22,7 @@ public interface ILendingBookService {
 		
 		
 		//BR_W_BM_204 대출 신청 트렌젝션 처리
-		public int lendingBook(LendingVo vo,String member_code);
+		public int lendingBook(String book_serial,String member_code);
 		
 		//도서연체패널티대상 조회 -대출시 필요
 		public List<LibMemberVo> deleyPenalty();
