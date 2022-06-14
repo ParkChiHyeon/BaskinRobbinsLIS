@@ -16,70 +16,107 @@
 <%@ include file="./header.jsp"%>
 <body>
 
-
-<h1>즉시대출 신청</h1>
-<h2>도서정보</h2>
-${listBean}
-<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>대출코드</th>
-				<th>ISBN</th>
-				<th>도서제목</th>
-				<th>저자</th>
-				
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="lBean" items="${listBean}" varStatus="vs">
-			<tr>
-				<td>${lBean.lending_seq}</td>
-				<td>${lBean.member_code}</td>
-				<td>${lBean.title}</td>
-				<td>${lBean.author}</td>
-				<td>${lBean.lending_delay}</td>
-				<td>${lBean.lending_date}</td>
-				<td>${lBean.end_date}</td>
-				<td>${lBean.back_date}</td>
-			</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
-
-
-
-<div class="container">		
-		<table  id="dataTable" class="cell-border">
-		<thead>
-			<tr>
-				<th>대출코드</th>
-				<th>회원번호</th>
-				<th>도서제목</th>
-				<th>저자</th>
-				<th>연장여부</th>
-				<th>대출일</th>
-				<th>반납예정일</th>
-				<th>반납일</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="lBean" items="${listBean}" varStatus="vs">
-			<tr>
-				<td>${lBean.lending_seq}</td>
-				<td>${lBean.member_code}</td>
-				<td>${lBean.title}</td>
-				<td>${lBean.author}</td>
-				<td>${lBean.lending_delay}</td>
-				<td>${lBean.lending_date}</td>
-				<td>${lBean.end_date}</td>
-				<td>${lBean.back_date}</td>
-			</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	
+<h1><a href="./adminLenList.do">■ 예약자 대출신청</a></h1>
+<hr>
+<h1>■즉시대출 신청</h1>
+<div class="naviandtitle"> 
+	<h3>도서정보</h3>
 </div>
+
+<input id="book"  type="text" onchange="bookInfo()">
+<div id="result2" hidden=""> </div>
+
+<form action="">
+	<div class="container">
+			<table  id="dataTable" class="table table-bordered">
+			<thead>
+				<tr>
+					<th>도서코드</th>
+					<th>ISBN</th>
+					<th>도서제목</th>
+					<th>저자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="lBean" items="${listBean}" varStatus="vs">
+				<tr>
+					<td><input type="hidden" id="book_serial" value=" ${lBean.book_serial}">${lBean.book_serial}</td>
+					<td>${lBean.isbn}</td>
+					<td>${lBean.title}</td>
+					<td>${lBean.author}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>	
+<div class="naviandtitle"> 
+<h3>회원정보</h3>
+</div>
+<h3>  ${lVo.member_id}</h3>
+	<div class="container">	
+		<table  id="dataTable" class="table table-bordered">
+			<thead>
+				<tr>
+					<th>회원아이디</th>
+					<th>회원코드</th>
+					<th>이름</th>
+					<th>핸드폰번호</th>
+					<th>주소</th>
+					<th>이메일</th>
+					<th>대여가능권수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>${lVo.member_id}</td>
+					<td><input type="hidden" id="member_code" value=" ${lVo.member_code}"> ${lVo.member_code}</td>
+					<td>${lVo.name}</td>
+					<td>${lVo.phone}</td>
+					<td>${lVo.address}</td>
+					<td>${lVo.email}</td>
+					<td><input type="hidden" id="rental_count" value=" ${lVo.rental_count}" onload="rentalCount()">${lVo.rental_count}</td>
+					
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<c:if test="${lVo.rental_count ne 0}">
+		<button class="btn btn-outline-secondary" type="button" onclick="fastLending()">대출 신청</button>
+		<button class="btn btn-outline-secondary" type="button" onclick="con()">신청 확인</button>
+	</c:if>
+<button class="btn btn-outline-secondary" type="button" onclick="location.href='./home.do'">돌아가기</button>
+	<div id="result"></div>
+</form>	
 <script type="text/javascript">
+function fastLending() {
+	var member_code  = document.getElementById("member_code").value;
+	var book_serial  = document.getElementById("book_serial").value;
+	var rental_count  = document.getElementById("rental_count").value;
+	console.log(member_code,book_serial);
+	console.log(rental_count);
+	$.ajax({
+		url : "./fastLending.do",
+		data : {
+			"bookserial" : book_serial,
+			"member" : member_code,
+			"vo" : member_code,book_serial
+		},
+		type:"get",
+		async:true,
+		success : function(data){
+			console.log("성공");
+			console.log(data);
+			if(data == "true"){
+				alert("성공~~대출되었습니다");
+				location.href="./lendingBookAdmin.do";
+			}
+		}
+	});
+}
+
+
 $(document).ready(function () {
     $('#dataTable').DataTable({
     	//https://datatables.net/reference/option/language
@@ -113,6 +150,39 @@ $(document).ready(function () {
     
     });
 } );
+
+function rentalCount(){
+	var rental =document.getElementById("rental_count").value; 
+	document.getElementById("result").innerText = rental;
+	console.log(rental);
+	if(rental==0){
+		$("#result").css("color","red");
+		$("#result").html("대출 가능한 권수는 0권입니다.");
+		alert("대출 가능한 권수는 0권입니다.");
+	}
+}
+
+
+function bookInfo(){
+	  var name = document.getElementById("book").value;
+	  document.getElementById("result2").innerText = name;
+	  console.log(name);
+	  $.ajax({
+		 	 url : "./lendingBookAdmin.do",
+			data : {
+				"name" : name,
+			},
+			 type : "get",
+			async : true,
+			
+			success : function(data){
+// 				console.log(name);
+// 				console.log("name");
+// 			console.log("성공");
+// 			}
+	  });
+	  }
+	
 </script>
 
 

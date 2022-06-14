@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import com.br.lis.model.member.service.API_Service;
 
@@ -144,20 +144,28 @@ public class MemberController {
 		return resultMap;
 	}
 	/* sms 인증 */
-	@RequestMapping(value = "/sendSMS.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/sendSMS.do",method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public String sendSMS(String phone) {
+	public ModelAndView sendSMS(String phone) {
+		
+		ModelAndView mav = new ModelAndView();
+		
 		  Random rand  = new Random(); // 인증번호를 위한 난수 생성
 	        String numStr = "";
 	        for(int i=0; i<8; i++) {
 	            String ran = Integer.toString(rand.nextInt(10));
 	            numStr+=ran;
 	        }
+	        
 	        System.out.println("수신자 번호 : " + phone);
 	        System.out.println("인증번호 : " + numStr);
 	        cService.certifiedPhoneNumber(phone,numStr);
 	        
-	        return numStr;
+	        mav.addObject("numStr", numStr);
+	        mav.setViewName("loginPage");
+	        logger.info("인증받은 번호 :{}", mav);
+	        
+	        return mav;
 	    }
 	
 	/* 회원가입 폼 이동 */
@@ -237,7 +245,8 @@ public class MemberController {
 //			
 			return "myPage";
 		}
-				
+		
+		/* 회원 비밀번호 변경 */		
 		@RequestMapping(value = "/memberInfoUpdatePw.do", method = RequestMethod.GET)
 		public String memberInfoUpdatePw(@RequestParam Map<String, Object> map) {
 			logger.info("MemberController = > memberInfoUpdate");
@@ -246,6 +255,7 @@ public class MemberController {
 			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
 		}
 		
+		/* 회원 이름 변경 */	
 		@RequestMapping(value = "/memberInfoUpdateName.do", method = RequestMethod.GET)
 		public String memberInfoUpdateName(@RequestParam Map<String, Object> map) {
 			logger.info("MemberController = > memberInfoUpdate");
@@ -254,6 +264,7 @@ public class MemberController {
 			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
 		}
 		
+		/* 회원 전화번호 변경 */	
 		@RequestMapping(value = "/memberInfoUpdatePhone.do", method = RequestMethod.GET)
 		public String memberInfoUpdatePhone(@RequestParam Map<String, Object> map) {
 			logger.info("MemberController = > memberInfoUpdate");
@@ -262,6 +273,7 @@ public class MemberController {
 			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
 		}
 		
+		/* 회원 주소 변경 */
 		@RequestMapping(value = "/memberInfoUpdateAddress.do", method = RequestMethod.GET)
 		public String memberInfoUpdateAddress(@RequestParam Map<String, Object> map) {
 			logger.info("MemberController = > memberInfoUpdate");
@@ -270,6 +282,7 @@ public class MemberController {
 			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
 		}
 		
+		/* 회원 이메일 인증번호 전송 */
 		@RequestMapping(value = "/memberInfoUpdateEmailChk.do", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberInfoUpdateEmailChk(String email) throws Exception {
@@ -289,7 +302,7 @@ public class MemberController {
 			
 		}
 		
-		
+		/*회원 이메일 변경 */
 		@RequestMapping(value = "/memberInfoUpdateEmail.do", method = RequestMethod.GET)
 		public String memberInfoUpdateEmail(@RequestParam Map<String, Object> map) {
 			logger.info("MemberController = > memberInfoUpdate");
@@ -298,7 +311,20 @@ public class MemberController {
 			return (n==1)? "redirect:/logout.do":"redirect:/memberInfoUpdate.do";
 		}
 		
+		/*  알림 수신 변경 */
+//		@RequestMapping(value = "/memberInfoUpdateNotification.do", method = RequestMethod.POST)
+//		@ResponseBody
+//		public Map<String, String> memberInfoUpdateNotification(@RequestParam Map<String, Object> map) {
+//			Map<String, String> resultMap = new HashMap<String, String>();
+//			logger.info("MemberController memberInfoUpdateNotification: {}", map);
+//			
+//			boolean isc = service.notificationYN(map);
+//			resultMap.put("isc", String.valueOf(isc));
+//			
+//			return resultMap;
+//		}
 		
+		/* 회원 탈퇴신청 페이지 이동 */
 		@RequestMapping(value = "/memberQuitRequestPage.do", method = RequestMethod.GET)
 		public String memberQuitRequestPage(@RequestParam Map<String, Object> map, Model model, String quitRequest, HttpSession session) {
 			
@@ -309,6 +335,7 @@ public class MemberController {
 			return "myPage";		
 		}
 		
+		/* 회원 탈퇴 아작스 */
 		@RequestMapping(value = "/memberQuitRequestChk.do", method = RequestMethod.POST)
 		public Map<String, Object> memberQuitRequestChk(@RequestParam Map<String,String> map) {
 			
@@ -326,6 +353,7 @@ public class MemberController {
 					
 		}
 		
+		/* 회원 탈퇴 */
 		@RequestMapping(value = "/memberQuitRequest.do", method = RequestMethod.GET)
 		public String memberQuitRequest(@RequestParam Map<String, Object> map, Model model) {
 			
@@ -333,6 +361,8 @@ public class MemberController {
 				
 			return (n==1)?"redirect:/logout.do":"redirect:/myPage.do";		
 		}
+		
+		
 		
 		
 //		./memberQuitRequest.do

@@ -43,12 +43,15 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	
 	// BR_W_BM_204 대출 신청 Transction처리  : 대출 신청 후 대출가능여부변경 LD =Y , DG =N  + 대여가능권수변경
 	@Override
-	public int lendingBook(LendingVo vo,String member_code) {
-		logger.info(" lendingBook 대출 신청 후 보유도서 상태변경",vo,member_code);
-		int n = dao.insertLendingBook(vo);
-		int m = dao.insertLendingBookUpdate(vo);
+	public int lendingBook(String book_serial,String member_code) {
+		logger.info(" lendingBook 대출 신청 후 보유도서 상태변경",book_serial,member_code);
 		int x = dao.lendingCount(member_code);
-		return (n>0&&m>0&&x>0)?1:0;
+		LendingVo vo = new LendingVo();
+		vo.setBook_serial(book_serial);
+		vo.setMember_code(member_code);
+		int n = dao.insertLendingBook(vo);
+		int m = dao.insertLendingBookUpdate(book_serial);
+		return (x>0&&n>0&&m>0)?1:0;
 	}
 
 	

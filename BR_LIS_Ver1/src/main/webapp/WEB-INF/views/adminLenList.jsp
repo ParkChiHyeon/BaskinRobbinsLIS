@@ -15,6 +15,8 @@
 <%@ include file="./header.jsp"%>
 <body>
 <h1>예약목록전체조회(관리자)</h1>
+<input class="btn btn-outline-secondary" type="button" onclick="location.href='./lendingBookAdmin.do'" value="돌아가기">
+
 <div class="container">	
 	<form action="./confrimReserve.do">
 

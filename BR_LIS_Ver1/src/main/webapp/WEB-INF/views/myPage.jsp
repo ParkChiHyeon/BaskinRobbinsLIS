@@ -24,7 +24,7 @@
 <!-- js 넣어라 -->
 <script type="text/javascript" src="./khu_js/myPage.js"></script>
 <script type="text/javascript" src="./BR_js/myPageHIK.js"></script>
-
+<script type="text/javascript" src="./BR_js/myPageJSJ.js"></script> 
 
 
 <!-- js 끝 -->

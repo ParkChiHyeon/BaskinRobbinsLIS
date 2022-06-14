@@ -1,5 +1,5 @@
 var key ='15b0f156b4d728ec98c5b8c31a0d9193';
-var jsonSource = [];
+var jsonSource;
 
 function bookSearchTotal(){
 	var table = $("#bookSearchTotal").DataTable();
@@ -19,23 +19,18 @@ function bookSearchTotal(){
 	$.ajax({
 		method:"POST",
 		contentType:"application/json;",
-		url:"https://f087-211-197-28-137.jp.ngrok.io/book_info/_search",		
+		url:"http://152.67.196.32:9200/book_info/_search",		
 		data:JSON.stringify(queryStr),
 		dataType:"json",
 		beforeSend:function(){
 	       	 $(".wrap-loading").css("display","block");  
 	    },
 		success:function(res){
-			 var data = res.hits.hits;
-			console.log("--★★★★★★--");
-			jsonSource.splice(0, jsonSource.length);
-			for(let i=0; i<data.length;i++){
-//				jsonSource.push(JSON.parse(data[i]._source.status_code));
-				jsonSource.push(data[i]._source)
-			}
+			jsonSource = res.hits.hits;
+			console.log(jsonSource);
 			// jsonSource[0].img="imgtestal" 제이슨 추가 
 			for(let i=0; i<jsonSource.length;i++){
-				jsonSource[i].img=kakaoBookImg(jsonSource[i].isbn);
+				jsonSource[i]._source.img=kakaoBookImg(jsonSource[i]._source.isbn);
 			}
 				$(".wrap-loading").css("display","none");
 		}
@@ -72,16 +67,16 @@ function bookSearchTotal(){
 		 	 columns: [
 				{ 	
 					render:function(data,type,row){
-					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row.img+'>' 
+					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row._source.img+'>' 
 					return html;
 				  }},
 		  		{ title:'도서',
 				 
 		          render:function(data,type,row){
-					var	html= '<p id="result_title">'+row.title+'</p>'; 
-					    html+= row.author+'<br>';
-					    html+= row.publisher+'<br>';
-					    html+= row.isbn;						
+					var	html= '<p id="result_title">'+row._source.title+'</p>'; 
+					    html+= row._source.author+'<br>';
+					    html+= row._source.publisher+'<br>';
+					    html+= row._source.isbn;						
 					return html;
 				  }
 				}
@@ -125,11 +120,10 @@ function bookSearchRequest(){
 	        	 $(".wrap-loading").css("display","block");  
 	    	},
 			success:function(data){
-				jsonSource.splice(0, jsonSource.length);
+				jsonSource = data.documents;
 				for(let i=0; i<data.documents.length;i++){
-					jsonSource.push(data.documents[i])
-					if(data.documents[i].thumbnail==''){
-						data.documents[i].thumbnail="./img/noImg.gif";
+					if(jsonSource[i].thumbnail==''){
+						jsonSource[i].thumbnail="./img/noImg.gif";
 					}
 				}				
 				$(".wrap-loading").css("display","none");
@@ -210,7 +204,7 @@ function bookSearchDetail(){
 	$.ajax({
 		method:"POST",
 		contentType:"application/json;",
-		url:"https://f087-211-197-28-137.jp.ngrok.io/book_info/_search",		
+		url:"http://152.67.196.32:9200/book_info/_search",		
 		data:JSON.stringify(queryStr),
 		dataType:"json",
 //		headers:{
@@ -220,16 +214,12 @@ function bookSearchDetail(){
 	        	 $(".wrap-loading").css("display","block");  
 	    },
 		success:function(res){
-			 var data = res.hits.hits;
-			console.log("--★★★★★★--");
-			jsonSource.splice(0, jsonSource.length);
-			for(let i=0; i<data.length;i++){
+			 jsonSource = res.hits.hits;
+			console.log(jsonSource);
 //				jsonSource.push(JSON.parse(data[i]._source.status_code));
-				jsonSource.push(data[i]._source)
-			}
 			// jsonSource[0].img="imgtestal" 제이슨 추가 
 			for(let i=0; i<jsonSource.length;i++){
-				jsonSource[i].img=kakaoBookImg(jsonSource[i].isbn);
+				jsonSource[i]._source.img=kakaoBookImg(jsonSource[i]._source.isbn);
 			}
 				$(".wrap-loading").css("display","none");
 		}
@@ -266,16 +256,16 @@ function bookSearchDetail(){
 		 	 columns: [
 				{ 	
 					render:function(data,type,row){
-					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row.img+'>' 
+					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row._source.img+'>' 
 					return html;
 				  }},
 		  		{ 
 					title:'도서',
 		        	render:function(data,type,row){
-						var	html= '<p id="result_title">'+row.title+'</p>'; 
-					    html+= row.author+'<br>';
-					    html+= row.publisher+'<br>';
-					    html+= row.isbn;						
+						var	html= '<p id="result_title">'+row._source.title+'</p>'; 
+					    html+= row._source.author+'<br>';
+					    html+= row._source.publisher+'<br>';
+					    html+= row._source.isbn;						
 					return html;
 				  }
 				}
@@ -304,23 +294,18 @@ function bookSearchHome(searchKey,searchKeyword){
 	$.ajax({
 		method:"POST",
 		contentType:"application/json;",
-		url:"https://f087-211-197-28-137.jp.ngrok.io/book_info/_search",		
+		url:"http://152.67.196.32:9200/book_info/_search",		
 		data:JSON.stringify(queryStr),
 		dataType:"json",
 		beforeSend:function(){
 	       	 $(".wrap-loading").css("display","block");  
 	    },
 		success:function(res){
-			 var data = res.hits.hits;
-			console.log("--★★★★★★--");
-			jsonSource.splice(0, jsonSource.length);
-			for(let i=0; i<data.length;i++){
-//				jsonSource.push(JSON.parse(data[i]._source.status_code));
-				jsonSource.push(data[i]._source)
-			}
+			 jsonSource = res.hits.hits;
+			console.log(jsonSource);
 			// jsonSource[0].img="imgtestal" 제이슨 추가 
 			for(let i=0; i<jsonSource.length;i++){
-				jsonSource[i].img=kakaoBookImg(jsonSource[i].isbn);
+				jsonSource[i]._source.img=kakaoBookImg(jsonSource[i]._source.isbn);
 			}
 				$(".wrap-loading").css("display","none");
 		}
@@ -357,16 +342,16 @@ function bookSearchHome(searchKey,searchKeyword){
 		 	 columns: [
 				{ 	
 					render:function(data,type,row){
-					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row.img+'>' 
+					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row._source.img+'>' 
 					return html;
 				  }},
 		  		{ title:'도서',
 				 
 		          render:function(data,type,row){
-					var	html= '<p id="result_title">'+row.title+'</p>'; 
-					    html+= row.author+'<br>';
-					    html+= row.publisher+'<br>';
-					    html+= row.isbn;						
+					var	html= '<p id="result_title">'+row._source.title+'</p>'; 
+					    html+= row._source.author+'<br>';
+					    html+= row._source.publisher+'<br>';
+					    html+= row._source.isbn;						
 					return html;
 				  }
 				}

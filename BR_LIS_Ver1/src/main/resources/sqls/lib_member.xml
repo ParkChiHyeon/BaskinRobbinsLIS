@@ -35,7 +35,7 @@
 	
 	<!--  일반회원 로그인 BR_W_UM_009-->
 	<select id="loginMember" parameterType="java.util.Map" resultType="LibMemberVo">
-	SELECT MEMBER_ID,AUTH,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT
+	SELECT MEMBER_ID,AUTH,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT,NOTIFICATION
 	FROM  LIB_MEMBER
 	WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
 	AND AUTH != 'TT' AND AUTH != 'F'
@@ -43,7 +43,7 @@
 	
 	<!-- 암호화를 위한 ID 로그인-->
 	<select id="enLogin" parameterType="java.util.Map" resultType="LibMemberVo">
-		SELECT MEMBER_ID, AUTH,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT 
+		SELECT MEMBER_ID, AUTH,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT,NOTIFICATION 
 		FROM LIB_MEMBER WHERE MEMBER_ID=#{member_id}
 		AND AUTH != 'TT' AND AUTH != 'F' 
 	</select>
@@ -81,8 +81,8 @@
 	<!-- 임시 비밀번호 발급  BR_W_UM014 -->
 	<update id="updateNewPw" parameterType="java.util.Map">
 	UPDATE LIB_MEMBER 
-  	SET PASSWORD =TRUNC(DBMS_RANDOM.VALUE(10000000,9000000))
-  	WHERE PASSWORD = '1' AND MEMBER_ID=#{member_id} AND PHONE =#{phone}
+  	SET PASSWORD =#{password}
+  	WHERE MEMBER_ID=#{member_id} AND PHONE =#{phone}
 	</update>
 	
 	<!-- 관내 회원 등록  BR_W_UM_015 -->
@@ -112,7 +112,7 @@
 	<select id="selectMyInfo" parameterType="java.util.Map" resultType="LibMemberVo">
 	SELECT MEMBER_ID,PASSWORD,PHONE, 
 	NAME, ADDRESS, EMAIL, 
-	AUTH, NOTIFICATION,BIRTH
+	AUTH, NOTIFICATION,BIRTH,member_code,RENTAL_COUNT
 	FROM LIB_MEMBER
 	WHERE MEMBER_ID =#{member_id}
 	</select>
@@ -161,7 +161,7 @@
 	<update id="quitRequest" parameterType="java.util.Map">
 	UPDATE LIB_MEMBER 
   	SET AUTH ='F'
-  	WHERE MEMBER_ID =#{member_id} AND PASSWORD = #{password}
+  	WHERE MEMBER_ID =#{member_id} AND PHONE = #{phone}
   	AND RENTAL_COUNT = 5
 	</update>
 	

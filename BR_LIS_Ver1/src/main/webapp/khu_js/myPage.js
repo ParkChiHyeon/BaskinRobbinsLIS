@@ -16,9 +16,40 @@
 		 
 		 	function updatePw(){
 			var frm = document.getElementById("khu_updateInfoForm")
+			var pw = document.getElementById("khu_pw_textbox").value;
 			frm.action = "./memberInfoUpdatePw.do"
+			var reg = "^(?=.*[a-zA-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$";
+			if(pw.match(reg)){
 				swal({
     					title : "성공\n비밀번호를 변경하였습니다",					
+        				icon  : "success",
+        				closeOnClickOutside : false
+    					}, function(){
+						frm.submit();
+							}
+					)}else{
+						swal('실패','8~20자리 대소문자 특수문자 숫자 포함');
+						return false;
+					}
+			}
+			
+			
+			function updateName(){
+			var frm = document.getElementById("khu_updateInfoForm")
+			frm.action = "./memberInfoUpdateName.do"
+			var name = document.getElementById("khu_name_textbox").value;
+			var reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+			
+			if(name==""|| name.trim==""){
+				swal('실패','공백이 있거나 정보를 기입하지 않았습니다');
+				return false;		
+			}else if(name == name){	
+				swal('실패','기존에 쓰던 이름으로 변경할 수 없습니다');
+				}else if(name.match(reg)){
+				swal('실패','이름에 특수문자가 들어갈 수 없습니다 ');	
+				}else{
+					swal({
+    					title : "성공\n이름을 변경하였습니다",					
         				icon  : "success",
         				closeOnClickOutside : false
     					}, function(){
@@ -27,17 +58,6 @@
 					)
 			}
 			
-			function updateName(){
-			var frm = document.getElementById("khu_updateInfoForm")
-			frm.action = "./memberInfoUpdateName.do"
-			swal({
-    					title : "성공\n이름을 변경하였습니다",					
-        				icon  : "success",
-        				closeOnClickOutside : false
-    					}, function(){
-						frm.submit();
-							}
-					)
 			}
 			
 			function updatePhone(){
@@ -109,29 +129,27 @@
 			}
 			
 			function khu_quitRequest(){
-				var khu_pw = document.getElementById("khu_pw")
-				var khu_id = document.getElementById("khu_hiddenId")
-				var khu_rc = document.getElementById("khu_hiddenRentalCount");
 				var khu_frm = document.getElementById("khu_quitRequestForm")
+				var khu_id = document.getElementById("khu_hiddenId")
+				var khu_phone = document.getElementById("khu_pw");
+				var khu_rc = document.getElementById("khu_hiddenRentalCount");
 				
-				console.log(khu_id.value);
-				console.log(khu_pw.value);
+				khu_frm.action = "./memberQuitRequest.do"
 				
-				khu_frm.action="./memberQuitRequest.do"
-				
-				if(khu_pw.value =="" ||khu_pw.value.trim ==""){
-					swal('비밀번호를 입력해주세요');
-					khu_pw.value="";
-    				khu_pw.focus();
+				if(khu_id.value == "" || khu_id.value.trim ==""){
+					swal('값을 입력해 주세요');
+						khu_id.value="";
+    					khu_id.focus();
 				}else{
 					$.ajax({
-						type:"POST",
+						type : "post",
 						url: "./memberQuitRequestChk.do",
-						data :"member_id="+khu_id.value+"&password="+khu_pw.value+"&rental_count="+khu_rc.value,
-						success:function(msg){
-							if (msg.isc=="성공") {
+						data : "member_id =" +khu_id.value +"&phone="+khu_phone.value+"&rental_count="+khu_rc.value,
+						success:function(msg){ 				
+    					console.log(msg.isc , typeof msg);
+    					if (msg.isc=="성공") {
     						swal({
-    					title : "탈퇴신청 성공\n로그아웃 됩니다",					
+    					title : "탈퇴 성공\n로그아웃 합니다",					
         				icon  : "success",
         				closeOnClickOutside : false
     					}, function(){
@@ -139,17 +157,24 @@
     						console.log(msg.isc);
     					});
     					}else{
-    						swal("탈퇴신청 실패","정보가 틀렸습니다");
+    						swal("탈퇴 실패","재인증 해주세요");
     					}
-					},
+    				},
     				error:function(){
-    					swal("로그인 실패","에러가 발생하였습니다")
-    					console.log(khu_id.value);
-    	     			console.log(khu_pw.value);
-    				
-						}
-					});
-				}	
+    					swal("탈퇴 실패","에러가 발생하였습니다")
+    				}
+					})
+				}
 			}
+			
+				
+
+			
+		
+				
+				
+				
+				
+
 			
 			
