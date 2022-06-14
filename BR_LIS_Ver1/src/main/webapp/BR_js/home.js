@@ -3,7 +3,7 @@ function noticeList(){
 	$.ajax({
 		method:"POST",
 		contentType:"application/json;",
-		url:"https://f087-211-197-28-137.jp.ngrok.io/notice_board/_search",		
+		url:"http://152.67.196.32:9200/notice_board/_search",		
 		data:JSON.stringify({"from":"0","size":"7","sort":{["notice_seq"]:"desc"}}),
 		dataType:"json",
 		success:function(res){
@@ -21,7 +21,7 @@ function faqList(){
 	$.ajax({
 		method:"POST",
 		contentType:"application/json;",
-		url:"https://f087-211-197-28-137.jp.ngrok.io/faq_board/_search",		
+		url:"http://152.67.196.32:9200/faq_board/_search",		
 		data:JSON.stringify({"from":"0","size":"7","sort":{["faq_seq"]:"desc"}}),
 		dataType:"json",
 		success:function(res){
