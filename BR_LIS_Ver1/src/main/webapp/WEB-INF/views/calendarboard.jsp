@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="./dist/datetimepicker/jquery.datetimepicker.css">
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./dist/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="./dist/fullcalendar-5.10.2/lib/main.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -50,9 +49,6 @@
 </style>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$(".fc-event-past").attr("href","http://naver.com")
-})
 function blockToCalendar(){
 	selectCalendar();
 }

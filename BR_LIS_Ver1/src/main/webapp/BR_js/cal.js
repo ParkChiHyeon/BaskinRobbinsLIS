@@ -1,14 +1,23 @@
 //fullcalendar
-var listData;
+var listData=[];
 document.addEventListener('DOMContentLoaded', callList());
-
 function callList(){
 	$.ajax({
-		type: "get",
-		url: "./calendarAjax.do",
-		dataType: "json",
+		type: "POST",
+		contentType:"application/json;",
+		url: "http://152.67.196.32:9200/calendar_board/_search",
+		data:JSON.stringify({"from":"0","size":"10000","sort":{"calendar_seq":"desc"}}),
+		dataType:"json",
 		success: function(data) {
-				listData=data;
+			var data = data.hits.hits;
+			console.log("--★★★★★★--");
+			listData.splice(0, listData.length);
+			for(let i=0; i<data.length;i++){
+//				jsonSource.push(JSON.parse(data[i]._source.status_code));
+				listData.push(data[i]._source)
+				listData[i].start=data[i]._source.start_date;
+				listData[i].end=data[i]._source.start_date;
+			}
 				console.log(listData)
 			selectCalendar("onload");
 		}
@@ -109,7 +118,7 @@ function selectTable() {
             {    
             	title:'일정',
                render:function(data,type,row){
-                  var   html= '<span><a href="./detailcalendar.do?seq='+row.seq+'">'+row.title+'</a></span>';  
+                  var   html= '<span><a href="./detailcalendar.do?seq='+row.calendar_seq+'">'+row.title+'</a></span>';  
                return html;
                }
 			},
