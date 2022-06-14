@@ -40,7 +40,7 @@ public interface ILibMemberService {
 
 	public int endPenalty();
 
-	public int notificationYN(Map<String, Object> map);
+	public boolean notificationYN(Map<String, Object> map);
 	
 	//비밀번호 확인
 	public String pwChk(Map<String, Object> map);

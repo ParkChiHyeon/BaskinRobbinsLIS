@@ -51,7 +51,7 @@ public interface ILibMemberDao {
 
 	public int endPenalty();
 
-	public int notificationYN(Map<String, Object> map);
+	public boolean notificationYN(Map<String, Object> map);
 
 //	public int encryptPassword(String k);
 	
