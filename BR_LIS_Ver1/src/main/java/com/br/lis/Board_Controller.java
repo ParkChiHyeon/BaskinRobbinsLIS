@@ -47,8 +47,6 @@ public class Board_Controller {
 	/*
 	 * 게시판 흐름제어 클래스
 	 */
-
-
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
@@ -145,7 +143,6 @@ public class Board_Controller {
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		
 		try {
 		//파일 이름 가져오기
 		String fileName = upload.getOriginalFilename();
@@ -193,7 +190,6 @@ public class Board_Controller {
 			File uploadFile = new File(uploadName);
 			File backupFile = new File(backupName);
 			
-			
 			//파일 생성
 			bout = new FileOutputStream(uploadFile);
 			out = new FileOutputStream(backupFile);
@@ -225,8 +221,6 @@ public class Board_Controller {
 			}
 		}
 		return;
-		
-		
 	}
 	
 	@RequestMapping(value = "/download.do")
@@ -258,15 +252,8 @@ public class Board_Controller {
 		response.setContentType("application/octet-stream");
 			
 		return bytes;
-	
 		
 	}
-
-	
-	
-	
-
-	
 	//noticeboard 상세보기
 	@RequestMapping(value = "/detailnotice.do", method = RequestMethod.GET)
 	public String viewDetailNotice(Model model,String seq) {
@@ -276,15 +263,12 @@ public class Board_Controller {
 		model.addAttribute("kind", "notice");
 		return "detailboard";
 	}
-	
-	
-	
 	//notice 다중삭제
 		@RequestMapping(value = "/multiDelNotice.do", method = {RequestMethod.GET, RequestMethod.POST})
 		public String multiDelNotice(@RequestParam List<String> chkBox) {
 			logger.info("Board_Controller multiDelNotice:{}", chkBox);
 //			if (aVo.getAdmin_id().equals(aVo)) {
-			int n = inoticeService.multiDelNotice(chkBox);
+				int n = inoticeService.multiDelNotice(chkBox);
 			
 //			}else { //세션 붙일경우 고쳐야함
 //				return (n>0)?"redirect:/noticeboard.do":"redirect:/noticeboard.do";
@@ -293,17 +277,6 @@ public class Board_Controller {
 		}
 		
 //--------------------------------------------FAQ-----------------------------------
-
-	
-//	//FAQ전체보기
-//	@RequestMapping(value = "/faqboard.do", method = RequestMethod.GET)
-//	public String faqBoardSelect(Model model,String kind) {
-//		logger.info("Board_Controller faqBoardSelect");
-//		List<Notice_FAQBoardVo> lists = ifaqService.viewAllFAQ();
-//		model.addAttribute("kind", kind);
-//		model.addAttribute("lists", lists);
-//		return "noticeboard";
-//	}
 	
 	//FAQ상세보기
 	@RequestMapping(value = "/detailfaq.do", method = RequestMethod.GET)
@@ -341,36 +314,32 @@ public class Board_Controller {
 //		return json.toString();
 //	}
 	
-	
-
 	//FAQ게시판 새글 입력화면
 	@RequestMapping(value = "/insertFAQ.do", method = RequestMethod.POST)
-	public String insertFAQ(Model model, Notice_FAQBoardVo vo ){
-		logger.info("------FAQ게시판 새글입력--------");
-		System.out.println(vo);
+	public String insertFAQ(Model model, @RequestParam Map<String, Object> map) {
+		logger.info("Board_Controller insertNoticeBoard : {}",map);
+		System.out.println(map);
+		model.addAttribute("kind", "notice");
+		int n = ifaqService.insertFAQ(map);
 		
-		Map<String, String> map = new HashMap<String,String>();
-		map.put("admin_id", vo.getAdmin_id());
-		map.put("title", vo.getTitle());
-		map.put("content", vo.getContent());
-
-		
-		model.addAttribute("kind", "faq");
-		ifaqService.insertFAQ(map);
-		
-		return "redirect:/faqboard.do";
-		
+		if(n>0) {
+			return "redirect:/viewAllBoard.do";
+		}else {
+			StringBuffer sb= new StringBuffer();
+			sb.append("<script>");
+			sb.append("alert('입력실패 관리자에게 문의하세요');");
+			sb.append("location.href='./home.do'");
+			sb.append("</script>");
+			return sb.toString();
+		}
 	}
-
-	
-	
 	
 	//FAQ 다중삭제
 	@RequestMapping(value = "/multiDelFAQ.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String multiDelFAQ(@RequestParam List<String> chkBox) {
 		logger.info("Board_Controller multiDel:{}", chkBox);
 //		if (aVo.getAdmin_id().equals(aVo)) {
-		int n = ifaqService.deleteFAQ(chkBox);
+			int n = ifaqService.deleteFAQ(chkBox);
 		
 //		}else { //세션 붙일경우 고쳐야함
 //			return (n>0)?"redirect:/noticeboard.do":"redirect:/noticeboard.do";
@@ -378,7 +347,6 @@ public class Board_Controller {
 		return "redirect:/noticeboard.do";
 	}
 //-------------------------------------Calendar-------------------------------------
-	
 	
 		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/calendarAjax.do", method = RequestMethod.GET)
@@ -402,7 +370,6 @@ public class Board_Controller {
 				// return 형태
 				// [{},{},{}....]
 				return arr;
-			
 		}
 	
 			//일정게시판 상세보기
@@ -423,7 +390,6 @@ public class Board_Controller {
 				model.addAttribute("kind", "calendar");
 				
 				return "calendarboard";
-				
 			}
 		
 			//일정게시판 수정

@@ -27,7 +27,7 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 	}
 
 	@Override
-	public int insertFAQ(Map<String, String> map) {
+	public int insertFAQ(Map<String, Object> map) {
 		logger.info("FAQBoardServiceImpl insertFAQ()");
 		return dao.insertFAQ(map);
 	}
