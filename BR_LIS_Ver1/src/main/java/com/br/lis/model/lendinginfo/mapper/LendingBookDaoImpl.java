@@ -22,7 +22,7 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 
 	@Override
 	public List<LendBookBean> nowLendingBook(String book_serial) {
-		return sqlSession.selectOne(NS+"nowLendingBook");
+		return sqlSession.selectList(NS+"nowLendingBook",book_serial);
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	}
 
 	@Override
-	public int insertLendingBookUpdate(LendingVo vo) {
-		return sqlSession.update(NS+"insertLendingBookUpdate",vo);
+	public int insertLendingBookUpdate(String book_serial) {
+		return sqlSession.update(NS+"insertLendingBookUpdate",book_serial);
 	}
 
 	@Override

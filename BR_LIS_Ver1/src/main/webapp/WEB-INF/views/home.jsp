@@ -427,8 +427,8 @@ calList();//도서관일정 목록
 							<ul class="mySvcList">
 								<li><img src="./include/image/jungang/main/icon_msvc01.png"
 									alt="">
-<!-- 									 <a href="/jungang/10075/30014/program.do"> -->
-									 <a href="./lendingBookAdmin.do">
+									 <a href="/jungang/10075/30014/program.do">
+<!-- 									 <a href="./lendingBookAdmin.do"> -->
 										대출현황조회</a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc02.png"
 									alt=""> <a href="/jungang/10076/30015/program.do">
