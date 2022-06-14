@@ -1,7 +1,3 @@
-<%@page import="com.br.lis.vo.Notice_FAQBoardVo"%>
-<%@page import="com.br.lis.vo.CalendarBoardVo"%>
-<%@page import="com.br.lis.vo.CalendarBoardVo"%>
-
 <%@page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
@@ -39,35 +35,35 @@
 				<div>
 				
 				<c:if test="${kind == 'notice' }">
-					<h3>공지사항 글 수정 입력폼</h3>
-					<form id="modifyNotice"  method="post" action="./modifynotice.do">
-						작성자:<input type="text" id="admin_id" name="admin_id" value="${dto.admin_id}" class="form-control">
-						제목: <input type="text" id="title" name="title"  value="${dto.title}" class="form-control"><br>
-						내용: <textarea name="content" id="content"  >${dto.content}</textarea>
+					<h3>공지사항 새 글 입력폼</h3>
+					<form id="insertNotice"  method="post" action="./insertNotice.do">
+						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
+						제목: <input type="text" id="title" name="title" class="form-control"><br>
+						내용: <textarea name="content" id="content"></textarea>
 						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
 				
 				<c:if test="${kind == 'faq' }">
-					<h3>FAQ 글 수정 입력폼</h3>
-					<form id="modifyFAQ" method="post" action="./modifyFAQ.do">
-						작성자:<input type="text" id="admin_id" name="admin_id" value="${fVo.admin_id} " class="form-control">
-						제목: <input type="text" id="title" name="title" value="${fVo.title}" class="form-control"><br>
-						내용: <textarea name="content" id="content"> ${fVo.content} </textarea>
+					<h3>FAQ 새 글 입력폼</h3>
+					<form id="insertFAQ" method="post" action="./insertFAQ.do">
+						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
+						제목: <input type="text" id="title" name="title" class="form-control"><br>
+						내용: <textarea name="content" id="content"></textarea>
 						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
 				
 				<c:if test="${kind == 'calendar' }">
-					<h3>도서관일정 글 수정 입력폼</h3>
-					<form id="modifyCalendar" method="post" action="./modifyCalendar.do">
-						작성자:<input type="text" id="admin_id" name="admin_id" value="${cVo.admin_id}" class="form-control">
-						제목: <input type="text" id="title" name="title" class="form-control" value="${cVo.title} "><br>
-						내용: <textarea name="content" id="content">${cVo.content} </textarea>
-						일정시작일: <input type="date" id="start_date" name="start_date" value="${cVo.start_date} " class="form-control"><br>
-						일정종료일: <input type="date" id="end_date" name="end_date" value="${cVo.end_date}" class="form-control"><br>
+					<h3>도서관일정 새 글 입력폼</h3>
+					<form id="insertCalendar" method="post" action="./insertCalendar.do">
+						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
+						제목: <input type="text" id="title" name="title" class="form-control"><br>
+						내용: <textarea name="content" id="content"></textarea>
+						일정시작일: <input type="date" id="start_date" name="start_date" class="form-control"><br>
+						일정종료일: <input type="date" id="end_date" name="end_date" class="form-control"><br>
 						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
@@ -126,9 +122,9 @@ function resetCon(){
 	CKEDITOR.instances.content.setData("");
 }
 
-function modifynotice(){
-	var modifynotice = document.getElementById("modifynotice");
-	modifynotice.action = "./modifynotice.do";
+function insertBoard(){
+	var insertBoard = document.getElementById("insertBoard");
+	insertBoard.action = "./insertBoard.do";
 	
 	var title = document.getElementById("title").value;
 	var content = CKEDITOR.instances.content.getData();
@@ -141,13 +137,9 @@ function modifynotice(){
 		alert("내용을 입력해주세요");
 		return false;
 	}else{
-		modifynotice.submit();
+		insertBoard.submit();
 	}
 }
-
-
-
-
 </script>              
 </body>
 <%@include file="./footer.jsp"%>

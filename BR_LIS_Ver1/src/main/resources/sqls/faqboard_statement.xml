@@ -15,8 +15,9 @@
 	</select>
 	
 	<insert id="insertFAQ" parameterType="java.util.Map">
-	INSERT INTO FAQ_BOARD(FAQ_SEQ, ADMIN_ID, TITLE, CONTENT) 
-		VALUES(FAQ_SEQ.NEXTVAL, #{admin_id}, #{title}, #{content})
+	INSERT INTO FAQ_BOARD(FAQ_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE) 
+		VALUES(FAQ_SEQ.NEXTVAL, #{admin_id}, #{title}, #{content}, SYSDATE)
+			
 	</insert>
 	
 	<update id="modifyFAQ" parameterType="Notice_FAQVo">

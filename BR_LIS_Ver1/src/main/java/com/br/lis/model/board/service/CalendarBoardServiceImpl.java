@@ -20,7 +20,6 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 	private ICalendarBoardDao dao;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	
 	@Override
 	public List<CalendarBoardVo> viewAllCalendar() {
@@ -35,7 +34,7 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 	}
 	
 	@Override
-	public int insertCalendar(Map<String, String> map) {
+	public int insertCalendar(Map<String, Object> map) {
 		logger.info("CalendarBoardServiceImpl insertBoardAnswer : {}",map);
 		return dao.insertCalendar(map);
 	}
@@ -47,11 +46,9 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 	}
 
 	@Override
-	public int deleteCalendar(List<String> seqs) {
-		logger.info("CalendarBoardServiceImpl deleteCalendar : {}",seqs);
-		return dao.deleteCalendar(seqs);
+	public int multiDelCalendar(List<String> list) {
+		logger.info("CalendarBoardServiceImpl multiDelCalendar : {}");
+		return dao.multiDelCalendar(list);
 	}
-
-
 	
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+
  <typeAliases>
  	<typeAlias type="com.br.lis.vo.AdminVo" alias="AdminVo"/>
  	<typeAlias type="com.br.lis.vo.BookInfoVo" alias="BookInfoVo"/>
@@ -15,6 +16,7 @@
  	<typeAlias type="com.br.lis.vo.Possessing_BookVo" alias="Possessing_BookVo"/>
  	<typeAlias type="com.br.lis.vo.ReservationVo" alias="ReservationVo"/>
  </typeAliases>
+ 
  <mappers>
  	<mapper resource="sqls/admin.xml"/>
  	<mapper resource="sqls/calendarboard_statement.xml"/>

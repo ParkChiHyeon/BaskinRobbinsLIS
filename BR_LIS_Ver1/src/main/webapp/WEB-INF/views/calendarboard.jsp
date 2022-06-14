@@ -16,6 +16,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script type="text/javascript" src="./BR_js/cal.js"></script>
 <script type="text/javascript" src="./BR_js/datatime.js"></script>
 
@@ -73,13 +75,16 @@ function blockToList(){
 			</div>
 			<div id="contentcore">
 				<div class="naviandtitle">
-						<button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
-				        <button class="btn btn-info btn-primary" onclick="multiDeleteCalendar()">다중삭제</button>
-						<button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
-						<button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
+				  <button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
+				  <button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
+				  <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
+				  <button class="btn btn-info btn-primary calendar-btn" onclick="multiDelCalendar()">다중삭제</button>
 				</div>
 				<div class="naviandtitle">
-					<table id="calendarBoardTable" class="cell-border" style="float:right;"></table>
+					<form action="./multiDelCalendar.do" method="post" onsubmit="return false" id="formBoard">
+				      <table id="calendarBoardTable" class="cell-border" style="float:right;"> 
+				      </table>
+			      </form>
 					<div id="calendar"></div>
 				</div>
 			</div>

@@ -89,6 +89,4 @@ public class Notice_FAQBoardVo {
 		this.regdate = regdate;
 		this.file_path = file_path;
 	}
-
-	
 }
