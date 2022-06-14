@@ -18,6 +18,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+      <beans:property name="defaultEncoding" value="utf-8"/>
+   </beans:bean>
+	
+	
 	<!-- Scheduler -->
 	<task:annotation-driven scheduler="scheduler"/>
 	<task:scheduler id="scheduler" pool-size="10"/>

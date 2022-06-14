@@ -75,19 +75,16 @@ function blockToList(){
 			</div>
 			<div id="contentcore">
 				<div class="naviandtitle">
-			       <form action="./multiDelCalendar.do" method="post" onsubmit="return false" id="formBoard">
+				  <button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
+				  <button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
+				  <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
+				  <button class="btn btn-info btn-primary calendar-btn" onclick="multiDelCalendar()">다중삭제</button>
+				</div>
+				<div class="naviandtitle">
+					<form action="./multiDelCalendar.do" method="post" onsubmit="return false" id="formBoard">
 				      <table id="calendarBoardTable" class="cell-border" style="float:right;"> 
 				      </table>
 			      </form>
-				  <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
-<%-- 				  <c:if onclick="blockToList()"> --%>
-				  <button class="btn btn-info btn-primary" onclick="multiDelCalendar()">다중삭제</button>
-<%-- 				  </c:if> --%>
-				  <button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
-				  <button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
-				</div>
-				<div class="naviandtitle">
-					<table id="calendarBoardTable" class="cell-border" style="float:right;"></table>
 					<div id="calendar"></div>
 				</div>
 			</div>

@@ -18,6 +18,8 @@
 		INSERT INTO NOTICE_BOARD(NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH)
 			VALUES (NOTICE_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE,NULL)
 	</insert>
+	
+	<resultMap type="HashMap" id="detailMap"></resultMap>
 
 	<update id="modifyNotice" parameterType="Notice_FAQVo">
 		UPDATE NOTICE_BOARD

@@ -59,15 +59,6 @@ public class Board_Controller {
 	@Autowired
 	private IAdminService iadminService;
 	
-	
-	//글입력화면 이동
-	@RequestMapping(value = "/editor.do",method = RequestMethod.GET)
-	public String ckEditorView(String kind,Model model) {
-		logger.info("eidotr view 이동");
-		model.addAttribute("kind", kind);
-		return "modifynotice";
-	}
-	
 	//noticeboard & faq & calendar전체 조회 화면 이동
 	@RequestMapping(value = "/viewAllBoard.do", method = RequestMethod.GET)
 	public String BoardSelect(Model model,String kind) {
@@ -86,6 +77,28 @@ public class Board_Controller {
 			return "home";
 		}
 	}
+	
+	
+	//글입력화면 이동
+	@RequestMapping(value = "/editor.do",method = RequestMethod.GET)
+	public String ckEditorView(String kind,Model model) {
+		logger.info("eidotr view 이동");
+		model.addAttribute("kind", kind);
+		return "insertBoard";
+	}
+	
+	//공지글 수정화면 이동
+	@RequestMapping(value = "/modifynotice.do",method = RequestMethod.GET)
+	public String modifyNotice(String kind,Model model,String seq) {
+		logger.info("modifynotice이동");
+		
+		model.addAttribute("kind", kind);
+		Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
+		model.addAttribute("dto", vo);
+				
+		return "modifynotice";
+	}
+	
 	
 	//공지게시판 새글입력
 	@RequestMapping(value = "/insertNotice.do", method = RequestMethod.POST)
@@ -107,24 +120,25 @@ public class Board_Controller {
 		}
 	}
 	
-		//공지게시판 수정
-		@RequestMapping(value = "/modifynotice.do", method = RequestMethod.POST)
-		public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
-			logger.info("Board_Controller modifynotice 에디터로 입력받음");
-			logger.info("map:{}", map);
-			int cnt = inoticeService.insertNotice(map);
-			
-			if (cnt>0) {
-				System.out.println("수정 후 이동");
-				List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
-				model.addAttribute("list"+lists);
-				return "noticeboard";
-				
-			}else {
-				return "redirect:/viewAllBoard.do";
-			}
-		}
-	
+//		//공지게시판 수정
+//		@RequestMapping(value = "/modifynotice.do", method = {RequestMethod.GET, RequestMethod.POST})
+//		public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
+//			logger.info("Board_Controller modifynotice 에디터로 입력받음");
+//			logger.info("map:{}", map);
+//			model.addAttribute("kind", "notice");
+//			int cnt = inoticeService.insertNotice(map);
+//			
+//			if (cnt>0) {
+//				System.out.println("수정 후 이동");
+//				List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
+//				model.addAttribute("list"+lists);
+//				return "noticeboard";
+//				
+//			}else {
+//				return "redirect:/viewAllBoard.do";
+//			}
+//		}
+//	
 	//희망도서 엑셀 업로드
 	@RequestMapping(value = "/fileupload.do", method = RequestMethod.POST)
 	public void fileupload(HttpServletRequest request, HttpServletResponse response,
@@ -332,6 +346,46 @@ public class Board_Controller {
 		}
 	}
 	
+//	http://localhost:8089/BR_LIS_Ver1/modifynotice.do?kind=faq
+	
+//	//FAQ게시판 수정
+//	@RequestMapping(value = "modifynotice.do", method = RequestMethod.POST)
+//	public String modifyFAQ(@RequestParam Map<String, Object> map, Model model) {
+//		logger.info("Board_Controller modifyCalendar 에디터로 입력받음");
+//		logger.info("map:{}", map);
+//		model.addAttribute("kind", "faq");
+//		Notice_FAQBoardVo vo = new Notice_FAQBoardVo();
+//		vo.setContent((String)map.get("content"));
+//		vo.setTitle((String)map.get("title"));
+//		vo.setFaq_seq((String)map.get("faq_seq"));
+//		int cnt = ifaqService.modifyFAQ(vo);
+//		
+//		if (cnt>0) {
+//			System.out.println("수정 후 이동");
+//			List<CalendarBoardVo> lists = icalService.viewAllCalendar();
+//			model.addAttribute("list"+lists);
+//			return "calendarboard";
+//			
+//		}else {
+//			return "calendarboard";
+//		}
+//	}
+//	
+
+	
+	//FAQ글 수정화면 이동
+	@RequestMapping(value = "/modifyFAQ.do",method = RequestMethod.GET)
+	public String modifyFAQ(String kind,Model model,String seq) {
+		logger.info("modifyFAQ 이동");
+		
+		model.addAttribute("kind", kind);
+		Notice_FAQBoardVo fVo = ifaqService.viewDetailFAQ(seq);
+		model.addAttribute("fVo", fVo);
+		
+		return "modifynotice";
+	}
+	
+	
 	//FAQ 다중삭제
 	@RequestMapping(value = "/multiDelFAQ.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String multiDelFAQ(@RequestParam List<String> chkBox) {
@@ -399,23 +453,38 @@ public class Board_Controller {
 				}
 			}
 		
-			//일정게시판 수정
-			@RequestMapping(value = "/modifyCalendar.do", method = RequestMethod.POST)
-			public String modifyCalendar(@RequestParam Map<String, Object> map, Model model) {
-				logger.info("Board_Controller modifyCalendar 에디터로 입력받음");
-				logger.info("map:{}", map);
-				int cnt = icalService.modifyCalendar(map);
-				
-				if (cnt>0) {
-					System.out.println("수정 후 이동");
-					List<CalendarBoardVo> lists = icalService.viewAllCalendar();
-					model.addAttribute("list"+lists);
-					return "calendarboard";
+			
+
+			//Calendar글 수정화면 이동
+				@RequestMapping(value = "/modifyCalendar.do",method = RequestMethod.GET)
+				public String modifyCalendar(String kind,Model model,String seq) {
+					logger.info("modifyFAQ 이동");
+
+					model.addAttribute("kind", kind);
+					CalendarBoardVo cVo = icalService.viewDetailCalendar(seq);
+					model.addAttribute("cVo", cVo);
 					
-				}else {
-					return "calendarboard";
+					return "modifynotice";
 				}
-			}
+			
+//			//일정게시판 수정
+//			@RequestMapping(value = "/modifynotice.do", method = {RequestMethod.GET, RequestMethod.POST})
+//			public String modifyCalendar(@RequestParam Map<String, Object> map, Model model) {
+//				logger.info("Board_Controller modifyCalendar 에디터로 입력받음");
+//				logger.info("map:{}", map);
+//				model.addAttribute("kind", "calendar");
+//				int cnt = icalService.modifyCalendar(map);
+//				
+//				if (cnt>0) {
+//					System.out.println("수정 후 이동");
+//					List<CalendarBoardVo> lists = icalService.viewAllCalendar();
+//					model.addAttribute("list"+lists);
+//					return "calendarboard";
+//					
+//				}else {
+//					return "calendarboard";
+//				}
+//			}
 			
 			//일정게시판 삭제
 			@RequestMapping(value = "/multiDelCalendar.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -428,5 +497,4 @@ public class Board_Controller {
 //				}
 				return "calendarboard";
 			}
-	
 }
