@@ -67,8 +67,12 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 
 	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
 	@Override
-	public List<LendBookBean> possibleReserve(Map<String, Object> map) {
-		return sqlSession.selectOne(NS+"possibleReserve",map);
+	public List<LendBookBean> possibleReserve(String isbn) {
+		return sqlSession.selectList(NS+"possibleReserve",isbn);
+	}
+	@Override
+	public List<LendBookBean> selectPossibleReserve() {
+		return sqlSession.selectList(NS+"selectPossibleReserve");
 	}
 	
 	@Override

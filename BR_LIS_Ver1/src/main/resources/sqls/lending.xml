@@ -106,17 +106,27 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 
 <!-- 추가  : 예약전 도서선택후 ISBN으로 대출중이고 예약이 안된책의 빠른대출일 조회
 			   BOOK_SERIAL의 결과값으로 대출예약 신청을 해야함 -->
-<select id="possibleReserve" parameterType="java.util.Map" resultType="com.br.lis.vo.LendBookBean">
-	
-	SELECT pb.RV ,pb.LD , bi.ISBN, pb.BOOK_SERIAL, l.LENDING_SEQ , l.MEMBER_CODE , l.BOOK_SERIAL , l.END_DATE
+<select id="possibleReserve" parameterType="java.lang.String" resultType="LendBookBean">
+	SELECT pb.RV ,pb.LD , bi.ISBN, pb.BOOK_SERIAL, l.LENDING_SEQ , l.MEMBER_CODE , l.BOOK_SERIAL , TO_CHAR(l.END_DATE,'YYYY.MM.DD') AS END_DATE
 	FROM POSSESSING_BOOK pb 
-	LEFT OUTER JOIN LENDING l 
+	JOIN LENDING l 
 	ON pb.BOOK_SERIAL =l.BOOK_SERIAL 
-	LEFT OUTER JOIN BOOK_INFO bi 
+	JOIN BOOK_INFO bi 
 	ON bi.ISBN = pb.ISBN 
 	WHERE pb.ISBN =#{isbn} AND pb.RV ='N' AND pb.LD='Y' <![CDATA[AND rownum<=1]]>
 	ORDER BY l.END_DATE ASC
-            
+</select>
+
+<!-- 예약 가능한 도서 -->
+<select id="selectPossibleReserve" parameterType="java.lang.String" resultType="LendBookBean">
+SELECT pb.RV ,pb.LD , bi.ISBN, pb.BOOK_SERIAL,bi.TITLE ,bi.AUTHOR , l.LENDING_SEQ , l.MEMBER_CODE  , TO_CHAR(l.END_DATE,'YYYY.MM.DD') AS END_DATE
+FROM POSSESSING_BOOK pb 
+ JOIN LENDING l 
+ON pb.BOOK_SERIAL =l.BOOK_SERIAL 
+ JOIN BOOK_INFO bi 
+ON bi.ISBN = pb.ISBN 
+WHERE pb.RV ='N' AND pb.LD='Y'
+ORDER BY l.END_DATE ASC
 </select>
 
 <!--BR_W_BM_208   대출예약 신청-->

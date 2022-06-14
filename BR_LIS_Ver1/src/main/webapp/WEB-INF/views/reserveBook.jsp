@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>대출신청하기</title>
+<title>도서 예약하기</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -13,81 +13,70 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js" defer></script>
 </head>
 <%@ include file="./header.jsp"%>
- <script type="text/javascript">
-//   		function cancel(){
-//   			console.log("회원 예약 취소하기 ");
-//   			console.log(val);
-  		
-//   			var i = document.getElementById("reserveListVal").innerText;
-//   			var seq = document.getElementById("lending_seq").innerText;
-//   			var serial = document.getElementById("book_serial").innerText;
-//   			console.log(i);
-//   			console.log(seq);
-//   			console.log(serial);
-  			
-//   			if(seq !=""){
-  			
-//   			
-  			
-//   			}
-  			
-//   		}
-  		
-  		
-  		function testResrve() {
-			console.log("예약테스트");
-			var n = document.getElementById("isbn").innerText;
-			console.log(n);
-			
-			
-		}
-  		
-  </script>
-  
-
 <body>
-	<div id="container_reserve">
+<a href="./lendingBook2.do">test</a>
+
+<div id="container_reserve">
 		<div>제목 : 라만차의 비범한 이달고 돈키호테</div>
 		<div>저자 : 미겔 데 세르반테스 지음;전기순 옮김</div>
 		<div>출판사 : 웅진씽크빅</div>
 		ISBN: <div id="isbn" >9788901208299</div>
+		BOOK_SERIAL: <div id="book_serial">BKSR220912</div>
 		<input type="button" value="예약하기" onclick="testResrve()">
-	</div>
-	
-	
-		<h1>회원예약목록조회(회원)</h1>
-<div id="container">
-		<form action="./reserveBook.do" >
+</div>
+
+<h1>예약선택한 도서</h1>
+${chkBook}
+<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>ISBN</th>
+					<th>도서코드</th>
+					<th>도서제목</th>
+					<th>저자</th>
+					<th>예약</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="hidden" id="isbn" value=" ${po.isbn}">${po.isbn}</td>
+					<td><input type="hidden" id="book_serial" value=" ${po.book_serial}">${po.book_serial}</td>
+					<td>${po.title}</td>
+					<td>${po.author}</td>
+					<td><input class="checkReserve"type="button" value="예약하기"></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+<h1>예약가능도서 조회</h1>
+<div class="container">
+		<form action="./checkReserve.do" id="oneBook" method="post">
 			<table  id="dataTable" class="cell-border">
 				<thead>
-					<tr id="reserveList">
-						<th>회원코드</th>
+					<tr>
 						<th>ISBN</th>
 						<th>도서코드</th>
-						<th>예약번호</th>
 						<th>도서제목</th>
-						<th>출판사</th>
 						<th>저자</th>
-						<th>예약일</th>
+						<th>반납예정일</th>
+						<th>예약</th>
 					</tr>
 				</thead>
 				<tbody>
-		<%-- 			<c:forEach var="a" items="${a}" varStatus="vs"> --%>
-					<tr id="reserveListVal">
-						<td id="mem">${a.MEMBER_CODE}</td>
-						<td>${a.ISBN}</td>
-						<td id="book_serial"><input type="hidden" name="book_serial" value=" ${a.BOOK_SERIAL}"> ${a.BOOK_SERIAL}</td>
-						<td id="lending_seq"><input type="hidden" name="lending_seq" value="${a.LENDING_SEQ}">${a.LENDING_SEQ}</td>
-						<td>${a.TITLE}</td>
-						<td>${a.PUBLISHER}</td>
-						<td>${a.AUTHOR}</td>
-						<td>${a.reseveDate}</td>
+					<c:forEach var="po" items="${poBook}" varStatus="vs">
+					<tr>
+						<td><input type="hidden" id="isbn" name="isbn" value=" ${po.isbn}">${po.isbn}</td>
+						<td><input type="hidden" id="book_serial" name="book_serial" value=" ${po.book_serial}">${po.book_serial}</td>
+						<td>${po.title}</td>
+						<td>${po.author}</td>
+						<td>${po.end_date}</td>
+<!-- 						<td><button class="btn btn-info"type="button"  onclick="checkReserve()">예약하기</button> </td> -->
+						<td><input class="checkReserve"type="button" onclick="checkReserve()"value="선택"></td>
 					</tr>
-		<%-- 			</c:forEach> --%>
+					</c:forEach>
 				</tbody>
 			</table>
-<!-- 			<input type="button" class="btn btn-warning" value="예약취소" onclick="cancel()"> -->
-<!-- 	<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button> -->
 		</form>	
 </div>	
 <script type="text/javascript">
@@ -116,7 +105,7 @@ $(document).ready(function () {
         ordering: true, // 정렬 기능 숨기기
         info: true, // 정보 표시 숨기기
         paging:true, // 페이징 기능 숨기기
-        order: [ [ 3, "asc" ], [ 1, "desc"] ], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
+        order: [ [ 4, "desc"] ], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
 //      columnDefs: [{ targets: 1, width: 100 }] //열의 넓이 조절 
 //		lengthMenu: [ 10, 20, 30, 40, 50 ], //표시건수 
 //      displayLength: 50, //기본표시건수 설정
@@ -124,6 +113,53 @@ $(document).ready(function () {
     
     });
 } );
+
+
+
+$(".checkReserve").click(function(){
+	var str =""
+	var tdArr =  new Array();
+	var checkReserve =$(this);
+	
+	var frm = document.getElementById("s")
+	
+// 	 frm.action = "./checkReserve.do"
+	var tr = checkReserve.parent().parent();
+	var td = tr.children();
+	
+	console.log("클릭한 버튼의 값 : " +tr.text());
+	
+	var isbn =td.eq(0).text();
+	var book=td.eq(1).text();
+	
+	
+	console.log(isbn,book);
+	
+	td.each(function(i){
+		tdArr.push(td.eq(i).text());
+	});
+	console.log(tdArr);
+	
+	$("#oneBook").attr("action", "./checkReserve.do"); 
+	$("#oneBook").attr("isbn",isbn); 
+	$("#oneBook").attr("book",book); 
+	$("#oneBook").submit();
+// 	$.ajax({
+// 		url:"./checkReserve.do",
+// 		data:{"isbn":isbn,"book_serial":book},
+// 		type:"post",
+// 		async : true,
+// 		success : function(data){
+// 			frm.submit();
+// 			console.log("성공");
+// 			location.href="./checkReserve.do";
+// 		}
+// 	});
+	
+})
+	
+
+
 </script>
 </body>
 <%@include file="./footer.jsp"%>

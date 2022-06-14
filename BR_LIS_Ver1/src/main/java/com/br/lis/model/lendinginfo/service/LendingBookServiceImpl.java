@@ -69,9 +69,14 @@ public class LendingBookServiceImpl implements ILendingBookService {
 
 	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
 	@Override
-	public List<LendBookBean> possibleReserve(Map<String, Object> map) {
-		logger.info("ILendingBookDao 대출중,예약X 빠른대출일 조회 possibleReserve");
-		return dao.possibleReserve(map);
+	public List<LendBookBean> possibleReserve(String isbn){
+		logger.info("ILendingBookDao 대출중이면서 예약안되있고 빠른대출일 조회 possibleReserve");
+		return dao.possibleReserve(isbn);
+	}
+	@Override
+	public List<LendBookBean> selectPossibleReserve() {
+		logger.info("ILendingBookDao 예약가능 도서 selectPossibleReserve");
+		return dao.selectPossibleReserve();
 	}
 	
 	//BR_W_BM_208 대출 예약 신청 RV=Y , DG=N 

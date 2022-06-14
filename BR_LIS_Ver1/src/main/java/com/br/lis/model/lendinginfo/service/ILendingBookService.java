@@ -31,7 +31,9 @@ public interface ILendingBookService {
 		public List<LendBookBean> lendingList(String member_code);
 		
 		//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
-		public List<LendBookBean> possibleReserve(Map<String, Object>map);
+		public List<LendBookBean> possibleReserve(String isbn);
+		//예약가능한 도서
+		public List<LendBookBean> selectPossibleReserve();
 		
 		//BR_W_BM_208 대출 예약 신청 후 상태변경 _트렌젝션 처리
 		public int bookReservation(LendingVo lVo,BookInfoVo bVo);

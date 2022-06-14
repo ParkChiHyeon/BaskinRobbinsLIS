@@ -35,8 +35,8 @@
 			<tbody>
 				<c:forEach var="lVo" items="${reBook}" varStatus="vs">
 				<tr>
-					<td><a href="./reserveBook.do"><input type="hidden" id="lending_seq" value=" ${lVo.lending_seq}"> ${lVo.lending_seq}</a></td>
-					<td><a href="./reserveBook.do"><input type="hidden" id="book_serial" value=" ${lVo.book_serial}">${lVo.book_serial}</a></td>
+					<td><input type="hidden" id="lending_seq" value=" ${lVo.lending_seq}"> ${lVo.lending_seq}</td>
+					<td><input type="hidden" id="book_serial" value=" ${lVo.book_serial}">${lVo.book_serial}</td>
 					<td><input type="hidden" id="member_code" value=" ${lVo.member_code}">${lVo.member_code}</td>
 					<td>${lVo.isbn}</td>
 					<td>${lVo.title}</td>

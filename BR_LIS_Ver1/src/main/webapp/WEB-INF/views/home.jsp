@@ -431,7 +431,7 @@ calList();//도서관일정 목록
 <!-- 									 <a href="./lendingBookAdmin.do"> -->
 										대출현황조회</a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc02.png"
-									alt=""> <a href="/jungang/10076/30015/program.do">
+									alt=""> <a href="./reserveBookList.do">
 										예약도서 </a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc03.png"
 									alt=""> <a href="./requestPage.do">
@@ -439,7 +439,7 @@ calList();//도서관일정 목록
 									</a>--></li>
 								<li><img src="./include/image/jungang/main/icon_msvc04.png"
 									alt=""> <a
-									href="/jungang/10084/mypage/lecture/lectureList.do"> 문화강좌신청
+									href="./reserveBook.do"> 문화강좌신청
 								</a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc05.png"
 									alt=""> <a

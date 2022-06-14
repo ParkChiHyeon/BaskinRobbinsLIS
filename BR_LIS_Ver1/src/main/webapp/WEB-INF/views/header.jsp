@@ -194,7 +194,7 @@
 			<c:if test="${admin.admin_id != null }">
 	<li id="gnb5"><a href="/jungang/10048/20026/bbsList.do" >대출/반납</a>
 			<ul>
-			<li id="gnb5_1" class=""><a href="./lendingBookAdmin.do" >대출</a>
+			<li id="gnb5_1" class=""><a href="./lendMainpage.do" >대출</a>
 					</li>
 				<li id="gnb5_2" class=""><a href="/jungang/10049/20028/bbsList.do" >반납</a>
 					</li>

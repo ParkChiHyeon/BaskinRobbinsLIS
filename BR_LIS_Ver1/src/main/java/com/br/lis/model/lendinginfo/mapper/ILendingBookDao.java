@@ -40,7 +40,9 @@ public interface ILendingBookDao {
 	
 	
 	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
-	public List<LendBookBean> possibleReserve(Map<String, Object>map);
+	public List<LendBookBean> possibleReserve(String isbn);
+	//예약가능한도서
+	public List<LendBookBean> selectPossibleReserve();
 	
 	//대출 예약 신청
 	public int reservationBook(LendingVo vo);
