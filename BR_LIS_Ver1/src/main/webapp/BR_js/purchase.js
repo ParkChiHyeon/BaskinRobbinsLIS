@@ -126,7 +126,44 @@ function modalClose(){
 	});
 	
 }
+function purchaseCodeIndex(index){
+	var purchase_codeIndex = $("#purchase_codeIndex"+index).text();
+	var total_priceIndex = $("#total_priceIndex"+index).text();
+	var total_eaIndex = $("#total_eaIndex"+index).text();
+	var distributor_emailIndex = $("#distributor_emailIndex"+index).text();
+	
+	var order_dateIndex = $("#order_dateIndex"+index).text();
+	var confirm_dateIndex = $("#confirm_dateIndex"+index).text();
 
+
+//	console.log(purchase_codeIndex)
+	$('#purchase_code').attr('value', purchase_codeIndex);
+	$('#total_price').attr('value', total_priceIndex);
+	$('#total_ea').attr('value', total_eaIndex);
+	$('#distributor_email').attr('value', distributor_emailIndex);
+	
+	$('#order_date').attr('value', order_dateIndex);
+	$('#confirm_date').attr('value', confirm_dateIndex);
+	
+//	console.log(order_dateIndex);
+	
+	// 발주확인, 반입확인버튼 초기화
+	$('#modalId').find('.btn-success').remove();
+
+	// 필수데이터 작성 했는지 확인
+	if(purchase_codeIndex != '' && total_priceIndex != '' && total_eaIndex != '' && distributor_emailIndex != '') {
+		// 발주확인/반입확인 버튼 조건 확인		
+		if(order_dateIndex == '' && confirm_dateIndex== '' ){
+			// 화면에 발주화면 버튼 보이기
+			var orderButtonHTML = '<button type="button" class="btn btn-success btn-order" data-bs-dismiss="modal" onclick="purchaseInfoUpdateOrderChk();">발주확인</button>'
+			$(".btn-update-modal").after(orderButtonHTML);
+		}else if(order_dateIndex != '' && confirm_dateIndex== ''){
+			// 화면에 반입확인 버튼 보이기
+			var confirmButtonHTML = '<button type="button" class="btn btn-success btn-receive" data-bs-dismiss="modal" onclick="purchaseInfoUpdateReceiveChk();">반입확인</button><br>'
+			$(".btn-update-modal").after(confirmButtonHTML);
+		}
+	}
+}
 
 
 

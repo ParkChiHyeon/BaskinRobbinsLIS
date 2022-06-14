@@ -19,7 +19,7 @@
 <!-- <a id="creatPurchaseCodeSuccess" onclick="createPurchaseCode()">구매코드 생성</a> -->
 
  <div>
-	<table>
+	<table id="table_id">
 		<thead>
 			<tr>
 				<th>구매코드</th>
@@ -35,11 +35,11 @@
 		<tbody>
 			<c:forEach var="purchaseList" items="${purchaseList}" varStatus="vs">
 				<tr>
-					<td>${purchaseList.purchase_code}</td>
-					<td>${purchaseList.total_price}</td>
-					<td>${purchaseList.total_ea}</td>
-					<td>${purchaseList.order_date}</td>
-					<td>${purchaseList.distributor_email}</td>
+					<td id="purchase_codeIndex${vs.index}">${purchaseList.purchase_code}</td>
+					<td id="total_priceIndex${vs.index}">${purchaseList.total_price}</td>
+					<td id="total_eaIndex${vs.index}">${purchaseList.total_ea}</td>
+					<td id="order_dateIndex${vs.index}">${purchaseList.order_date}</td>
+					<td id="distributor_emailIndex${vs.index}">${purchaseList.distributor_email}</td>
 					<c:choose>
 						<c:when test="${purchaseList.confirm == 'C'}">
 							<td>반입확인</td>
@@ -51,10 +51,10 @@
 							<td>발주</td>
 						</c:when>
 					</c:choose>
-					<td>${purchaseList.confirm_date}</td>
+					<td id="confirm_dateIndex${vs.index}">${purchaseList.confirm_date}</td>
 					<td>
 						<div class="container mt-3">
-						  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">수정</button>
+						  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick="purchaseCodeIndex(${vs.index})" >수정</button>
 						</div>
 						<!-- The Modal -->
 						<div class="modal" id="myModal">
@@ -68,23 +68,14 @@
 						      </div>
 						
 						      <!-- Modal body -->
-						      <div class="modal-body" id="modalClose">
-						      <form>
-						        구매코드 : <input type="text" id="purchase_code" value="${purchaseList.purchase_code}" disabled><br>
-						        구매금액 : <input type="text" id="total_price" value="${purchaseList.total_price}"><br>
-						        구매수량 : <input type="text" id="total_ea" value="${purchaseList.total_ea}"><br>
-						        구매처 Email : <input type="text" id="distributor_email" ${purchaseList.distributor_email}><br>
-						        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="purchaseInfoUpdateFirst();">수정</button><br>
-<%-- 								<c:choose> --%>
-<%-- 									<c:when test="${purchaseList.order_date == '' && purchaseList.confirm_date == ''}"> --%>
-<!-- 							        	<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="purchaseInfoUpdateOrderChk();">발주확인</button> -->
-<%-- 									</c:when> --%>
-<%-- 									<c:when test="${purchaseList.order_date != '' && purchaseList.confirm_date == ''}"> --%>
-<!-- 							        	<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="purchaseInfoUpdateReceiveChk();">반입확인</button><br> -->
-<%-- 									</c:when> --%>
-<%-- 								</c:choose> --%>
-							        	<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="purchaseInfoUpdateOrderChk();">발주확인</button>
-							        	<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="purchaseInfoUpdateReceiveChk();">반입확인</button><br>
+						      <div class="modal-body" id="modalId">
+						      	<form>
+						        구매코드 : <input type="text" id="purchase_code" value="" disabled><br>
+						        구매금액 : <input type="text" id="total_price" value=""><br>
+						        구매수량 : <input type="text" id="total_ea" value=""><br>
+						        구매처 Email : <input type="text" id="distributor_email" value = ""><br>
+						        <button type="button" class="btn btn-primary btn-update-modal" data-bs-dismiss="modal" onclick="purchaseInfoUpdateFirst();">수정</button><br>
+								<!-- 반입/발주 확인버튼 생성 공간 -->
 						        </form>
 						      </div>
 						
