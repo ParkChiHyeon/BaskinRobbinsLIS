@@ -57,12 +57,12 @@
       <div>
          <c:if test="${kind == 'notice' && session !='user'}">
             <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">공지작성</button>
-            <input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 90px;" value="다중삭제">
+            <button class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 90px;">다중삭제</button>
          </c:if>
       
          <c:if test="${kind =='faq' && session !='user'}">
             <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">FAQ작성</button>
-            <input class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 90px;" value="다중삭제">
+            <button class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 90px;">다중삭제</button>
          </c:if>
          
          <button class="btn btn-success" onclick="javascript:location.href='./home.do'" style="float:right;">HOME</button>
@@ -73,7 +73,7 @@
   </div>
 <script type="text/javascript">
 var kind = '<c:out value="${kind}"/>'
-var jsonSource = [];
+var jsonSource;
 var elaIndex;
 var testSession = '<c:out value="${session}"/>';
 
@@ -97,15 +97,11 @@ $(document).ready(function(){
    $.ajax({
       method:"POST",
       contentType:"application/json;",
-      url:"https://f087-211-197-28-137.jp.ngrok.io/"+elaIndex+"board/_search",      
+      url:"http://152.67.196.32:9200/"+elaIndex+"board/_search",      
       data:JSON.stringify({"from":"0","size":"10000","sort":{[elaIndex+"seq"]:"desc"}}),
       dataType:"json",
       success:function(res){
-          var data = res.hits.hits;
-         jsonSource.splice(0, jsonSource.length);
-         for(let i=0; i<data.length;i++){
-            jsonSource.push(data[i]._source)
-         }
+    	  jsonSource = res.hits.hits;
       }
    })
       .done(function(){
@@ -142,25 +138,25 @@ $(document).ready(function(){
             {    
             	title:'<input type="checkbox" id="ch" onclick="checkAll(this.checked)">',
                render:function(data,type,row){
-                  var   html= '<input type="checkbox" name="chkBox" value="'+row.notice_seq+'">'; 
+                  var   html= '<input type="checkbox" name="chkBox" value="'+row._source.notice_seq+'">'; 
                return html;
                }
             },
             {    
                title:'글번호',
-               data:'notice_seq',
+               data:'_source.notice_seq',
             },
               { 
                 title:'제목',
                    render:function(data,type,row){
-               var   html= '<a href="./detailnotice.do?seq='+row.notice_seq+'">'+row.title+'</a>'; 
+               var   html= '<a href="./detailnotice.do?seq='+row._source.notice_seq+'">'+row._source.title+'</a>'; 
                return html;
               }
             },
             { 
                 title:'등록일',
                    render:function(data,type,row){
-               var   html= row.regdate.substr(0,10); 
+               var   html= row._source.regdate.substr(0,10); 
                return html;
               }
             }
@@ -198,19 +194,19 @@ $(document).ready(function(){
               columns: [
                {    
                   title:'글번호',
-                  data:'notice_seq',
+                  data:'_source.notice_seq',
                },
                  { 
                    title:'제목',
                       render:function(data,type,row){
-                  var   html= '<a href="./detailnotice.do?seq='+row.notice_seq+'">'+row.title+'</a>'; 
+                  var   html= '<a href="./detailnotice.do?seq='+row._source.notice_seq+'">'+row._source.title+'</a>'; 
                   return html;
                  }
                },
                { 
                    title:'등록일',
                       render:function(data,type,row){
-                  var   html= row.regdate.substr(0,10); 
+                  var   html= row._source.regdate.substr(0,10); 
                   return html;
                  }
                }
@@ -249,25 +245,25 @@ $(document).ready(function(){
             {   
             	title:'<input type="checkbox" id="ch" onclick="checkAll(this.checked)">',
                render:function(data,type,row){
-                  var   html= '<input type="checkbox" name="chkBox" value="'+row.faq_seq+'">'; 
+                  var   html= '<input type="checkbox" name="chkBox" value="'+row._source.faq_seq+'">'; 
                return html;
                }
             },
             {    
                title:'글번호',
-               data:'faq_seq',
+               data:'_source.faq_seq',
             },
               { 
                 title:'제목',
                    render:function(data,type,row){
-               var   html= '<a href="./detailfaq.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
+               var   html= '<a href="./detailfaq.do?seq='+row._source.faq_seq+'">'+row._source.title+'</a>'; 
                return html;
               }
             },
             { 
                 title:'등록일',
                    render:function(data,type,row){
-               var   html= row.regdate.substr(0,10); 
+               var   html= row._source.regdate.substr(0,10); 
                return html;
               }
             }
@@ -305,19 +301,19 @@ $(document).ready(function(){
               columns: [
                {    
                   title:'글번호',
-                  data:'faq_seq',
+                  data:'_source.faq_seq',
                },
                  { 
                    title:'제목',
                       render:function(data,type,row){
-                  var   html= '<a href="./detailfaq.do?seq='+row.faq_seq+'">'+row.title+'</a>'; 
+                  var   html= '<a href="./detailfaq.do?seq='+row._source.faq_seq+'">'+row._source.title+'</a>'; 
                   return html;
                  }
                },
                { 
                    title:'등록일',
                       render:function(data,type,row){
-                  var   html= row.regdate.substr(0,10); 
+                  var   html= row._source.regdate.substr(0,10); 
                   return html;
                  }
                }

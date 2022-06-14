@@ -19,6 +19,7 @@ noticeList(); //홈화면 공지사항 목록
 faqList(); // 홈화면 FAQ 목록
 homeNewBook(); // 홈화면 신간도서 url
 calList();//도서관일정 목록
+//mypage 버튼 화면제어 해야함,, webhootk
 })
 	$(function() {
 		$('#searchBoxArea').css('height', '73px');
@@ -426,8 +427,8 @@ calList();//도서관일정 목록
 							<ul class="mySvcList">
 								<li><img src="./include/image/jungang/main/icon_msvc01.png"
 									alt="">
-<!-- 									 <a href="/jungang/10075/30014/program.do"> -->
-									 <a href="./lendingBookAdmin.do">
+									 <a href="/jungang/10075/30014/program.do">
+<!-- 									 <a href="./lendingBookAdmin.do"> -->
 										대출현황조회</a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc02.png"
 									alt=""> <a href="/jungang/10076/30015/program.do">

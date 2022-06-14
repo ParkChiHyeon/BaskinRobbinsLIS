@@ -220,7 +220,7 @@ height: 100%;
 			$.ajax({
 				url :"./findPwChk.do",
 				type:"POST",
-				data:"member_id="+id.value+"&phone="+phone.value,
+				data:"member_id="+id.value+"&phone="+phone.value+"&password="+'${numStr}',
 				success:function(msg){
 					if(msg.isc =="성공"){
 						swal({
@@ -236,9 +236,7 @@ height: 100%;
 					}
 				},
 				error:function(){
-					swal("전화번호로 비밀번호 발송하였음 \n 진짜임");
-					console.log(id.value);
-	     			console.log(phone.value);
+					swal("입력하신 전화번호로 비밀번호를 전송하였습니다");
 				}
 			});
 				

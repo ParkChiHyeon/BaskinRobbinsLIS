@@ -169,21 +169,54 @@ public class LendingBookController {
 		
 	}
 	
-	@RequestMapping(value = "/lendingBookAdmin.do",method = RequestMethod.GET)
-	public String lendingBookAdmin (@RequestParam Map<String, Object> map, Model model, HttpSession session) {
+	@RequestMapping(value = "/lendingBookAdmin.do",method = RequestMethod.GET,produces = "application/text; charset=UTF-8")
+//	@ResponseBody
+	public String lendingBookAdmin (@RequestParam Map<String, Object> map, Model model,String name, HttpSession session,HttpServletRequest req) {
 		logger.info("lendingBookAdmin _ 관리자 즉시대출화면으로 가기");
 
+		logger.info("lendingBookAdmin _ 관리자 즉시대출화면_도서정보보기");
 //		AdminVo aVo = aService.loginAdmin(map);	
 //		model.addAttribute("admin", aVo);
+//		String name = 	req.getParameter("name");
 		
-		String book_serial = "BKSR100213";
+		String book_serial = "BKSR100044";
 		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
 		listBean= service.nowLendingBook(book_serial);
 		model.addAttribute("listBean",listBean);
 		System.out.println(listBean+"즉시대출%%%%%%%%%%%%%%%");
+		
+		
+		logger.info("lendingBookAdmin _ 관리자 즉시대출화면_회원정보보기");
+		Map<String,Object> mMap = new HashMap<String, Object>();
+		mMap.put("member_id","user002");
+		LibMemberVo lVo = mService.selectMyInfo(mMap);
+		model.addAttribute("lVo",lVo);
+		
+		
 		return "lendingBook";
 	}
 	
+
+	@RequestMapping(value = "/fastLending.do",method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String fastLending(String bookserial,String member, LendingVo vo,HttpServletRequest req,HttpServletResponse response) throws IOException{
+		logger.info("관리자가 즉시 대출하기");
+		System.out.println(bookserial+member+vo);
+		int n = service.lendingBook(bookserial.trim(), member.trim());
+		
+		System.out.println(n+"n의 갯수======================");
+		if(n>0) {
+//			PrintWriter out =response.getWriter();
+//			response.setContentType("text/html; charset=UTF-8");
+//			out.println("<script>alert('대출되었습니다');</script>");
+//			out.flush();
+			
+			return "true";
+		}else {
+			return "false";
+		}
+	
+	}
 	
 }
 

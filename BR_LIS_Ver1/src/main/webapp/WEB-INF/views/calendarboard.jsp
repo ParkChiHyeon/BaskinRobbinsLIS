@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="./dist/datetimepicker/jquery.datetimepicker.css">
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./dist/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="./dist/fullcalendar-5.10.2/lib/main.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -48,9 +47,6 @@
 </style>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$(".fc-event-past").attr("href","http://naver.com")
-})
 function blockToCalendar(){
 	selectCalendar();
 }
@@ -78,9 +74,9 @@ function blockToList(){
 			<div id="contentcore">
 				<div class="naviandtitle">
 						<button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
-				        <input class="btn btn-info btn-primary" onclick="multiDeleteCalendar()" style="width: 90px;" value="다중삭제">
-					<button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
-					<button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
+				        <button class="btn btn-info btn-primary" onclick="multiDeleteCalendar()">다중삭제</button>
+						<button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
+						<button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
 				</div>
 				<div class="naviandtitle">
 					<table id="calendarBoardTable" class="cell-border" style="float:right;"></table>

@@ -26,7 +26,7 @@ public interface ILendingBookDao {
 	public int insertLendingBook(LendingVo vo);
 	
 	//대출 신청 상태변경
-	public int insertLendingBookUpdate(LendingVo vo);
+	public int insertLendingBookUpdate(String book_serial);
 	
 	//도서연체패널티대상 조회 -대출시 필요
 	public List<LibMemberVo> deleyPenalty();
@@ -68,4 +68,6 @@ public interface ILendingBookDao {
 	
 	//대여가능 권수
 	public int lendingCount(String member_code);
+	
+
 }

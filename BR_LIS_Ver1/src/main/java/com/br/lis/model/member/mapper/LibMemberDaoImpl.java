@@ -136,8 +136,8 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 	}
 
 	@Override
-	public int notificationYN(Map<String, Object> map) {
-		return sqlSession.update(NS+"notificationYN",map);
+	public boolean notificationYN(Map<String, Object> map) {
+		return sqlSession.update(NS+"notificationYN",map)>0?true:false;
 	}
 	
 //	@Override
@@ -191,6 +191,8 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 	public int updateMyInfoEmail(Map<String, Object> map) {
 		return sqlSession.update(NS+"updateMyInfoEmail",map);
 	}
+
+	
 
 	
 	
