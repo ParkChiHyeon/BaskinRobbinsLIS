@@ -127,11 +127,17 @@ public class PurchaseServiceImpl implements IPurchaseService {
 		return purchDao.regulReceiveUpdate(regulMap);
 	}
 
+//	// 정기구매 정보 조회 : 정기구매 신청 된 도서의 목록 전체 조회 
+//	@Override
+//	public List<RegularPurchaseVo> purchRegulListSelectByCode(String purchCodeVo) {
+//		logger.info("PurchaseServiceImpl regulReceiveUpdate");
+//		return purchDao.purchRegulListSelectByCode(purchCodeVo);
+//	}
 	// 정기구매 정보 조회 : 정기구매 신청 된 도서의 목록 전체 조회 
 	@Override
-	public List<RegularPurchaseVo> purchRegulListSelectByCode(String purchCodeVo) {
+	public List<RegularPurchaseVo> purchRegulListSelectByCode() {
 		logger.info("PurchaseServiceImpl regulReceiveUpdate");
-		return purchDao.purchRegulListSelectByCode(purchCodeVo);
+		return purchDao.purchRegulListSelectByCode();
 	}
 	
 

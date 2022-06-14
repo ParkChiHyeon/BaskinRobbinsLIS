@@ -11,11 +11,11 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="./BR_js/requestBookSearch.js"></script> -->
+<script type="text/javascript" src="./BR_js/regularBook.js"></script>
 <body>
 	<h3>도서 정기구매</h3>
 	도서구매정보삽입
-	정기구매 리스트 조회
+	정기구매 리스트 조회,발주버튼 추가
 	<div class="searchBox">
 		<form name="reqSearchForm" id="reqSearchForm" method="post" action="javascript:reqBookSearchKeyWord();">
 			<input type="hidden" name="searchLibraryArr" value="MA">
@@ -25,11 +25,11 @@
 				</select>
 				<input type="text" name="searchValue" id="searchValue" class="schInput1" title="검색어 입력">
 			</div>
-			<div class="btnRight"> <span class="themeBtn"><a href="javascript:reqBookSearchKeyWord();">조회</a></span> </div>
+			<div class="btnRight"> <span class="themeBtn"><a href="javascript:regulBookSearchKeyWord();">조회</a></span> </div>
 		</form>
 	</div>
 	<div>
-		<table>
+		<table id="regularPurchaseTable">
 			<thead>
 				<tr>
 					<th>정기구매코드</th>
@@ -47,20 +47,16 @@
 				</tr>
 			</thead>
 			<tbody id="regularPurchaseList">
-<%-- 			<c:forEach var="regularPurchaseRow" items="${regularPurchaseRow}" varStatus="vs" > --%>
-<!-- 				<tr> -->
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<%-- 					<td>${regularPurchaseRow.}</td> --%>
-<!-- 				</tr> -->
-<%-- 			</c:forEach> --%>
+<%-- 				<c:choose > --%>
+<%-- 					<c:when test="${regularBook.confirm == 'Y'}"> --%>
+<!-- 						<td>승인</td> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${regularBook.confirm == 'N'}"> --%>
+<!-- 						<td>반려</td> -->
+<%-- 					</c:when> --%>
+<%-- 				</c:choose> --%>
+				<!-- 조회 결과가 나타날 영역 -->
+				
 			</tbody>
 		</table>
 	</div>

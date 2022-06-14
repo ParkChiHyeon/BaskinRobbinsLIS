@@ -118,7 +118,7 @@ SELECT REGULAR_SERIAL, PURCHASE_CODE , ISBN , TITLE , PUBLISHER , AUTHOR , TRANS
 <select id="purchRegulListSelectByCode" parameterType="java.lang.String" resultType="RegularPurchaseVo">
 	SELECT *
 		FROM REGULAR_PURCHASE 
-			WHERE PURCHASE_CODE = #{purchase_code}
+<!-- 			WHERE PURCHASE_CODE = #{purchase_code} -->
 </select>
 
 
