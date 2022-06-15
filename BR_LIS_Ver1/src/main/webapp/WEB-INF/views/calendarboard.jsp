@@ -77,7 +77,7 @@ function blockToList(){
 				<div class="naviandtitle">
 				  <button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
 				  <button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
-				  <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
+				  <button class="btn btn-primary" style="float : left;" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
 				  <button class="btn btn-info btn-primary calendar-btn" onclick="multiDelCalendar()">다중삭제</button>
 				</div>
 				<div class="naviandtitle">

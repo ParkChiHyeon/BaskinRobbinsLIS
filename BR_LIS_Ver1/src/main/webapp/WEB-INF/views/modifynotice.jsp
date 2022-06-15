@@ -68,7 +68,7 @@
 						내용: <textarea name="content" id="content">${cVo.content} </textarea>
 						일정시작일: <input type="date" id="start_date" name="start_date" value="${cVo.start_date} " class="form-control"><br>
 						일정종료일: <input type="date" id="end_date" name="end_date" value="${cVo.end_date}" class="form-control"><br>
-						<input type="submit" class="btn btn-default" value="저장">
+						<input type="submit" class="btn btn-default" value="저장" onclick="save()">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
@@ -79,6 +79,8 @@
 </div>
 
  <script>
+
+ 
 CKEDITOR.replace( 'content' ,{
 									//language: 'en', //에디터의 언어 설정
 									uiColor: '#E2427F', // 에디터 색상 변경

@@ -78,7 +78,6 @@ public class Board_Controller {
 		}
 	}
 	
-	
 	//글입력화면 이동
 	@RequestMapping(value = "/editor.do",method = RequestMethod.GET)
 	public String ckEditorView(String kind,Model model) {
@@ -99,12 +98,11 @@ public class Board_Controller {
 		return "modifynotice";
 	}
 	
-	
 	//공지게시판 새글입력
 	@RequestMapping(value = "/insertNotice.do", method = RequestMethod.POST)
 	public String insertNoticeBoard(Model model, @RequestParam Map<String, Object> map) {
 		logger.info("Board_Controller insertNoticeBoard : {}",map);
-		System.out.println(map);
+		
 		model.addAttribute("kind", "notice");
 		int n = inoticeService.insertNotice(map);
 		
@@ -122,10 +120,13 @@ public class Board_Controller {
 	
 //		//공지게시판 수정
 //		@RequestMapping(value = "/modifynotice.do", method = {RequestMethod.GET, RequestMethod.POST})
-//		public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
+//		public String modifyNotice(@RequestParam Map<String, Object> map, Model model, String seq) {
 //			logger.info("Board_Controller modifynotice 에디터로 입력받음");
 //			logger.info("map:{}", map);
-//			model.addAttribute("kind", "notice");
+//			model.addAttribute("kind", "kind");
+//			Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
+//			model.addAttribute("dto", vo);
+//			
 //			int cnt = inoticeService.insertNotice(map);
 //			
 //			if (cnt>0) {
@@ -138,15 +139,15 @@ public class Board_Controller {
 //				return "redirect:/viewAllBoard.do";
 //			}
 //		}
-//	
+	
 	//희망도서 엑셀 업로드
 	@RequestMapping(value = "/fileupload.do", method = RequestMethod.POST)
 	public void fileupload(HttpServletRequest request, HttpServletResponse response,
 							MultipartHttpServletRequest multiFile,
 							@RequestParam MultipartFile upload) {
 		logger.info("*************Board_Controller Class_fileupload*************");
+
 		//랜덤문자 생성
-		
 		UUID uid = UUID.randomUUID();
 		
 		OutputStream out = null;
@@ -167,42 +168,46 @@ public class Board_Controller {
 		long size = upload.getSize();
 
 		System.out.println("파일 사이즈:"+size);
+
 		//파일 확장자 가져오기
 		String extension = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());
 		System.out.println("파일 확장자:"+extension);
 		
 		//서버의 물리적인 경로 가져오기
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/");
+		String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/");
 			
-			//서버가 꺼졌을 때를 위한 백업경로(절대경로)
-			//업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
-			LocalDate now = LocalDate.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY\\MM\\dd\\");
-			String nowFormat = now.format(formatter);
-			System.out.println("파일 업로드 날짜:"+nowFormat);
-			String back = "C:\\Users\\haeli\\git\\BaskinRobbinsLIS\\BR_LIS_Ver1\\src\\main\\resources\\back\\"+nowFormat;
-			System.out.println("저장위치 path:"+path);
-			System.out.println("백업위치 back:"+path);
+		//서버가 꺼졌을 때를 위한 백업경로(절대경로)
+		//업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY\\MM\\dd\\");
+		String nowFormat = now.format(formatter);
+		
+		System.out.println("파일 업로드 날짜:"+nowFormat);
+		
+		String back = "C:\\Users\\haeli\\git\\BaskinRobbinsLIS\\BR_LIS_Ver1\\src\\main\\resources\\back\\"+nowFormat;
+		System.out.println("저장위치 path:"+path);
+		System.out.println("백업위치 back:"+path);
 			
-			//폴더 공간 만들어주기
-			File serverPath = new File(path);
-			File backPath = new File(back);
-			//폴더(디렉토리)가 없다면 생성
-			if (!serverPath.exists()) {
-				//만드려는 상위 디렉토리가 있어야만 생성 가능
-				serverPath.mkdir();
-			}
+		//폴더 공간 만들어주기
+		File serverPath = new File(path);
+		File backPath = new File(back);
+		
+		//폴더(디렉토리)가 없다면 생성
+		if (!serverPath.exists()) {
+		//만드려는 상위 디렉토리가 있어야만 생성 가능
+		serverPath.mkdir();
+		}
 			
-			if (!backPath.exists()) {
-				//만드려는 상위 디렉토리가 없으면 상위도 만들어주고 생성
-				backPath.mkdirs();
-			}
-			//덮어쓰기 안되게끔 유효아이디(UUID)로 파일 이름 생성
-			String uploadName = path+uid+"_"+fileName;
-			String backupName = back+uid+"_"+fileName;
-			
-			File uploadFile = new File(uploadName);
-			File backupFile = new File(backupName);
+		if (!backPath.exists()) {
+		//만드려는 상위 디렉토리가 없으면 상위도 만들어주고 생성
+		backPath.mkdirs();
+		}
+		
+		//덮어쓰기 안되게끔 유효아이디(UUID)로 파일 이름 생성
+		String uploadName = path+uid+"_"+fileName;
+		String backupName = back+uid+"_"+fileName;
+		File uploadFile = new File(uploadName);
+		File backupFile = new File(backupName);
 			
 			//파일 생성
 			bout = new FileOutputStream(uploadFile);
@@ -346,8 +351,6 @@ public class Board_Controller {
 		}
 	}
 	
-//	http://localhost:8089/BR_LIS_Ver1/modifynotice.do?kind=faq
-	
 //	//FAQ게시판 수정
 //	@RequestMapping(value = "modifynotice.do", method = RequestMethod.POST)
 //	public String modifyFAQ(@RequestParam Map<String, Object> map, Model model) {
@@ -370,8 +373,6 @@ public class Board_Controller {
 //			return "calendarboard";
 //		}
 //	}
-//	
-
 	
 	//FAQ글 수정화면 이동
 	@RequestMapping(value = "/modifyFAQ.do",method = RequestMethod.GET)
@@ -384,7 +385,6 @@ public class Board_Controller {
 		
 		return "modifynotice";
 	}
-	
 	
 	//FAQ 다중삭제
 	@RequestMapping(value = "/multiDelFAQ.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -452,8 +452,6 @@ public class Board_Controller {
 					return sb.toString();
 				}
 			}
-		
-			
 
 			//Calendar글 수정화면 이동
 				@RequestMapping(value = "/modifyCalendar.do",method = RequestMethod.GET)
@@ -488,10 +486,11 @@ public class Board_Controller {
 			
 			//일정게시판 삭제
 			@RequestMapping(value = "/multiDelCalendar.do", method = {RequestMethod.GET, RequestMethod.POST})
-			public String multiDelCalendar(@RequestParam List<String> chkBox) {
+			public String multiDelCalendar(@RequestParam List<String> chkBox, String seq) {
 				logger.info("Board_Controller multiDelCalendar:{}", chkBox);
+				logger.info("Board_Controller multiDelCalendar:{}", seq);
 //				if (aVo.getAdmin_id().equals(aVo)) {
-					int n = icalService.multiDelCalendar(chkBox);
+					int n = icalService.multiDelCalendar(chkBox, seq);
 //				}else { //세션 붙일경우 고쳐야함
 //					return (n>0)?"redirect:/viewAllBoard.do":"redirect:/viewAllBoard.do";
 //				}

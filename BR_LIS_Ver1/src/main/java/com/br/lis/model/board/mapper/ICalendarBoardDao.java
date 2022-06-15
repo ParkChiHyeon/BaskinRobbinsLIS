@@ -15,6 +15,6 @@ public interface ICalendarBoardDao {
 	
 	public int modifyCalendar(Map<String, Object> map);
 	
-	public int multiDelCalendar(List<String> list);
+	public int multiDelCalendar(List<String> list, String seq);
 
 }
