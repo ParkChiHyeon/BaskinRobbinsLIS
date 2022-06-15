@@ -67,7 +67,6 @@ function selectCalendar(str){
 					console.log(data);			    
 					var seq = data.event._def.extendedProps.calendar_seq
 				   		location.href="./detailcalendar.do?seq="+seq;
-//			        arg.jsEvent.preventDefault() // don't navigate in main tab
 			      }
 			});
 			// 달력 초기화시 필수

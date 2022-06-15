@@ -79,7 +79,6 @@ public class Board_Controller {
 		}
 	}
 	
-	
 	//글입력화면 이동
 	@RequestMapping(value = "/editor.do",method = RequestMethod.GET)
 	public String ckEditorView(String kind,Model model) {
@@ -104,12 +103,11 @@ public class Board_Controller {
 		return "modifynotice";
 	}
 	
-	
 	//공지게시판 새글입력
 	@RequestMapping(value = "/insertNotice.do", method = RequestMethod.POST)
 	public String insertNoticeBoard(Model model, @RequestParam Map<String, Object> map) {
 		logger.info("Board_Controller insertNoticeBoard : {}",map);
-		System.out.println(map);
+		
 		model.addAttribute("kind", "notice");
 		int n = inoticeService.insertNotice(map);
 		
@@ -127,10 +125,13 @@ public class Board_Controller {
 	
 //		//공지게시판 수정
 //		@RequestMapping(value = "/modifynotice.do", method = {RequestMethod.GET, RequestMethod.POST})
-//		public String modifynotice(@RequestParam Map<String, Object> map, Model model) {
+//		public String modifyNotice(@RequestParam Map<String, Object> map, Model model, String seq) {
 //			logger.info("Board_Controller modifynotice 에디터로 입력받음");
 //			logger.info("map:{}", map);
-//			model.addAttribute("kind", "notice");
+//			model.addAttribute("kind", "kind");
+//			Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
+//			model.addAttribute("dto", vo);
+//			
 //			int cnt = inoticeService.insertNotice(map);
 //			
 //			if (cnt>0) {
@@ -143,7 +144,6 @@ public class Board_Controller {
 //				return "redirect:/viewAllBoard.do";
 //			}
 //		}
-//	
 	//noticeboard 상세보기
 	@RequestMapping(value = "/detailnotice.do", method = RequestMethod.GET)
 	public String viewDetailNotice(Model model,String seq) {
@@ -222,8 +222,6 @@ public class Board_Controller {
 		}
 	}
 	
-//	http://localhost:8089/BR_LIS_Ver1/modifynotice.do?kind=faq
-	
 //	//FAQ게시판 수정
 //	@RequestMapping(value = "modifynotice.do", method = RequestMethod.POST)
 //	public String modifyFAQ(@RequestParam Map<String, Object> map, Model model) {
@@ -246,8 +244,6 @@ public class Board_Controller {
 //			return "calendarboard";
 //		}
 //	}
-//	
-
 	
 	//FAQ글 수정화면 이동
 	@RequestMapping(value = "/modifyFAQ.do",method = RequestMethod.GET)
@@ -260,7 +256,6 @@ public class Board_Controller {
 		
 		return "modifynotice";
 	}
-	
 	
 	//FAQ 다중삭제
 	@RequestMapping(value = "/multiDelFAQ.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -275,30 +270,30 @@ public class Board_Controller {
 	}
 //-------------------------------------Calendar-------------------------------------
 	
-		@SuppressWarnings("unchecked")
-		@RequestMapping(value = "/calendarAjax.do", method = RequestMethod.GET)
-		@ResponseBody
-		public JSONArray date(Model model) {
-				List<CalendarBoardVo> lists = icalService.viewAllCalendar();
-				System.out.println("datedatedatedatedate" + lists.toString());
-				JSONArray arr = new JSONArray();
-				for (CalendarBoardVo vo : lists) {
-					JSONObject obj = new JSONObject();
-					obj.put("id", vo.getAdmin_id());
-					obj.put("seq", vo.getCalendar_seq());
-					obj.put("title", vo.getTitle());
-					obj.put("content", vo.getContent());
-					obj.put("start", vo.getStart_date());
-					obj.put("end", vo.getStart_date());
-					arr.add(obj);
-				}
-				logger.info("JSONArray 파싱한 값 : {}", arr);
-	
-				// return 형태
-				// [{},{},{}....]
-				return arr;
-		}
-	
+//		@SuppressWarnings("unchecked")
+//		@RequestMapping(value = "/calendarAjax.do", method = RequestMethod.GET)
+//		@ResponseBody
+//		public JSONArray date(Model model) {
+//				List<CalendarBoardVo> lists = icalService.viewAllCalendar();
+//				System.out.println("datedatedatedatedate" + lists.toString());
+//				JSONArray arr = new JSONArray();
+//				for (CalendarBoardVo vo : lists) {
+//					JSONObject obj = new JSONObject();
+//					obj.put("id", vo.getAdmin_id());
+//					obj.put("seq", vo.getCalendar_seq());
+//					obj.put("title", vo.getTitle());
+//					obj.put("content", vo.getContent());
+//					obj.put("start", vo.getStart_date());
+//					obj.put("end", vo.getStart_date());
+//					arr.add(obj);
+//				}
+//				logger.info("JSONArray 파싱한 값 : {}", arr);
+//	
+//				// return 형태
+//				// [{},{},{}....]
+//				return arr;
+//		}
+//	
 			//일정게시판 상세보기
 			@RequestMapping(value = "/detailcalendar.do", method = RequestMethod.GET)
 			public String viewDetailCalendar(Model model,String seq) {
@@ -328,8 +323,6 @@ public class Board_Controller {
 					return sb.toString();
 				}
 			}
-		
-			
 
 			//Calendar글 수정화면 이동
 				@RequestMapping(value = "/modifyCalendar.do",method = RequestMethod.GET)
@@ -366,6 +359,8 @@ public class Board_Controller {
 			@RequestMapping(value = "/multiDelCalendar.do", method = {RequestMethod.GET, RequestMethod.POST})
 			public String multiDelCalendar(@RequestParam List<String> chkBox) {
 				logger.info("Board_Controller multiDelCalendar:{}", chkBox);
+//				logger.info("Board_Controller multiDelCalendar:{}", seq);
+				
 //				if (aVo.getAdmin_id().equals(aVo)) {
 					int n = icalService.multiDelCalendar(chkBox);
 //				}else { //세션 붙일경우 고쳐야함

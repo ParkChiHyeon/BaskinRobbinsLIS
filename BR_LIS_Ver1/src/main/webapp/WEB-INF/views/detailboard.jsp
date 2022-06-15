@@ -66,14 +66,6 @@
 						<!--Real Contents Start-->
 						<div class="boardWrap">
 							<table class="bd00view">
-<%-- 								<caption>게시물 내용 상세보기 : 제목, 등록일, 첨부파일, 작성자, 내용의 상세보기표</caption> --%>
-	<%-- 							<colgroup> --%>
-	<%-- 							<col style="width:15%;"> --%>
-	<%-- 							<col> --%>
-	<%-- 							<col style="width:15%;"> --%>
-	<%-- 							<col style="width:35%;"> --%>
-	<%-- 							</colgroup> --%>
-								
 								<tbody>
 									<tr>
 										<th class="bd01th" scope="row">제목</th>
@@ -98,19 +90,28 @@
 										<td colspan="4" class="bd01tdC"><p><br></p><p style="">${dto.content}</p><p><br></p></td>
 									</tr>
 								</tbody>
-								
 							</table>
 						</div>
 						
 						<div class="btn_farm2 mt20">
 							<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=notice" id="listBtn" >목록</a></span>
 					 		<button class="btn btn-primary" onclick="javascript:location.href='./modifynotice.do?kind=notice&seq='+${dto.notice_seq}">수정</button>
-	            			<input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 60px;" value="삭제">
+	            			<button class="btn btn-info btn-primary" onclick="multiDeleteNotice(${dto.notice_seq})" style="width: 60px;">삭제</button>
 						</div>
 	
 					</div><!-- contents -->
 			</c:if><!-- 공지사항상세보기 끝 -->
 			
+<script type="text/javascript">
+function multiDeleteNotice(seq){
+	 location.href="multiDelNotice.do?chkBox="+seq;
+}
+
+
+function modifyNotice(seq){
+	 location.href="modifynotice.do?seq="+seq;
+}
+</script>
 			
 			<!-- faq상세보기 상단 -->
 			<c:if test="${kind=='faq'}">
@@ -153,10 +154,21 @@
 					<div class="btn_farm2 mt20">
 						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=faq" id="listBtn">목록</a></span>
 						<button class="btn btn-primary" onclick="javascript:location.href='./modifyFAQ.do?kind=faq&seq='+${vo.faq_seq}">수정</button>
-            			<input class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 60px;" value="삭제">
+            			<input class="btn btn-info btn-primary" onclick="multiDeleteFAQ(${vo.faq_seq})" style="width: 60px;" value="삭제">
 					</div>
-
 			</c:if> <!-- FAQ 상세보기 끝 -->
+
+<script type="text/javascript">
+function multiDeleteFAQ(seq){
+	 location.href="multiDelFAQ.do?chkBox="+seq;
+}
+
+
+
+
+
+</script>
+
 			
 			<!-- 도서관 일정 상세보기 -->
 			<c:if test="${kind=='calendar'}">
@@ -196,13 +208,18 @@
 					<div class="btn_farm2 mt20">
 						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=calendar" id="listBtn">목록</a></span>
 						<button class="btn btn-primary" onclick="javascript:location.href='./modifyCalendar.do?kind=calendar&seq='+${vo.calendar_seq}">수정</button>
-           		   		<button class="btn btn-info btn-primary" onclick="javascript:location.href='./multiDelCalendar.do?=kind=calendar&seq='+${vo.calendar_seq}">삭제</button>
+						<button class="btn btn-primary" onclick="javascript:location.href='./multiDelCalendar.do?kind=calendar&seq='+${vo.calendar_seq}">삭제</button>
 					</div>
 			</c:if><!-- 일정상세보기 -->
 			
 		</div> <!-- divcontcore 1.공지사항& 2.FAQ 3.도서관일정 상세보기 끝 -->
-		</div> <!-- divcontbody -->
+		</div> <!-- divcontbody chkBox-->
 	</div>
 </body>
+<script type="text/javascript">
+function multiDeleteNotice(seq){
+	 location.href="multiDelNotice.do?chkBox="+seq;
+}
+</script>
 <%@include file="./footer.jsp" %>
 </html>

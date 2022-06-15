@@ -20,16 +20,24 @@ public class DaoLoggerAop {
 		}
 		
 	}
+<<<<<<< HEAD
 	
 	public void afterReturning(JoinPoint j) {
 		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
 		logger.warn("End Method:\t{}",j.getSignature().getName());
 	}
 	
+=======
+	public void afterReturning(JoinPoint j) {
+		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
+		logger.warn("End Method:\t{}",j.getSignature().getName());
+	}
+>>>>>>> branch 'hyelim' of https://github.com/ParkChiHyeon/BaskinRobbinsLIS.git
 	public void afterThrowing(JoinPoint j, Exception exception) {
 		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
 		logger.warn("Occur:\t{}",j.getSignature().getName());
 		logger.warn("Occur:\t{}",exception.getMessage());
 	}
+<<<<<<< HEAD
 */
 }
