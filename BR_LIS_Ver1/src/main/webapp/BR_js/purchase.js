@@ -127,11 +127,13 @@ function modalClose(){
 	
 }
 function purchaseCodeIndex(index){
+	// 테이블의 값을 modal안의 input태그에 넣어줌 
 	var purchase_codeIndex = $("#purchase_codeIndex"+index).text();
 	var total_priceIndex = $("#total_priceIndex"+index).text();
 	var total_eaIndex = $("#total_eaIndex"+index).text();
 	var distributor_emailIndex = $("#distributor_emailIndex"+index).text();
 	
+	// 주문일, 확정일에 따라 보이는 버튼이 다르게 함
 	var order_dateIndex = $("#order_dateIndex"+index).text();
 	var confirm_dateIndex = $("#confirm_dateIndex"+index).text();
 

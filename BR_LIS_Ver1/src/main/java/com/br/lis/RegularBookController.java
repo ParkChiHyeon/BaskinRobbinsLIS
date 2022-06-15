@@ -1,6 +1,8 @@
 package com.br.lis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +56,7 @@ public class RegularBookController {
 	
 	
 	
-	// 정기구매도서의 리스트를 조회
+	// 정기구매도서의 리스트를 조회(데이터테이블 사용)
 	@RequestMapping(value = "/purchRegulList.do", method = RequestMethod.GET)
 //	@ResponseBody
 	public String purchRegulListSelectByCode(HttpServletRequest req, Model model) {
@@ -73,6 +75,39 @@ public class RegularBookController {
 //		return "regularPurchaseDataTable";
 //	}
 	
+	// 구매 수량을 변경해주는 메소드
+	@RequestMapping(value = "/changePurchaseCount.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int changePurchaseCount(HttpServletRequest req) {
+		// 화면에서 구매수량과 시리얼번호를 받아옴
+		String changePurchaseCount = req.getParameter("changePurchaseCount");
+		String regular_serial = req.getParameter("regular_serial");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("ea", changePurchaseCount);		
+		map.put("regular_serial", regular_serial);
+		
+		int result = PurcService.regulQuantityUpdate(map);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/notPurchaseReason.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int notPurchaseReason(HttpServletRequest req) {
+		String notPurchaseReaso = req.getParameter("notPurchaseReaso");
+		String regular_serial = req. getParameter("regular_serial");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("history", notPurchaseReaso);		
+		map.put("regular_serial", regular_serial);
+
+		int result = registService.updateRegulHistory(map);
+		
+		return result;
+	}
 	
 	
 	

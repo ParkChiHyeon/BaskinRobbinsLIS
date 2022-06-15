@@ -14,6 +14,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<script type="text/javascript" src="./BR_js/regularPurchaseDataTable.js"></script>
 
 
 </head>
@@ -41,8 +42,12 @@
 			<tbody>
 				<c:forEach items="${purchRegulList}" var="purchRegulList" varStatus="vs">
 					<tr>
-						<td><input type="checkbox" id=""></td>
-						<td>${purchRegulList.regular_serial}</td>
+						<td>
+							<c:if test="${purchRegulList.receive_date == null && purchRegulList.confirm == 'Y'}">
+								<input type="checkbox" id="regularPurchaseCheck${vs.index}" name="regularPurchaseCheck" value="${purchRegulList.regular_serial}">
+							</c:if>
+						</td>
+						<td id="regularSerial_Index${vs.index}">${purchRegulList.regular_serial}</td>
 						<td>${purchRegulList.purchase_code}</td>
 						<td>${purchRegulList.isbn}</td>
 						<td>${purchRegulList.title}</td>
@@ -50,7 +55,7 @@
 						<td>${purchRegulList.author}</td>
 						<td>${purchRegulList.translator}</td>
 						<td>${purchRegulList.price}</td>
-						<td>${purchRegulList.ea}</td>
+						<td id="ea_Index${vs.index}">${purchRegulList.ea}</td>
 						<c:choose>
 							<c:when test="${purchRegulList.confirm == 'Y'}">
 								<td>승인</td>
@@ -63,39 +68,51 @@
 							</c:otherwise>
 						</c:choose>
 <%-- 						<td>${purchRegulList.confirm}</td> --%>
-						<td>${purchRegulList.history}</td>
+						<td id="regularHistory_Index${vs.index}">${purchRegulList.history}</td>
 						<td>${purchRegulList.receive_date}</td>
 						<td>
-							<div class="container">
-							  <!-- Trigger the modal with a button -->
-							  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">수정</button>
-							
-							  <!-- Modal -->
-							  <div class="modal fade" id="myModal" role="dialog">
-							    <div class="modal-dialog">
-							    
-							      <!-- Modal content-->
-							      <div class="modal-content">
-							        <div class="modal-header">
-							          <button type="button" class="close" data-dismiss="modal">&times;</button>
-							          <h4 class="modal-title">구매정보수정</h4>
-							        </div>
-							        <div class="modal-body">
-							          <p>Some text in the modal.</p>
-							        </div>
-							        <div class="modal-footer">
-							          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							        </div>
-							      </div>
-							      
-							    </div>
-							  </div>
-							</div>
+							<c:if test="${purchRegulList.receive_date == null}">
+								<div class="container">
+								  <!-- Trigger the modal with a button -->
+								  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="regularPurchaseInfoChange(${vs.index})">수정</button>
+								
+								  <!-- Modal -->
+								  <div class="modal fade" id="myModal" role="dialog">
+								    <div class="modal-dialog">
+								    
+								      <!-- Modal content-->
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">구매정보수정</h4>
+								        </div>
+								        <div class="modal-body" id="modalReset">
+								          <p>구매수량 변경 : 
+								          	<input type="text" id="changePurchaseCount" name="changePurchaseCount" value="">
+								          	<button onclick="javascript:changePurchaseCount()">변경</button>
+								          </p>
+								          <p>
+								          	구매불가 사유 입력<br>
+								          	<textarea id="notPurchaseReason" name="notPurchaseReason" style="resize: none; width: 300px;"></textarea>
+								          	<button onclick="javascript:notPurchaseReason()">변경</button>
+								          </p>
+								        </div>
+								        <div class="modal-footer">
+								          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="modalClose()">닫기</button>
+								        </div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-	<button class="btn btn-primary" onclick="">입고</button>	
+	<button class="btn btn-primary" onclick="recieveBook()">입고</button>	
+	<button class="btn btn-danger" onclick="changeConfirmN()">반려</button>	
 <!-- 	<button class="btn btn-primary" onclick="createAjax()">AJAX</button>	 -->
 <!-- 	<button class="btn btn-info" onclick="javascript:location.href='./editor.do'">BACK</button> -->
 </div>

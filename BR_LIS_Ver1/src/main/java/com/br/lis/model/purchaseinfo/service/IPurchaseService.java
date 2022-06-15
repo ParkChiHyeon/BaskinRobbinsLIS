@@ -49,10 +49,10 @@ public interface IPurchaseService {
 	public int purchConfirmDateUpdate(String purchCodeVo);
 	
 	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(신청도서)
-	public int reqReceiveUpdate(Map<String, Object> reqMap);
+	public int reqReceiveUpdate(String reqSerial);
 	
 	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(정기구매도서)
-	public int regulReceiveUpdate(Map<String, Object> regulMap);
+	public int regulReceiveUpdate(String regulSerial);
 
 	// 정기구매 정보 조회 : 정기구매 신청 된 도서의 목록 전체 조회 
 //	public List<RegularPurchaseVo> purchRegulListSelectByCode(String purchCodeVo);

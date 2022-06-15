@@ -33,13 +33,13 @@
 
 <!-- 정기구매(BR_W_BM_602) : 정기구매 정보 업데이트(권수 업데이트) -->
 <update id="regulQuantityUpdate" parameterType="java.util.Map">
-	UPDATE GD.REGULAR_PURCHASE
+	UPDATE REGULAR_PURCHASE
 		SET EA = #{ea} WHERE REGULAR_SERIAL= #{regular_serial}
 </update>
 
 <!-- 정기구매(BR_W_BM_602) : 정기구매 정보 업데이트(구매여부(CONFIRM)업데이트) -->
 <update id="regulConfirmUpdate" parameterType="java.lang.String">
-	UPDATE GD.REGULAR_PURCHASE
+	UPDATE REGULAR_PURCHASE
 		SET CONFIRM ='N' WHERE REGULAR_SERIAL= #{regular_serial}
 </update>
 
@@ -48,13 +48,13 @@
 
 <!-- 신청구매(BR_W_BM_603) : 신청구매 정보 업데이트(권수 업데이트) -->
 <update id="reqQuantityUpdate" parameterType="java.util.Map">
-	UPDATE GD.REQUEST_PURCHASE 
+	UPDATE REQUEST_PURCHASE 
 		SET EA = #{ea} WHERE WISH_SERIAL = #{wish_serial}
 </update>
 
 <!-- 신청구매(BR_W_BM_603) : 신청구매 정보 업데이트(구매여부 업데이트) -->
 <update id="reqConfirmUpdate" parameterType="java.lang.String">
-	UPDATE GD.REQUEST_PURCHASE
+	UPDATE REQUEST_PURCHASE
 		SET CONFIRM ='N' WHERE WISH_SERIAL = #{wish_serial}
 </update>
 
@@ -101,16 +101,16 @@ SELECT REGULAR_SERIAL, PURCHASE_CODE , ISBN , TITLE , PUBLISHER , AUTHOR , TRANS
 
 
 <!-- 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(신청도서) -->
-<update id="reqReceiveUpdate" parameterType="java.util.Map">
+<update id="reqReceiveUpdate" parameterType="java.lang.String">
 	UPDATE REQUEST_PURCHASE  
-		SET RECEIVE_DATE = #{receive_date}
+		SET RECEIVE_DATE = CURRENT_DATE
 			WHERE WISH_SERIAL = #{wish_serial}
 </update>
 
 <!-- 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(정기구매도서) -->
-<update id="regulReceiveUpdate" parameterType="java.util.Map">
+<update id="regulReceiveUpdate" parameterType="java.lang.String">
 	UPDATE REGULAR_PURCHASE  
-		SET RECEIVE_DATE = #{receive_date}
+		SET RECEIVE_DATE = CURRENT_DATE
 			WHERE REGULAR_SERIAL = #{regular_serial}
 </update>
 
