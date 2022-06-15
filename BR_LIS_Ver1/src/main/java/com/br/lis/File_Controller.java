@@ -37,7 +37,7 @@ public class File_Controller {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private String absolutePath = "C:\\BR_storage\\notice\\";
-	private String absolutePathLinux = "/usr/local/BR_storage/";
+	private String absolutePathLinux = "/usr/local/BR_storage/notice/";
 	
 	@Autowired
 	private INoticeBoardService service;
