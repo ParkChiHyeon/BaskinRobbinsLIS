@@ -81,8 +81,8 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	}
 
 	@Override
-	public int reservationBookUpdate(BookInfoVo vo) {
-		return sqlSession.update(NS+"reservationBookUpdate",vo);
+	public int reservationBookUpdate(String book_serial) {
+		return sqlSession.update(NS+"reservationBookUpdate",book_serial);
 	}
 
 	@Override
@@ -118,6 +118,11 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	@Override
 	public int lendingCount(String member_code) {
 		return sqlSession.update(NS+"lendingCount",member_code);
+	}
+
+	@Override
+	public List<LendingVo> limitBookCount(String member_id) {
+		return sqlSession.selectList(NS+"limitBookCount",member_id);
 	}
 	
 	

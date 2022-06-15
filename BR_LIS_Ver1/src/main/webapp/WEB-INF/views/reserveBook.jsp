@@ -14,19 +14,8 @@
 </head>
 <%@ include file="./header.jsp"%>
 <body>
-<a href="./lendingBook2.do">test</a>
-
-<div id="container_reserve">
-		<div>제목 : 라만차의 비범한 이달고 돈키호테</div>
-		<div>저자 : 미겔 데 세르반테스 지음;전기순 옮김</div>
-		<div>출판사 : 웅진씽크빅</div>
-		ISBN: <div id="isbn" >9788901208299</div>
-		BOOK_SERIAL: <div id="book_serial">BKSR220912</div>
-		<input type="button" value="예약하기" onclick="testResrve()">
-</div>
-
 <h1>예약선택한 도서</h1>
-${chkBook}
+${countBook}
 <table class="table table-bordered">
 			<thead>
 				<tr>
@@ -37,15 +26,19 @@ ${chkBook}
 					<th>예약</th>
 				</tr>
 			</thead>
+			<c:if test="${countBook eq ' '}">
 			<tbody>
-				<tr>
-					<td><input type="hidden" id="isbn" value=" ${po.isbn}">${po.isbn}</td>
-					<td><input type="hidden" id="book_serial" value=" ${po.book_serial}">${po.book_serial}</td>
-					<td>${po.title}</td>
-					<td>${po.author}</td>
-					<td><input class="checkReserve"type="button" value="예약하기"></td>
+				<tr id="chkBook">
+<%-- 					<td><input type="hidden" id="isbn"  value=" ${po.isbn}">${po.isbn}</td> --%>
+<%-- 					<td><input type="hidden" id="book_serial" value=" ${po.book_serial}">${po.book_serial}</td> --%>
+<%-- 					<td>${po.title}</td> --%>
+<%-- 					<td>${po.author}</td> --%>
+<!-- 					<td><input class="checkReserve"type="button" value="예약하기"></td> -->
+				
+				
 				</tr>
 			</tbody>
+			</c:if>
 		</table>
 
 
@@ -72,13 +65,14 @@ ${chkBook}
 						<td>${po.author}</td>
 						<td>${po.end_date}</td>
 <!-- 						<td><button class="btn btn-info"type="button"  onclick="checkReserve()">예약하기</button> </td> -->
-						<td><input class="checkReserve"type="button" onclick="checkReserve()"value="선택"></td>
+						<td><input class="checkReserve"type="button" value="선택"></td>
 					</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</form>	
 </div>	
+
 <script type="text/javascript">
 $(document).ready(function () {
     $('#dataTable').DataTable({
@@ -121,7 +115,7 @@ $(".checkReserve").click(function(){
 	var tdArr =  new Array();
 	var checkReserve =$(this);
 	
-	var frm = document.getElementById("s")
+// 	var frm = document.getElementById("s")
 	
 // 	 frm.action = "./checkReserve.do"
 	var tr = checkReserve.parent().parent();
@@ -140,24 +134,70 @@ $(".checkReserve").click(function(){
 	});
 	console.log(tdArr);
 	
-	$("#oneBook").attr("action", "./checkReserve.do"); 
-	$("#oneBook").attr("isbn",isbn); 
-	$("#oneBook").attr("book",book); 
-	$("#oneBook").submit();
-// 	$.ajax({
-// 		url:"./checkReserve.do",
-// 		data:{"isbn":isbn,"book_serial":book},
-// 		type:"post",
-// 		async : true,
-// 		success : function(data){
-// 			frm.submit();
-// 			console.log("성공");
-// 			location.href="./checkReserve.do";
-// 		}
-// 	});
+	var chkBook;
+	
+// 	$("#chkBook1").empty();
+// 	$("table").eq(0).children("tbody").eq(0).children("tr").eq(1).empty();
+	
+	$.ajax({
+		url:"./checkReserve.do",
+		data:{"isbn":isbn,"book_serial":book},
+		dataType:"json",
+		type:"post",
+		async : true,
+		success : function(data){
+			console.log("성공");
+			var chkBook;
+			
+			$("#chkBook").empty();
+// 			$("#chkBook").children().empty();
+			
+			console.log(data);
+			console.log(chkBook);
+			console.log(data.chkBook[0].isbn);
+			console.log(data.chkBook[0].book_serial);
+			console.log(data.chkBook[0].title);
+			console.log(data.chkBook[0].author);
+			chkBook="";
+			chkBook+="<td><input type='hidden' id='isbn' name='isbn' value='"+data.chkBook[0].isbn+"'>"+data.chkBook[0].isbn+"</td>";
+			chkBook+='<td><input type="hidden" id="book_serial" value='+data.chkBook[0].book_serial+'>'+data.chkBook[0].book_serial+'</td> ';
+			chkBook+='<td>'+data.chkBook[0].title+'</td>  ';
+			chkBook+='<td>'+data.chkBook[0].author+'</td>  ';
+// 			chkBook+='<td>'+data.chkBook[0].author+'</td>  ';
+			chkBook+='<td><input class="checkReserve"type="button"  onclick="checkReserve()" value="예약하기"></td>  ';
+		
+			var check = $("#chkBook").append(chkBook);
+			console.log("================"+check);
+	//		$("#chkBook").children().append(chkBook);
+	
+				
+// 			$("table").eq(0).children("tbody").eq(0).children("tr").eq(1).append(chkBook);
+		
+		}
+	});
 	
 })
-	
+
+function checkReserve(){
+	var isbn =document.getElementById("isbn").value;
+	var book_serial =document.getElementById("book_serial").value;
+	console.log(isbn, book_serial,"예약하러가기");
+	$.ajax({
+		url:"./realReserve.do",
+		data:{"isbn":isbn,"book_serial":book_serial},
+		type:"post",
+		async : true,
+		success : function(data){
+			console.log("성공")
+			alert('도서 예약이 되었습니다');
+			location.href="./reserveBookList.do";
+		},
+		error:function(){
+			alert('ERROR\n다시 시도 하십시오');
+// 			location.href="./reserveBook.do";
+		}
+	});
+}	
 
 
 </script>

@@ -48,7 +48,7 @@ public interface ILendingBookDao {
 	public int reservationBook(LendingVo vo);
 	
 	//대출 예약 신청 후 상태변경
-	public int reservationBookUpdate(BookInfoVo vo);
+	public int reservationBookUpdate(String book_serial);
 	
 	//예약 후 대출 확정
 	public int realReserBook(String lending_seq);
@@ -70,6 +70,9 @@ public interface ILendingBookDao {
 	
 	//대여가능 권수
 	public int lendingCount(String member_code);
+	
+	//예약권수 제한
+	public List<LendingVo> limitBookCount(String member_id);
 	
 
 }

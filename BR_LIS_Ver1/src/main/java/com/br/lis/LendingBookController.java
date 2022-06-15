@@ -227,52 +227,65 @@ public class LendingBookController {
 	}
 	
 	@RequestMapping(value = "/reserveBook.do",method = RequestMethod.GET)
-	public String selectPossibleReserve(Model model) {
+	public String selectPossibleReserve(Model model,HttpSession session) {
 		logger.info("회원 예약 하기_ 가능도서 조회");
+		
+		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+		String memberid = mVo.getMember_id();
+		List<LendingVo> countBook = service.limitBookCount(memberid);
+		
+		
 		List<LendBookBean> poBook = new ArrayList<LendBookBean>();
 		poBook= service.selectPossibleReserve();
 		model.addAttribute("poBook",poBook);
+		model.addAttribute("countBook",countBook);
+		
 		return "reserveBook";
 	}
 	
-	
-	
-	
-	@RequestMapping(value = "/checkReserve.do", method = {RequestMethod.POST ,RequestMethod.GET},produces = "application/text; charset=UTF-8" )
-	public String possibleReserve(Model model,@RequestParam String isbn,String book_serial) {
+	@RequestMapping(value = "/checkReserve.do", method = {RequestMethod.POST ,RequestMethod.GET},produces = "application/json; charset=UTF-8" )
+	@ResponseBody
+	public Map<String, Object> possibleReserve(Model model,@RequestParam String isbn ,String book_serial ) {
 		logger.info("회원 예약 하기_ 반납예정일이 빠른도서 선택");
 		System.out.println(isbn+"+"+book_serial+"+@@@@ISBN-BOOK SERIAL보기@@@@");
-		List<LendBookBean> chkBook = new ArrayList<LendBookBean>();
-		chkBook=service.possibleReserve(isbn);
-		System.out.println("#################################"+chkBook);
 		
-		model.addAttribute("chkBook",chkBook);
-		return "checkReserve";
+//		ModelAndView mav =new ModelAndView();
+		
+		List<LendBookBean> chkBook = service.possibleReserve(isbn);
+		System.out.println("#####################"+chkBook);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("chkBook", chkBook);
+		System.out.println("********************"+map);
+		
+//		mav.addObject("chkBook",chkBook);
+//		mav.setViewName("reserveBook");
+//		model.addAttribute("chkBook",chkBook);
+		return map;
 	}
 	
-	
-//	@RequestMapping(value = "/checkReserve.do", method = {RequestMethod.POST ,RequestMethod.GET},produces = "application/text; charset=UTF-8" )
-//	@ResponseBody
-//	public String possibleReserve(Model model,@RequestParam String isbn,String book_serial) {
-//		logger.info("회원 예약 하기_ 반납예정일이 빠른도서 선택");
-//		System.out.println(isbn+"+"+book_serial+"+@@@@ISBN-BOOK SERIAL보기@@@@");
-//		
-////		ModelAndView mav =new ModelAndView();
-//		
-//		List<LendBookBean> chkBook = new ArrayList<LendBookBean>();
-//		chkBook=service.possibleReserve(isbn);
-//		System.out.println("#################################"+chkBook);
-////		mav.addObject("chkBook",chkBook);
-////		mav.setViewName("reserveBook");
-//		
-//		model.addAttribute("chkBook",chkBook);
-//		return "checkReserve";
-//	}
-	
-	@RequestMapping(value = "/checkReserve2.do")
-	public String reSelect(HttpServletRequest req, HttpServletResponse response) {
+	@RequestMapping(value = "/realReserve.do", method = RequestMethod.POST ,produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String reSelect(@RequestParam String isbn ,String book_serial,HttpSession session) {
+		logger.info("회원 예약 하기_ 예약도서 선택 후 버튼 누름~");
 		
-		return "checkReserve";
+		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+		String memberid = mVo.getMember_id();
+		String member_code = mVo.getMember_code();
+		System.out.println(isbn+" , "+book_serial+" , "+memberid+" , "+member_code);
+		
+		LendingVo vo = new LendingVo();
+		vo.setBook_serial(book_serial);
+		vo.setMember_code(member_code);
+		System.out.println(vo);
+		
+		int n =service.bookReservation(vo, book_serial.trim());
+		System.out.println(n+"n의 갯수======================");
+		if(n>0) {
+			return "true";
+		}else {
+			return "false";
+		}
+//		return "myPage";
 	}
 	
 }
