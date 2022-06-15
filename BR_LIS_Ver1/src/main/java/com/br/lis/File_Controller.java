@@ -38,6 +38,7 @@ public class File_Controller {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private String absolutePath = "C:\\BR_storage\\notice\\";
 	private String absolutePathLinux = "/usr/local/BR_storage/";
+	
 	@Autowired
 	private INoticeBoardService service;
 	
@@ -121,7 +122,6 @@ public class File_Controller {
 //		    	bout.flush();
 		    	out.flush(); 
 		    	
-		    	Runtime.getRuntime().exec("chmod -R 777 " + backupFile);
 		    	//응답객체를 얻어서 화면에 링크로 다운받을 수 있게끔
 	//	    	printWriter = response.getWriter();
 		    	//서버에 저장된 내용을 다운로드할 수 있도록 처리
@@ -268,8 +268,6 @@ public class File_Controller {
 //	          bout.flush();
 	          out.flush(); 
 	          
-	          Runtime.getRuntime().exec("chmod -R 777 " + backupFile);
-	         
 	          //응답객체를 얻어서 화면에 링크로 다운받을 수 있게끔
 	          printWriter = response.getWriter();
 	          //서버에 저장된 내용을 다운로드할 수 있도록 처리
