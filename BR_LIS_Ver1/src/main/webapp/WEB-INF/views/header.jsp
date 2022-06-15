@@ -196,7 +196,7 @@
 			<ul>
 			<li id="gnb5_1" class=""><a href="./lendingBookAdmin.do" >대출</a>
 					</li>
-				<li id="gnb5_2" class=""><a href="/jungang/10049/20028/bbsList.do" >반납</a>
+				<li id="gnb5_2" class=""><a href="./returnBookPage.do" >반납</a>
 					</li>
 				<li id="gnb5_3" class=""><a href="/jungang/10050/20010/bbsList.do" >대출목록</a>
 					</li>

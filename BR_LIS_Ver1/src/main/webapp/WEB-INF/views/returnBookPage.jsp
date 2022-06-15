@@ -15,21 +15,21 @@
 	<form action="#">
 		<h2>도서대출내역</h2>
 		<table>
-			<tr>
-				<th>대출번호</th>
-				<th>시리얼번호</th>
-				<th>연장여부</th>
-				<th>대출일</th>
-				<th>반납일</th>
-			</tr>
-			<tr>
-				<td><input type="hidden" name="lending_seq" value="${vo.lending_seq}">${vo.lending_seq}</td>
-				<td>${vo.book_serial}</td>
-				<td>${vo.lending_delay}</td>
-				<td>${vo.lending_date}</td>
-				<td>${vo.end_date}</td>
-			</tr>
-		</table>
+            <tr>
+                <th>대출번호</th>
+                <th class="book_serial" >시리얼번호</th>
+                <th>연장여부</th>
+                <th>대출일</th>
+                <th>반납예정일</th>
+            </tr>
+            <tr>
+                <td><input type="hidden" name="lending_seq" value="${vo.lending_seq}">${vo.lending_seq}</td>
+                <td class="book_serial" ><input type="text"  class="book_serial_val" id="book_serial" name="book_serial" placeholder="BKSR155997" onfocus="this.value=''"><input type="button" value="조회" onclick="returnBookSelect()"></td>
+                <td>${vo.lending_delay}</td>
+                <td>${vo.lending_date}</td>
+                <td>${vo.end_date}</td>
+            </tr>
+        </table>
 		<h2>회원내역</h2>
 		<table>
 			<tr>

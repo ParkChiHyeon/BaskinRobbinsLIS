@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.br.lis.vo.CalendarBoardVo;
-import com.br.lis.vo.Notice_FAQBoardVo;
 
 public interface ICalendarBoardDao {
 
@@ -12,10 +11,10 @@ public interface ICalendarBoardDao {
 	
 	public CalendarBoardVo viewDetailCalendar(String seq);
 	
-	public int insertCalendar(Map<String, String> map);
+	public int insertCalendar(Map<String, Object> map);
 	
 	public int modifyCalendar(Map<String, Object> map);
 	
-	public int deleteCalendar(List<String> seqs);
+	public int multiDelCalendar(List<String> list);
 
 }

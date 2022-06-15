@@ -50,68 +50,67 @@
 				</div>
 			</div>
 			
-			
 		<!-- 1.공지사항& 2.FAQ 3.도서관일정 상세보기 -->
 		<div id="contentcore">
 				
 				<!-- 1.공지사항 상세보기 -->
 				<c:if test="${kind=='notice'}">
-				<div class="naviandtitle">
-					<h3>공지사항</h3>
-					<div class="navi"><a href="./home.do"><img src="./include/image/global/common/icon_home.gif" alt="홈"></a> 정보마당<span class="mobileHide"> &gt; <strong>공지사항</strong></span></div>
-				</div>
-				
-				<div class="contents" id="contents">
-
-					<!--Real Contents Start-->
-					<div class="boardWrap">
-						<table class="bd00view">
-							<caption>게시물 내용 상세보기 : 제목, 등록일, 첨부파일, 작성자, 내용의 상세보기표</caption>
-<%-- 							<colgroup> --%>
-<%-- 							<col style="width:15%;"> --%>
-<%-- 							<col> --%>
-<%-- 							<col style="width:15%;"> --%>
-<%-- 							<col style="width:35%;"> --%>
-<%-- 							</colgroup> --%>
-							
-							<tbody>
-								<tr>
-									<th class="bd01th" scope="row">제목</th>
-									<td colspan="3" class="bd01td">${dto.title}</td>
-								</tr>
-								
-								<tr>
-									<th class="bd01th" scope="row">등록일</th>
-									<td class="bd01td">${fn:substring(dto.regdate,0,10)}</td>
-									<th class="bd01th">작성자</th>
-									<td class="bd01td">${dto.admin_id}</td>
-								</tr>
-								
-								<tr>
-									<th class="bd01th" scope="row">첨부파일</th>
-									<td colspan="3" class="bd01td">
-										<a href="javascript:fnBbsFileDownload('5969');">${dto.file_path}<img src="./include/image/jungang/board/btn_down.gif" alt="첨부파일 다운로드"></a>
-									</td>
-								</tr>
-								
-								<tr>
-									<td colspan="4" class="bd01tdC"><p><br></p><p style="">${dto.content}</p><p><br></p></td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="naviandtitle">
+						<h3>공지사항</h3>
+						<div class="navi"><a href="./home.do"><img src="./include/image/global/common/icon_home.gif" alt="홈"></a> 정보마당<span class="mobileHide"> &gt; <strong>공지사항</strong></span></div>
 					</div>
 					
-					<div class="btn_farm2 mt20">
-						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=notice" id="listBtn" >목록</a></span>
-				 		<button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">수정</button>
-            			<input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 60px;" value="삭제">
+					<div class="contents" id="contents">
+	
+						<!--Real Contents Start-->
+						<div class="boardWrap">
+							<table class="bd00view">
+<%-- 								<caption>게시물 내용 상세보기 : 제목, 등록일, 첨부파일, 작성자, 내용의 상세보기표</caption> --%>
+	<%-- 							<colgroup> --%>
+	<%-- 							<col style="width:15%;"> --%>
+	<%-- 							<col> --%>
+	<%-- 							<col style="width:15%;"> --%>
+	<%-- 							<col style="width:35%;"> --%>
+	<%-- 							</colgroup> --%>
+								
+								<tbody>
+									<tr>
+										<th class="bd01th" scope="row">제목</th>
+										<td colspan="3" class="bd01td">${dto.title}</td>
+									</tr>
+									
+									<tr>
+										<th class="bd01th" scope="row">등록일</th>
+										<td class="bd01td">${fn:substring(dto.regdate,0,10)}</td>
+										<th class="bd01th">작성자</th>
+										<td class="bd01td">${dto.admin_id}</td>
+									</tr>
+									
+									<tr>
+										<th class="bd01th" scope="row">첨부파일</th>
+										<td colspan="3" class="bd01td">
+											<a href="javascript:fnBbsFileDownload('5969');">${dto.file_path}<img src="./include/image/jungang/board/btn_down.gif" alt="첨부파일 다운로드"></a>
+										</td>
+									</tr>
+									
+									<tr>
+										<td colspan="4" class="bd01tdC"><p><br></p><p style="">${dto.content}</p><p><br></p></td>
+									</tr>
+								</tbody>
+								
+							</table>
+						</div>
 						
-					</div>
-
-				</div>
+						<div class="btn_farm2 mt20">
+							<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=notice" id="listBtn" >목록</a></span>
+					 		<button class="btn btn-primary" onclick="javascript:location.href='./modifynotice.do?kind=notice&seq='+${dto.notice_seq}">수정</button>
+	            			<input class="btn btn-info btn-primary" onclick="multiDeleteNotice()" style="width: 60px;" value="삭제">
+						</div>
+	
+					</div><!-- contents -->
 			</c:if><!-- 공지사항상세보기 끝 -->
 			
-			<!-- FAQ 상세보기 -->
+			
 			<!-- faq상세보기 상단 -->
 			<c:if test="${kind=='faq'}">
 			<div class="naviandtitle">
@@ -152,7 +151,7 @@
 					
 					<div class="btn_farm2 mt20">
 						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=faq" id="listBtn">목록</a></span>
-						<button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">수정</button>
+						<button class="btn btn-primary" onclick="javascript:location.href='./modifyFAQ.do?kind=faq&seq='+${vo.faq_seq}">수정</button>
             			<input class="btn btn-info btn-primary" onclick="multiDeleteFAQ()" style="width: 60px;" value="삭제">
 					</div>
 
@@ -172,17 +171,8 @@
 					</ul>
 				</div>
 				
-				<!--CALENDAR 상세보기 테이블-->
-			
 					<div class="boardWrap">
 						<table class="bd00view">
-<%-- 							<caption> 일정 게시판 내용 상세보기 : 제목, 내용의 상세보기표</caption> --%>
-<%-- 							<colgroup> --%>
-<%-- 							<col style="width:15%;"> --%>
-<%-- 							<col> --%>
-<%-- 							<col style="width:15%;"> --%>
-<%-- 							<col style="width:35%;"> --%>
-<%-- 							</colgroup> --%>
 							<tbody>
 								<tr>
 									<th class="bd01th" scope="row">제목</th>
@@ -200,19 +190,18 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
+					</div> 
 					
 					<div class="btn_farm2 mt20">
 						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=calendar" id="listBtn">목록</a></span>
-						<button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=calendar'">수정</button>
-            			<input class="btn btn-info btn-primary" onclick="multiDeleteCalendar()" style="width: 60px;" value="삭제">
+						<button class="btn btn-primary" onclick="javascript:location.href='./modifyCalendar.do?kind=calendar&seq='+${vo.calendar_seq}">수정</button>
+           		   		<button class="btn btn-info btn-primary" onclick="javascript:location.href='./multiDelCalendar.do?=kind=calendar&seq='+${vo.calendar_seq}">삭제</button>
 					</div>
-			</c:if>
+			</c:if><!-- 일정상세보기 -->
 			
-		</div> <!-- 1.공지사항& 2.FAQ 3.도서관일정 상세보기 끝 -->
-		</div>
+		</div> <!-- divcontcore 1.공지사항& 2.FAQ 3.도서관일정 상세보기 끝 -->
+		</div> <!-- divcontbody -->
 	</div>
-			
 </body>
 <%@include file="./footer.jsp" %>
 </html>
