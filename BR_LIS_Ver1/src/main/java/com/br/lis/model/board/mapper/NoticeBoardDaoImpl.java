@@ -51,6 +51,12 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 		return null;
 	}
 
+	
+	@Override
+	public int nextVal() {
+		return sqlSession.selectOne(NS+"nextVal");
+	}
+	
 	@Override
 	public int getCountBoardList() {
 		return 0;

@@ -16,7 +16,7 @@
 
 	<insert id="insertNotice" parameterType="java.util.Map">
 		INSERT INTO NOTICE_BOARD(NOTICE_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, FILE_PATH)
-			VALUES (NOTICE_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE,NULL)
+			VALUES (NOTICE_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE, #{file_path})
 	</insert>
 	
 	<resultMap type="HashMap" id="detailMap"></resultMap>
@@ -34,5 +34,9 @@
 				#{seq}
 			</foreach>
 	</delete>
+	
+	<select id="nextVal" resultType="java.lang.Integer">
+		SELECT MAX(NOTICE_SEQ)+1 FROM NOTICE_BOARD
+	</select>
 
 </mapper>

@@ -1,15 +1,15 @@
-<%@page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="UTF-8">
+ <%@ include file="./header.jsp"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.js"></script>
 <!-- <script src="https://cdn.ckeditor.com/4.18.0/standard-all/ckeditor.js"></script> -->
 <script type="text/javascript" src="./ckeditor/ckeditor/ckeditor.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- <%@ include file="./header.jsp"%>
 </head>
 <body>
 
@@ -28,7 +28,6 @@
 					<div class="lnbBottom"></div>
 				</div>
 			</div>
-			
 		<!--  -->
 			<div id="contentcore" style="margin-bottom: 30px">
 				<hr>
@@ -36,10 +35,11 @@
 				
 				<c:if test="${kind == 'notice' }">
 					<h3>공지사항 새 글 입력폼</h3>
-					<form id="insertNotice"  method="post" action="./insertNotice.do">
+					<form id="insertNotice"  method="post" action="return insertBoard()" enctype="multipart/form-data">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
 						제목: <input type="text" id="title" name="title" class="form-control"><br>
 						내용: <textarea name="content" id="content"></textarea>
+						<input type="file" name="file">
 						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
@@ -74,18 +74,35 @@
 	</div>
 </div>
 
- <script>
+ <script type="text/javascript">
+ var kind='<c:out value="${kind}"/>'
+ var seq='<c:out value="${nextSeq}"/>'
+ var today = new Date();   
+ var year = today.getFullYear(); // 년도
+ var month = today.getMonth() + 1;  // 월
+ var date = today.getDate();  // 날짜
+ 
+ var nowday = ""+year+month+date+"_"+$("#admin_id").val()+"_"+seq;
+ console.log(nowday);
+if(kind=='notice'){
+	console.log("notice insert")
 CKEDITOR.replace( 'content' ,{
 									//language: 'en', //에디터의 언어 설정
 									uiColor: '#E2427F', // 에디터 색상 변경
 									extraPlugins: 'editorplaceholder', 
 								    editorplaceholder: // 에디터 화면에 띄운 글귀
 								    '여기에 글을 입력하거나 파일을 드래그해주세요...', 
-  									filebrowserUploadUrl: "fileupload.do", //여기참고하세요 하나는 파일 업로드 하나는 이미지 업로드
-									uploadUrl:"fileupload.do", //여기 참고하세용
+									uploadUrl:"fileuploadImg.do?nowday="+nowday, //여기 참고하세용
+});
+}else{
+	CKEDITOR.replace( 'content' ,{
+					//language: 'en', //에디터의 언어 설정
+					uiColor: '#E2427F', // 에디터 색상 변경
+					extraPlugins: 'editorplaceholder', 
+				    editorplaceholder: // 에디터 화면에 띄운 글귀
+				    '파일 업로드는 되지 않습니다. 참고해 주세요', 
+});	
 }
-);
-
 CKEDITOR.on('dialogDefinition', function( ev ){
 	var dialog = ev.data.definition.dialog;
 	var dialogName = ev.data.name;
@@ -123,8 +140,9 @@ function resetCon(){
 }
 
 function insertBoard(){
-	var insertBoard = document.getElementById("insertBoard");
-	insertBoard.action = "./insertBoard.do";
+	
+	var editorFrm = document.getElementById("editorFrm");
+	editorFrm.action = "./fileupload.do?nowday="+nowday;
 	
 	var title = document.getElementById("title").value;
 	var content = CKEDITOR.instances.content.getData();
@@ -137,7 +155,7 @@ function insertBoard(){
 		alert("내용을 입력해주세요");
 		return false;
 	}else{
-		insertBoard.submit();
+		editorFrm.submit();
 	}
 }
 </script>              

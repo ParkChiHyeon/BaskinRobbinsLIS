@@ -64,9 +64,9 @@ function selectCalendar(str){
 				editable: false,
 				events:listData,
 				eventClick: function(data) {
-					var seq = data.event._def.extendedProps.seq
+					console.log(data);			    
+					var seq = data.event._def.extendedProps.calendar_seq
 				   		location.href="./detailcalendar.do?seq="+seq;
-					console.log(seq);			    
 //			        arg.jsEvent.preventDefault() // don't navigate in main tab
 			      }
 			});
