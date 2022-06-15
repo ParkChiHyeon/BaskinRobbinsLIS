@@ -115,16 +115,29 @@ public class PurchaseServiceImpl implements IPurchaseService {
 
 	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(신청도서)
 	@Override
-	public int reqReceiveUpdate(Map<String, Object> reqMap) {
+	public int reqReceiveUpdate(String reqSerial) {
 		logger.info("PurchaseServiceImpl reqReceiveUpdate");
-		return purchDao.reqReceiveUpdate(reqMap);
+		return purchDao.reqReceiveUpdate(reqSerial);
 	}
 
 	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(정기구매도서)
 	@Override
-	public int regulReceiveUpdate(Map<String, Object> regulMap) {
+	public int regulReceiveUpdate(String regulSerial) {
 		logger.info("PurchaseServiceImpl regulReceiveUpdate");
-		return purchDao.regulReceiveUpdate(regulMap);
+		return purchDao.regulReceiveUpdate(regulSerial);
+	}
+
+//	// 정기구매 정보 조회 : 정기구매 신청 된 도서의 목록 전체 조회 
+//	@Override
+//	public List<RegularPurchaseVo> purchRegulListSelectByCode(String purchCodeVo) {
+//		logger.info("PurchaseServiceImpl regulReceiveUpdate");
+//		return purchDao.purchRegulListSelectByCode(purchCodeVo);
+//	}
+	// 정기구매 정보 조회 : 정기구매 신청 된 도서의 목록 전체 조회 
+	@Override
+	public List<RegularPurchaseVo> purchRegulListSelectByCode() {
+		logger.info("PurchaseServiceImpl regulReceiveUpdate");
+		return purchDao.purchRegulListSelectByCode();
 	}
 	
 
