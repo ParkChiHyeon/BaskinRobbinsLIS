@@ -65,7 +65,7 @@ public class ReturnBookController {
     }
 
     // 반납 책 내역 조회
-    @RequestMapping(value = "/returnBookSelect.do", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/returnBookSelect.do", method = RequestMethod.GET)
     public String returnBookSelect(RedirectAttributes re, HttpServletRequest req) {
 	    String book_serial = req.getParameter("book_serial");
 	    System.out.println("book_serial");
@@ -81,6 +81,26 @@ public class ReturnBookController {
 	    re.addFlashAttribute("vo", vo);
 	    re.addFlashAttribute("mVo", mVo);
 	    return "redirect:/returnBookPageR.do";
+    }
+    @RequestMapping(value = "/returnBookSelect.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> returnBookSelectAjax(Model model, @RequestParam String book_serial) {
+    	System.out.println("----------------전달받은 파라미터  :"+book_serial);
+    	LendingVo vo = iService.lendingDetailForReturnBook(book_serial);
+    	
+    	Map<String, Object> rMap = new HashMap<String, Object>();
+    	rMap.put("book_serial", book_serial);
+    	
+    	ReservationVo rVo = iService.returnBookReserveCheck(rMap);
+    	LibMemberVo mVo = iService.lendingDetailForReturnUser(vo.getMember_code());
+    	
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("rVo", rVo);
+    	map.put("vo", vo);
+    	map.put("mVo", mVo);
+    	
+    	
+    	return map;
     }
 
 	// 반납 페이지
