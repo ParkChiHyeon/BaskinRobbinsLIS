@@ -88,11 +88,11 @@ public class File_Controller {
 				absolutePathLinux+=nowday+"/";
 				
 //				System.out.println("저장위치 path:"+path);
-				System.out.println("백업위치 back:"+absolutePath);
+//				System.out.println("백업위치 back:"+absolutePathLinux);
 				
 			     //폴더 공간 만들어주기 
 //		         File serverPath = new File(path);
-		         File backPath = new File(absolutePath);
+		         File backPath = new File(absolutePathLinux);
 		         //폴더(디렉토리)가 없다면 생성
 //		         if(!serverPath.exists()) {
 //		            //만드려는 상위디렉토리가 있어야만 생성가능
@@ -104,7 +104,7 @@ public class File_Controller {
 		         }
 				//덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //				String uploalName = path+uid+"_"+fileName;
-				String backupName = absolutePath+uid+"_"+fileName;
+				String backupName = absolutePathLinux+uid+"_"+fileName;
 				
 //				File uploadFile = new File(uploalName);
 				File backupFile = new File(backupName);
@@ -235,11 +235,11 @@ public class File_Controller {
 	         absolutePathLinux+=nowday+"/";
 	         
 //	         System.out.println("저장위치 path:"+path);
-	         System.out.println("백업위치 back:"+absolutePath);
+//	         System.out.println("백업위치 back:"+absolutePathLinux);
 	         
 	         //폴더 공간 만들어주기 
 //	         File serverPath = new File(path);
-	         File backPath = new File(absolutePath);
+	         File backPath = new File(absolutePathLinux);
 	         //폴더(디렉토리)가 없다면 생성
 //	         if(!serverPath.exists()) {
 //	            //만드려는 상위디렉토리가 있어야만 생성가능
@@ -251,7 +251,7 @@ public class File_Controller {
 	         }
 	         //덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //	         String uploalName = path+uid+"_"+fileName;
-	         String backupName = absolutePath+uid+"_"+fileName;
+	         String backupName = absolutePathLinux+uid+"_"+fileName;
 	         
 //	         File uploadFile = new File(uploalName);
 	         File backupFile = new File(backupName);
@@ -307,7 +307,7 @@ public class File_Controller {
 		   absolutePath += nowday+"\\";
 		   absolutePathLinux += nowday+"/";
 		   
-		   String sDirPath = absolutePath+uid+"_"+fileName;
+		   String sDirPath = absolutePathLinux+uid+"_"+fileName;
 		   
 		   File file = new File(sDirPath);
 		   
@@ -340,7 +340,7 @@ public class File_Controller {
 //		String path=WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/notice/"+nowday+"/") ;
 		   //절대경로를 통해 다운로드
 		    absolutePath += nowday+"\\";
-		   String sDirPath = absolutePath+uid+"_"+fileName;
+		   String sDirPath = absolutePathLinux+uid+"_"+fileName;
 		   
 		   File file = new File(sDirPath);
 		   
