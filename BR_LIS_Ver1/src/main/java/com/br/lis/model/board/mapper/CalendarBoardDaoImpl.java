@@ -40,7 +40,7 @@ public class CalendarBoardDaoImpl implements ICalendarBoardDao {
 	}
 
 	@Override
-	public int multiDelCalendar(List<String> list, String seq) {
+	public int multiDelCalendar(List<String> list) {
 		return sqlSession.delete(NS+"multiDelCalendar", list);
 	}
 

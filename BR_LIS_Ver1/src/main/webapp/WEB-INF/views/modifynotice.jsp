@@ -49,6 +49,15 @@
 					</form>
 				</c:if>
 				
+<script type="text/javascript">
+
+function modifyNotice(seq){
+	 location.href="modifynotice.do?seq="+seq;
+}
+
+</script>
+	
+				
 				<c:if test="${kind == 'faq' }">
 					<h3>FAQ 글 수정 입력폼</h3>
 					<form id="modifyFAQ" method="post" action="./modifyFAQ.do">
@@ -59,6 +68,14 @@
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
+				
+<script type="text/javascript">
+
+function modifyFAQ(seq){
+	 location.href="modifyFAQ.do?seq="+seq;
+}
+
+</script>
 				
 				<c:if test="${kind == 'calendar' }">
 					<h3>도서관일정 글 수정 입력폼</h3>
@@ -72,7 +89,14 @@
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
+<script type="text/javascript">
+
+function modifyNotice(seq){
+	 location.href="modifynotice.do?seq="+seq;
+}
+</script>			
 				
+			
 			</div>
 		</div> <!-- contentcore끝 -->
 	</div>

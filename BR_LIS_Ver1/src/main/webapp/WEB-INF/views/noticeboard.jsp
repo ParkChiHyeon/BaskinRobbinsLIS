@@ -129,7 +129,7 @@ $(document).ready(function(){
             {    
             	title:'<input type="checkbox" id="ch" onclick="checkAll(this.checked)">',
                render:function(data,type,row){
-                  var   html= '<input type="checkbox" name="chkBox" value="'+row._source.notice_seq+'">'; 
+                  	  var  html= '<input type="checkbox" name="chkBox" value="'+row._source.notice_seq+'">';
                return html;
                }
             },

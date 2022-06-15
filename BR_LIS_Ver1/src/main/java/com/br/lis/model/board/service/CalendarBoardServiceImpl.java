@@ -46,9 +46,9 @@ public class CalendarBoardServiceImpl implements ICalendarBoardService {
 	}
 
 	@Override
-	public int multiDelCalendar(List<String> list, String seq) {
+	public int multiDelCalendar(List<String> list) {
 		logger.info("CalendarBoardServiceImpl multiDelCalendar : {}");
-		return dao.multiDelCalendar(list, seq);
+		return dao.multiDelCalendar(list);
 	}
 	
 }
