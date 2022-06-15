@@ -9,7 +9,7 @@
 	<aop:config>
 		<aop:pointcut expression="execution(public * com.br.lis.model.*.mapper.*Dao*.*(..))" id="daoPoint"/>
 		<aop:aspect ref="daoLogger">
-			<aop:before method="before" pointcut-ref="daoPoint"/>
+<!-- 			<aop:before method="before" pointcut-ref="daoPoint"/> -->
 		</aop:aspect>
 	</aop:config>
 <!-- 			<aop:after-throwing method="afterThrowing" pointcut-ref="daoPoint" throwing="exception"/> -->

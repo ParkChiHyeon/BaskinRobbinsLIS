@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +90,7 @@
 									<tr>
 										<th class="bd01th" scope="row">첨부파일</th>
 										<td colspan="3" class="bd01td">
-											<a href="javascript:fnBbsFileDownload('5969');">${dto.file_path}<img src="./include/image/jungang/board/btn_down.gif" alt="첨부파일 다운로드"></a>
+											<a href="./download.do?${dto.file_path}">${fn:substring(dto.file_path,9,fn:indexOf(dto.file_path,'&'))}<img src="./include/image/jungang/board/btn_down.gif" alt="첨부파일 다운로드"></a>
 										</td>
 									</tr>
 									

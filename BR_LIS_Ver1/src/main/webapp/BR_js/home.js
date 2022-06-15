@@ -49,7 +49,6 @@ function calList(){
 		data:JSON.stringify({"from":"0","size":"10000","sort":{"calendar_seq":"desc"}}),		
 		dataType:"json",
 		success:function(data){				 
-			console.log(data)
 		for(let i=0;i<data.hits.hits.length;i++){
 			if((data.hits.hits[i]._source.start_date.substr(5,2))==(month)){
 				html+='<li>'+data.hits.hits[i]._source.start_date.substr(8,2)+'('+getDateCal(data.hits.hits[i]._source.start_date.substr(0,10))+')<a href="./detailcalendar.do?seq='+data.hits.hits[i]._source.calendar_seq+'">'+data.hits.hits[i]._source.title+'</a></li>'

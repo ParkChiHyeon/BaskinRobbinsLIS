@@ -12,7 +12,6 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div id="middle" >
 		<div id="contbody">
 		
@@ -35,11 +34,12 @@
 				
 				<c:if test="${kind == 'notice' }">
 					<h3>공지사항 새 글 입력폼</h3>
-					<form id="insertNotice"  method="post" action="return insertBoard()" enctype="multipart/form-data">
+					<form id="insertNotice"  method="post" onsubmit="return insertBoard()" enctype="multipart/form-data">
+						<input type="hidden" id="notice_seq" name="notice_seq" value="${nextSeq}">				
 						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
 						제목: <input type="text" id="title" name="title" class="form-control"><br>
-						내용: <textarea name="content" id="content"></textarea>
-						<input type="file" name="file">
+						내용: <textarea id="content" name="content"></textarea>
+						<input type="file" name="file" class="form-control">
 						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
@@ -140,9 +140,7 @@ function resetCon(){
 }
 
 function insertBoard(){
-	
-	var editorFrm = document.getElementById("editorFrm");
-	editorFrm.action = "./fileupload.do?nowday="+nowday;
+	var editorFrm = document.getElementById("insertNotice");
 	
 	var title = document.getElementById("title").value;
 	var content = CKEDITOR.instances.content.getData();
@@ -155,7 +153,7 @@ function insertBoard(){
 		alert("내용을 입력해주세요");
 		return false;
 	}else{
-		editorFrm.submit();
+		editorFrm.action = "./fileupload.do?nowday="+nowday+"&regdate="+today.toISOString();
 	}
 }
 </script>              

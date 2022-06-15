@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DaoLoggerAop {
-
+/*
 	public void before(JoinPoint j) {
 		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
 		logger.warn("Befor Method Excution--");
@@ -20,14 +20,16 @@ public class DaoLoggerAop {
 		}
 		
 	}
-//	public void afterReturning(JoinPoint j) {
-//		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
-//		logger.warn("End Method:\t{}",j.getSignature().getName());
-//	}
+	
+	public void afterReturning(JoinPoint j) {
+		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
+		logger.warn("End Method:\t{}",j.getSignature().getName());
+	}
 	
 	public void afterThrowing(JoinPoint j, Exception exception) {
 		Logger logger = LoggerFactory.getLogger(j.getTarget()+"");
 		logger.warn("Occur:\t{}",j.getSignature().getName());
 		logger.warn("Occur:\t{}",exception.getMessage());
 	}
+*/
 }

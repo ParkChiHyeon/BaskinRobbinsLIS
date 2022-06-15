@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.elasticsearch.client.ElasticsearchClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.br.lis.model.board.service.INoticeBoardService;
+import com.br.lis.util.ElasticSearchModule;
 
 
 
@@ -34,7 +36,8 @@ import com.br.lis.model.board.service.INoticeBoardService;
 public class File_Controller {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+	private String absolutePath = "C:\\BR_storage\\notice\\";
+	private String absolutePathLinux = "/usr/local/BR_storage";
 	@Autowired
 	private INoticeBoardService service;
 	
@@ -43,7 +46,7 @@ public class File_Controller {
 	@RequestMapping(value = "/fileupload.do", method = RequestMethod.POST)
 	public String fileupload(Model model,HttpServletRequest request, HttpServletResponse response,
 										MultipartHttpServletRequest multiFile,
-										@RequestParam MultipartFile file,@RequestParam Map<String, Object> map,@RequestParam String nowday) {
+										@RequestParam MultipartFile file,@RequestParam Map<String, Object> map,@RequestParam(value="nowday") String nowday,@RequestParam(value="regdate") String regdate) throws IOException {
 		logger.info("Welcome! HomeController fileUpload----------folder address: {} {} {}",nowday, file, multiFile);
 		//랜덤문자 생성
 		if(file.getSize()!=0) {
@@ -81,14 +84,15 @@ public class File_Controller {
 				
 				//서버가 꺼졌을때를 위한 백업경로(절대경로)
 				//업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
-				String back = "C:\\BR_storage\\notice\\"+nowday+"\\";
+				absolutePath+=nowday+"\\";
+				absolutePathLinux+=nowday+"/";
 				
 //				System.out.println("저장위치 path:"+path);
-				System.out.println("백업위치 back:"+back);
+				System.out.println("백업위치 back:"+absolutePath);
 				
 			     //폴더 공간 만들어주기 
 //		         File serverPath = new File(path);
-		         File backPath = new File(back);
+		         File backPath = new File(absolutePath);
 		         //폴더(디렉토리)가 없다면 생성
 //		         if(!serverPath.exists()) {
 //		            //만드려는 상위디렉토리가 있어야만 생성가능
@@ -100,7 +104,7 @@ public class File_Controller {
 		         }
 				//덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //				String uploalName = path+uid+"_"+fileName;
-				String backupName = back+uid+"_"+fileName;
+				String backupName = absolutePath+uid+"_"+fileName;
 				
 //				File uploadFile = new File(uploalName);
 				File backupFile = new File(backupName);
@@ -126,8 +130,9 @@ public class File_Controller {
 		    	//업로드시 메시지 출력
 	//	    	printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
 	//	    	printWriter.flush();
-		    	map.put("file_path", fileUrl);
 		    	
+		    	map.put("file_path", fileUrl);
+		    	map.put("regdate", regdate);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -140,28 +145,42 @@ public class File_Controller {
 						e.printStackTrace();
 					}
 			}
-			logger.info("HomeController editorFrm 에디터로 입력받음");
-			logger.info("map : {}",map);
-			
-			int cnt= service.insertNotice(map);
-			
-			if(cnt>0) {
-	//			List<EditorVO> lists = service.SelectTables((String)map.get("id"));
-				model.addAttribute("id", (String)map.get("id"));
-				return "redirect:/dataTables.do";
-			}else {
-				return "redirect:/home.do";
-			}
+				logger.info("HomeController editorFrm 에디터로 입력받음");
+				logger.info("map : {}",map);
+				
+				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq"));
+				elasticInsert.insertElasticMap(map);
+				int n= service.insertNotice(map);
+				//map admin_id
+				if(n>0) {
+					model.addAttribute("kind", "notice");
+					return "redirect:/viewAllBoard.do";
+				}else {
+					StringBuffer sb= new StringBuffer();
+					sb.append("<script>");
+					sb.append("alert('입력실패 관리자에게 문의하세요');");
+					sb.append("location.href='./home.do'");
+					sb.append("</script>");
+					return sb.toString();
+				}
 		}else {
 			map.put("file_path", "");
-			int cnt= service.insertNotice(map);
+			map.put("regdate", regdate);
+			ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq"));
+			elasticInsert.insertElasticMap(map);
+			int n= service.insertNotice(map);
+			//map admin_id
 			
-			if(cnt>0) {
-//				List<EditorVO> lists = service.SelectTables((String)map.get("id"));
-				model.addAttribute("id", (String)map.get("id"));
-				return "redirect:/dataTables.do";
+			if(n>0) {
+				model.addAttribute("kind", "notice");
+				return "redirect:/viewAllBoard.do";
 			}else {
-				return "redirect:/home.do";
+				StringBuffer sb= new StringBuffer();
+				sb.append("<script>");
+				sb.append("alert('입력실패 관리자에게 문의하세요');");
+				sb.append("location.href='./home.do'");
+				sb.append("</script>");
+				return sb.toString();
 			}
 		}
 	}
@@ -212,14 +231,15 @@ public class File_Controller {
 	         
 	         //서버가 꺼졌을때를 위한 백업경로(절대경로)
 	         //업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
-	         String back = "C:\\BR_storage\\notice\\"+nowday+"\\";
+	         absolutePath += nowday+"\\";
+	         absolutePathLinux+=nowday+"/";
 	         
 //	         System.out.println("저장위치 path:"+path);
-	         System.out.println("백업위치 back:"+back);
+	         System.out.println("백업위치 back:"+absolutePath);
 	         
 	         //폴더 공간 만들어주기 
 //	         File serverPath = new File(path);
-	         File backPath = new File(back);
+	         File backPath = new File(absolutePath);
 	         //폴더(디렉토리)가 없다면 생성
 //	         if(!serverPath.exists()) {
 //	            //만드려는 상위디렉토리가 있어야만 생성가능
@@ -231,7 +251,7 @@ public class File_Controller {
 	         }
 	         //덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //	         String uploalName = path+uid+"_"+fileName;
-	         String backupName = back+uid+"_"+fileName;
+	         String backupName = absolutePath+uid+"_"+fileName;
 	         
 //	         File uploadFile = new File(uploalName);
 	         File backupFile = new File(backupName);
@@ -284,8 +304,10 @@ public class File_Controller {
 		   //서버에 저장된 이미지 경로 
 //		String path=WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/notice/"+nowday+"/") ;
 		   //절대경로를 통해 다운로드
-		   String path="C:\\BR_storage\\notice\\"+nowday+"\\";
-		   String sDirPath = path+uid+"_"+fileName;
+		   absolutePath += nowday+"\\";
+		   absolutePathLinux += nowday+"/";
+		   
+		   String sDirPath = absolutePath+uid+"_"+fileName;
 		   
 		   File file = new File(sDirPath);
 		   
@@ -317,8 +339,8 @@ public class File_Controller {
 		   //서버에 저장된 이미지 경로 
 //		String path=WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/notice/"+nowday+"/") ;
 		   //절대경로를 통해 다운로드
-		   String path="C:\\BR_storage\\notice\\"+nowday+"\\";
-		   String sDirPath = path+uid+"_"+fileName;
+		    absolutePath += nowday+"\\";
+		   String sDirPath = absolutePath+uid+"_"+fileName;
 		   
 		   File file = new File(sDirPath);
 		   
