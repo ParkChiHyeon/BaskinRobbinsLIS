@@ -69,18 +69,24 @@ public class LendingBookServiceImpl implements ILendingBookService {
 
 	//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
 	@Override
-	public List<LendBookBean> possibleReserve(Map<String, Object> map) {
-		logger.info("ILendingBookDao 대출중,예약X 빠른대출일 조회 possibleReserve");
-		return dao.possibleReserve(map);
+	public List<LendBookBean> possibleReserve(String isbn){
+		logger.info("ILendingBookDao 대출중이면서 예약안되있고 빠른대출일 조회 possibleReserve");
+		return dao.possibleReserve(isbn);
+	}
+	@Override
+	public List<LendBookBean> selectPossibleReserve() {
+		logger.info("ILendingBookDao 예약가능 도서 selectPossibleReserve");
+		return dao.selectPossibleReserve();
 	}
 	
 	//BR_W_BM_208 대출 예약 신청 RV=Y , DG=N 
 	// + 예약가능권수 초과하면 추가예약 불가
 	@Override
-	public int bookReservation(LendingVo lVo, BookInfoVo bVo) {
-		logger.info("bookReservation 대출예약 신청 후 보유도서 상태변경",lVo,bVo);
-		int n = dao.reservationBook(lVo);
-		int m = dao.reservationBookUpdate(bVo);
+	public int bookReservation(LendingVo vo, String book_serial) {
+		logger.info("bookReservation 대출예약 신청 후 보유도서 상태변경",vo,book_serial);
+		
+		int n = dao.reservationBook(vo);
+		int m = dao.reservationBookUpdate(book_serial);
 		return (n>0&&m>0)?1:0;
 	}
 	//BR_W_BM_209 예약건 대출 확정 후 상태변경
@@ -120,14 +126,16 @@ public class LendingBookServiceImpl implements ILendingBookService {
 		return (n>0&&m>0)?1:0;
 	}
 	
-
-
-
 	@Override
 	public int lendingCount(String member_code) {
 		logger.info(" 대여가능 권수_lendingCount");
 		return dao.lendingCount(member_code);
 	}
 	
+	@Override
+	public List<LendingVo> limitBookCount(String member_id) {
+		logger.info(" 예약권수 제한limitBookCount");
+		return dao.limitBookCount(member_id);
+	}
 	
 }

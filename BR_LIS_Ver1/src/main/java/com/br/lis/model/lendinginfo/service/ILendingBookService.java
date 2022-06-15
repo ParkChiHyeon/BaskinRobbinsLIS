@@ -31,10 +31,12 @@ public interface ILendingBookService {
 		public List<LendBookBean> lendingList(String member_code);
 		
 		//추가 : 대출중면서 예약이 안된책의 빠른대출일 조회
-		public List<LendBookBean> possibleReserve(Map<String, Object>map);
+		public List<LendBookBean> possibleReserve(String isbn);
+		//예약가능한 도서
+		public List<LendBookBean> selectPossibleReserve();
 		
 		//BR_W_BM_208 대출 예약 신청 후 상태변경 _트렌젝션 처리
-		public int bookReservation(LendingVo lVo,BookInfoVo bVo);
+		public int bookReservation(LendingVo vo,String book_serial);
 		
 		
 		//BR_W_BM_209 예약건 대출 확정 후 상태변경
@@ -50,9 +52,11 @@ public interface ILendingBookService {
 		//BR_W_BM_212 대출예약 취소 후 상태변경
 		public int selfDeleteResrve(String lending_seq,String book_serial);
 		
-		
-		
 		//대여가능 권수
 		public int lendingCount(String member_code);
+		
+		//예약권수 제한
+		public List<LendingVo> limitBookCount(String member_id);
+		
 
 }

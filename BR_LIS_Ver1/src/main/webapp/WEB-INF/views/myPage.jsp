@@ -42,7 +42,7 @@
 				<li id="lnb_3" class=""><a href="./memberInfoUpdate.do" >알림 수신 변경</a></li>
 				<li id="lnb_4" class=""><a href="./lendingBookListUser.do" >도서대출 현황</a></li>
 				<li id="lnb_5" class=""><a href="./lendingBookMem.do" >도서대출 이용 현황</a></li>
-                <li id="lnb_6" class=""><a href="./reserveBook.do" >예약 현황</a></li> 
+                <li id="lnb_6" class=""><a href="./reserveBookList.do" >예약 현황</a></li> 
 				<li id="lnb_7" class=""><a href="./myRequestBookList.do" >신청도서 조회</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >8</a></li>
 				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >9</a></li>
@@ -288,7 +288,7 @@
 		</div>
 	
 		<!-- 내용 영역  -->
-		<form action="./reserveBook.do" >
+		<form action="./reserveBookList.do" >
 			<table  id="dataTable" class="table table-hover">
 					<thead>
 						<tr id="reserveList">

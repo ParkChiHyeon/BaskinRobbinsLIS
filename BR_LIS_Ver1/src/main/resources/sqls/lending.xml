@@ -42,10 +42,6 @@
 </select>
 
 <!-- BR_W_BM_202  예약목록전체조회-->
-<!-- <select id="allReserveLending" resultType="BookInfoVo"> -->
-<!-- SELECT  BOOK_SERIAL ,ISBN ,LD ,RV  -->
-<!-- 	FROM POSSESSING_BOOK pb  -->
-<!-- 		WHERE RV ='Y' AND LD ='Y' -->
 <select id="allReserveLending"  parameterType="java.util.Map" resultType="com.br.lis.vo.LendBookBean">
 SELECT l.MEMBER_CODE,bi.ISBN,l.BOOK_SERIAL ,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author
       FROM LENDING l 
@@ -106,17 +102,27 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 
 <!-- 추가  : 예약전 도서선택후 ISBN으로 대출중이고 예약이 안된책의 빠른대출일 조회
 			   BOOK_SERIAL의 결과값으로 대출예약 신청을 해야함 -->
-<select id="possibleReserve" parameterType="java.util.Map" resultType="com.br.lis.vo.LendBookBean">
-	
-	SELECT pb.RV ,pb.LD , bi.ISBN, pb.BOOK_SERIAL, l.LENDING_SEQ , l.MEMBER_CODE , l.BOOK_SERIAL , l.END_DATE
+<select id="possibleReserve" parameterType="java.lang.String" resultType="LendBookBean">
+	SELECT pb.RV ,pb.LD , bi.ISBN, pb.BOOK_SERIAL, l.LENDING_SEQ ,bi.TITLE,bi.author, l.MEMBER_CODE , TO_CHAR(l.END_DATE,'YYYY.MM.DD') AS END_DATE,TO_CHAR(l.RESERVE_DATE,'YYYY.MM.DD') AS RESERVE_DATE
 	FROM POSSESSING_BOOK pb 
-	LEFT OUTER JOIN LENDING l 
+	JOIN LENDING l 
 	ON pb.BOOK_SERIAL =l.BOOK_SERIAL 
-	LEFT OUTER JOIN BOOK_INFO bi 
+	JOIN BOOK_INFO bi 
 	ON bi.ISBN = pb.ISBN 
 	WHERE pb.ISBN =#{isbn} AND pb.RV ='N' AND pb.LD='Y' <![CDATA[AND rownum<=1]]>
 	ORDER BY l.END_DATE ASC
-            
+</select>
+
+<!-- 예약 가능한 도서 -->
+<select id="selectPossibleReserve" parameterType="java.lang.String" resultType="LendBookBean">
+SELECT pb.RV ,pb.LD , bi.ISBN, pb.BOOK_SERIAL,bi.TITLE ,bi.AUTHOR , l.LENDING_SEQ , l.MEMBER_CODE  , TO_CHAR(l.END_DATE,'YYYY.MM.DD') AS END_DATE, TO_CHAR(l.RESERVE_DATE,'YYYY.MM.DD') AS RESERVE_DATE
+FROM POSSESSING_BOOK pb 
+ JOIN LENDING l 
+ON pb.BOOK_SERIAL =l.BOOK_SERIAL 
+ JOIN BOOK_INFO bi 
+ON bi.ISBN = pb.ISBN 
+WHERE pb.RV ='N' AND pb.LD='Y'
+ORDER BY l.END_DATE ASC
 </select>
 
 <!--BR_W_BM_208   대출예약 신청-->
@@ -133,7 +139,7 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 
 <!--BR_W_BM_209  예약후 대출확정 -->
 <update id="realReserBook" parameterType="java.lang.String">
-	UPDATE LENDING SET LENDING_DELAY ='Y' ,RETURN_STATUS ='NM', LENDING_DATE =SYSDATE ,END_DATE =SYSDATE +14 
+	UPDATE LENDING SET LENDING_DELAY ='Y' ,RETURN_STATUS ='NM', LENDING_DATE =SYSDATE ,END_DATE =SYSDATE +14 ,RESERVE_DATE=null
 		WHERE LENDING_SEQ  = #{lending_seq}
 </update>
 
@@ -167,11 +173,20 @@ UPDATE POSSESSING_BOOK SET  RV  ='N' ,DG='Y' WHERE BOOK_SERIAL =#{book_serial}
 <!-- BR_W_BM_213 대여가능권수-->
 <update id="lendingCount">
  <![CDATA[ 
-	 UPDATE LIB_MEMBER SET RENTAL_COUNT = (SELECT CASE WHEN (RENTAL_COUNT) <= 5 THEN (RENTAL_COUNT)-1  
-	 																		   WHEN (RENTAL_COUNT) = 0 THEN RENTAL_COUNT
+	 UPDATE LIB_MEMBER SET RENTAL_COUNT = (SELECT CASE WHEN (RENTAL_COUNT >=0 AND RENTAL_COUNT<5 ) THEN (RENTAL_COUNT)+1  
+	 																		WHEN (RENTAL_COUNT) = 0 THEN RENTAL_COUNT +0
 	 																		  END FROM LIB_MEMBER lm  WHERE MEMBER_CODE =#{member_code} )
 	 WHERE MEMBER_CODE =#{member_code}
 	]]>
 </update>
+
+<!-- 예약권수제한 -->
+<select id="limitBookCount" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT TO_CHAR(l.RESERVE_DATE,'YYYY.MM.DD') AS RESERVE_DATE  
+	FROM LENDING l
+	WHERE MEMBER_CODE =(SELECT MEMBER_CODE 
+	            FROM LIB_MEMBER lm
+	            WHERE lm.MEMBER_ID=#{member_id})
+</select>
 
 </mapper>
