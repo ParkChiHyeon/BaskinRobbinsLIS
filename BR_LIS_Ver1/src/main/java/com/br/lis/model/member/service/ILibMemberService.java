@@ -1,5 +1,6 @@
 package com.br.lis.model.member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.br.lis.vo.LibMemberVo;
@@ -16,7 +17,7 @@ public interface ILibMemberService {
 	
 	public LibMemberVo findId(Map<String, Object> map);
 
-	public int findPw(Map<String, Object> map);
+	public LibMemberVo findPw(Map<String, Object> map);
 
 	public int resetUpdatePw(Map<String, Object> map);
 

@@ -82,6 +82,7 @@ public class AdminController {
 		return resultMap;
 	}
 	
+	/* 관리자 인증 페이지 */
 	@RequestMapping(value = "/adminCertification.do")
 	public String adminCertification() {
 		return "adminCertificationPage";	

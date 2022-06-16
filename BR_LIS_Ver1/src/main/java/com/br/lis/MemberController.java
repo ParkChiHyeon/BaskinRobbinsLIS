@@ -3,9 +3,11 @@ package com.br.lis;
 
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-
-
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.br.lis.model.member.service.API_Service;
@@ -37,7 +41,7 @@ import com.br.lis.vo.LibMemberVo;
 public class MemberController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+		
 	@Autowired
 	private ILibMemberService service;
 	
@@ -146,9 +150,11 @@ public class MemberController {
 	/* sms 인증 */
 	@RequestMapping(value = "/sendSMS.do",method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public ModelAndView sendSMS(String phone) {
+	public ModelAndView sendSMS(@RequestParam String phone, Map<String,Object> map) {
 		
 		ModelAndView mav = new ModelAndView();
+		
+//		LibMemberVo mVo = service.findPw(map);
 		
 		  Random rand  = new Random(); // 인증번호를 위한 난수 생성
 	        String numStr = "";
@@ -160,13 +166,50 @@ public class MemberController {
 	        System.out.println("수신자 번호 : " + phone);
 	        System.out.println("인증번호 : " + numStr);
 	        cService.certifiedPhoneNumber(phone,numStr);
-	        
+//	        mav.addObject("mVo",mVo);
 	        mav.addObject("numStr", numStr);
-	        mav.setViewName("loginPage");
+	        mav.setViewName("updatePwPage");
 	        logger.info("인증받은 번호 :{}", mav);
 	        
 	        return mav;
 	    }
+	
+	@RequestMapping(value = "/updatePwPage.do" , method = RequestMethod.POST)
+	public String updatePwPage(@RequestParam Map<String, Object> map, Model model) {
+		
+		LibMemberVo vo = service.findPw(map);
+		
+		model.addAttribute("mVo",vo);
+		return "updatePwPage";	
+	}
+	
+	@RequestMapping(value = "/updatePw.do", method = RequestMethod.POST)
+	public String updatePw(@RequestParam Map<String, Object> map) {
+		
+		int n = service.updateNewPw(map);
+		
+		return (n==1)?"loginPage":"updatePwPage";	
+	}
+	
+		
+	/* sms 인증 */
+	@RequestMapping(value = "/sendSMSmyPage.do",method = RequestMethod.POST)
+	@ResponseBody
+	public String sendSMSmyPage(String phone) {		
+		  Random rand  = new Random(); // 인증번호를 위한 난수 생성
+	        String numStr = "";
+	        for(int i=0; i<8; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+	        
+	        System.out.println("수신자 번호 : " + phone);
+	        System.out.println("인증번호 : " + numStr);
+	        cService.certifiedPhoneNumber(phone,numStr);
+        
+	        return numStr;
+	    }
+	
 	
 	/* 회원가입 폼 이동 */
 	@RequestMapping(value = "/findIdPage.do")
@@ -177,7 +220,7 @@ public class MemberController {
 	/* 아이디 찾기 ajax */
 	@RequestMapping(value = "/findIdChk.do" ,method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> findIdChk(@RequestParam Map<String,Object> map, Model model) {
+	public Map<String, Object> findIdChk(@RequestParam Map<String,Object> map) {
 		logger.info("MemberController",map);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -207,15 +250,19 @@ public class MemberController {
 	}
 		/* 비밀번호 찾기 아작스 */
 		@RequestMapping(value = "/findPwChk.do", method = RequestMethod.POST)
-		public Map<String, Object> findPwChk(@RequestParam Map<String,Object> map) {
+		@ResponseBody
+		public Map<String, Object> findPwChk(@RequestParam Map<String,Object> map, Model model) {
 			System.out.println(map);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			
-			int cnt = service.resetUpdatePw(map);
 			
-			if(cnt == 0) {
+			LibMemberVo vo = service.findPw(map);
+			
+			model.addAttribute("mVo",vo);
+			
+			if(vo == null) {
 				resultMap.put("isc", "실패");
-			}else if(cnt != 0) {
+			}else if(vo != null) {
 				resultMap.put("isc", "성공");
 			}
 			
@@ -337,7 +384,7 @@ public class MemberController {
 		
 		/* 회원 탈퇴 아작스 */
 		@RequestMapping(value = "/memberQuitRequestChk.do", method = RequestMethod.POST)
-		public Map<String, Object> memberQuitRequestChk(@RequestParam Map<String,String> map) {
+		public Map<String, Object> memberQuitRequestChk(@RequestParam Map<String,String> map, Model model) {
 			
 			Map<String, Object> resultMap = new HashMap<String, Object>(map);
 			
@@ -349,12 +396,14 @@ public class MemberController {
 				resultMap.put("isc", "성공");
 			}	
 			
+			
+			
 			return resultMap;
 					
 		}
 		
 		/* 회원 탈퇴 */
-		@RequestMapping(value = "/memberQuitRequest.do", method = RequestMethod.GET)
+		@RequestMapping(value = "/memberQuitRequest.do", method = RequestMethod.POST)
 		public String memberQuitRequest(@RequestParam Map<String, Object> map, Model model) {
 			
 			int n = service.quitRequest(map);
@@ -362,12 +411,56 @@ public class MemberController {
 			return (n==1)?"redirect:/logout.do":"redirect:/myPage.do";		
 		}
 		
+		/* 관내회원 등업 페이지 이동*/ 
+		@RequestMapping(value = "/updateToGhPage.do", method = RequestMethod.GET)
+		public String updateToGhPage(Model model, HttpSession session, String changeAuth) {
+			
+			LibMemberVo  mVo = (LibMemberVo) session.getAttribute("member");
+			
+			model.addAttribute("member",mVo);
+			model.addAttribute("page","changeAuth");
+			
+			
+			
+			return "myPage";
+		}
+		
+		@RequestMapping(value = "/updateGH.do", method = RequestMethod.GET)
+		public String updateGH(@RequestParam Map<String,Object> map) {
+					
+			int n = service.updateNmToGh(map);
+			
+			return (n==1)?"redirect:/memberCard.do":"redirect:/myPage.do";
+			
+		}
+		
+		@RequestMapping(value = "/memberCard.do", method = RequestMethod.GET)
+		public String memberCard(HttpSession session, Model model, String memberCard) {
+			
+			LibMemberVo  mVo = (LibMemberVo) session.getAttribute("member");
+			
+			model.addAttribute("member",mVo);
+			model.addAttribute("page","memberCard");
+			
+			return "myPage";
+			
+		}
+		
+		@RequestMapping(value = "/quitMemberManagePage.do" , method = RequestMethod.GET)
+		public String quitMemberManagePage(Model model) {
+			
+			LibMemberVo mVo = service.quitSelectMember();
+		
+			model.addAttribute("mVo",mVo);
+			
+			return "quitMemberManagePage";
+		}
 		
 		
+}
+
 		
-//		./memberQuitRequest.do
-		
-		
+
 		
 	
-}
+

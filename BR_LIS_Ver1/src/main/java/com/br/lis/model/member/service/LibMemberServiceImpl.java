@@ -1,5 +1,6 @@
 package com.br.lis.model.member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -20,6 +21,8 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -55,25 +58,28 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	
 	// 메소드명 바꿀예정
 	@Override
-	public int findPw(Map<String, Object> map) {
+	public LibMemberVo findPw(Map<String, Object> map) {
 		logger.info("Lib_MemberServiceImpl findPw : {}",map);
 		return mDao.findPw(map);
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public int resetUpdatePw(Map<String, Object> map) {
 		logger.info("Lib_MemberServiceImpl resetPw : {}", map);
-		int n = mDao.resetPw(map); //비밀번호 1로 초기화
+//		int n = mDao.resetPw(map); //비밀번호 1로 초기화
 		int m = mDao.updateNewPw(map); //비밀번호 새로 전송
-		String k = mDao.findPwOne(map); // password <<
-		logger.info("새로 발급받은 비밀번호: {}" ,k);
-		int j = mDao.encryptPassword(k, map);
+//		String k = mDao.findPwOne(map); // password <<
+//		logger.info("새로 발급받은 비밀번호: {}" ,k);
+//		int j = mDao.encryptPassword(k, map);
 		
 		
 		
-		return (n>0||m>0||k!=null || j>0)? 1:0;
+		return (/*n>0*||*/m>0/*||k!=null /*|| j>0*/)? 1:0;
 	}
+	
+	
+	
 
 	@Override
 	public int updateNewPw(Map<String, Object> map) {

@@ -49,6 +49,9 @@ div.int-area2 i{
 
 /* The Modal (background) */
 .modal {
+  width : 800px; 
+  height : 600px;
+  margin : 20px auto;
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -107,7 +110,7 @@ height: 100%;
         <form action="post" method="post" id="login">
             <div class="int-area1">
                 <input type="text" name="member_id" id="member_id" autocomplete="off" value="user001" required>
-                <label for="id">USER NAME</label>
+                <label for="id">USER NAME</label>                
             </div>
             <div class="int-area2">
                 <input type="password" name="password" id="password" autocomplete="off" value="Xptmxm@12" required>
@@ -155,25 +158,33 @@ height: 100%;
 <!-- The Modal -->
 <div id="pwModal" class="modal">
 
-  <!-- findId Modal content -->
+  <!-- findPw Modal content -->
   <div class="modal-content">
     <span class="close2">&times;</span>
      <div class="container">
-        <h1>비밀번호 찾기</h1>
+        <h1>비밀번호 재발급</h1>
 		<form action="" id="findPwForm" method="POST">
             <ul class = "list-group">
             <li class="list-group-item">
             <label>사용자 아이디</label>
-                <input type="text" name="member_id" id="form_member_id" autocomplete="off" value="test007" placeholder="찾을 아이디의 사용자 이름을 입력해주세요" required>
+                <input type="text" name="member_id" id="form_member_id" autocomplete="off" value="user002" placeholder="찾을 아이디의 사용자 이름을 입력해주세요" required>
             <label>사용자 전화번호</label>    
-                <input type="text" name="phone" id="form_phone" autocomplete="off" value="01042935376" placeholder="찾을 아이디의 전화번호를 입력해주세요" required maxlength="11">
-                <input type="submit" id="btnPwFindForm" class="btn btn-outline-primary" value="비밀번호 찾기" onclick="findPw()">
+                <input type="text" name="phone" id="phone_textbox" autocomplete="off" value="01042935376" placeholder="찾을 아이디의 전화번호를 입력해주세요" required maxlength="11">
+                <input type="button" class="btn btn-outline-primary" value="인증번호 전송" id="sendPhoneNumber">
+                <li class="list-group-item" id="idInput">
+				<input type="text" class="form-control" id="phoneCheck_textbox" name="phoneCheckNum" maxlength="8" placeholder="인증번호를 입력해 주세요" style="margin: 20px auto;" required>
+				<input type="button" id="checkBtn" value="확인" class="btn btn-outline-primary" style="width: 100%">
+				<div class="time"></div>
+				</li>
+				<li class="list-group-item" id="idInput">
+                <input type="submit" id="btnPwFindForm" class="btn btn-outline-primary" value="재발급 받기" onclick="findPw()" style="width: 100%;" disabled>
                 </li>
       		</ul>	 
       	</form> 
       </div>
   </div>
 </div>	
+<%-- <input type="text" name="phone" id="test" value="${numStr}"> --%>
 	<%@ include file="./footer.jsp" %>
 	  </body>
     <script type="text/javascript">
@@ -195,10 +206,84 @@ height: 100%;
     	pwModal.style.display = "block";
 	}
     
+    
+    var timer = null;
+    var isRunning = false;
+    
+    $('#sendPhoneNumber').click(function(){
+        let phoneNumber = $('#phone_textbox').val();
+        swal("인증번호 발송 완료");
+        var display = $('.time');
+        var leftSec = 180;
+        
+        if(isRunning){
+        	clearInterval(timer);
+        	display.html("");
+        	startTimer(leftSec, display);
+        }else{
+        	startTimer(leftSec, display);
+        }
+        
+        var docum = document.getElementById("checkBtn").disabled;
+        var btnPwUpdatePage = document.getElementById("btnPwFindForm") 
+        $.ajax({
+            type: "POST",
+            url: "./sendSMSmyPage.do",
+            data: {"phone" : phoneNumber}, // 핸드폰 값이 넘어감
+            success: function(res){ // 인증번호 값이 넘어옴
+            	$('#checkBtn').click(function(){
+            		if($('#phoneCheck_textbox').val()=='') {
+                		swal('값을 입력하세요.');
+                	}else if(isRunning && $.trim(res)==$('#phoneCheck_textbox').val()){
+                		swal('인증 성공');
+                		btnPwUpdatePage.disabled = false;
+                		clearInterval(timer);
+                		display.html("");
+                	}else{
+                		if(isRunning){
+                			swal('인증번호가 맞지 않습니다');
+                		} else {
+                			swal('시간이 초과되었습니다');
+                		}
+                	}
+            	})
+            }
+        })
+    });
+    function startTimer(count, display) {
+    	var minutes, seconds;
+        timer = setInterval(
+    function () {
+        minutes = parseInt(count / 60, 10);
+        seconds = parseInt(count % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.html(minutes + ":" + seconds);
+
+        // 타이머 끝
+        if (--count < 0) {
+         clearInterval(timer);
+         alert("시간초과");
+         display.html("시간초과");
+         $('#checkBtn').attr("disabled","disabled");
+         isRunning = false;
+        }
+    }, 1000);
+         isRunning = true;
+    }
+    
+    
+    
+    
+    
+    
     function findPw(){
     	var id = document.getElementById("form_member_id");
-		var phone = document.getElementById("form_phone");
+		var phone = document.getElementById("phone_textbox");
 		var frm = document.getElementById("findPwForm");
+		var frm2 = document.getElementById("findPwForm");
 		
 		console.log(id.value);
 		console.log(phone.value);
@@ -215,20 +300,21 @@ height: 100%;
 			console.log(id.value);
 			console.log(phone.value);
 			
-			frm.action = "./sendSMS.do"
+			frm.action = "./updatePwPage.do"
+// 			frm2.action = "./encrypt.do"
 			
 			$.ajax({
 				url :"./findPwChk.do",
 				type:"POST",
-				data:"member_id="+id.value+"&phone="+phone.value+"&password="+'${numStr}',
+				data:"member_id="+id.value+"&phone="+phone.value,
 				success:function(msg){
 					if(msg.isc =="성공"){
 						swal({
-							title: "입력하신 전화번호로 임시 비밀번호를 발송하였습니다",
+							title: "비밀번호 변경 페이지로 넘어갑니다",
 							icon : "success",
 							closeOnClickOutside: false
 							}, function(){
-								frm.submit();		
+								frm.submit();
 								console.log(msg.isc);
 							});
 					}else{
@@ -276,11 +362,11 @@ height: 100%;
 					console.log(msg.isc, typeof msg);
 					if(msg.isc =="성공"){						
 						swal({
-							title: "찾은 아이디 : '${mVo.member_id}'",
+							title: "아이디를 찾았습니다\n찾은 아이디가 입력됩니다",
 							icon : "success",
 							closeOnClickOutside: false
 							}, function(){
-								frm.submit();		
+								frm.submit();
 								console.log(msg.isc);
 							});
 					}else{
@@ -325,12 +411,12 @@ height: 100%;
     
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == idModal || event.target == pwModal) {
-        idModal.style.display = "none";
-        pwModal.style.display = "none";
-      }
-    }
+//     window.onclick = function(event) {
+//       if (event.target == idModal || event.target == pwModal) {
+//         idModal.style.display = "none";
+//         pwModal.style.display = "none";
+//       }
+//     }
     
    
     
