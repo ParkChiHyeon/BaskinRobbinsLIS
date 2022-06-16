@@ -135,13 +135,13 @@ public class File_Controller {
 					e.printStackTrace();
 				}
 			}
-			logger.info("HomeController editorFrm 에디터로 입력받음");
-			logger.info("map : {}", map);
+			logger.info("------------------------------------------------------ map : {}", map);
 
 			int n = service.insertNotice(map);
+			map.remove("directory_name");
 			// map admin_id
 			if (n > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq"));
+				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", map.get("notice_seq").toString());
 				elasticInsert.insertElasticMap(map);
 				model.addAttribute("kind", "notice");
 				return "redirect:/viewAllBoard.do";
@@ -156,9 +156,11 @@ public class File_Controller {
 		} else {
 			map.put("file_path", "");
 			int seq = service.insertNotice(map);
+			logger.info("------------------------------------------------------ map : {}", map);
+			map.remove("directory_name");
 			// map admin_id
 			if (seq > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq"));
+				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq").toString());
 				elasticInsert.insertElasticMap(map);
 				model.addAttribute("kind", "notice");
 				return "redirect:/viewAllBoard.do";

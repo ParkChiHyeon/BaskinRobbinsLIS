@@ -4,7 +4,7 @@ function noticeList(){
 		method:"POST",
 		contentType:"application/json;",
 		url:"http://152.67.196.32:9200/notice_board/_search",		
-		data:JSON.stringify({"from":"0","size":"7","sort":{["notice_seq"]:"desc"}}),
+		data:JSON.stringify({"from":"0","size":"7","sort":{"notice_seq":"desc"}}),
 		dataType:"json",
 		success:function(res){
 			 var data = res.hits.hits;

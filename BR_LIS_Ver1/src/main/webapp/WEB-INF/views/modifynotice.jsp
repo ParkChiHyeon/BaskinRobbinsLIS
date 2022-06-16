@@ -4,6 +4,7 @@
 
 <%@page contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -38,24 +39,22 @@
 				<hr>
 				<div>
 				
-				<c:if test="${kind == 'notice' }">
+				<c:if test="${kind == 'notice'}">
 					<h3>공지사항 글 수정 입력폼</h3>
 					<form id="modifyNotice"  method="post" action="./modifynotice.do">
-						작성자:<input type="text" id="admin_id" name="admin_id" value="${dto.admin_id}" class="form-control">
-						제목: <input type="text" id="title" name="title"  value="${dto.title}" class="form-control"><br>
-						내용: <textarea name="content" id="content"  >${dto.content}</textarea>
+						<input type="hidden" value="${dto.notice_seq}" name="notice_seq">
+						작성자:<input type="text" id="admin_id" name="admin_id" value="${dto.admin_id}" class="form-control" readonly>
+						제목: <input type="text" id="title" name="title" value="${dto.title}" class="form-control"><br>
+						<label for="upload_file" style="border: solid 1px black;">파일선택</label>
+						<input type="text" id="file_route" disabled="disabled" value="${fn:substring(dto.file_path,9,fn:indexOf(dto.file_path,'&'))}" class="form-control">
+						<input type="file" id="upload_file" name="file"  style="position:absolute; clip:rect(0, 0, 0, 0);">
+						내용: <textarea name="content" id="content">${dto.content}</textarea>
 						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
 				
-<script type="text/javascript">
 
-function modifyNotice(seq){
-	 location.href="modifynotice.do?seq="+seq;
-}
-
-</script>
 	
 				
 				<c:if test="${kind == 'faq' }">
@@ -69,13 +68,6 @@ function modifyNotice(seq){
 					</form>
 				</c:if>
 				
-<script type="text/javascript">
-
-function modifyFAQ(seq){
-	 location.href="modifyFAQ.do?seq="+seq;
-}
-
-</script>
 				
 				<c:if test="${kind == 'calendar' }">
 					<h3>도서관일정 글 수정 입력폼</h3>
@@ -89,12 +81,6 @@ function modifyFAQ(seq){
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
-<script type="text/javascript">
-
-function modifyNotice(seq){
-	 location.href="modifynotice.do?seq="+seq;
-}
-</script>			
 				
 			
 			</div>
@@ -174,7 +160,7 @@ function modifynotice(){
 
 
 
-</script>              
+</script>            
 </body>
 <%@include file="./footer.jsp"%>
 </html>
