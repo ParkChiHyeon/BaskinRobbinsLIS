@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.br.lis.model.lendinginfo.mapper.ILendingBookDao;
 import com.br.lis.model.lendinginfo.mapper.IReturnBookDao;
@@ -62,6 +63,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 
 	// 예약 없는 정상 반납의 경우 {LD:N, RV:N, DL:N, BA:Y, OD:N, DG:Y, NM:Y}
 	@Override
+	@Transactional
 	public int normalReturnBook(String lending_seq, String member_code) {
 		logger.info("ReturnBookServiceImpl 정상반납 {},{}", lending_seq, member_code);
 		int n = dao.allReturnBook(lending_seq);
@@ -76,6 +78,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 
 	// 예약 있는 정상 반납의 경우 {LD:N, RV:Y, DL:N, BA:Y, OD:N, DG:N, NM:Y}
 	@Override
+	@Transactional
 	public int existReserveReturnBook(String lending_seq, String member_code) {
 		logger.info("ReturnBookServiceImpl 정상반납(예약있음) {},{}", lending_seq, member_code);
 		int n = dao.allReturnBook(lending_seq);
@@ -93,6 +96,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 	// 파손 반납의 경우 {LD:N,RV:N, DL:N, BA:Y,OD:N, DG:N, NM:N}, retrun_status=DM => 예약 여부
 	// 먼저 판단
 	@Override
+	@Transactional
 	public int damegeReturnBook(String lending_seq, String member_code) {
 		logger.info("ReturnBookServiceImpl 파손반납 {},{}", lending_seq, member_code);
 		int n = dao.allReturnBook(lending_seq);
@@ -109,6 +113,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 	// 분실 반납의 경우 {LD:N,RV:N, DL:N, BA:Y,OD:N, DG:N, NM:N}, retrun_status=LS => 예약 여부
 	// 먼저 판단
 	@Override
+	@Transactional
 	public int lossReturnBook(String lending_seq, String member_code) {
 		logger.info("ReturnBookServiceImpl 분실반납 {},{}", lending_seq, member_code);
 		int n = dao.allReturnBook(lending_seq);
@@ -123,7 +128,9 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 	}
 
 	// 연체 처리(상태변경+관내회원권한변경)
+	
 	@Override
+	@Transactional
 	@Scheduled(cron = "0 0 09 * * *?")
 	public int overdueLendingBook() {
 		logger.info("ReturnBookServiceImpl 연체 처리");
@@ -165,6 +172,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 
 	// 대출 연장
 	@Override
+	@Transactional
 	public int delayLendingBook(String lending_seq) {
 		logger.info("ReturnBookServiceImpl 대출 연장, {}", lending_seq);
 		int n = dao.delayLendingBook(lending_seq);
