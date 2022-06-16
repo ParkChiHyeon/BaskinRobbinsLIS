@@ -19,23 +19,29 @@
 <%@ include file="./header.jsp"%>
 <body>
 
-	
-<h2><a href="./adminLenList.do">■ 예약자 대출신청</a></h2>
+<div class="container">
+<h2><a href="./adminLenList.do"> 예약자 대출신청</a></h2>
+</div>
 <hr>
-**해야할것 <p>
-book_serial 조회시 결과값안나오면 alert ->예약중인 도서입니다  <p>
-대출 신청 누르면 신청되고 에러 뜸 -> 대출화면 or 신청확인 화면으로  <p>
-초기화버튼 안눌림.. <p>
-<hr>
-<h1>■즉시대출 신청</h1>
-<form action="./lendingBookAdmin.do" method="post" >
-	<h3>BOOK_SERIAL 입력하세요</h3>
-	<input id="book" name="book_serial" type="text" >
+
+<div class="container">
+	<h2>즉시대출 신청</h2>
 	
-	<h3>회원아이디를 입력하세요</h3>
-	<input id="book" name="member_id" type="text" >
-	<input type="submit" value="확인" onclick="a()">
-</form>
+	<form action="./lendingBookAdmin.do" method="post"  class="form-inline">
+		<div class="form-group">
+			<label>도서코드 :</label>
+			<input id="book" name="book_serial" type="text" class="form-control">
+		</div>
+		
+		<div class="form-group">
+			<label>회원아이디 :</label>
+		<input id="book" name="member_id" type="text" class="form-control">
+		</div>
+		<div class="form-group">
+		<input type="submit" class="btn btn-default" value="확인" onclick="a()">
+		</div>
+	</form>
+</div>
 <br>
 <br>
 
@@ -54,12 +60,9 @@ book_serial 조회시 결과값안나오면 alert ->예약중인 도서입니다
 			<tbody>
 			
 				<c:forEach var="lBean" items="${listBean}" varStatus="vs">
-<%-- 				<c:if test="${lBean eq null}"> --%>
-				
-<%-- 				</c:if> --%>
-				<tr id="s">
+				<tr id="selectList">
 					<td><input type="hidden" id="book_serial" value=" ${lBean.book_serial}">${lBean.book_serial}</td>
-					<td>${lBean.isbn}</td>
+					<td >${lBean.isbn}</td>
 					<td>${lBean.title}</td>
 					<td>${lBean.author}</td>
 				</tr>
@@ -95,13 +98,22 @@ book_serial 조회시 결과값안나오면 alert ->예약중인 도서입니다
 			</tbody>
 		</table>
 	</div>
+	
+	<c:if test="${listBean eq null}">
+				
+  	</c:if>
+	
+	
+	<div class="container">
 	<c:if test="${lVo.rental_count ne 0}">
 		<button class="btn btn-outline-secondary" type="button" onclick="fastLending()">대출 신청</button>
-		<button class="btn btn-outline-secondary" type="button" onclick="con()">신청 확인</button>
+		<button class="btn btn-outline-secondary" type="button" onclick="location.href='./returnBookList.do'">신청 확인</button>
 	</c:if>
+	
 	<button class="btn btn-outline-secondary" type="button" onclick="location.href='./home.do'">돌아가기</button>
-	<input class="btn btn-outline-secondary"  type="reset" value="초기화">
+	<input type="reset" class="btn btn-default"value="초기화">
 	<div id="result"></div>
+	</div>
 </form>	
 
 
@@ -125,23 +137,32 @@ function fastLending() {
 			console.log("성공");
 			console.log(data);
 			if(data == "true"){
-				alert("성공~~대출되었습니다");
-				location.href="./lendingBookAdmin.do";
+				alert("대출이 되었습니다");
+				location.href="./lendMainpage.do";
 			}
 		}
 	});
 }
-function a() {
-	var s= document.getElementById("s")
-	if(s.value == null){
-		alert("예약중인 도서입니다~~");
-		console.log("x")
-	}else{
-		alert("출력해드렸습니다")
-		console.log("o")
-	}
+
+	$(document).ready(function() {
+		 $("#btnReset").click(function() {
+		 		$("form").each(function() {
+					 this.reset();
+				 });
+			 });
+		});
 	
-} 
+// function a() {
+// 	var s= document.getElementById("selectList")
+// 	if(s.value == null){
+// 		alert("예약중인 도서입니다~~");
+// 		console.log("x")
+// 	}else{
+// 		alert("출력해드렸습니다")
+// 		console.log("o")
+// 	}
+	
+// } 
 
 function rentalCount(){
 	var rental =document.getElementById("rental_count").value; 

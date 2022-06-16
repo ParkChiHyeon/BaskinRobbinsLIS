@@ -89,8 +89,7 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 	SELECT *FROM LIB_MEMBER lm WHERE MEMBER_CODE =#{member_code} AND PENALTY  !=NULL
 </select>
 
-<!--BR_W_BM_207 대출 내역 조회 
-	조인 쿼리-->
+<!--BR_W_BM_207 대출 내역 조회 -->
 <!-- <select id="lendingList"  parameterType="java.util.Map" resultMap="LendBookBeanMap"> -->
 <select id="lendingList"  parameterType="java.lang.String" resultType="LendBookBean">
 	SELECT l.MEMBER_CODE,l.BOOK_SERIAL, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, TO_CHAR(l.LENDING_DATE,'YYYY.MM.DD') AS LENDING_DATE, TO_CHAR(l.END_DATE,'YYYY.MM.DD') AS END_DATE, TO_CHAR(l.BACK_DATE,'YYYY.MM.DD') AS BACK_DATE 
@@ -167,7 +166,7 @@ ORDER BY l.END_DATE ASC
 
 <!-- BR_W_BM_211-2  대출예약 취소 상태변경-->
 <update id="reserveDelUpdate">
-UPDATE POSSESSING_BOOK SET  RV  ='N' ,DG='Y' WHERE BOOK_SERIAL =#{book_serial}
+UPDATE POSSESSING_BOOK SET  RV  ='N'  WHERE BOOK_SERIAL =#{book_serial}
 </update>
 
 <!-- BR_W_BM_213 대여가능권수-->
@@ -181,7 +180,7 @@ UPDATE POSSESSING_BOOK SET  RV  ='N' ,DG='Y' WHERE BOOK_SERIAL =#{book_serial}
 
 <!-- 예약권수제한 -->
 <select id="limitBookCount" parameterType="java.lang.String" resultType="java.lang.String">
-	SELECT TO_CHAR(l.RESERVE_DATE,'YYYY.MM.DD') AS RESERVE_DATE  
+	SELECT COUNT(TO_CHAR(l.RESERVE_DATE,'YYYY.MM.DD')) AS RESERVE_DATE  
 	FROM LENDING l
 	WHERE MEMBER_CODE =(SELECT MEMBER_CODE 
 	            FROM LIB_MEMBER lm

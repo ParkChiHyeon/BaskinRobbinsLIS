@@ -111,8 +111,8 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	@Override
 	public int autoDeleteResrve(String lending_seq, String book_serial) {
 		logger.info("autoDeleteResrve 대출 예약 자동취소 후 보유도서 상태변경");
-		int n =dao.reserveAutoDel(lending_seq);
 		int m = dao.reserveDelUpdate(book_serial);
+		int n =dao.reserveAutoDel(lending_seq);
 		return (n>0&&m>0)?1:0;
 	}
 	

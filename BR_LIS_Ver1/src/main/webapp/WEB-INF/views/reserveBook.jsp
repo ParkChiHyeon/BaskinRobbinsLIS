@@ -14,9 +14,12 @@
 </head>
 <%@ include file="./header.jsp"%>
 <body>
-<h1>예약선택한 도서</h1>
-${countBook}
-<table class="table table-bordered">
+<div class="container">
+	<div class="form-group">
+	<h1>예약 신청</h1>
+<!-- 	<label>예약선택한 도서 </label> -->
+		</div>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>ISBN</th>
@@ -26,7 +29,7 @@ ${countBook}
 					<th>예약</th>
 				</tr>
 			</thead>
-			<c:if test="${countBook eq ' '}">
+			<c:if test="${countBook eq null}">
 			<tbody>
 				<tr id="chkBook">
 <%-- 					<td><input type="hidden" id="isbn"  value=" ${po.isbn}">${po.isbn}</td> --%>
@@ -34,14 +37,13 @@ ${countBook}
 <%-- 					<td>${po.title}</td> --%>
 <%-- 					<td>${po.author}</td> --%>
 <!-- 					<td><input class="checkReserve"type="button" value="예약하기"></td> -->
-				
-				
 				</tr>
 			</tbody>
 			</c:if>
 		</table>
 
-
+<br>
+<hr>
 <h1>예약가능도서 조회</h1>
 <div class="container">
 		<form action="./checkReserve.do" id="oneBook" method="post">
@@ -72,7 +74,7 @@ ${countBook}
 			</table>
 		</form>	
 </div>	
-
+</div>
 <script type="text/javascript">
 $(document).ready(function () {
     $('#dataTable').DataTable({
@@ -146,28 +148,42 @@ $(".checkReserve").click(function(){
 		type:"post",
 		async : true,
 		success : function(data){
-			console.log("성공");
+			console.log("성공---------------------------------");
 			var chkBook;
-			
 			$("#chkBook").empty();
 // 			$("#chkBook").children().empty();
 			
 			console.log(data);
+			console.log("-------55------");
+			console.log(data.countBook==0);
+			console.log(data.countBook[i]==null);
+			console.log(data.countBook.length==2);
+			console.log("-------------");
 			console.log(chkBook);
+			console.log(data.chkBook);
 			console.log(data.chkBook[0].isbn);
 			console.log(data.chkBook[0].book_serial);
 			console.log(data.chkBook[0].title);
 			console.log(data.chkBook[0].author);
-			chkBook="";
-			chkBook+="<td><input type='hidden' id='isbn' name='isbn' value='"+data.chkBook[0].isbn+"'>"+data.chkBook[0].isbn+"</td>";
-			chkBook+='<td><input type="hidden" id="book_serial" value='+data.chkBook[0].book_serial+'>'+data.chkBook[0].book_serial+'</td> ';
-			chkBook+='<td>'+data.chkBook[0].title+'</td>  ';
-			chkBook+='<td>'+data.chkBook[0].author+'</td>  ';
-// 			chkBook+='<td>'+data.chkBook[0].author+'</td>  ';
-			chkBook+='<td><input class="checkReserve"type="button"  onclick="checkReserve()" value="예약하기"></td>  ';
+			
+			if(data.countBook==0){
+				chkBook="";
+				chkBook+="<td><input type='hidden' id='isbn' name='isbn' value='"+data.chkBook[0].isbn+"'>"+data.chkBook[0].isbn+"</td>";
+				chkBook+='<td><input type="hidden" id="book_serial" value='+data.chkBook[0].book_serial+'>'+data.chkBook[0].book_serial+'</td> ';
+				chkBook+='<td>'+data.chkBook[0].title+'</td>  ';
+				chkBook+='<td>'+data.chkBook[0].author+'</td>  ';
+//	 			chkBook+='<td>'+data.chkBook[0].author+'</td>  ';
+				chkBook+='<td><input class="checkReserve"type="button"  onclick="checkReserve()" value="예약하기"></td>  ';
+				
+				var check = $("#chkBook").append(chkBook);
+				console.log("================"+check);
+				
+			}else {
+				alert("예약 횟수가 초과해 예약이 불가능합니다\n 취소후 예약해주세요");
+				location.href="./reserveBookList.do";
+			}
 		
-			var check = $("#chkBook").append(chkBook);
-			console.log("================"+check);
+			
 	//		$("#chkBook").children().append(chkBook);
 	
 				

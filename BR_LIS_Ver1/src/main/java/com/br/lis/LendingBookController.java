@@ -134,15 +134,17 @@ public class LendingBookController {
 		String lending_seq = 	req.getParameter("lending_seq");
 		String book_serial = 	req.getParameter("book_serial");
 		int n  =service.selfDeleteResrve(lending_seq, book_serial);
-		if(n==1) {
+		System.out.println(n+"%%%%%%%%%%%%%%%%%%%%%%");
+		
+		if(n>0) {
 			PrintWriter out =response.getWriter();
 			response.setContentType("text/html; charset=UTF-8");
 			out.println("<script>alert('삭제되었습니다');</script>");
 			out.flush();
 			
-			return "redirect:/myPage";
+			return "redirect:/reserveBookList.do";
 		}else {
-			return "redirect:/myPage";
+			return "redirect:/reserveBookList.do";
 		}
 	}
 	
@@ -234,36 +236,41 @@ public class LendingBookController {
 	public String selectPossibleReserve(Model model,HttpSession session) {
 		logger.info("회원 예약 하기_ 가능도서 조회");
 		
-		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
-		String memberid = mVo.getMember_id();
-		List<LendingVo> countBook = service.limitBookCount(memberid);
+//		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+//		String memberid = mVo.getMember_id();
+//		List<LendingVo> countBook = service.limitBookCount(memberid);
 		
 		
 		List<LendBookBean> poBook = new ArrayList<LendBookBean>();
 		poBook= service.selectPossibleReserve();
 		model.addAttribute("poBook",poBook);
-		model.addAttribute("countBook",countBook);
+//		model.addAttribute("countBook",countBook);
 		
 		return "reserveBook";
 	}
 	
 	@RequestMapping(value = "/checkReserve.do", method = {RequestMethod.POST ,RequestMethod.GET},produces = "application/json; charset=UTF-8" )
 	@ResponseBody
-	public Map<String, Object> possibleReserve(Model model,@RequestParam String isbn ,String book_serial ) {
+	public Map<String, Object> possibleReserve(Model model,@RequestParam String isbn ,String book_serial,HttpSession session ) {
 		logger.info("회원 예약 하기_ 반납예정일이 빠른도서 선택");
 		System.out.println(isbn+"+"+book_serial+"+@@@@ISBN-BOOK SERIAL보기@@@@");
 		
-//		ModelAndView mav =new ModelAndView();
 		
 		List<LendBookBean> chkBook = service.possibleReserve(isbn);
-		System.out.println("#####################"+chkBook);
+		
+		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+		String memberid = mVo.getMember_id();
+		System.out.println("@#$@#$@#회원아이디$@#$@#$22"+memberid);
+		
+		List<LendingVo> countBook = service.limitBookCount(memberid);
+		System.out.println("@#$@#$@예약한 횟수#$@#$@#$"+countBook);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("chkBook", chkBook);
-		System.out.println("********************"+map);
+		map.put("countBook", countBook);
 		
-//		mav.addObject("chkBook",chkBook);
-//		mav.setViewName("reserveBook");
-//		model.addAttribute("chkBook",chkBook);
+		System.out.println("********************"+map);
+		System.out.println(countBook);
 		return map;
 	}
 	
@@ -277,10 +284,13 @@ public class LendingBookController {
 		String member_code = mVo.getMember_code();
 		System.out.println(isbn+" , "+book_serial+" , "+memberid+" , "+member_code);
 		
+		
+		
 		LendingVo vo = new LendingVo();
 		vo.setBook_serial(book_serial);
 		vo.setMember_code(member_code);
 		System.out.println(vo);
+	
 		
 		int n =service.bookReservation(vo, book_serial.trim());
 		System.out.println(n+"n의 갯수======================");
