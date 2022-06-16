@@ -38,7 +38,13 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 	}
 
 	@Override
+	public int modifyFAQSubmit(Map<String, String> map) {
+		return sqlSession.update(NS+"modifyFAQSubmit", map);
+	}
+	
+	@Override
 	public int deleteFAQ(List<String> list) {
 		return sqlSession.delete(NS+"deleteFAQ", list);
 	}
+
 }

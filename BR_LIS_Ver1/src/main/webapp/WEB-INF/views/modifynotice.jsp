@@ -44,7 +44,7 @@
 						작성자:<input type="text" id="admin_id" name="admin_id" value="${dto.admin_id}" class="form-control">
 						제목: <input type="text" id="title" name="title"  value="${dto.title}" class="form-control"><br>
 						내용: <textarea name="content" id="content"  >${dto.content}</textarea>
-						<input type="submit" class="btn btn-default" value="저장">
+						<input type="submit" class="btn btn-default" value="저장" onclick="">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
@@ -64,7 +64,7 @@ function modifyNotice(seq){
 						작성자:<input type="text" id="admin_id" name="admin_id" value="${fVo.admin_id} " class="form-control">
 						제목: <input type="text" id="title" name="title" value="${fVo.title}" class="form-control"><br>
 						내용: <textarea name="content" id="content"> ${fVo.content} </textarea>
-						<input type="submit" class="btn btn-default" value="저장">
+						<input type="submit" class="btn btn-default" value="저장" onclick="modifyFAQSubmit(${fVo.faq_seq})">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
@@ -73,6 +73,11 @@ function modifyNotice(seq){
 
 function modifyFAQ(seq){
 	 location.href="modifyFAQ.do?seq="+seq;
+}
+
+
+function modifyFAQSubmit(seq){
+	location.href="modifyFAQsubmit.do?seq="+seq;
 }
 
 </script>
@@ -94,6 +99,7 @@ function modifyFAQ(seq){
 function modifyNotice(seq){
 	 location.href="modifynotice.do?seq="+seq;
 }
+
 </script>			
 				
 			
