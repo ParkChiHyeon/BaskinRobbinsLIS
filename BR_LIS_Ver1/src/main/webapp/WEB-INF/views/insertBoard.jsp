@@ -35,7 +35,6 @@
 				<c:if test="${kind == 'notice' }">
 					<h3>공지사항 새 글 입력폼</h3>
 					<form id="insertNotice"  method="post" onsubmit="return insertBoard()" enctype="multipart/form-data">
-						<input type="hidden" id="notice_seq" name="notice_seq" value="${nextSeq}">				
 						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
 						제목: <input type="text" id="title" name="title" class="form-control"><br>
 						내용: <textarea id="content" name="content"></textarea>
@@ -76,14 +75,13 @@
 
  <script type="text/javascript">
  var kind='<c:out value="${kind}"/>'
- var seq='<c:out value="${nextSeq}"/>'
  var today = new Date();   
  var year = today.getFullYear(); // 년도
  var month = today.getMonth() + 1;  // 월
  var date = today.getDate();  // 날짜
- 
- var nowday = ""+year+month+date+"_"+$("#admin_id").val()+"_"+seq;
- console.log(nowday);
+ var hh = today.getHours();
+ var mm = today.getMinutes();
+ var tempDir = $("#admin_id").val()+"_"+year+month+date+hh+mm;
 if(kind=='notice'){
 	console.log("notice insert")
 CKEDITOR.replace( 'content' ,{
@@ -92,7 +90,7 @@ CKEDITOR.replace( 'content' ,{
 									extraPlugins: 'editorplaceholder', 
 								    editorplaceholder: // 에디터 화면에 띄운 글귀
 								    '여기에 글을 입력하거나 파일을 드래그해주세요...', 
-									uploadUrl:"fileuploadImg.do?nowday="+nowday, //여기 참고하세용
+									uploadUrl:"fileuploadImg.do?directory_name="+tempDir, //여기 참고하세용
 });
 }else{
 	CKEDITOR.replace( 'content' ,{
@@ -153,7 +151,7 @@ function insertBoard(){
 		alert("내용을 입력해주세요");
 		return false;
 	}else{
-		editorFrm.action = "./fileupload.do?nowday="+nowday+"&regdate="+today.toISOString();
+		editorFrm.action = "./fileupload.do?directory_name="+tempDir+"&regdate="+today.toISOString();
 	}
 }
 </script>              

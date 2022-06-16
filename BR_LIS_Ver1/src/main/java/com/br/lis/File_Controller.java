@@ -39,9 +39,8 @@ public class File_Controller {
 	@RequestMapping(value = "/fileupload.do", method = RequestMethod.POST)
 	public String fileupload(Model model, HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest multiFile, @RequestParam MultipartFile file,
-			@RequestParam Map<String, Object> map, @RequestParam(value = "nowday") String nowday,
-			@RequestParam(value = "regdate") String regdate) throws IOException {
-		logger.info("Welcome! HomeController fileUpload----------folder address: {} {} {}", nowday, file, multiFile);
+			@RequestParam Map<String, Object> map) throws IOException {
+		logger.info("Welcome! HomeController fileUpload----------folder address: {} {} {}", map.get("nowday"), file, multiFile);
 		// 랜덤문자 생성
 		if (file.getSize() != 0) {
 			UUID uid = UUID.randomUUID();
@@ -76,16 +75,15 @@ public class File_Controller {
 				// 서버가 꺼졌을때를 위한 백업경로(절대경로)
 				// 업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
 
-//				String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
-				String absolutePathLinux = "/usr/local/BR_storage/notice/" + nowday + "/";
+				String absolutePath = "C:\\BR_storage\\notice\\" + map.get("nowday") + "\\";
+//				String absolutePath = "/usr/local/BR_storage/notice/" + nowday + "/";
 
 //				System.out.println("저장위치 path:"+path);
 //				System.out.println("백업위치 back:"+absolutePathLinux);
 
 				// 폴더 공간 만들어주기
 //		         File serverPath = new File(path);
-//				File backPath = new File(absolutePath);
-		         File backPath = new File(absolutePathLinux);
+				File backPath = new File(absolutePath);
 				// 폴더(디렉토리)가 없다면 생성
 //		         if(!serverPath.exists()) {
 //		            //만드려는 상위디렉토리가 있어야만 생성가능
@@ -97,8 +95,7 @@ public class File_Controller {
 				}
 				// 덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //				String uploalName = path+uid+"_"+fileName;
-//				String backupName = absolutePath + uid + "_" + fileName;
-				String backupName = absolutePathLinux+uid+"_"+fileName;
+				String backupName = absolutePath + uid + "_" + fileName;
 
 //				File uploadFile = new File(uploalName);
 				File backupFile = new File(backupName);
@@ -117,7 +114,7 @@ public class File_Controller {
 				// 응답객체를 얻어서 화면에 링크로 다운받을 수 있게끔
 				// printWriter = response.getWriter();
 				// 서버에 저장된 내용을 다운로드할 수 있도록 처리
-				String fileUrl = "fileName=" + fileName + "&uid=" + uid + "&nowday=" + nowday;
+				String fileUrl = "fileName=" + fileName + "&uid=" + uid + "&nowday=" + map.get("nowday");
 
 				// 업로드시 메시지 출력
 				// printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1,
@@ -125,7 +122,6 @@ public class File_Controller {
 				// printWriter.flush();
 
 				map.put("file_path", fileUrl);
-				map.put("regdate", regdate);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -145,7 +141,7 @@ public class File_Controller {
 			int n = service.insertNotice(map);
 			// map admin_id
 			if (n > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String) map.get("notice_seq"));
+				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq"));
 				elasticInsert.insertElasticMap(map);
 				model.addAttribute("kind", "notice");
 				return "redirect:/viewAllBoard.do";
@@ -159,12 +155,10 @@ public class File_Controller {
 			}
 		} else {
 			map.put("file_path", "");
-			map.put("regdate", regdate);
-			int n = service.insertNotice(map);
+			int seq = service.insertNotice(map);
 			// map admin_id
-
-			if (n > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String) map.get("notice_seq"));
+			if (seq > 0) {
+				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq"));
 				elasticInsert.insertElasticMap(map);
 				model.addAttribute("kind", "notice");
 				return "redirect:/viewAllBoard.do";
@@ -182,9 +176,9 @@ public class File_Controller {
 	// 이미지 업로드
 	@RequestMapping(value = "/fileuploadImg.do", method = RequestMethod.POST)
 	public void fileuploadImg(HttpServletRequest request, HttpServletResponse response,
-			MultipartHttpServletRequest multiFile, @RequestParam MultipartFile upload, @RequestParam String nowday) {
+			MultipartHttpServletRequest multiFile, @RequestParam MultipartFile upload, @RequestParam String directory_name) {
 		logger.info("Welcome! HomeController imageUpload");
-		System.out.println("-------------------------------nowday" + nowday);
+		System.out.println("-------------------------------nowday" + directory_name);
 
 		// 랜덤문자 생성
 		UUID uid = UUID.randomUUID();
@@ -218,16 +212,15 @@ public class File_Controller {
 
 			// 서버가 꺼졌을때를 위한 백업경로(절대경로)
 			// 업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
-//			String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
-			String absolutePathLinux = "/usr/local/BR_storage/notice/" + nowday + "/";
+			String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
+//			String absolutePath = "/usr/local/BR_storage/notice/" + nowday + "/";
 
 //	         System.out.println("저장위치 path:"+path);
 //	         System.out.println("백업위치 back:"+absolutePathLinux);
 
 			// 폴더 공간 만들어주기
 //	         File serverPath = new File(path);
-//			File backPath = new File(absolutePath);
-	         File backPath = new File(absolutePathLinux);
+			File backPath = new File(absolutePath);
 			// 폴더(디렉토리)가 없다면 생성
 //	         if(!serverPath.exists()) {
 //	            //만드려는 상위디렉토리가 있어야만 생성가능
@@ -239,8 +232,7 @@ public class File_Controller {
 			}
 			// 덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //	         String uploalName = path+uid+"_"+fileName;
-//			String backupName = absolutePath + uid + "_" + fileName;
-	         String backupName = absolutePathLinux+uid+"_"+fileName;
+			String backupName = absolutePath + uid + "_" + fileName;
 
 //	         File uploadFile = new File(uploalName);
 			File backupFile = new File(backupName);
@@ -258,7 +250,7 @@ public class File_Controller {
 			// 응답객체를 얻어서 화면에 링크로 다운받을 수 있게끔
 			printWriter = response.getWriter();
 			// 서버에 저장된 내용을 다운로드할 수 있도록 처리
-			String fileUrl = "download.do?uid=" + uid + "&fileName=" + fileName + "&nowday=" + nowday;
+			String fileUrl = "download.do?uid=" + uid + "&fileName=" + fileName + "&nowday=" + directory_name;
 
 			// 업로드시 메시지 출력
 			printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
@@ -294,11 +286,10 @@ public class File_Controller {
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
 		// "/storage/notice/"+nowday+"/") ;
 		// 절대경로를 통해 다운로드
-//		String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
-		String absolutePathLinux = "/usr/local/BR_storage/notice/" + nowday + "/";
+		String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
+//		String absolutePath = "/usr/local/BR_storage/notice/" + nowday + "/";
 
-//		String sDirPath = absolutePath + uid + "_" + fileName;
-		 String sDirPath = absolutePathLinux+uid+"_"+fileName;
+		String sDirPath = absolutePath + uid + "_" + fileName;
 
 		File file = new File(sDirPath);
 
@@ -330,11 +321,10 @@ public class File_Controller {
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
 		// "/storage/notice/"+nowday+"/") ;
 		// 절대경로를 통해 다운로드
-//		String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
-		String absolutePathLinux = "/usr/local/BR_storage/notice/" + nowday + "/";
+		String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
+//		String absolutePath= "/usr/local/BR_storage/notice/" + nowday + "/";
 
-//		String sDirPath = absolutePath + uid + "_" + fileName;
-		 String sDirPath = absolutePathLinux+uid+"_"+fileName;
+		String sDirPath = absolutePath + uid + "_" + fileName;
 
 		File file = new File(sDirPath);
 

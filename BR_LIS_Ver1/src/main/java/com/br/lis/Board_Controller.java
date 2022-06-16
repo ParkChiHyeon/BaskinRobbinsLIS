@@ -83,10 +83,10 @@ public class Board_Controller {
 	@RequestMapping(value = "/editor.do",method = RequestMethod.GET)
 	public String ckEditorView(String kind,Model model) {
 		logger.info("eidotr view 이동");
-		if(kind.equals("notice")) {
-			int n = inoticeService.nextVal();
-			model.addAttribute("nextSeq", n);
-		}
+//		if(kind.equals("notice")) {
+//			int n = inoticeService.nextVal();
+//			model.addAttribute("nextSeq", n);
+//		}
 		model.addAttribute("kind", kind);
 		return "insertBoard";
 	}

@@ -21,8 +21,6 @@ public interface INoticeBoardDao {
 		//삭제
 		public int multiDelNotice(List<String> list);
 		
-		//seq 받아오기
-		public int nextVal();
 		
 		
 

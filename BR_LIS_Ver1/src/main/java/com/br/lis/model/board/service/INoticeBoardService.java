@@ -24,8 +24,6 @@ public interface INoticeBoardService {
 	//다중삭제
 	public int multiDelNotice(List<String> chkBox);
 	
-	//seq 값 받아오기
-	public int nextVal();
 	
 //	//페이징
 //	public List<Notice_FAQBoardVo> selectPaging(Map<String, Object> map); 

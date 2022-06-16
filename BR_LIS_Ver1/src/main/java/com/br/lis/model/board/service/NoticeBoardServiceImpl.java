@@ -61,9 +61,4 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		return dao.multiDelNotice(chkBox) ;
 	}
 	
-	@Override
-	public int nextVal() {
-		logger.info("NoticeBoardServiceImpl nextVal");
-		return dao.nextVal();
-	}
 }
