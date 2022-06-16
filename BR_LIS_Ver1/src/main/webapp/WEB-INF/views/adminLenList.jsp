@@ -14,12 +14,17 @@
 </head>
 <%@ include file="./header.jsp"%>
 <body>
-<h1>예약목록전체조회(관리자)</h1>
-<input class="btn btn-outline-secondary" type="button" onclick="location.href='./lendMainpage.do'" value="돌아가기">
+<div class="container">
+	<br>
+	<input class="btn btn-default" type="button" onclick="location.href='./lendMainpage.do'" value="뒤로가기">
+	<hr>
+	<br><br>
+	<h1>예약목록전체조회(관리자)</h1>
+
+</div>
 
 <div class="container">	
 	<form action="./confrimReserve.do">
-
 		<table  id="dataTable" class="cell-border">
 			<thead>
 				<tr>
@@ -41,7 +46,8 @@
 					<td>${lVo.isbn}</td>
 					<td>${lVo.title}</td>
 					<td>${lVo.publisher}</td>
-					<td><button class="btn btn-warning"type="button" onclick="frmReserve()">대출신청</button> </td>
+<!-- 					<td><button class="btn btn-warning"type="button" onclick="frmReserve()">대출신청</button> </td> -->
+					<td><input class="frmReserve"type="button" value="대출신청"></td>
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -84,11 +90,26 @@ $(document).ready(function () {
     
     });
 } );
-
-function frmReserve(){
-	var lending_seq = document.getElementById("lending_seq").value;
-	var book_serial = document.getElementById("book_serial").value;
-	var member_code = document.getElementById("member_code").value;
+$(".frmReserve").click(function(){
+	var str =""
+	var tdArr =  new Array();
+	var frmReserve =$(this);
+	console.log(frmReserve);
+	var tr = frmReserve.parent().parent();
+	var td = tr.children();
+	console.log("클릭한 버튼의 값 : " +tr.text());
+	
+	var lending_seq =td.eq(0).text();
+	var book_serial=td.eq(1).text();
+	var member_code=td.eq(2).text();
+	
+	console.log(lending_seq,book_serial,member_code);
+// function frmReserve(){
+// 	var lending_seq = document.getElementById("lending_seq").value;
+// 	var book_serial = document.getElementById("book_serial").value;
+// 	var member_code = document.getElementById("member_code").value;
+// 	console.log(lending_seq,book_serial,member_code);
+	
 	$.ajax({
 		url : "./confrimReserve.do?",
 		data : {
@@ -108,8 +129,10 @@ function frmReserve(){
 			
 		}
 	});
-}
+
+})
 </script>
+
 </body>
 <%@include file="./footer.jsp"%>
 </html>

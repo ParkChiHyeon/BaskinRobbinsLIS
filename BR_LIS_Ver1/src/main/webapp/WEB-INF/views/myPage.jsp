@@ -50,7 +50,7 @@
 				</c:if>
 				<li id="lnb_4" class=""><a href="./lendingBookListUser.do" >도서대출 현황</a></li>
 				<li id="lnb_5" class=""><a href="./lendingBookMem.do" >도서대출 이용 현황</a></li>
-                <li id="lnb_6" class=""><a href="./reserveBook.do" >예약 현황</a></li> 
+                <li id="lnb_6" class=""><a href="./reserveBookList.do" >예약 현황</a></li>
 				<li id="lnb_7" class=""><a href="./myRequestBookList.do" >신청도서 조회</a></li>
 				<c:if test="${member.auth == 'GH'}">
 				<li id="lnb_8" class=""><a href="./memberCard.do" >회원증 출력</a></li>
