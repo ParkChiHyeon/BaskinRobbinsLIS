@@ -40,7 +40,7 @@ public class File_Controller {
 	public String fileupload(Model model, HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest multiFile, @RequestParam MultipartFile file,
 			@RequestParam Map<String, Object> map) throws IOException {
-		logger.info("Welcome! HomeController fileUpload----------folder address: {} {} {}", map.get("nowday"), file, multiFile);
+		logger.info("Welcome! HomeController fileUpload----------folder address: {} {} {}", map.get("directory_name"), file, multiFile);
 		// 랜덤문자 생성
 		if (file.getSize() != 0) {
 			UUID uid = UUID.randomUUID();
@@ -70,13 +70,13 @@ public class File_Controller {
 
 				// 서버의 물리적인 경로 가져오기
 				// 배포시 파일이 다 삭제됨.. 절대경로에 잡아야함
-//				String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/notice/"+nowday+"/");
+//				String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/notice/"+directory_name+"/");
 
 				// 서버가 꺼졌을때를 위한 백업경로(절대경로)
 				// 업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
 
-				String absolutePath = "C:\\BR_storage\\notice\\" + map.get("nowday") + "\\";
-//				String absolutePath = "/usr/local/BR_storage/notice/" + nowday + "/";
+				String absolutePath = "C:\\BR_storage\\notice\\" + map.get("directory_name") + "\\";
+//				String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
 
 //				System.out.println("저장위치 path:"+path);
 //				System.out.println("백업위치 back:"+absolutePathLinux);
@@ -114,7 +114,7 @@ public class File_Controller {
 				// 응답객체를 얻어서 화면에 링크로 다운받을 수 있게끔
 				// printWriter = response.getWriter();
 				// 서버에 저장된 내용을 다운로드할 수 있도록 처리
-				String fileUrl = "fileName=" + fileName + "&uid=" + uid + "&nowday=" + map.get("nowday");
+				String fileUrl = "fileName=" + fileName + "&uid=" + uid + "&directory_name=" + map.get("directory_name");
 
 				// 업로드시 메시지 출력
 				// printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1,
@@ -141,8 +141,8 @@ public class File_Controller {
 			map.remove("directory_name");
 			// map admin_id
 			if (n > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", map.get("notice_seq").toString());
-				elasticInsert.insertElasticMap(map);
+				ElasticSearchModule elasticInsert = new ElasticSearchModule();
+				elasticInsert.insertElasticMap(map,"notice_board", map.get("notice_seq").toString());
 				model.addAttribute("kind", "notice");
 				return "redirect:/viewAllBoard.do";
 			} else {
@@ -160,8 +160,8 @@ public class File_Controller {
 			map.remove("directory_name");
 			// map admin_id
 			if (seq > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule("notice_board", (String)map.get("notice_seq").toString());
-				elasticInsert.insertElasticMap(map);
+				ElasticSearchModule elasticInsert = new ElasticSearchModule();
+				elasticInsert.insertElasticMap(map,"notice_board",map.get("notice_seq").toString());
 				model.addAttribute("kind", "notice");
 				return "redirect:/viewAllBoard.do";
 			} else {
@@ -180,7 +180,7 @@ public class File_Controller {
 	public void fileuploadImg(HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest multiFile, @RequestParam MultipartFile upload, @RequestParam String directory_name) {
 		logger.info("Welcome! HomeController imageUpload");
-		System.out.println("-------------------------------nowday" + directory_name);
+		System.out.println("-------------------------------directory_name" + directory_name);
 
 		// 랜덤문자 생성
 		UUID uid = UUID.randomUUID();
@@ -210,12 +210,12 @@ public class File_Controller {
 			System.out.println("파일 확장자:" + extension);
 
 			// 서버의 물리적인 경로 가져오기
-//	         String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/notice/"+nowday+"/");
+//	         String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage/notice/"+directory_name+"/");
 
 			// 서버가 꺼졌을때를 위한 백업경로(절대경로)
 			// 업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
 			String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
-//			String absolutePath = "/usr/local/BR_storage/notice/" + nowday + "/";
+//			String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
 
 //	         System.out.println("저장위치 path:"+path);
 //	         System.out.println("백업위치 back:"+absolutePathLinux);
@@ -252,7 +252,7 @@ public class File_Controller {
 			// 응답객체를 얻어서 화면에 링크로 다운받을 수 있게끔
 			printWriter = response.getWriter();
 			// 서버에 저장된 내용을 다운로드할 수 있도록 처리
-			String fileUrl = "download.do?uid=" + uid + "&fileName=" + fileName + "&nowday=" + directory_name;
+			String fileUrl = "download.do?uid=" + uid + "&fileName=" + fileName + "&directory_name=" + directory_name;
 
 			// 업로드시 메시지 출력
 			printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
@@ -280,16 +280,16 @@ public class File_Controller {
 	@ResponseBody
 	public byte[] filedownload(@RequestParam(value = "uid") String uid,
 			@RequestParam(value = "fileName") String fileName, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "nowday") String nowday) throws IOException {
+			@RequestParam(value = "directory_name") String directory_name) throws IOException {
 		byte[] bytes = null;
-		logger.info("Welcome! HomeController download : {} {} {}", uid, fileName, nowday);
+		logger.info("Welcome! HomeController download : {} {} {}", uid, fileName, directory_name);
 
 		// 서버에 저장된 이미지 경로
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
-		// "/storage/notice/"+nowday+"/") ;
+		// "/storage/notice/"+directory_name+"/") ;
 		// 절대경로를 통해 다운로드
-		String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
-//		String absolutePath = "/usr/local/BR_storage/notice/" + nowday + "/";
+		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
+//		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
 
 		String sDirPath = absolutePath + uid + "_" + fileName;
 
@@ -312,19 +312,19 @@ public class File_Controller {
 		return bytes;
 	}
 
-	@RequestMapping(value = "/fileDelete.do")
+	@RequestMapping(value = "/fileDelete.do",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDelete(@RequestParam(value = "uid") String uid, @RequestParam(value = "fileName") String fileName,
-			HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "nowday") String nowday)
+			HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "directory_name") String directory_name)
 			throws IOException {
-		logger.info("Welcome! HomeController fileDelete : {} {} {}", uid, fileName, nowday);
+		logger.info("Welcome! HomeController fileDelete : {} {} {}", uid, fileName, directory_name);
 
 		// 서버에 저장된 이미지 경로
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
-		// "/storage/notice/"+nowday+"/") ;
+		// "/storage/notice/"+directory_name+"/") ;
 		// 절대경로를 통해 다운로드
-		String absolutePath = "C:\\BR_storage\\notice\\" + nowday + "\\";
-//		String absolutePath= "/usr/local/BR_storage/notice/" + nowday + "/";
+		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
+//		String absolutePath= "/usr/local/BR_storage/notice/" + directory_name + "/";
 
 		String sDirPath = absolutePath + uid + "_" + fileName;
 

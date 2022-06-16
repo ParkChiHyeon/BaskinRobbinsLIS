@@ -15,6 +15,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 </head>
+<style>
+a:link{
+	color: tomato;
+}
+
+</style>
 <body>
 
 <script type="text/javascript">

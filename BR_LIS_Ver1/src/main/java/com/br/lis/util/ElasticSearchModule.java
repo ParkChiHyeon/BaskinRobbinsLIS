@@ -22,19 +22,15 @@ public class ElasticSearchModule {
 	//http://152.67.196.32:9200/calendar_board/_search
 	private String hostname = "152.67.196.32";
 	private int port = 9200;
-	private String index;
-	private String id;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public ElasticSearchModule(String index,String id) {
-		this.index=index;
-		this.id=id;
+	public ElasticSearchModule() {
 	}
 	
 	
-	public void insertElasticMap(Map<String, Object> data) throws IOException {
+	public void insertElasticMap(Map<String, Object> data,String index, String id) throws IOException {
         IndexRequest insertRequest = new IndexRequest(index);
         insertRequest.id(id);
         insertRequest.source(data);
@@ -44,7 +40,7 @@ public class ElasticSearchModule {
         logger.info("ElasticSearchModule insertElasticMap index: {} , id : {} result : {}" , index, id, result_data);
         
     }
-	public void updateElasticMap(Map<String, Object> data) throws IOException {
+	public void updateElasticMap(Map<String, Object> data, String index, String id) throws IOException {
 		UpdateRequest updateRequest = new UpdateRequest(index, id);
 		updateRequest.doc(data);
 		
@@ -55,7 +51,7 @@ public class ElasticSearchModule {
 		
 	}
 	
-	public void deleteElastic() throws IOException {
+	public void deleteElastic(String index, String id) throws IOException {
 		DeleteRequest deleteRequest = new DeleteRequest(index, id);
 		
 		DeleteResponse deleteResponse = this.getClient().delete(deleteRequest, RequestOptions.DEFAULT);

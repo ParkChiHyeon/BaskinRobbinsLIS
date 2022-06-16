@@ -81,7 +81,8 @@
  var date = today.getDate();  // 날짜
  var hh = today.getHours();
  var mm = today.getMinutes();
- var tempDir = $("#admin_id").val()+"_"+year+month+date+hh+mm;
+ 
+ var tempDir = $("#admin_id").val()+"_"+year+(month<10?'0'+month:month)+(date<10?'0'+date:date)+(hh<10?'0'+hh:hh)+(mm<0?'0'+mm:mm);
 if(kind=='notice'){
 	console.log("notice insert")
 CKEDITOR.replace( 'content' ,{
