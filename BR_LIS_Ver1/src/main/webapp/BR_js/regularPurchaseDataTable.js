@@ -176,6 +176,32 @@ function recieveBook(){
 
 
 
+//[전체 선택] 체크박스를 클릭하면 개별 체크박스를 전체 선택하거나 선택을 해제하기
+ $(document).on('click','#checkAll',function(){
+	if($('#checkAll').is(':checked')){
+		$('.checkDel').prop('checked',true);
+	}else{
+		$('.checkDel').prop('checked',false);
+		}
+	});
+
+
+
+$(document).on('click','.checkDel',function(){
+	if($('input[class=del-chk]:checked').length == $('.checkDel').length){
+		$('#checkAll').prop('checked',true);
+	}else{
+		$('#checkAll').prop('checked',false);
+    }
+ });
+
+
+
+
+
+
+
+
 
 
 
