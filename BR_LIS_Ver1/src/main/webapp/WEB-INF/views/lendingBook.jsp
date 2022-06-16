@@ -12,7 +12,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js" defer></script>
+<style type="text/css">
 
+
+</style>
 <%@ include file="./header.jsp"%>
 <body>
 
@@ -31,13 +34,15 @@ book_serial 조회시 결과값안나오면 alert ->예약중인 도서입니다
 	
 	<h3>회원아이디를 입력하세요</h3>
 	<input id="book" name="member_id" type="text" >
-	<input type="submit" value="확인">
+	<input type="submit" value="확인" onclick="a()">
 </form>
+<br>
+<br>
 
-<h3>도서정보</h3>
 <form action="./fastLending.do">
 	<div class="container">
-			<table  id="dataTable" class="table table-bordered">
+		<h3>도서정보</h3>
+		<table  id="dataTable" class="table table-bordered">
 			<thead>
 				<tr>
 					<th>도서코드</th>
@@ -47,8 +52,12 @@ book_serial 조회시 결과값안나오면 alert ->예약중인 도서입니다
 				</tr>
 			</thead>
 			<tbody>
+			
 				<c:forEach var="lBean" items="${listBean}" varStatus="vs">
-				<tr>
+<%-- 				<c:if test="${lBean eq null}"> --%>
+				
+<%-- 				</c:if> --%>
+				<tr id="s">
 					<td><input type="hidden" id="book_serial" value=" ${lBean.book_serial}">${lBean.book_serial}</td>
 					<td>${lBean.isbn}</td>
 					<td>${lBean.title}</td>
@@ -57,10 +66,10 @@ book_serial 조회시 결과값안나오면 alert ->예약중인 도서입니다
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>	
+<!-- 	</div>	 -->
 
+<!-- 	<div class="container">	 -->
 	<h3>회원정보</h3>
-	<div class="container">	
 		<table  id="dataTable" class="table table-bordered">
 			<thead>
 				<tr>
@@ -122,7 +131,17 @@ function fastLending() {
 		}
 	});
 }
-
+function a() {
+	var s= document.getElementById("s")
+	if(s.value == null){
+		alert("예약중인 도서입니다~~");
+		console.log("x")
+	}else{
+		alert("출력해드렸습니다")
+		console.log("o")
+	}
+	
+} 
 
 function rentalCount(){
 	var rental =document.getElementById("rental_count").value; 

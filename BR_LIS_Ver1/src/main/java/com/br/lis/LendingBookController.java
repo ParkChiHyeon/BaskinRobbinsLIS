@@ -182,16 +182,20 @@ public class LendingBookController {
 
 		String book_serial = req.getParameter("book_serial");
 		String member_id = req.getParameter("member_id");
-		if(book_serial==null) {
+		
+		List<LendBookBean> listBean = new ArrayList<LendBookBean>();
+		listBean= service.nowLendingBook(book_serial);
+		System.out.println(listBean+"============================");
+		model.addAttribute("listBean",listBean);
+		
+		if(listBean.equals(0) ) {
+			logger.info("===========동작되나");
 			PrintWriter out =response.getWriter();
 			response.setContentType("text/html; charset=UTF-8");
 			out.print("<script>alert('예약중인 도서입니다');</script>");
 			out.flush();
 		}else {
-			List<LendBookBean> listBean = new ArrayList<LendBookBean>();
-			listBean= service.nowLendingBook(book_serial);
-			model.addAttribute("listBean",listBean);
-			System.out.println(listBean+"즉시대출%%%%%%%%%%%%%%%");
+			logger.info("===========동작되나2");
 		}
 		
 		
