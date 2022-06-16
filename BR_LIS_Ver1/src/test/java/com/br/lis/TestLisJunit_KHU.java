@@ -113,8 +113,8 @@ public class TestLisJunit_KHU {
 		map.put("member_id", "gnldnd11");
 //		map.put("password", "Clsclffk@12");
 		map.put("phone", "01042935376");
-		int cnt = mDao.findPw(map);
-		logger.info("비밀번호 인증 결과 : {}", cnt);
+//		int cnt = mDao.findPw(map);
+//		logger.info("비밀번호 인증 결과 : {}", cnt);
 	}
 	/* 비밀번호 초기화 BR_W_UM_013 
 	 * 13번과 14번 트랜잭션 (서비스로 다시)

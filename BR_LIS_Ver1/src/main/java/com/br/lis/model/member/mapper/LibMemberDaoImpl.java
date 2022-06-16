@@ -1,5 +1,6 @@
 package com.br.lis.model.member.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -74,7 +75,7 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 	}
 
 	@Override
-	public int findPw(Map<String, Object> map) {
+	public LibMemberVo findPw(Map<String, Object> map) {
 		return sqlSession.selectOne(NS+"findPw", map);
 	}
 
@@ -122,7 +123,7 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 
 	@Override
 	public LibMemberVo quitSelectMember() {
-		return sqlSession.selectOne(NS+"quitSelectMember");
+		return (LibMemberVo) sqlSession.selectList(NS+"quitSelectMember");
 	}
 
 	@Override

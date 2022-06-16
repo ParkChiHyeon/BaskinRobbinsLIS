@@ -160,6 +160,15 @@
 				</ul>
 			</li>
 			</c:if>
+			<c:if test="${admin.admin_id != null }">
+	<li id="gnb6"><a href="./quitMemberManagePage.do" >탈퇴 회원 관리</a>
+			<ul>
+			<li id="gnb7_1" class=""><a href="./quitMemberManagePage.do" >조회 및 승인</a>
+					</li>
+				</ul>
+			</li>
+			</c:if>
+			
 	<li id="gnb6"><a href="/jungang/10054/40025/content.do" >도서관소개</a>
 			<ul>
 			<li id="gnb6_1" class=""><a href="/jungang/10054/40025/content.do" >도서관안내</a>
