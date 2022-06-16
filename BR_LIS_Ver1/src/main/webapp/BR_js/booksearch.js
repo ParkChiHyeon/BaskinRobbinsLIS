@@ -170,13 +170,24 @@ function bookSearchRequest(){
 					var	html= '<p id="result_title">'+row.title+'</p>'; 
 					    html+= row.authors+'<br>';
 					    html+= row.publisher+'<br>';
+//					    html+= row.translator+'<br>';
+//					    html+= row.price+'<br>';
 					    html+= row.isbn;
+						html+= '<input type="button" id="bookRequest" value="도서구매신청" onclick="purchaseRequestBook();">';	
 					return html;
 				  }
 				}
 		  	  ]
 		  });
 		});
+}
+
+// 도서구매신청버튼을 눌렀을 때 실행되는 메서드
+function purchaseRequestBook(){
+	//isbn, title, publisher, author, translator, price 필요
+	console.log("도서구매신청 메서드 실행");
+//	console.log(author);
+	
 }
 
 

@@ -157,15 +157,14 @@ public class RequestBookController {
 	// 사용자가 신청한 도서의 목록(구매여부) 조회(50개 까지만 조회 가능)
 	@RequestMapping(value = "/myRequestBookList.do", method = RequestMethod.GET)
 	public String myRequestBook(HttpSession session, Model model) {
-		String member_id = "gnldnd17";
-		List<RequestPurchaseVo> myRequestBookList = reqPurcService.purchReqConfirmSelect(member_id);
+		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
 		
-//		LibMemberVo mVo =  (LibMemberVo) session.getAttribute("member");
+		List<RequestPurchaseVo> myRequestBookList = reqPurcService.purchReqConfirmSelect(mVo.getMember_id());
+		
 		
 		model.addAttribute("myRequestBookList",myRequestBookList);
 		model.addAttribute("reqPage","userRequestBook");
 		
-//		return "requestBookUser";
 		return "myPage";
 	}
 	

@@ -23,7 +23,7 @@
 	<table id="dataTable" class="cell-border"> <!-- https://datatables.net/examples/styling/ -->
 		<thead>
 				<tr>
-					<th>체크</th>
+					<th>체크<input type="checkbox" id="checkAll"> </th>
 					<th>정기구매코드</th>
 					<th>구매코드</th>
 					<th>ISBN</th>
@@ -44,7 +44,7 @@
 					<tr>
 						<td>
 							<c:if test="${purchRegulList.receive_date == null && purchRegulList.confirm == 'Y'}">
-								<input type="checkbox" id="regularPurchaseCheck${vs.index}" name="regularPurchaseCheck" value="${purchRegulList.regular_serial}">
+								<input type="checkbox" id="regularPurchaseCheck${vs.index}" name="regularPurchaseCheck" class="checkDel" value="${purchRegulList.regular_serial}">
 							</c:if>
 						</td>
 						<td id="regularSerial_Index${vs.index}">${purchRegulList.regular_serial}</td>
@@ -140,11 +140,11 @@ $(document).ready( function () {
         
         lengthChange: true, // 표시 건수기능 숨기기
         searching: true, // 검색 기능 숨기기
-        ordering: true, // 정렬 기능 숨기기
+        ordering: false, // 정렬 기능 숨기기
         info: false, // 정보 표시 숨기기
         paging:true, // 페이징 기능 숨기기
 //         order: [ [ 3, "asc" ], [ 1, "desc"] ], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
-        order: [ [ 0, "desc" ] ], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
+        order: [ [ 1, "desc" ] ], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
 //      columnDefs: [{ targets: 1, width: 100 }] //열의 넓이 조절 
 		lengthMenu: [ 5, 15, 30 ], //표시건수 
 //      displayLength: 50, //기본표시건수 설정
