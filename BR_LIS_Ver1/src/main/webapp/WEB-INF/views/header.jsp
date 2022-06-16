@@ -198,9 +198,9 @@
 					</li>
 				<li id="gnb5_2" class=""><a href="./returnBookPage.do" >반납</a>
 					</li>
-				<li id="gnb5_3" class=""><a href="/jungang/10050/20010/bbsList.do" >대출목록</a>
+				<li id="gnb5_3" class=""><a href="./returnBookList.do" >대출목록</a>
 					</li>
-				<li id="gnb5_4" class=""><a href="/jungang/10268/40006/content.do" >보유도서 목록</a>
+				<li id="gnb5_4" class=""><a href="./possessingBookList.do" >보유도서 목록</a>
 					</li>
 				</ul>
 			</li>

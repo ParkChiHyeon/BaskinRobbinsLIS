@@ -65,7 +65,7 @@ UPDATE POSSESSING_BOOK
 </update>
 
 <update id="returnLendingBookCount" parameterType="java.lang.String">
-UPDATE LIB_MEMBER SET RENTAL_COUNT=RENTAL_COUNT-1 
+UPDATE LIB_MEMBER SET RENTAL_COUNT=RENTAL_COUNT+1 
  WHERE MEMBER_CODE = #{member_code}
 </update>
 
@@ -91,7 +91,7 @@ UPDATE LENDING SET LENDING_DELAY='Y', END_DATE=LENDING_DATE+21
 
 <update id="delayPossessingBook" parameterType="java.lang.String">
  UPDATE POSSESSING_BOOK pb SET OD = 'Y'
- WHERE pb.BOOK_SERIAL=(SELECT l.BOOK_SERIAL FROM LENDING l WHERE l.LENDING_SEQ = #{lending_seq});
+ WHERE pb.BOOK_SERIAL=(SELECT l.BOOK_SERIAL FROM LENDING l WHERE l.LENDING_SEQ = #{lending_seq})
 </update>
 
 <select id="warehouseList" resultType="BookInfoVo">

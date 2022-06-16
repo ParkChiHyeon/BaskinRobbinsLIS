@@ -28,5 +28,30 @@ $(document).ready(function() {
     });
 } );
 
-var id = document.getElementById("lend").value;
+function delayLendingBook(index){
+var id = $('input[name=lending_seq]').eq(index).val();
 console.log(id);
+$.ajax({
+	url : "./delayLendingBook.do",
+	type :"post",
+	data : {
+		"lending_seq":id
+	},
+	async : false,
+	success : function (msg){
+		if(msg>0){
+			console.log("성공");
+			history.go(0);
+		}
+	},	
+	error : function (){
+		console.log("실패")
+			history.go(0);
+	}
+	
+});
+}
+
+
+
+
