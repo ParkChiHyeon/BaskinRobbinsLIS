@@ -122,8 +122,8 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 	}
 
 	@Override
-	public LibMemberVo quitSelectMember() {
-		return (LibMemberVo) sqlSession.selectList(NS+"quitSelectMember");
+	public List<LibMemberVo> quitSelectMember() {
+		return sqlSession.selectList(NS+"quitSelectMember");
 	}
 
 	@Override
@@ -191,6 +191,11 @@ public class LibMemberDaoImpl implements ILibMemberDao {
 	@Override
 	public int updateMyInfoEmail(Map<String, Object> map) {
 		return sqlSession.update(NS+"updateMyInfoEmail",map);
+	}
+
+	@Override
+	public int quitRequirementChk(Map<String, Object> map) {
+		return sqlSession.selectOne(NS+"quitRequirementChk",map);
 	}
 
 	

@@ -74,15 +74,16 @@ public class RegistAddrFileController{
 		InputStream inputStream =null;
 		OutputStream outputStream =null;
 		
-		String path="";
+		String path="C:\\BR_storage\\storage\\";
 		try {
 			//1)파일을 읽는다.
 			inputStream = file.getInputStream();
 			
 			//2)저장 위치를 만든다.
-			path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");//상대경로
+//			path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");//상대경로
 //			path = "C:\\eclipse_web_2020_09\\workspace_web\\20220412_Spring_EduBook\\src\\main\\webapp\\storage"; //절대경로
-			 
+//			path =  "C:\\eclipse_web_2020_09";
+			
 			System.out.println(request.getSession().getServletContext());
 			System.out.println("실제 저장될 업로드 경로"+path);
 			

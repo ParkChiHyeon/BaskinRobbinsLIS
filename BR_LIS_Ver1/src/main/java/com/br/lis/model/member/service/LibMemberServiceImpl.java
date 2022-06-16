@@ -158,7 +158,7 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	}
 
 	@Override
-	public LibMemberVo quitSelectMember() {
+	public List<LibMemberVo> quitSelectMember() {
 		logger.info("Lib_MemberServiceImpl quitSelectMember");
 		return mDao.quitSelectMember();
 	}
@@ -193,6 +193,11 @@ public class LibMemberServiceImpl implements ILibMemberService {
 	public int idCheck(String id) {
 		logger.info("idCheck");
 		return mDao.idCheck(id);
+	}
+
+	@Override
+	public int quitRequirementChk(Map<String, Object> map) {
+		return mDao.quitRequirementChk(map);
 	}
 	
 	
