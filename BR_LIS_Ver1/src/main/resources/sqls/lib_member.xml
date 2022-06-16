@@ -164,10 +164,18 @@
   	AND RENTAL_COUNT = 5
 	</update>
 	
+	<!-- 탈퇴 신청 회원 조건체크 -->
+	<select id="quitRequirementChk" parameterType="java.util.Map" resultType="LibMemberVo">
+	SELECT MEMBER_ID
+	FROM LIB_MEMBER
+	WHERE MEMBER_ID = #{member_id} AND  PENALTY = '' AND RENTAL_COUNT = 5	
+	</select>
+	
+	
 	<!-- 탈퇴 승인 BR_W_UM_020 -->
 	<update id="quitApprove" parameterType="java.util.Map">
 	UPDATE LIB_MEMBER 
- 	SET MEMBER_ID = #{member_id}, MEMBER_CODE =TRUNC(DBMS_RANDOM.VALUE(10000000000,99999999999)) ,
+ 	SET MEMBER_ID = #{member_id},
  	PASSWORD =TRUNC(DBMS_RANDOM.VALUE(1000000000000,9999999999999)),
  	PHONE =TRUNC(DBMS_RANDOM.VALUE(10000000000,99999999999)),
  	NAME=DBMS_RANDOM.STRING('L',10),

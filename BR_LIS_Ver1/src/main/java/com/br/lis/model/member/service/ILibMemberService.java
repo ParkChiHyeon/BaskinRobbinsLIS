@@ -35,7 +35,7 @@ public interface ILibMemberService {
 
 	public int quitApprove(Map<String, Object> map);
 
-	public LibMemberVo quitSelectMember();
+	public List<LibMemberVo> quitSelectMember();
 
 	public int lendingPenalty(Map<String, Object> map);
 
@@ -58,5 +58,7 @@ public interface ILibMemberService {
 	public	int updateMyInfoAddress(Map<String, Object> map);
 
 	public int updateMyInfoEmail(Map<String, Object> map);
+	
+	public int quitRequirementChk(Map<String, Object> map);
 	
 }

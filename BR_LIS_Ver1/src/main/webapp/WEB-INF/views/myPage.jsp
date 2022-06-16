@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri ="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,6 @@
 <script type="text/javascript" src="./BR_js/myPageJSJ.js"></script> 
 <script type="text/javascript" src="./khu_js/qrcode.js"></script>
 <script type="text/javascript" src="./khu_js/jquery.qrcode.js"></script>
-<script type="text/javascript" src="./khu_js/myPage.js"></script> 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
@@ -162,12 +162,12 @@
 				<div class="naviandtitle"> 
 				<h3>탈퇴 신청</h3>
 				</div>
-				
+
 				<!-- 내용 영역 넣고싶은거 넣으셈 -->
 				<form class="form-inline" method="post" action="#" id="khu_quitRequestForm">
 				<div class="container">
 				<input type="text" value="${member.member_id}"  id="khu_hiddenId" name="member_id" hidden="true">
-				<ul class="list-group">
+				<ul class="list-group" style="margin-bottom: 100px;">
 				<li class="list-group-item" id="khu_idInput">	
 				<label id="khu_label" >휴대폰 인증</label>
 				<div class="container">
@@ -177,7 +177,7 @@
 				</div>
 				<label id="khu_label"></label><input type="text" class="form-control" id="khu_phoneCheck_textbox2" name="phoneCheckNum" maxlength="8" required>
 				<input type="button" id="khu_checkBtn2" value="확인" class="btn btn-outline-primary">
-				<input type="submit" class="btn btn-outline-danger" value="탈퇴" id="khu_quitRequestBtn" onclick="khu_quitRequest()" disabled>
+				<input type="submit" class="btn btn-outline-danger" value="탈퇴" id="khu_quitRequestBtn" onclick="khu_quitRequest()"  disabled >
 				<div class="khu_time2"></div>
 				
 				
@@ -192,6 +192,8 @@
 				<div class="naviandtitle"> 
 				<h3>등본 업로드</h3>
 				</div>
+				<br>
+				<br>
 				<form:form action="./upload.do" method="post" class="inline" enctype="multipart/form-data" modelAttribute="uploadFileVo">
 				<ul class="list-group">
 				<li class="list-group-item" id="khu_idInput">
@@ -298,27 +300,7 @@
 				</div>
 				</c:if>
 				
-				<c:if test="${page=='quitRequest'}">
-			<div id="contentcore">
-			
-		
-				<!-- 제목 영역 -->
-				<div class="naviandtitle"> 
-				<h3>탈퇴 신청</h3>
-				</div>
 				
-				<!-- 내용 영역 넣고싶은거 넣으셈 -->
-				<form class="form-inline" method="GET" action="#" id="khu_quitRequestForm">
-				<div class="container">
-				<input type="text" value="${member.member_id}"  id="khu_hiddenId" name="member_id" hidden="true">
-				<label id="khu_label" >휴대폰 인증</label>
-				<input type="password" id="khu_pw" name="password" required>
-				<input type="text" value="${member.rental_count}"  id="khu_hiddenRentalCount" name="rental_count" hidden="true">
-				<input type="submit" class="btn btn-outline-danger" value="탈퇴" id="khu_quitRequestBtn" onclick="khu_quitRequest()">
-	</div>
-				</form>	
-			</div>
-				</c:if>
 
 
 		<!-- 휘웅 영역 끝 -->
@@ -333,7 +315,7 @@
 	
 	<!-- 내용 영역 넣고싶은거 넣으셈 -->
 	<form class="form-inline">
-		<table id="dataTableHIK" class="table-bordered">
+		<table id="dataTableHIK" class="cell-border dataTable no-footer">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -397,7 +379,8 @@
 		<div class="naviandtitle"> 
 			<h3>도서대출 이용현황</h3>
 		</div>
-
+		<br>
+		<br>
 		<!-- 내용 영역  -->
 <%-- 		<c:if test="${member.member_id eq 'member_id'}"> --%>
 		
@@ -444,7 +427,8 @@
 		<div class="naviandtitle"> 
 			<h3>도서 예약 현황</h3>
 		</div>
-	
+		<br>
+		<br>
 		<!-- 내용 영역  -->
 		<form action="./reserveBookList.do" >
 			<table  id="dataTable" class="table table-hover">
@@ -483,43 +467,49 @@
 						
 						<!--수진 영역 끝  -->
 <!-- 슬기 영역 -->
-	<c:if test="${reqPage=='userRequestBook'}">
-	<div id="contentcore">
-	<h1 id="myRequestBookH1">나의 신청도서</h1>
-	<div id="myRequestBookDiv">
-		<!-- 사용자의 신청도서 승인여부를 볼 수 있는 리스트 -->
-		<table id="myRequestBookTable">
-			<thead id="myRequestBookThead">
-				<tr>
-					<th>도서명</th>
-					<th>지은이</th>
-					<th>출판사</th>
-					<th>승인여부</th>
-				</tr>			
-			</thead>
-			<tbody id="">
-				<c:forEach var="myRequestBookList" items="${myRequestBookList}" varStatus="vs">
-					<tr>
-						<td>${myRequestBookList.title}</td>
-						<td>${myRequestBookList.author}</td>
-						<td>${myRequestBookList.publisher}</td>
-						<!-- 승인여부 조회결과가 Y면 승인, N이면 미승인 -->
-						<c:choose>
-							<c:when test="${myRequestBookList.confirm == 'Y'}">
-								<td>승인</td>
-							</c:when>
-							<c:when test="${myRequestBookList.confirm == 'N'}">
-								<td>미승인</td>
-							</c:when>
-						</c:choose>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-	</div>	
-	</c:if>
-	
+    <c:if test="${reqPage=='userRequestBook'}">
+    <div id="contentcore">
+    <div class="naviandtitle">
+    <h3>나의 신청도서</h3>
+    </div> 
+    <br><br>
+        <!-- 사용자의 신청도서 승인여부를 볼 수 있는 리스트 -->
+        <table id="dataTableHSG" class="cell-border dataTable no-footer">
+            <thead>
+                <tr>
+                    <th>도서명</th>
+                    <th>지은이</th>
+                    <th>출판사</th>
+                    <th>승인여부</th>
+                </tr>
+            </thead>
+            <tbody id="">
+                <c:forEach var="myRequestBookList" items="${myRequestBookList}" varStatus="vs">
+                    <tr>
+                        <td>${myRequestBookList.title}</td>
+                        <td>${myRequestBookList.author}</td>
+                        <td>${myRequestBookList.publisher}</td>
+                        <!-- 승인여부 조회결과가 Y면 승인, N이면 미승인 -->
+                        <c:choose>
+                            <c:when test="${myRequestBookList.confirm == 'Y'}">
+                                <td>승인</td>
+                            </c:when>
+                            <c:when test="${myRequestBookList.confirm == 'N'}">
+                                <td>미승인</td>
+                            </c:when>
+                        </c:choose>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    <div id="notion"><b>도서신청신청</b><br>
+    ◆ 한 달에 각 계정별 1권씩만 신청가능합니다.<br>
+    ◆ 구입이 완료되면 알림문자를 받을 수 있습니다.<br>
+    ◆ <b>신청방법</b> : 우왕도서관 홈페이지 > 희망도서신청 > 도서조회 > 도서구매 신청
+    </div>
+    </div>
+    </c:if>
+
 </div>
 
 <!-- 슬기영역 끝 -->

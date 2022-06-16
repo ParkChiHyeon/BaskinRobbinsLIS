@@ -46,7 +46,7 @@ public interface ILibMemberDao {
 
 	public int quitApprove(Map<String, Object> map);
 
-	public LibMemberVo quitSelectMember();
+	public List<LibMemberVo> quitSelectMember();
 
 	public int lendingPenalty(Map<String, Object> map);
 
@@ -65,6 +65,8 @@ public interface ILibMemberDao {
 	public String findPwOne(Map<String, Object> map);
 
 	public int encryptPassword(String k, Map<String, Object> map);
+	
+	public int quitRequirementChk(Map<String, Object> map);
 
 	
 

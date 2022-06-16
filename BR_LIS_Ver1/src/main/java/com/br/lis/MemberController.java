@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -449,13 +450,58 @@ public class MemberController {
 		@RequestMapping(value = "/quitMemberManagePage.do" , method = RequestMethod.GET)
 		public String quitMemberManagePage(Model model) {
 			
-			LibMemberVo mVo = service.quitSelectMember();
+			List<LibMemberVo> lists = service.quitSelectMember();
 		
-			model.addAttribute("mVo",mVo);
+			model.addAttribute("lists",lists);
 			
 			return "quitMemberManagePage";
 		}
 		
+		@RequestMapping(value = "/quitAcceptMember.do", method = RequestMethod.POST)
+		public String quitAcceptMember(HttpServletRequest req) {
+			
+			String member_id = req.getParameter("member_id");
+			
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
+			resultMap.put("member_id", member_id);
+			
+			int n = service.quitApprove(resultMap);
+			return (n==1)?"redirect:/quitMemberManagePage.do":"redirect:/quitMemberManagePage.do";			
+		}
+		
+		@RequestMapping(value = "/quitRequirementChk.do", method =RequestMethod.POST)
+		public Map<String, Object> quitRequirementChk(HttpServletRequest req) {
+				
+			String member_id = req.getParameter("member_id");
+			String rental_count= req.getParameter("rental_count");
+			String penalty = req.getParameter("penalty");
+			
+			logger.info("받은 아이디 :{}", member_id);
+			logger.info("받은 rc :{}", rental_count);
+			logger.info("받은 pe :{}", penalty);
+			
+			
+		
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
+			resultMap.put("member_id", member_id);
+			resultMap.put("rental_count", rental_count);
+			resultMap.put("penalty", penalty);
+			
+			int n = service.quitRequirementChk(resultMap);
+			
+			logger.info("결과 :{}", resultMap);
+						
+			logger.info("성공결과 : {}",n);
+			if(n==1) {
+				resultMap.put("isc", "성공");
+			}else {
+				resultMap.put("isc", "실패");
+			}
+			
+			return resultMap;		
+		}
 		
 }
 
