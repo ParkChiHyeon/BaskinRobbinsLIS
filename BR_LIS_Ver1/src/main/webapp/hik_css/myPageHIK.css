@@ -1,9 +1,8 @@
 @charset "UTF-8";
 
 th, td{
-	font-size: 8pt;
+	font-size: 10pt;
 	text-align: center;
-/* 	border: 1px solid black; */
 	height: 10px;
 }
 #contbody .contleft .lnbBody > UL > LI > A {
@@ -15,10 +14,61 @@ th, td{
     line-height: 47px;
     color: #333;
     font-weight: bold;
-    background: #fff url(../../image/jungang/common/bg_lnbSubOff.png) 170px 50% no-repeat;
+    background: repeat-x;
     border-bottom: 1px solid #d0d0d0;
+    text-decoration: none;
 }
+
+
 
 .table-bordered>:not(caption)>*>* {
     border-width: 1px;
+}
+
+ul{
+	padding-left: 0px;
+}
+
+#warning{
+	padding: 10px;
+	margin-top: 10px;
+	font-size: 12px;
+	border: 1px dashed #d63384;
+}
+
+li>a{
+	font-size: 14px;
+	text-decoration: none;
+}
+
+a:not([href]):not([class]), a:not([href]):not([class]):hover {
+     color: white;
+}
+#siteIndex{
+	height: 27px;
+	line-height: 1.6em;
+}
+#siteIndex>ul{
+	height: 27px;
+	margin-bottom: 0px;
+}
+
+#siteMenu {
+	line-height: 1.1em;
+}
+
+.memUtil{
+	margin-bottom: 0px;
+}
+
+#warning >b{
+	color:  #d63384;
+}
+
+#contentcore{
+	min-width: 780px;
+	
+}
+#warning > p{
+	color: red;
 }

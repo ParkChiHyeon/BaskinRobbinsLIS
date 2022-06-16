@@ -43,9 +43,7 @@
 			if(name==""|| name.trim==""){
 				swal('실패','공백이 있거나 정보를 기입하지 않았습니다');
 				return false;		
-			}else if(name == name){	
-				swal('실패','기존에 쓰던 이름으로 변경할 수 없습니다');
-				}else if(name.match(reg)){
+			}else if(name.match(reg)){
 				swal('실패','이름에 특수문자가 들어갈 수 없습니다 ');	
 				}else{
 					swal({
@@ -135,12 +133,7 @@
 				var khu_rc = document.getElementById("khu_hiddenRentalCount");
 				
 				khu_frm.action = "./memberQuitRequest.do"
-				
-				if(khu_id.value == "" || khu_id.value.trim ==""){
-					swal('값을 입력해 주세요');
-						khu_id.value="";
-    					khu_id.focus();
-				}else{
+	
 					$.ajax({
 						type : "post",
 						url: "./memberQuitRequestChk.do",
@@ -165,10 +158,113 @@
     				}
 					})
 				}
-			}
 			
+			
+				function checkSize(){
+				console.log("checkSize : " + "start");
+
+				// div 객체 사이즈 확인
+				var width = document.getElementById("qrcode").offsetWidth;
+				var height = document.getElementById("qrcode").offsetHeight;
+				
+				
+				 
+				console.log("qrcode [width] : " + width);
+				console.log("qrcode [height] : " + height);
+
+
+				// QR 생성 함수 호출
+				createQR(width-5, height-8, "hello Twok"); 			
+			}
+
+
+			/* QR 생성 함수 */
+			window.onload = function(width, height, data){
+//				var a = document.getElementById("khu_member_id").innerHTML;
+				var data = document.getElementsByName("khu_qr")[0].value + 
+					document.getElementsByName("khu_qr")[1].value +
+					document.getElementsByName("khu_qr")[2].value +
+//					document.getElementsByName("khu_qr")[3].value +
+					document.getElementsByName("khu_qr")[4].value;
+
+//				var a = a.value
+//				var b = b.value
+					
+//				var b = document.getElementById("khu_member_name").innterHTML;
+//				var c = document.getElementById("khu_member_code").value;
+//				var d = document.getElementById("khu_email").value;
+//				var e = document.getElementById("khu_phone").value;
+				
+//				var data = b.value;
+//				var data =	a+b;
 				
 
+				
+				
+				console.log("createQR : " + "start");
+//				var c = encodeURIComponent(data);
+				
+				console.log(data);
+				
+				console.log(typeof(data));
+				
+//				$('#qrcode').qrcode(data);
+
+//				 실제 QR 생성 부분
+				$('#qrcode').qrcode({
+					width: 340,
+					height: 340,
+					text: data
+				});    		
+
+				console.log("createQR : " + "end");
+			};
+	
+	
+	
+			
+			function getPDF(fileName){
+   // 기본 A4형식의 사이즈로 조정
+    var HTML_Width = $(".canvas_div_pdf").width();
+    var HTML_Height = $(".canvas_div_pdf").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width+(top_left_margin*2);
+    var PDF_Height = (PDF_Width*1.2)+(top_left_margin*2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+
+    // ------------------------------테스트 중------------------------------
+//    
+    // ------------------------------------------------------------------
+    
+    html2canvas($(".canvas_div_pdf")[0],{allowTaint:true}).then(function(canvas) {
+        canvas.getContext('2d');
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+
+        for (var i = 1; i <= totalPDFPages; i++) { 
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        }
+        
+        pdf.save(fileName + ".pdf");
+        
+        // ------------------------------테스트 중------------------------------
+//        document.getElementById("loader").style.display = "none"; //로딩 끝
+        // ------------------------------------------------------------------
+        
+    });
+};
+$(document).ready(function() {
+    $('#pdf').on('click',function(){
+        window.scrollTo(0,0);
+        let fileName = "HTML-TO-PDF"
+        getPDF(fileName);
+    })
+});
 			
 		
 				

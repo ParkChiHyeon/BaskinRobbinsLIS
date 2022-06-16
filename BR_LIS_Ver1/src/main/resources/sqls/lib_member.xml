@@ -35,7 +35,7 @@
 	
 	<!--  일반회원 로그인 BR_W_UM_009-->
 	<select id="loginMember" parameterType="java.util.Map" resultType="LibMemberVo">
-	SELECT MEMBER_ID,AUTH,MEMBER_CODE,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT,NOTIFICATION
+	SELECT MEMBER_ID,AUTH,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT,NOTIFICATION,MEMBER_CODE
 	FROM  LIB_MEMBER
 	WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
 	AND AUTH != 'TT' AND AUTH != 'F'
@@ -43,7 +43,7 @@
 	
 	<!-- 암호화를 위한 ID 로그인-->
 	<select id="enLogin" parameterType="java.util.Map" resultType="LibMemberVo">
-		SELECT MEMBER_ID, AUTH,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT,NOTIFICATION ,MEMBER_CODE
+		SELECT MEMBER_ID, AUTH,PASSWORD,PHONE,BIRTH,NAME,ADDRESS,EMAIL,RENTAL_COUNT,NOTIFICATION,MEMBER_CODE 
 		FROM LIB_MEMBER WHERE MEMBER_ID=#{member_id}
 		AND AUTH != 'TT' AND AUTH != 'F' 
 	</select>
@@ -65,8 +65,8 @@
 	
 	
 	<!-- 회원 비밀번호 찾기 BR_W_UM_012  -->
-	<select id="findPw" parameterType="java.util.Map" resultType="java.lang.Integer">
-	SELECT COUNT (*) MEMBER_ID
+	<select id="findPw" parameterType="java.util.Map" resultType="LibMemberVo">
+	SELECT MEMBER_ID,PHONE
    	FROM LIB_MEMBER
    	WHERE MEMBER_ID=#{member_id} AND PHONE= #{phone}
 	</select>
@@ -88,8 +88,7 @@
 	<!-- 관내 회원 등록  BR_W_UM_015 -->
 	<update id="updateNmToGh" parameterType="java.util.Map">
 	UPDATE LIB_MEMBER 
-  	SET AUTH ='GH' , MEMBER_CODE = 'M' || TO_CHAR(SYSDATE,'YYMM')|| LPAD(TO_CHAR
-	(member_seq.nextval),6,0), filepath=#{filepath}
+  	SET AUTH ='GH' , filepath=#{filepath}, EMAIL = #{email}
   	WHERE MEMBER_ID = #{member_id}
   	AND AUTH ='NM'	
 	</update>

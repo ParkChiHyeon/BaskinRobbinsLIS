@@ -51,3 +51,15 @@ th,td{
 .buttons>button{
 	margin-right : 50px;
 }
+
+.book_serial{
+	width: 255px;
+}
+.book_serial_val{
+	text-align: center;
+	border: 1px solid black;
+	opacity: 50%;
+}
+#searchBook{
+	margin-bottom: 10px;
+}

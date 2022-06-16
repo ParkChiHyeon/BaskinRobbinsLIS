@@ -95,6 +95,40 @@ function notPurchaseReason(){
 // 확정여부를 N으로 변경
 function changeConfirmN(){ 
 	console.log("확정여부 N으로 변경하는 메소드")
+	// 값을 담을 객체 생성
+	// 체크박스가 체크된 row의 regular_serial을 담아줌
+	var recieveBook = $("input:checkbox[name='regularPurchaseCheck']:checked");
+	var recieveBooks = []; // = {}; 랑 똑같음
+	for( var i = 0; i < recieveBook.length; i++) {
+	    var bookChecked = $(recieveBook.get(i));
+	    console.log(bookChecked.val());	
+		recieveBooks[i] = bookChecked.val();
+	}
+	console.log(recieveBooks);
+	
+	$.ajax({
+		url : "./changeConfirmN.do",
+		type : "post",
+		data : {
+				"recieveBooks":recieveBooks
+				},
+		dataType : "json",
+		async : false,
+		success : function(msg){
+		if(msg > 0){
+				//변경 성공
+				alert("반려처리 되었습니다.");
+				console.log("아작스 성공")
+				history.go(0);
+			}
+		},
+		error : function(){
+			//변경 실패
+			alert("반려처리 실패. 다시 시도해주세요.");
+			history.go(0);
+		}
+	});
+	
 	
 }
 
@@ -102,21 +136,40 @@ function changeConfirmN(){
 // 입고 버튼을 눌렀을 때, 체크 된 구매 정보의 입고일이 업데이트
 function recieveBook(){
 	console.log("입고일을 업데이트하는 메소드")
-//	modalIndex
-	var recieveBook = [];
-//	recieveBook = $("input:checkbox[name='regularPurchaseCheck']:checked").val();
-
-	$("input:checkbox[name=regularPurchaseCheck]:checked").each(function(modalIndex) {
-		recieveBook.push(modalIndex);
+	
+	// 값을 담을 객체 생성
+	// 체크박스가 체크된 row의 regular_serial을 담아줌
+	var recieveBook = $("input:checkbox[name='regularPurchaseCheck']:checked");
+	var recieveBooks = []; // = {}; 랑 똑같음
+	for( var i = 0; i < recieveBook.length; i++) {
+	    var bookChecked = $(recieveBook.get(i));
+	    console.log(bookChecked.val());	
+		recieveBooks[i] = bookChecked.val();
+	}
+	console.log(recieveBooks);
+	
+	$.ajax({
+		url : "./recieveBook.do",
+		type : "post",
+		data : {
+				"recieveBooks":recieveBooks
+				},
+		dataType : "json",
+		async : false,
+		success : function(msg){
+		if(msg > 0){
+				//변경 성공
+				alert("입고처리 되었습니다.");
+				console.log("아작스 성공")
+				history.go(0);
+			}
+		},
+		error : function(){
+			//변경 실패
+			alert("입고 실패. 다시 시도해주세요.");
+			history.go(0);
+		}
 	});
-	
-	console.log(recieveBook);
-	
-	
-	// 체크박스가 체크된 row의 regular_serial을 담아줌(하나만 됨..ㅎ)
-//	var recieveBook = $("input:checkbox[name='regularPurchaseCheck']:checked").val();
-//	console.log(recieveBook[0]);
-	
 
 }
 

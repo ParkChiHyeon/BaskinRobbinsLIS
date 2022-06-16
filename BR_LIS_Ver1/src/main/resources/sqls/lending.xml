@@ -173,9 +173,8 @@ UPDATE POSSESSING_BOOK SET  RV  ='N' ,DG='Y' WHERE BOOK_SERIAL =#{book_serial}
 <!-- BR_W_BM_213 대여가능권수-->
 <update id="lendingCount">
  <![CDATA[ 
-	 UPDATE LIB_MEMBER SET RENTAL_COUNT = (SELECT CASE WHEN (RENTAL_COUNT >=0 AND RENTAL_COUNT<5 ) THEN (RENTAL_COUNT)+1  
-	 																		WHEN (RENTAL_COUNT) = 0 THEN RENTAL_COUNT +0
-	 																		  END FROM LIB_MEMBER lm  WHERE MEMBER_CODE =#{member_code} )
+	 UPDATE LIB_MEMBER SET RENTAL_COUNT = (SELECT CASE WHEN (RENTAL_COUNT) <= 5 THEN (RENTAL_COUNT)-1  
+	 														END FROM LIB_MEMBER lm  WHERE MEMBER_CODE =#{member_code} )
 	 WHERE MEMBER_CODE =#{member_code}
 	]]>
 </update>

@@ -306,7 +306,7 @@ $('#sendPhoneNumber').click(function(){
     
     $.ajax({
         type: "POST",
-        url: "./sendSMS.do",
+        url: "./sendSMSmyPage.do",
         data: {"phone" : phoneNumber}, // 핸드폰 값이 넘어감
         success: function(res){ // 인증번호 값이 넘어옴
         	$('#checkBtn').click(function(){

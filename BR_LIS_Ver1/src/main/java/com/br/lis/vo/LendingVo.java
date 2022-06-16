@@ -1,5 +1,9 @@
 package com.br.lis.vo;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class LendingVo {
 
 	private String lending_seq;
@@ -8,8 +12,12 @@ public class LendingVo {
 	private String lending_delay;
 	private String return_status;
 	private String lending_date;
-	private String end_date;
-	private String back_date;
+//	private String end_date;
+//	private String back_date;
+	@DateTimeFormat(pattern = "YYYY-MM-DD HH:mm:ss")
+	private Date end_date;
+	@DateTimeFormat(pattern = "YYYY-MM-DD HH:mm:ss")
+	private Date back_date;
 	private String reserve_date;
 	
 	public String getLending_seq() {
@@ -48,16 +56,16 @@ public class LendingVo {
 	public void setLending_date(String lending_date) {
 		this.lending_date = lending_date;
 	}
-	public String getEnd_date() {
+	public Date getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(String end_date) {
+	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-	public String getBack_date() {
+	public Date getBack_date() {
 		return back_date;
 	}
-	public void setBack_date(String back_date) {
+	public void setBack_date(Date back_date) {
 		this.back_date = back_date;
 	}
 	public String getReserve_date() {
@@ -78,7 +86,7 @@ public class LendingVo {
 		// TODO Auto-generated constructor stub
 	}
 	public LendingVo(String lending_seq, String book_serial, String member_code, String lending_delay,
-			String return_status, String lending_date, String end_date, String back_date, String reserve_date) {
+			String return_status, String lending_date, Date end_date, Date back_date, String reserve_date) {
 		super();
 		this.lending_seq = lending_seq;
 		this.book_serial = book_serial;

@@ -198,13 +198,22 @@
 					</li>
 				<li id="gnb5_2" class=""><a href="./returnBookPage.do" >반납</a>
 					</li>
-				<li id="gnb5_3" class=""><a href="/jungang/10050/20010/bbsList.do" >대출목록</a>
+				<li id="gnb5_3" class=""><a href="./returnBookList.do" >대출목록</a>
 					</li>
-				<li id="gnb5_4" class=""><a href="/jungang/10268/40006/content.do" >보유도서 목록</a>
+				<li id="gnb5_4" class=""><a href="./possessingBookList.do" >보유도서 목록</a>
 					</li>
 				</ul>
 			</li>
 			</c:if>
+			<c:if test="${admin.admin_id != null }">
+	<li id="gnb6"><a href="./quitMemberManagePage.do" >탈퇴 회원 관리</a>
+			<ul>
+			<li id="gnb7_1" class=""><a href="./quitMemberManagePage.do" >조회 및 승인</a>
+					</li>
+				</ul>
+			</li>
+			</c:if>
+			
 	<li id="gnb6"><a href="/jungang/10054/40025/content.do" >도서관소개</a>
 			<ul>
 			<li id="gnb6_1" class=""><a href="/jungang/10054/40025/content.do" >도서관안내</a>
