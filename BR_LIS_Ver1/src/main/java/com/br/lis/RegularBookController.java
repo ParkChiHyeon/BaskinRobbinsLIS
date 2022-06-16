@@ -1,12 +1,15 @@
 package com.br.lis;
 
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.purchaseinfo.service.IPurchaseRegistrationService;
@@ -93,6 +97,7 @@ public class RegularBookController {
 		return result;
 	}
 	
+	// 구매불가사유를 업데이트하는 메소드
 	@RequestMapping(value = "/notPurchaseReason.do", method = RequestMethod.POST)
 	@ResponseBody
 	public int notPurchaseReason(HttpServletRequest req) {
@@ -109,6 +114,47 @@ public class RegularBookController {
 		return result;
 	}
 	
+	// 체크된 row의 입고일을 업데이트하는 메소드
+	@RequestMapping(value = "/recieveBook.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int regulReceiveUpdate(HttpServletRequest req) {	
+		String recieveBooks[] = null;
+		Map map = req.getParameterMap();
+		Iterator it = map.keySet().iterator();
+		while(it.hasNext()) {
+			String key = (String) it.next();
+			recieveBooks = (String[]) map.get(key);
+		}
+		
+		int result = 0;
+		
+		int i = 0;
+		for(i = 0; i < recieveBooks.length; i++) {
+			result = PurcService.regulReceiveUpdate(recieveBooks[i]);
+		}
+		return result;
+	}
+	
+	// 체크 된 row의 확정여부를 N으로 변경하는 메소드
+	@RequestMapping(value = "/changeConfirmN.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int regulConfirmUpdate(HttpServletRequest req) {
+		String recieveBooks[] = null;
+		Map map = req.getParameterMap();
+		Iterator it = map.keySet().iterator();
+		while(it.hasNext()) {
+			String key = (String) it.next();
+			recieveBooks = (String[]) map.get(key);
+		}
+		
+		int result = 0;
+		
+		int i = 0;
+		for(i = 0; i < recieveBooks.length; i++) {
+			result = PurcService.regulConfirmUpdate(recieveBooks[i]);
+		}
+		return result;
+	}
 	
 	
 	
