@@ -19,10 +19,10 @@ public interface IRequestPurchaseDao {
 	public int purchRequestInsert(Map<String, Object> reqMap);
 	
 	// 신청도서 신청(BR_W_BM_502) : 신청도서 월 1회만 신청하기 위한 쿼리(해당 구매 월에 MEMBER_ID가 있다면 신청하지 못함)
-	public RequestPurchaseVo purchReqOnceAMonth();
+	public List<RequestPurchaseVo> purchReqOnceAMonth();
 	
 	// 신청도서 신청(BR_W_BM_502) : 한 권의 책을 중복 신청하는 것을 방지하기 위한 쿼리 (NULL이 아닐 경우 신청 불가)
-	public RequestPurchaseVo purchReqOncePerBook(String isbnVo);
+	public List<RequestPurchaseVo> purchReqOncePerBook(String isbnVo);
 	
 	// 신청도서 신청목록 조회(BR_W_BM_503) : 사용자가 신청한 도서의 목록을 조회할 수 있다. 구매코드로 조회
 	public List<RequestPurchaseVo> purchReqListSelectByCode(String searchKey, String searchValue);

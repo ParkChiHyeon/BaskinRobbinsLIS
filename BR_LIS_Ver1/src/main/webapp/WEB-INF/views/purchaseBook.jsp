@@ -19,7 +19,7 @@
 <!-- <a id="creatPurchaseCodeSuccess" onclick="createPurchaseCode()">구매코드 생성</a> -->
 
  <div>
-	<table id="table_id">
+	<table class="table" id="table_id">
 		<thead>
 			<tr>
 				<th>구매코드</th>

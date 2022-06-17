@@ -113,9 +113,10 @@
 					</li>
 				<li id="gnb3_3" class=""><a href="./purchaseCodeList.do" >발주관리</a>
 					</li>
-				<li id="gnb3_4" class=""><a href="/jungang/10034/30083/program.do" >구매도서 등록</a>
+				<li id="gnb3_4" class=""><a href="./registPage.do" >구매도서 등록</a>
 					</li>
-				<li id="gnb3_5" class=""><a href="/jungang/10035/30007/program.do" >신규도서 조회</a>
+				<li id="gnb3_5" class=""><a href="./newBookList.do" >신규도서 조회</a>
+<!-- 				<li id="gnb3_5" class=""><a href="./newBookPageAdmin.do" >신규도서 조회</a> -->
 					</li>
 				</ul>
 			</li>		

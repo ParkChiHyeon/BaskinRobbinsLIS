@@ -62,7 +62,6 @@ public class RegularBookController {
 	
 	// 정기구매도서의 리스트를 조회(데이터테이블 사용)
 	@RequestMapping(value = "/purchRegulList.do", method = RequestMethod.GET)
-//	@ResponseBody
 	public String purchRegulListSelectByCode(HttpServletRequest req, Model model) {
 		List<RegularPurchaseVo> purchRegulList = PurcService.purchRegulListSelectByCode();
 		model.addAttribute("purchRegulList", purchRegulList);
@@ -70,14 +69,6 @@ public class RegularBookController {
 	}
 	
 
-	
-	
-	// regularPurchaseBook DataTable Test
-//	@RequestMapping(value = "/regularPurchaseBookDataTable.do", method = RequestMethod.GET)
-//	public String regularPurchaseBookDataTable() {
-//		
-//		return "regularPurchaseDataTable";
-//	}
 	
 	// 구매 수량을 변경해주는 메소드
 	@RequestMapping(value = "/changePurchaseCount.do", method = RequestMethod.POST)
