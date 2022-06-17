@@ -151,7 +151,14 @@ div#eye i{
 	<form action="./signUp.do" method="POST" id="testForm" onsubmit="return frmsubmit()">
 	<div class="container">
 	
-	<input type="text" value="0" id="chkVal">
+	<input type="text" value="0" id="idChkVal" hidden="true">
+	<input type="text" value="0" id="pwChkVal" hidden="true">
+	<input type="text" value="0" id="pwChkVal2" hidden="true">
+	<input type="text" value="0" id="nameChkVal" hidden="true">
+	<input type="text" value="0" id="birthChkVal" hidden="true">
+	<input type="text" value="0" id="phoneChkVal" hidden="true">
+	<input type="text" value="0" id="phoneChkVal2" hidden="true">
+	<input type="text" value="1" id="addrChkVal" hidden="true">
 	
 		<ul class="list-group" id="ulForm">	
 		<li class="list-group-item" id="idInput">
@@ -187,7 +194,7 @@ div#eye i{
 		<li class="list-group-item" id="idInput">
 		<label>이름</label><input type="text" class="form-control"  id="name_textbox" name="name" required>
 		</li>
-		
+		<li class="list-group-item"><span id="resultName"><a></a></span></li>
 		
 	
 		
@@ -205,6 +212,7 @@ div#eye i{
 		
 		<input type="button" class="btn btn-outline-primary" value="인증번호 전송" id="sendPhoneNumber">
 		</li>
+		<li class="list-group-item"><span id="resultPhone"><a></a></span></li>
 		
 		
 		
@@ -217,10 +225,10 @@ div#eye i{
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>주소</label><input type="text" class="form-control" id="detailAddress_textbox" name="address" autocomplete="name" required>
+		<label>주소</label><input type="text" class="form-control" id="detailAddress_textbox" name="address" autocomplete="name" readonly>
 		<input type="button" class="btn btn-outline-primary" value="우편번호 찾기" id="zipSearch_textbox" onclick="kakaopost()">
 		</li>
-		
+		<li class="list-group-item"><span id="resultAddr"><a></a></span></li>
 		
 		
 		<li class="list-group-item"><div id="recaptcha_render" ></div></li>
@@ -261,30 +269,6 @@ function frmsubmit(){
 }
 
 
-
-
-function signUp() {
-	var chk = document.getElementById("chkVal");
-	var frm = document.getElementById("testForm");
-	
-	frm.action = "./signUp.do";	
-	console.log(chk.value);
-	if(chk.value == 1){
-// 		frm.submit();
-// 		location.href = "./signUp.do";	
-	console.log(chk.value)
-}else{
-		console.log(chk.value)
-		swal("에러","작성한 정보를 다시 확인하세요");
-		return false;
-	}
-	
-}
-
-
-
-
-
 var timer = null;
 var isRunning = false;
 
@@ -316,11 +300,14 @@ $('#sendPhoneNumber').click(function(){
             		swal('인증 성공');
             		clearInterval(timer);
             		display.html("");
+            		$("#phoneChkVal2").val(1);
             	}else{
             		if(isRunning){
             			swal('인증번호가 맞지 않습니다');
+            			$("#phoneChkVal2").val(0);
             		} else {
             			swal('시간이 초과되었습니다');
+            			$("#phoneChkVal2").val(0);
             		}
             	}
         	})
@@ -365,13 +352,20 @@ var onloadCallback = function() {
 
 
 function signUp() {
-	var chk = document.getElementById("chkVal").value;
+	var chk = document.getElementById("idChkVal");
+	var chk2 = document.getElementById("pwChkVal");
+	var chk3 = document.getElementById("pwChkVal2");
+	var chk4 = document.getElementById("nameChkVal");
+	var chk5 = document.getElementById("birthChkVal");
+	var chk6 = document.getElementById("phoneChkVal");
+	var chk7 = document.getElementById("phoneChkVal2");
+	var chk8 = document.getElementById("addrChkVal");
 	console.log(chk)
-	if(chk == 1){
+	if(chk.value == 1 && chk2.value == 1 && chk3.value == 1 && chk4.value == 1 && chk5.value == 1 && chk6.value == 1 &&
+			chk7.value == 1 && chk8.value == 1){
 		location.href = "./signUp.do";	
 	}
 	else{
-		console.log(chkVal)
 		swal("에러","작성한 정보를 다시 확인하세요");
 		return false;
 	}
@@ -383,33 +377,38 @@ function kakaopost() {
     new daum.Postcode({
         oncomplete: function(data) {
            document.querySelector("#detailAddress_textbox").value ='('+ data.zonecode + ')' + data.address
+           $("#detailAddress_textbox").focus();	
         }
     }).open();
 }
 
 function idDuplicateCheck() {
 	var id = document.getElementById("id_textbox");
-	
 	$.ajax({
 		async: true,
 		type : 'post',
 		data:"member_id="+id.value,
 		url : "./idDuplicateCheck.do",
 		success: function(msg){
+			var reg = /^[A-Za-z]{1}[A-Za-z0-9]{5,19}$/;
 			if(msg.isc=="성공"){
 				swal("중복된 아이디입니다");
 				$("#id_textbox").focus();	
-				$("#chkVal").val(0);
+				$("#idChkVal").val(0);
 				
-			}else{
-				swal("사용 가능한 아이디 입니다");
+			}else if(msg.isc=="실패" && id.value.match(reg)){
+				swal("성공","중복된 아이디가 없습니다");
 				$("#pw_textbox").focus();
-				$("#chkVal").val(1);
+				$("#idChkVal").val(1);
+				$("#pw_textbox").focus();
+			}else{
+				swal("실패","다시 확인해주세요");
+				$("#idChkVal").val(0);
 			}
 		},
 		error :function(){
 			swal("회원가입 실패","에러가 발생하였습니다")
-			$("#chkVal").val(0);
+			$("#idChkVal").val(0);
 		
 		}
 		
@@ -422,20 +421,20 @@ $(document).ready(function(){
 		
 	$("#id_textbox").keyup(function(){
 		var idVal = $(this).val();
+		var reg = /^[A-Za-z]{1}[A-Za-z0-9]{5,19}$/;
+		
 		console.log(idVal);
 		
-		if(idVal.length <6 || idVal.length >20){
+		if(!idVal.match(reg)){
 			$("#resultId").css("color","red");
-			$("#resultId").html("아이디의 길이는 5~20 입니다.");
-			$("#chkVal").val(0);
+			$("#resultId").html("아이디의 길이는 6~20 영어 숫자포함 입니다.");
+			$("#idChkVal").val(0);
 		}else if(idVal.indexOf(" ") != -1){
 			$("#resultId").css("color","red");
-			$("#resultId").html("공백이 포함된 아이디는 사용할 수 업습니다.");
-			$("#chkVal").val(0);
+			$("#resultId").html("공백이 포함된 아이디는 사용할 수 없습니다.");
+			$("#idChkVal").val(0);
 		}else{
 			$("#resultId").html("")
-			$("#chkVal").val(1);
-			
 		}
 	});
 });
@@ -448,11 +447,11 @@ $(document).ready(function(){
 		console.log(pwVal);
 		if(pwVal.match(reg)){	
 			$("#resultPw").html("")
-			$("#chkVal").val(1);
+			$("#pwChkVal").val(1);
 		}else{
 			$("#resultPw").css("color","red");
 			$("#resultPw").html("최소 8 자 및 최대 20 자, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자 및 하나의 특수 문자 정규식");
-			$("#chkVal").val(0);
+			$("#pwChkVal").val(0);
 		}
 	});
 });
@@ -461,18 +460,39 @@ $(document).ready(function(){
 	$("#pwChk_textbox").keyup(function(){
 		var pwVal = $(this).val();
 		var exPwVal = document.getElementById("pw_textbox").value;
+		var reg = "^(?=.*[a-zA-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$";
 		console.log(exPwVal);
-		if(pwVal.match(exPwVal)){
+		if(pwVal == exPwVal && pwVal.match(reg)){
 			$("#resultPw2").html("")
-			$("#chkVal").val(1);
+			$("#pwChkVal2").val(1);
 		}else{
 			$("#resultPw2").css("color","red");
 			$("#resultPw2").html("비밀번호를 다시 확인해주세요");
-			$("#chkVal").val(0);
+			$("#pwChkVal2").val(0);
 
 		}
 	});
 });
+
+
+$(document).ready(function(){
+	$("#name_textbox").keyup(function(){
+		var reg = /^[가-힣a-zA-Z]+$/;
+		var nameVal = $(this).val();
+		if(nameVal.match(reg)){
+			$("#resultName").html("")
+			$("#nameChkVal").val(1);
+		}else{
+			$("#resultName").css("color","red");
+			$("#resultName").html("이름엔 영어와 한글만 들어갑니다");
+			$("#nameChkVal").val(0);
+
+		}
+	});
+});
+
+
+
 $(document).ready(function(){
 	$("#phone_textbox").keyup(function(){
 		var phoneVal = $(this).val();
@@ -480,11 +500,11 @@ $(document).ready(function(){
 		var reg = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})";
 		if(phoneVal.match(reg)){
 			$("#resultPhone").html("")
-			$("#chkVal").val(1);
+			$("#phoneChkVal").val(1);
 		}else{
 			$("#resultPhone").css("color","red");
 			$("#resultPhone").html("핸드폰 번호를 다시 확인해주세요");
-			$("#chkVal").val(0);
+			$("#phoneChkVal").val(0);
 
 		}
 	});
@@ -502,12 +522,27 @@ $(document).ready(function(){
 		var reg = "^[0-9]{7,7}";
 		if(birthVal.match(reg)){
 			$("#resultBirth").html("")
-			$("#chkVal").val(1);
+			$("#birthChkVal").val(1);
 		}else{
 			
 			$("#resultBirth").css("color","red");
 			$("#resultBirth").html("주민번호를 다시 확인해주세요");
-			$("#chkVal").val(0);
+			$("#birthChkVal").val(0);
+		}
+	});
+});
+
+
+$(document).ready(function(){
+	$("#detailAddress_textbox").keyup(function(){
+		var addrVal = $(this).val();		
+		if(!addrVal ==""){
+			$("#resultBirth").html("")
+			$("#addrChkVal").val(1);
+		}else{		
+			$("#resultAddr").css("color","red");
+			$("#resultAddr").html("주소 찾기를 진행해주세요");
+			$("#addrChkVal").val(0);
 		}
 	});
 });

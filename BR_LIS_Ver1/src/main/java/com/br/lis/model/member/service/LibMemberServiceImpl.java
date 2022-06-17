@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -168,8 +169,9 @@ public class LibMemberServiceImpl implements ILibMemberService {
 		logger.info("Lib_MemberServiceImpl lendingPenalty : {} ", map);
 		return mDao.lendingPenalty(map);
 	}
-
+	
 	@Override
+	@Scheduled(cron = "0 0 0 * * *")
 	public int endPenalty() {
 		logger.info("Lib_MemberServiceImpl endPenalty");
 		return mDao.endPenalty();

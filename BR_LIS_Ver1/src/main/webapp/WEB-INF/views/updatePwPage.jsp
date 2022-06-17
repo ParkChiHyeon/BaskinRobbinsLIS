@@ -6,7 +6,35 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 변경 페이지</title>
+<style type="text/css">
+div #eye {
+    position: relative;
+}
 
+div#eye i{
+	position :absolute;
+    left: 90%;
+    top : 45px;
+    color: black;
+}
+
+
+#pw_textbox{
+	width: 300px;
+	height: 40px;	
+}
+
+#pwChk_textbox{
+	width: 300px;
+	height: 40px;	
+}
+
+#ulForm{
+	margin : 40px auto; display: table; border: 2px solid;
+}
+
+
+</style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,14 +46,17 @@
 <%@ include file="./header.jsp" %>
 
 <body class="body">    
-			<form action="./updatePw.do" method="get" id="khu_updateInfoForm" >
+	<input type="text" value="0" id="pwChkVal">
+	<input type="text" value="0" id="pwChkVal2" >
+			<form action="./memberInfoUpdatePw.do" method="get" id="khu_updateInfoForm"  onsubmit="return frmsubmit()">
 	<div class="container">
-	<label>아이디</label><input type="text" class="form-control" name="member_id" value="${mVo.member_id }" maxlength="8" hidden="true">
-	<label>전화번호</label><input type="text" class="form-control"  name="phone" value="${mVo.phone}" maxlength="8" id="phone_textbox" hidden="true">
+	<input type="text" class="form-control" name="member_id" value="${mVo.member_id }" maxlength="8" hidden="true">
+	<input type="text" class="form-control"  name="phone" value="${mVo.phone}" maxlength="8" id="phone_textbox" hidden="true">
 	
 	<ul class="list-group" id="ulForm">	
 
-            <li class="list-group-item" id="idInput">
+
+			<li class="list-group-item" id="idInput">
 		<div id="eye">
 		<label>비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required>
 		<i class="fa-solid fa-eye fa-lg"></i> 
@@ -38,84 +69,34 @@
 		
 		<li class="list-group-item" id="idInput">
 		<div id="eye">
-		<label>비밀번호 확인</label><input type="password" class="form-control"  id="pwChk_textbox" required>
-		<i class="fa-solid fa-eye fa-lg"></i>
-		<button type="button" id="khu_btnUpdateEmail" onclick="updatePw()"class="btn btn-outline-primary">변경</button> 
+		<label>비밀번호 확인</label><input type="password" class="form-control"  id="pwChk_textbox"  placeholder="PASSWORD CHK" required>
+		<i class="fa-solid fa-eye fa-lg"></i> 
 		</div>
 		</li>
 		<li class="list-group-item"><span id="resultPw2"><a></a></span></li>
-		
-		</ul>
-		</div>
+		<li class="list-group-item"><input type="submit" class="btn btn-outline-primary" value="수정완료"  style="width: 100%" onclick="updatePw()"></li>
+          </ul>
+          </div>
 		</form>
 		
       		
 </body>
 <%@ include file="./footer.jsp" %>
 <script type="text/javascript">
-$('#sendPhoneNumber').click(function(){
-    let phoneNumber = $('#phone_textbox').val();
-    swal("인증번호 발송 완료");
-    var display = $('.time');
-    var leftSec = 180;
-    
-    if(isRunning){
-    	clearInterval(timer);
-    	display.html("");
-    	startTimer(leftSec, display);
-    }else{
-    	startTimer(leftSec, display);
-    }
-    
-    var docum = document.getElementById("checkBtn").disabled;
-    
-    $.ajax({
-        type: "POST",
-        url: "./sendSMSmyPage.do",
-        data: {"phone" : phoneNumber}, // 핸드폰 값이 넘어감
-        success: function(res){ // 인증번호 값이 넘어옴
-        	$('#checkBtn').click(function(){
-        		if($('#phoneCheck_textbox').val()=='') {
-            		swal('값을 입력하세요.');
-            	}else if(isRunning && $.trim(res)==$('#phoneCheck_textbox').val()){
-            		swal('인증 성공');
-            		clearInterval(timer);
-            		display.html("");
-            	}else{
-            		if(isRunning){
-            			swal('인증번호가 맞지 않습니다');
-            		} else {
-            			swal('시간이 초과되었습니다');
-            		}
-            	}
-        	})
-        }
-    })
-});
-function startTimer(count, display) {
-	var minutes, seconds;
-    timer = setInterval(
-function () {
-    minutes = parseInt(count / 60, 10);
-    seconds = parseInt(count % 60, 10);
 
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    display.html(minutes + ":" + seconds);
-
-    // 타이머 끝
-    if (--count < 0) {
-     clearInterval(timer);
-     alert("시간초과");
-     display.html("시간초과");
-     $('#checkBtn').attr("disabled","disabled");
-     isRunning = false;
-    }
-}, 1000);
-     isRunning = true;
+function updatePw() {
+	var chk2 = document.getElementById("pwChkVal");
+	var chk3 = document.getElementById("pwChkVal2");
+	if(chk2.value == 1 && chk3.value == 1){
+		location.href = "./memberInfoUpdatePw.do";	
+	}
+	else{
+		swal("에러","작성한 정보를 다시 확인하세요");
+		return false;
+	}
+	
 }
-
 
 $(document).ready(function(){
 	$("#pw_textbox").keyup(function(){
@@ -124,11 +105,11 @@ $(document).ready(function(){
 		console.log(pwVal);
 		if(pwVal.match(reg)){	
 			$("#resultPw").html("")
-			$("#chkVal").val(1);
+			$("#pwChkVal").val(1);
 		}else{
 			$("#resultPw").css("color","red");
-			$("#resultPw").html("최소 8 자 및 최대 20 자, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자 및 하나의 특수 문자 정규식");
-			$("#chkVal").val(0);
+			$("#resultPw").html("특/영 대소문/숫자 혼합 8~20자리");
+			$("#pwChkVal").val(0);
 		}
 	});
 });
@@ -137,36 +118,33 @@ $(document).ready(function(){
 	$("#pwChk_textbox").keyup(function(){
 		var pwVal = $(this).val();
 		var exPwVal = document.getElementById("pw_textbox").value;
+		var reg = "^(?=.*[a-zA-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$";
 		console.log(exPwVal);
-		if(pwVal.match(exPwVal)){
+		if(pwVal == exPwVal && pwVal.match(reg)){
 			$("#resultPw2").html("")
-			$("#chkVal").val(1);
+			$("#pwChkVal2").val(1);
 		}else{
 			$("#resultPw2").css("color","red");
 			$("#resultPw2").html("비밀번호를 다시 확인해주세요");
-			$("#chkVal").val(0);
+			$("#pwChkVal2").val(0);
 
 		}
 	});
 });
 
-function updatePw(){
-	var frm = document.getElementById("khu_updateInfoForm")
-	var pw = document.getElementById("pw_textbox").value;
-	frm.action = "./memberInfoUpdatePw.do"
-	var reg = "^(?=.*[a-zA-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$";
-	if(pw.match(reg)){
-		swal({
-				title : "성공\n비밀번호를 변경하였습니다",					
-				icon  : "success",
-				closeOnClickOutside : false
-				}, function(){
-				frm.submit();
-					}
-			)}else{
-				swal('실패','8~20자리 대소문자 특수문자 숫자 포함');
-				return false;
-			}
-	}
+
+$(document).ready(function(){
+    $('#eye i').on('click',function(){
+        $('#eye input').toggleClass('active');
+        if($('input').hasClass('active')){
+            $(this).attr('class',"fa fa-eye-slash fa-lg")
+            .prev('input').attr('type',"text");
+        }else{
+            $(this).attr('class',"fa fa-eye fa-lg")
+            .prev('input').attr('type','password');
+        }
+    });
+});
+
 </script>
 </html>
