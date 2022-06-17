@@ -78,67 +78,20 @@
 					</li>
 				</ul>
 			</li>
-	<li id="gnb2"><a href="/jungang/10018/40002/content.do" >도서관서비스</a>
-			<ul>
-			<li id="gnb2_1" class=""><a href="/jungang/10018/40002/content.do" >책드림서비스</a>
-					</li>
-				<li id="gnb2_2" class=""><a href="/jungang/10362/40165/content.do" >무인예약대출서비스</a>
-					</li>
-				<li id="gnb2_3" class=""><a href="/jungang/10592/40213/content.do" >스마트도서관</a>
-					<ul class="MkTab">
-					<li id="gnb2_3_1" class=""><a href="/jungang/10592/40213/content.do" >이용안내</a>
+			<c:if test="${member.member_id != null }">
+				<li id="gnb2"><a href="./lendingBookListUser.do">내서재</a>
+						<ul>
+						<li id="gnb2_1" class=""><a href="./lendingBookListUser.do" >대출현황</a>
 							</li>
-						<li id="gnb2_3_2" class=""><a href="/jungang/10593/30162/program.do" >자료검색</a>
+						<li id="gnb2_2" class=""><a href="./lendingBookMem.do" >도서대출이용현황</a>
 							</li>
-						</ul>
-					</li>
-				<li id="gnb2_4" class=""><a href="/jungang/10294/40071/content.do" >책이음서비스</a>
-					</li>
-				<li id="gnb2_5" class="mobileHide"><a href="/jungang/10297/20033/bbsList.do" >학교도서관상호대차</a>
-					</li>
-				<li id="gnb2_6" class=""><a href="/jungang/10019/40003/content.do" >내생애첫도서관</a>
-					</li>
-				<li id="gnb2_7" class=""><a href="/jungang/10020/40073/content.do" >두루두루서비스</a>
-					</li>
-				<li id="gnb2_8" class=""><a href="/jungang/10021/40005/content.do" >책바다서비스</a>
-					</li>
-				<li id="gnb2_9" class=""><a href="/jungang/10024/40021/content.do" >도서관시상제도</a>
-					<ul class="MkTab">
-					<li id="gnb2_9_1" class=""><a href="/jungang/10024/40021/content.do" >책읽는가족</a>
+						<li id="gnb2_3" class=""><a href="./reserveBookList.do" >예약현황</a>
 							</li>
-						<li id="gnb2_9_2" class=""><a href="/jungang/10025/40022/content.do" >다독상</a>
+						<li id="gnb2_4" class=""><a href="./myRequestBookList.do" >나의 신청도서</a>
 							</li>
 						</ul>
-					</li>
-				<li id="gnb2_11" class=""><a href="/jungang/10600/40229/content.do" >무인도서반납서비스</a>
-					</li>
-				</ul>
-			</li>
-<!-- 	<li id="gnb3"><a href="/jungang/10028/30004/program.do" >문화마당</a> -->
-<!-- 			<ul> -->
-<!-- 			<li id="gnb3_1" class=""><a href="/jungang/10028/30004/program.do" >문화강좌신청</a> -->
-<!-- 					<ul class="MkTab"> -->
-<!-- 					<li id="gnb3_1_1" class=""><a href="/jungang/10028/30004/program.do" >중앙</a> -->
-<!-- 							</li> -->
-<!-- 						<li id="gnb3_1_2" class=""><a href="/jungang/10029/30004/program.do" >내손</a> -->
-<!-- 							</li> -->
-<!-- 						<li id="gnb3_1_3" class=""><a href="/jungang/10030/30004/program.do" >글로벌</a> -->
-<!-- 							</li> -->
-<!-- 						<li id="gnb3_1_4" class=""><a href="/jungang/10526/30004/program.do" >포일어울림</a> -->
-<!-- 							</li> -->
-<!-- 						<li id="gnb3_1_5" class=""><a href="/jungang/10703/30004/program.do" >백운호수</a> -->
-<!-- 							</li> -->
-<!-- 						</ul> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb3_2" class=""><a href="/jungang/10031/30005/program.do" >체험형동화구연</a> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb3_3" class=""><a href="/jungang/10032/30006/program.do" >어린이책마루 견학</a> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb3_4" class=""><a href="/jungang/10034/30083/program.do" >토요동화구연</a> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb3_5" class=""><a href="/jungang/10035/30007/program.do" >영화상영</a> -->
-<!-- 					</li> -->
-<!-- 				</ul> -->
+				</li>
+			</c:if>
 <!-- 			</li> -->
 	
 	<li id="gnb4"><a href="./viewAllBoard.do?kind=notice">정보마당</a>
@@ -151,29 +104,6 @@
 					</li>
 				</ul>
 			</li>
-<!-- 	<li id="gnb5"><a href="/jungang/10048/20026/bbsList.do" >참여마당</a> -->
-<!-- 			<ul> -->
-<!-- 			<li id="gnb5_1" class=""><a href="/jungang/10048/20026/bbsList.do" >도서관에바란다</a> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb5_2" class=""><a href="/jungang/10049/20028/bbsList.do" >질문및답변</a> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb5_3" class=""><a href="/jungang/10050/20010/bbsList.do" >자주하는질문</a> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb5_4" class=""><a href="/jungang/10268/40006/content.do" >도서관동아리</a> -->
-<!-- 					<ul class="MkTab"> -->
-<!-- 					<li id="gnb5_4_1" class=""><a href="/jungang/10268/40006/content.do" >중앙</a> -->
-<!-- 							</li> -->
-<!-- 						<li id="gnb5_4_2" class=""><a href="/jungang/10269/40007/content.do" >내손</a> -->
-<!-- 							</li> -->
-<!-- 						<li id="gnb5_4_3" class=""><a href="/jungang/10270/40008/content.do" >글로벌</a> -->
-<!-- 							</li> -->
-<!-- 						</ul> -->
-<!-- 					</li> -->
-<!-- 				<li id="gnb5_5" class=""><a href="/jungang/10052/20011/bbsList.do" >자유게시판</a> -->
-<!-- 					</li> -->
-<!-- 				</ul> -->
-<!-- 			</li> -->
-			
 			<c:if test="${admin.admin_id != null }">
 	<li id="gnb3"><a href="/jungang/10028/30004/program.do" >도서구매</a>
 			<ul>
@@ -190,7 +120,6 @@
 				</ul>
 			</li>		
 			</c:if>
-			
 			<c:if test="${admin.admin_id != null }">
 	<li id="gnb5"><a href="/jungang/10048/20026/bbsList.do" >대출/반납</a>
 			<ul>
@@ -210,7 +139,7 @@
 			<ul>
 			<li id="gnb7_1" class=""><a href="./quitMemberManagePage.do" >조회 및 승인</a>
 					</li>
-				</ul>
+				</ul> 
 			</li>
 			</c:if>
 			

@@ -71,4 +71,15 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 }
 #warning > p{
 	color: red;
+	margin-bottom: 0px;
+}
+
+#notion {
+	padding: 10px;
+	margin-top: 10px;
+	font-size: 12px;
+	border: 1px dashed #d63384;
+}
+#notion >b{
+	color:  #d63384;
 }
