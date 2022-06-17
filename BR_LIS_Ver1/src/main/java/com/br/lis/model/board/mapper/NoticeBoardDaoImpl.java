@@ -31,8 +31,8 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 
 	@Override
-	public int modifyNotice(Notice_FAQBoardVo noticeVo) {
-		return sqlSession.insert(NS+"modifyNotice",noticeVo);
+	public int modifyNotice(Map<String, Object> map) {
+		return sqlSession.insert(NS+"modifyNotice",map);
 	}
 
 	@Override

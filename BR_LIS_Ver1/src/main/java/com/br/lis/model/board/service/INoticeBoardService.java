@@ -19,7 +19,7 @@ public interface INoticeBoardService {
 	public int insertNotice(Map<String, Object> map);
 	
 	// 글 수정
-	public int modifyNotice(Notice_FAQBoardVo noticeVo);
+	public int modifyNotice(Map<String, Object> map);
 	
 	//다중삭제
 	public int multiDelNotice(List<String> chkBox);

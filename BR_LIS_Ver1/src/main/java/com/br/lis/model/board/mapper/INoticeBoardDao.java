@@ -16,7 +16,7 @@ public interface INoticeBoardDao {
 		//새 글 입력
 		public int insertNotice(Map<String, Object> map);
 		// 글 수정
-		public int modifyNotice(Notice_FAQBoardVo noticeVo);
+		public int modifyNotice(Map<String, Object> map);
 		
 		//삭제
 		public int multiDelNotice(List<String> list);

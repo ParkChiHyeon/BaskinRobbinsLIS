@@ -135,42 +135,79 @@ public class File_Controller {
 					e.printStackTrace();
 				}
 			}
+			
 			logger.info("------------------------------------------------------ map : {}", map);
-
-			int n = service.insertNotice(map);
-			map.remove("directory_name");
-			// map admin_id
-			if (n > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule();
-				elasticInsert.insertElasticMap(map,"notice_board", map.get("notice_seq").toString());
-				model.addAttribute("kind", "notice");
-				return "redirect:/viewAllBoard.do";
-			} else {
-				StringBuffer sb = new StringBuffer();
-				sb.append("<script>");
-				sb.append("alert('입력실패 관리자에게 문의하세요');");
-				sb.append("location.href='./home.do'");
-				sb.append("</script>");
-				return sb.toString();
+			
+			if (map.get("notice_seq")==null) {
+				int insertCtn = service.insertNotice(map);
+				map.remove("directory_name");
+				if (insertCtn > 0) {
+					ElasticSearchModule elasticInsert = new ElasticSearchModule();
+					elasticInsert.insertElasticMap(map,"notice_board", map.get("notice_seq").toString());
+					model.addAttribute("kind", "notice");
+					return "redirect:/viewAllBoard.do";
+				} else {
+					StringBuffer sb = new StringBuffer();
+					sb.append("<script>");
+					sb.append("alert('입력실패 관리자에게 문의하세요');");
+					sb.append("location.href='./home.do'");
+					sb.append("</script>");
+					return sb.toString();
+				}
+			}else {
+				int updateCtn = service.modifyNotice(map);
+				map.remove("directory_name");
+				if (updateCtn > 0) {
+					ElasticSearchModule elasticInsert = new ElasticSearchModule();
+					elasticInsert.updateElasticMap(map,"notice_board", map.get("notice_seq").toString());
+					model.addAttribute("kind", "notice");
+					return "redirect:/viewAllBoard.do";
+				} else {
+					StringBuffer sb = new StringBuffer();
+					sb.append("<script>");
+					sb.append("alert('입력실패 관리자에게 문의하세요');");
+					sb.append("location.href='./home.do'");
+					sb.append("</script>");
+					return sb.toString();
+				}
 			}
-		} else {
-			map.put("file_path", "");
-			int seq = service.insertNotice(map);
-			logger.info("------------------------------------------------------ map : {}", map);
-			map.remove("directory_name");
 			// map admin_id
-			if (seq > 0) {
-				ElasticSearchModule elasticInsert = new ElasticSearchModule();
-				elasticInsert.insertElasticMap(map,"notice_board",map.get("notice_seq").toString());
-				model.addAttribute("kind", "notice");
-				return "redirect:/viewAllBoard.do";
-			} else {
-				StringBuffer sb = new StringBuffer();
-				sb.append("<script>");
-				sb.append("alert('입력실패 관리자에게 문의하세요');");
-				sb.append("location.href='./home.do'");
-				sb.append("</script>");
-				return sb.toString();
+		} else {
+			logger.info("------------------------------------------------------ map : {}", map);
+			if (map.get("notice_seq")==null) {
+				map.put("file_path", "");
+				int insertCtn = service.insertNotice(map);
+				map.remove("directory_name");
+				if (insertCtn > 0) {
+					ElasticSearchModule elasticInsert = new ElasticSearchModule();
+					elasticInsert.insertElasticMap(map,"notice_board", map.get("notice_seq").toString());
+					model.addAttribute("kind", "notice");
+					return "redirect:/viewAllBoard.do";
+				} else {
+					StringBuffer sb = new StringBuffer();
+					sb.append("<script>");
+					sb.append("alert('입력실패 관리자에게 문의하세요');");
+					sb.append("location.href='./home.do'");
+					sb.append("</script>");
+					return sb.toString();
+				}
+			}else {
+				map.put("file_path", "");
+				int updateCtn = service.modifyNotice(map);
+				map.remove("directory_name");
+				if (updateCtn > 0) {
+					ElasticSearchModule elasticInsert = new ElasticSearchModule();
+					elasticInsert.updateElasticMap(map,"notice_board", map.get("notice_seq").toString());
+					model.addAttribute("kind", "notice");
+					return "redirect:/viewAllBoard.do";
+				} else {
+					StringBuffer sb = new StringBuffer();
+					sb.append("<script>");
+					sb.append("alert('입력실패 관리자에게 문의하세요');");
+					sb.append("location.href='./home.do'");
+					sb.append("</script>");
+					return sb.toString();
+				}
 			}
 		}
 	}

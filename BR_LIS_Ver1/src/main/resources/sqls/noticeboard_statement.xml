@@ -24,10 +24,11 @@
 	
 	<resultMap type="HashMap" id="detailMap"></resultMap>
 
-	<update id="modifyNotice" parameterType="Notice_FAQVo">
+	<update id="modifyNotice" parameterType="java.util.Map">
 		UPDATE NOTICE_BOARD
 				SET TITLE = #{title}, 
-					CONTENT = #{content} 
+					CONTENT = #{content},
+					FILE_PATH = #{file_path} 
 					WHERE NOTICE_SEQ=#{notice_seq}
 	</update>
 

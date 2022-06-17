@@ -101,48 +101,11 @@ public class Board_Controller {
 		Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
 		model.addAttribute("dto", vo);
 				
-		return "noticeboard";
+		return "modifynotice";
 	}
 	
-	//공지게시판 새글입력
-	@RequestMapping(value = "/insertNotice.do", method = RequestMethod.POST)
-	public String insertNoticeBoard(Model model, @RequestParam Map<String, Object> map) {
-		logger.info("Board_Controller insertNoticeBoard : {}",map);
 
-		model.addAttribute("kind", "notice");
-		int n = inoticeService.insertNotice(map);
-
-		if(n>0) {
-			return "redirect:/viewAllBoard.do";
-		}else {
-			StringBuffer sb= new StringBuffer();
-			sb.append("<script>");
-			sb.append("alert('입력실패 관리자에게 문의하세요');");
-			sb.append("location.href='./home.do'");
-			sb.append("</script>");
-			return sb.toString();
-		}
-	}
-
-	//공지게시판 수정
-	@RequestMapping(value = "/modifynotice.do", method =  RequestMethod.POST)
-	public String modifyNotice(@RequestParam Map<String, Object> map, Model model) {
-		logger.info("Board_Controller modifynotice  parmeter value : {}",map);
-		Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(map.get("notice_seq").toString());
-		model.addAttribute("dto", vo);
-
-		int cnt = inoticeService.insertNotice(map);
-
-		if (cnt>0) {
-			System.out.println("수정 후 이동");
-			List<Notice_FAQBoardVo> lists = inoticeService.viewAllNotice();
-			model.addAttribute("list"+lists);
-			return "noticeboard";
-
-		}else {
-			return "redirect:/viewAllBoard.do";
-		}
-	}
+	
 	//noticeboard 상세보기
 	@RequestMapping(value = "/detailnotice.do", method = RequestMethod.GET)
 	public String viewDetailNotice(Model model,String seq) {

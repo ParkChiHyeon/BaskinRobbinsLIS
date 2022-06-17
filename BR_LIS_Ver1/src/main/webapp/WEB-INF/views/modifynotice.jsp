@@ -41,14 +41,23 @@
 				
 				<c:if test="${kind == 'notice'}">
 					<h3>공지사항 글 수정 입력폼</h3>
-					<form id="modifyNotice"  method="post" action="./modifynotice.do" enctype="multipart/form-data">
+					<form id="modifyNotice"  method="post"  onsubmit="return modifynotice()" enctype="multipart/form-data">
 						<input type="hidden" value="${dto.notice_seq}" name="notice_seq">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="${dto.admin_id}" class="form-control" readonly>
 						제목: <input type="text" id="title" name="title" value="${dto.title}" class="form-control"><br>
-						<input type="file" name="file"  style="display:none" /> <span id="attatchfile">첨부파일 - ${fn:substring(dto.file_path,9,fn:indexOf(dto.file_path,'&'))}</span> 
-						<a href="#" onclick="fileDelete()"><img src="./img/delete_mark.png" style="margin:10px 10px; width: 10px; height: 10px;"></a>
 						<textarea name="content" id="content">${dto.content}</textarea>
-						<input type="submit" class="btn btn-default" value="저장">
+						<input type="submit" class="btn btn-primary" value="저장" style="float: right;">
+						<input type="button" onclick="history.back(-1)" class="btn btn-danger" value="취소" style="float: right;">
+						<c:if test="${dto.file_path!=null}">
+						<input type="file" name="file"  style="display:none; float: left;"/>
+						<img id="deleteFile" onclick="fileDeleteOn()" src="./img/delete_mark.png" style="margin:10px 10px; width: 10px; height: 10px; display: none; cursor: pointer;"> 
+						<span id="attatchfile">첨부파일 - ${fn:substring(dto.file_path,9,fn:indexOf(dto.file_path,'&'))}</span>
+						<img id="deleteImg" onclick="fileDelete()" src="./img/delete_mark.png" style="margin:10px 10px; width: 10px; height: 10px; cursor: pointer;">
+						</c:if>
+						<c:if test="${dto.file_path==null}">
+							<input type="file" name="file"  style="float: left;"/>
+							<img id="deleteFile" onclick="fileDeleteOn()" src="./img/delete_mark.png" style="margin:10px 10px; width: 10px; height: 10px; display: none; cursor: pointer;">
+						</c:if>
 					</form>
 				</c:if>
 				
@@ -84,17 +93,24 @@
 	</div>
 </div>
 
- <script>
+ <script type="text/javascript">
 
+
+
+// //If you need to call a function in the iframe, you can call it as follows:
+// iFrame.contentWindow.yourFunction();
  
+var directory_name='<c:out value="${dto.file_path}" escapeXml="false" />'
+var tempDir
+if(directory_name!=''){tempDir= directory_name.split('&')[2].substr(15);}
+
 CKEDITOR.replace( 'content' ,{
 									//language: 'en', //에디터의 언어 설정
 									uiColor: '#E2427F', // 에디터 색상 변경
 									extraPlugins: 'editorplaceholder', 
 								    editorplaceholder: // 에디터 화면에 띄운 글귀
 								    '여기에 글을 입력하거나 파일을 드래그해주세요...', 
-  									filebrowserUploadUrl: "fileupload.do", //여기참고하세요 하나는 파일 업로드 하나는 이미지 업로드
-									uploadUrl:"fileupload.do", //여기 참고하세용
+								    uploadUrl:"fileuploadImg.do?directory_name="+tempDir, 
 }
 );
 
@@ -135,7 +151,7 @@ function resetCon(){
 }
 
 function modifynotice(){
-	var modifynotice = document.getElementById("modifynotice");
+	var modifynotice = document.getElementById("modifyNotice");
 	modifynotice.action = "./modifynotice.do";
 	
 	var title = document.getElementById("title").value;
@@ -149,10 +165,13 @@ function modifynotice(){
 		alert("내용을 입력해주세요");
 		return false;
 	}else{
-		modifynotice.submit();
+		modifynotice.action="./fileupload.do?directory_name="+tempDir;
 	}
 }
 
+function fileDeleteOn(){
+	$("input[name=file]").val("");
+}
 function fileDelete(){
 	var file='<c:out value="${dto.file_path}" escapeXml="{false}"/>'
 	console.log(file);
@@ -161,13 +180,17 @@ function fileDelete(){
 		      url:"./fileDelete.do?"+file,
 		      success:function(){
 				alert("파일이 삭제되었습니다.");
-				$("#attatchfile").text("첨부파일 - ")
+				$("#attatchfile").remove();
+				$("#deleteImg").css("display","none");
+				$("#deleteFile").css("display","block");
+				$("input[name=file]").css("display","block");
+				
 		      }
 		   })
 }
-
-
-
+var editor = CKEDITOR.dom.selection
+var element = editor.getSelection().getSelectedElement();
+alert( element.getName() );
 </script>            
 </body>
 <%@include file="./footer.jsp"%>

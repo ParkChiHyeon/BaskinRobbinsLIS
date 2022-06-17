@@ -44,9 +44,9 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 //	}
 
 	@Override
-	public int modifyNotice(Notice_FAQBoardVo noticeVo) {
+	public int modifyNotice(Map<String, Object> map) {
 		logger.info("NoticeBoardServiceImpl modifyNotice ()");
-		return dao.modifyNotice(noticeVo);
+		return dao.modifyNotice(map);
 	}
 
 	@Override
