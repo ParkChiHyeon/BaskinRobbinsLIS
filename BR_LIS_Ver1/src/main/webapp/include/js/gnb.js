@@ -105,7 +105,7 @@ function initNavigation2(seq,subq) {
 				}
 				if (this.submenu)
 					{
-						$('#indexNavi').css('height','177px');
+						$('#indexNavi').css('height','100px');
 						$('#indexNavi').css('overflow','visible');
 						var lefTmp= (($(document).width()-990)/2 -4)*(-1) +"px";
 						var xlefTmp= (($(document).width()-990)/2)+50 +"px";
@@ -576,7 +576,7 @@ $(document).ready(function(e) {
 	//button 4 total Menu
 	$('.btnTotal a').toggle(function(){
 			$('#topmenu>li>ul').show();
-			$('#indexNavi').css('height','177px');
+			$('#indexNavi').css('height','100px');
 			$('#indexNavi').css('overflow','visible');
 			$('#topmenu>li>ul').css('display','block');
 		},function(){
