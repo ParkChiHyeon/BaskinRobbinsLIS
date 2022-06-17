@@ -91,8 +91,19 @@ public class Board_Controller {
 		model.addAttribute("kind", kind);
 		return "insertBoard";
 	}
-
-
+	
+	//공지글 수정화면 이동
+	@RequestMapping(value = "/modifynotice.do",method = RequestMethod.GET)
+	public String modifyNotice(String kind,Model model,String seq) {
+		logger.info("modifynotice이동");
+		
+		model.addAttribute("kind", kind);
+		Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
+		model.addAttribute("dto", vo);
+				
+		return "noticeboard";
+	}
+	
 	//공지게시판 새글입력
 	@RequestMapping(value = "/insertNotice.do", method = RequestMethod.POST)
 	public String insertNoticeBoard(Model model, @RequestParam Map<String, Object> map) {
@@ -113,17 +124,6 @@ public class Board_Controller {
 		}
 	}
 
-	//공지글 수정화면 이동
-	@RequestMapping(value = "/modifynotice.do",method = RequestMethod.GET)
-	public String modifyNotice(String kind,Model model,String seq) {
-		logger.info("modifynotice이동");
-
-		model.addAttribute("kind", kind);
-		Notice_FAQBoardVo vo = inoticeService.viewDetailNotice(seq);
-		model.addAttribute("dto", vo);
-
-		return "modifynotice";
-	}
 	//공지게시판 수정
 	@RequestMapping(value = "/modifynotice.do", method =  RequestMethod.POST)
 	public String modifyNotice(@RequestParam Map<String, Object> map, Model model) {
@@ -226,30 +226,27 @@ public class Board_Controller {
 			return sb.toString();
 		}
 	}
-
-	//	//FAQ게시판 수정
-	//	@RequestMapping(value = "modifynotice.do", method = RequestMethod.POST)
-	//	public String modifyFAQ(@RequestParam Map<String, Object> map, Model model) {
-	//		logger.info("Board_Controller modifyCalendar 에디터로 입력받음");
-	//		logger.info("map:{}", map);
-	//		model.addAttribute("kind", "faq");
-	//		Notice_FAQBoardVo vo = new Notice_FAQBoardVo();
-	//		vo.setContent((String)map.get("content"));
-	//		vo.setTitle((String)map.get("title"));
-	//		vo.setFaq_seq((String)map.get("faq_seq"));
-	//		int cnt = ifaqService.modifyFAQ(vo);
-	//		
-	//		if (cnt>0) {
-	//			System.out.println("수정 후 이동");
-	//			List<CalendarBoardVo> lists = icalService.viewAllCalendar();
-	//			model.addAttribute("list"+lists);
-	//			return "calendarboard";
-	//			
-	//		}else {
-	//			return "calendarboard";
-	//		}
-	//	}
-
+	
+	//FAQ게시판 수정후 제출
+	@RequestMapping(value = "modifyFAQsubmit.do", method = RequestMethod.POST)
+	public String modifyFAQSubmit(@RequestParam Map<String, String> map, Model model, String seq) {
+		logger.info("Board_Controller modifyFAQ Submit parameter value : {}", map);
+		Notice_FAQBoardVo vo = ifaqService.viewDetailFAQ(seq);
+		model.addAttribute("dto", vo);
+		
+		int cnt = ifaqService.modifyFAQSubmit(map);
+		
+		if (cnt>0) {
+			System.out.println("수정 후 이동");
+			List<CalendarBoardVo> lists = icalService.viewAllCalendar();
+			model.addAttribute("list"+lists);
+			return "noticeboard";
+			
+		}else {
+			return "noticeboard";
+		}
+	}
+	
 	//FAQ글 수정화면 이동
 	@RequestMapping(value = "/modifyFAQ.do",method = RequestMethod.GET)
 	public String modifyFAQ(String kind,Model model,String seq) {
@@ -261,7 +258,6 @@ public class Board_Controller {
 
 		return "modifynotice";
 	}
-
 	//FAQ 다중삭제
 	@RequestMapping(value = "/multiDelFAQ.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String multiDelFAQ(@RequestParam List<String> chkBox) {

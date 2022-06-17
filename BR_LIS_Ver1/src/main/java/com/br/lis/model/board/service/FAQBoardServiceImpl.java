@@ -37,6 +37,12 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 		logger.info("FAQBoardServiceImpl modifyFAQ()");
 		return dao.modifyFAQ(vo);
 	}
+	
+	@Override
+	public int modifyFAQSubmit(Map<String, String> map) {
+	
+		return dao.modifyFAQSubmit(map);
+	}
 
 
 	@Override
@@ -50,6 +56,5 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 		logger.info("FAQBoardServiceImpl deleteFAQ()");
 		return dao.deleteFAQ(list);
 	}
-	
-	
+
 }

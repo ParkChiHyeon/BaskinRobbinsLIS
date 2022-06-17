@@ -18,4 +18,6 @@ public interface IFAQBoardService {
 	
 	public int deleteFAQ(List<String> list); 
 	
+	public int modifyFAQSubmit(Map<String, String> map);
+	
 }

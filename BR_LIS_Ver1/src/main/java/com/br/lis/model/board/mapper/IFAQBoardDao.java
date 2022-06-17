@@ -16,5 +16,7 @@ public interface IFAQBoardDao {
 	int modifyFAQ(Notice_FAQBoardVo vo);
 
 	int deleteFAQ(List<String> list);
+	
+	int modifyFAQSubmit(Map<String, String>map);
 
 }
