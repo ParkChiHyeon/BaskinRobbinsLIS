@@ -17,10 +17,12 @@
 	<insert id="insertFAQ" parameterType="java.util.Map">
 	INSERT INTO FAQ_BOARD(FAQ_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE) 
 		VALUES(FAQ_SEQ.NEXTVAL, #{admin_id}, #{title}, #{content}, SYSDATE)
-			
+			<selectKey keyProperty="faq_seq" resultType="java.lang.Integer" order="AFTER">
+				SELECT FAQ_SEQ.CURRVAL FROM DUAL	
+			</selectKey>
 	</insert>
 	
-	<update id="modifyFAQ" parameterType="Notice_FAQVo">
+	<update id="modifyFAQ" parameterType="java.util.Map">
 	UPDATE FAQ_BOARD 
 		SET TITLE = #{title}, CONTENT = #{content} 
 			WHERE FAQ_SEQ = #{faq_seq}

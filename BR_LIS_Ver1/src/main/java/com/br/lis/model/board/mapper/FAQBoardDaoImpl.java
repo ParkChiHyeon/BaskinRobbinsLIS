@@ -33,8 +33,8 @@ public class FAQBoardDaoImpl implements IFAQBoardDao {
 	}
 
 	@Override
-	public int modifyFAQ(Notice_FAQBoardVo vo) {
-		return sqlSession.update(NS+"modifyFAQ", vo);
+	public int modifyFAQ(Map<String, Object> map) {
+		return sqlSession.update(NS+"modifyFAQ", map);
 	}
 
 	@Override

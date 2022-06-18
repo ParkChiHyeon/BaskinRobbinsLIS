@@ -41,20 +41,20 @@
      <div id="contentcore" style="margin-bottom: 30px">
       	<div>
       		<div>
-		         <c:if test="${kind == 'notice' && session !='user'}">
 				      <form action="./multiDelNotice.do" method="post" onsubmit="return false" name="formBoard">
 					      <table id="noticeBoardTable" class="cell-border" style="float:right;"></table>
 				      </form>
+		         <c:if test="${kind == 'notice' && admin.admin_id != null}">
 			          <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=notice'">공지작성</button>
-			          <button class="btn btn-info btn-primary" onclick="multiDelete()" style="width: 90px;">다중삭제</button>
+			          <button class="btn btn-info btn-primary" onclick="multiDelete('notice')" style="width: 90px;">다중삭제</button>
 		         </c:if>
 		      
-		         <c:if test="${kind =='faq' && session !='user'}">
 				    <form action="./multiDelFAQ.do" method="post" onsubmit="return false" name="formBoard">
-				   	   <table id="noticeBoardTable" class="cell-border" style="float:right;"></table>
+				   	   <table id="faqBoardTable" class="cell-border" style="float:right;"></table>
 				    </form>
+		         <c:if test="${kind =='faq' && admin.admin_id != null}">
 		            <button class="btn btn-primary" onclick="javascript:location.href='./editor.do?kind=faq'">FAQ작성</button>
-		            <button class="btn btn-info btn-primary" onclick="multiDelete()" style="width: 90px;">다중삭제</button>
+		            <button class="btn btn-info btn-primary" onclick="multiDelete('faq')" style="width: 90px;">다중삭제</button>
 		         </c:if>
 		         <button class="btn btn-success" onclick="javascript:location.href='./home.do'" style="float:right;">HOME</button>
      		</div>
@@ -66,7 +66,7 @@
 var kind = '<c:out value="${kind}"/>'
 var jsonSource;
 var elaIndex;
-var testSession = '<c:out value="${session}"/>';
+var testSession = '<c:out value="${admin.admin_id}" escapeXml="false" />';
 
 $(document).ready(function(){
    if(kind=="notice"){
@@ -83,7 +83,6 @@ $(document).ready(function(){
    if(kind=='notice'){elaIndex='notice_';}
    else{elaIndex='faq_';}
    
-   console.log(testSession, elaIndex, kind)
    
    $.ajax({
       method:"POST",
@@ -96,7 +95,7 @@ $(document).ready(function(){
       }
    })
       .done(function(){
-         if(testSession=='admin'&&kind=='notice'){
+         if(testSession!='' && kind=='notice'){
           $("#noticeBoardTable").DataTable({
          //https://datatables.net/reference/option/language
           "language": {
@@ -153,7 +152,7 @@ $(document).ready(function(){
             }
            ]
         });
-      }else if(testSession!='admin'&&kind=='notice'){
+      }else if(testSession==''&&kind=='notice'){
          $("#noticeBoardTable").DataTable({
             //https://datatables.net/reference/option/language
              "language": {
@@ -203,8 +202,8 @@ $(document).ready(function(){
                }
               ]
            });
-      }   else if(testSession=='admin'&&kind=='faq'){
-          $("#noticeBoardTable").DataTable({
+      }   else if(testSession!=''&&kind=='faq'){
+          $("#faqBoardTable").DataTable({
          //https://datatables.net/reference/option/language
           "language": {
             "emptyTable": "검색을 해주시기 바랍니다.",
@@ -260,8 +259,8 @@ $(document).ready(function(){
             }
            ]
         });
-      }else if(testSession!='admin'&&kind=='faq'){
-         $("#noticeBoardTable").DataTable({
+      }else if(testSession==''&&kind=='faq'){
+         $("#faqBoardTable").DataTable({
             //https://datatables.net/reference/option/language
              "language": {
                "emptyTable": "검색을 해주시기 바랍니다.",
@@ -290,10 +289,10 @@ $(document).ready(function(){
            pagingType: "simple_numbers", // 페이징 타입    
               data: jsonSource, 
               columns: [
-               {    
-                  title:'글번호',
-                  data:'_source.faq_seq',
-               },
+//                {    
+//                   title:'글번호',
+//                   data:'_source.faq_seq',
+//                },
                  { 
                    title:'제목',
                       render:function(data,type,row){

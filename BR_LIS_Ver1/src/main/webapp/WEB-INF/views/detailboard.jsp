@@ -18,6 +18,7 @@
 <style>
 a:link{
 	color: tomato;
+
 }
 
 </style>
@@ -88,7 +89,7 @@ a:link{
 									<tr>
 										<th class="bd01th" scope="row">첨부파일</th>
 										<td colspan="3" class="bd01td">
-											<a href="./download.do?${dto.file_path}">${fn:substring(dto.file_path,9,fn:indexOf(dto.file_path,'&'))}<img src="./include/image/jungang/board/btn_down.gif" alt="첨부파일 다운로드"></a>
+											<a href="./downloadFile.do?${dto.file_path}">${fn:substring(dto.file_path,9,fn:indexOf(dto.file_path,'&'))}<img src="./include/image/jungang/board/btn_down.gif" alt="첨부파일 다운로드"></a>
 										</td>
 									</tr>
 									
@@ -98,11 +99,12 @@ a:link{
 								</tbody>
 							</table>
 						</div>
-						
 						<div class="btn_farm2 mt20">
 							<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=notice" id="listBtn" >목록</a></span>
+							<c:if test="${kind=='notice' && admin.admin_id!=null}">
 					 		<button class="btn btn-primary" onclick="javascript:location.href='./modifynotice.do?kind=notice&seq='+${dto.notice_seq}">수정</button>
 	            			<button class="btn btn-info btn-primary" onclick="multiDeleteNotice(${dto.notice_seq})" style="width: 60px;">삭제</button>
+	            			</c:if>
 						</div>
 	
 					</div><!-- contents -->
@@ -159,8 +161,10 @@ function modifyNotice(seq){
 					
 					<div class="btn_farm2 mt20">
 						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=faq" id="listBtn">목록</a></span>
+						<c:if test="${kind=='faq' && admin.admin_id!=null}">
 						<button class="btn btn-primary" onclick="javascript:location.href='./modifyFAQ.do?kind=faq&seq='+${vo.faq_seq}">수정</button>
             			<input class="btn btn-info btn-primary" onclick="multiDeleteFAQ(${vo.faq_seq})" style="width: 60px;" value="삭제">
+            			</c:if>
 					</div>
 			</c:if> <!-- FAQ 상세보기 끝 -->
 
@@ -213,8 +217,10 @@ function multiDeleteFAQ(seq){
 					
 					<div class="btn_farm2 mt20">
 						<span class="themeBtn sizeMiddle"><a href="./viewAllBoard.do?kind=calendar" id="listBtn">목록</a></span>
+						<c:if test="${kind=='calendar' && admin.admin_id!=null}">
 						<button class="btn btn-primary" onclick="javascript:location.href='./modifyCalendar.do?kind=calendar&seq='+${vo.calendar_seq}">수정</button>
 						<button class="btn btn-primary" onclick="javascript:location.href='./multiDelCalendar.do?kind=calendar&seq='+${vo.calendar_seq}">삭제</button>
+						</c:if>
 					</div>
 			</c:if><!-- 일정상세보기 -->
 			

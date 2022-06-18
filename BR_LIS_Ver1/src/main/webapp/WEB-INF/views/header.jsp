@@ -37,17 +37,13 @@
 			<div id="siteMenu" class="siteMenu">
 				<ul class="memUtil">
 							<c:if test="${member.auth eq 'NM'|| member.auth eq 'GH'}">
-								<li>
-								<a>로그인 정보 :${member.member_id}[${member.auth == 'NM'?"일반회원":"관내회원"}]</a>
+								<li><a>로그인 정보 :${member.member_id}[${member.auth == 'NM'?"일반회원":"관내회원"}]</a></li>
 								<li><a href="./logout.do"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-								</li>
 							</c:if>
 							
 							<c:if test="${admin.admin_id != null}">
-								<li>
-								<a>로그인 정보 :${admin.admin_id}[관리자]</a>
+								<li><a>로그인 정보 :${admin.admin_id}[관리자]</a></li>
 								<li><a href="./logout.do"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-								</li>
 							</c:if>
 							
 							<c:if test="${member.auth eq null && admin.admin_id == null }"> 

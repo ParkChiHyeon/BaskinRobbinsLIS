@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@
       margin: 40px auto;
     }
     
-     .fc-daygrid-dot-event{ 
+     .fc-daygrid-dot-event, .fc-daygrid-event{ 
      	cursor: pointer;
      } 
     .regularHoliday{
@@ -49,12 +50,17 @@
 </style>
 
 <script type="text/javascript">
+var testSession = '<c:out value="${admin.admin_id}"  escapeXml="false"/>';
 function blockToCalendar(){
 	selectCalendar();
 }
 
 function blockToList(){
+	if(testSession!=''){
 	selectTable();  
+	}else{
+		selectTableUser();
+	}
 }
 
 </script>
@@ -77,8 +83,10 @@ function blockToList(){
 				<div class="naviandtitle">
 				  <button class="btn btn-primary calendar-btn" onclick="blockToCalendar()" style="float: right;">달력형 보기</button>
 				  <button class="btn btn-primary table-btn" onclick="blockToList()" style="float: right;">리스트형 보기</button>
+				  <c:if test="${kind == 'calendar' && admin.admin_id != null}">
 				  <button class="btn btn-primary" style="float : left;" onclick="javascript:location.href='./editor.do?kind=calendar'">일정작성</button>
 				  <button class="btn btn-info btn-primary calendar-btn" onclick="multiDelCalendar()">다중삭제</button>
+				  </c:if>
 				</div>
 				<div class="naviandtitle">
 					<form action="./multiDelCalendar.do" method="post" onsubmit="return false" id="formBoard">

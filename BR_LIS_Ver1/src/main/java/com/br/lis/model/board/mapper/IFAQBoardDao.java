@@ -13,7 +13,7 @@ public interface IFAQBoardDao {
 	
 	int insertFAQ(Map<String, Object> map);
 
-	int modifyFAQ(Notice_FAQBoardVo vo);
+	int modifyFAQ(Map<String, Object> map);
 
 	int deleteFAQ(List<String> list);
 	

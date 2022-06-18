@@ -1,12 +1,14 @@
 //fullcalendar
 var listData=[];
+
 document.addEventListener('DOMContentLoaded', callList());
+
 function callList(){
 	$.ajax({
 		type: "POST",
 		contentType:"application/json;",
 		url: "http://152.67.196.32:9200/calendar_board/_search",
-		data:JSON.stringify({"from":"0","size":"10000","sort":{"calendar_seq":"desc"}}),
+		data:JSON.stringify({"from":"0","size":"10000","sort":{"regdate":"desc"}}),
 		dataType:"json",
 		success: function(data) {
 			var data = data.hits.hits;
@@ -114,6 +116,58 @@ function selectTable() {
                }
 			},
 	
+            {    
+            	title:'일정',
+               render:function(data,type,row){
+                  var   html= '<span><a href="./detailcalendar.do?seq='+row.calendar_seq+'">'+row.title+'</a></span>';  
+               return html;
+               }
+			},
+			{    
+	        	title:'일자',
+				width:'70px',
+	           render:function(data,type,row){
+	              var   html= '<span style="float:right;">'+row.start.substr(0,10)+'</span>';  
+	           return html;
+	           }
+			}
+           ]
+        });
+}
+
+function selectTableUser() {
+		$(".calendar-btn").css("display","block");
+		$(".table-btn").css("display","none");
+	$("#calendar").empty();
+			$("#calendarBoardTable").DataTable({
+         //https://datatables.net/reference/option/language
+          "language": {
+            "emptyTable": "검색을 해주시기 바랍니다.",
+            "lengthMenu": " _MENU_ 개씩 보기",
+            "info": "현재 _START_ - _END_ / _TOTAL_건",
+            "infoEmpty": "0/0",
+            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+            "search": "검색: ",
+            "zeroRecords": "일치하는 데이터가 없어요.",
+            "loadingRecords": "로딩중...",
+            "processing":     "잠시만 기다려 주세요...",
+            "paginate": {
+                "next": "다음",
+                "previous": "이전"
+            }
+        },
+        lengthChange: true, // 표시 건수기능 숨기기
+        searching: true, // 검색 기능 숨기기
+        ordering: true, // 정렬 기능 숨기기
+        info: true, // 정보 표시 숨기기
+        paging:true, // 페이징 기능 숨기기
+        order: [], //초기표기시 정렬, 만약 정렬을 안하겠다 => order: []
+//      columnDefs: [{ targets: 1, width: 100 }] //열의 넓이 조절 
+//      lengthMenu: [ 10, 20, 30, 40, 50 ], //표시건수 
+//      displayLength: 50, //기본표시건수 설정
+        pagingType: "simple_numbers", // 페이징 타입    
+           data: listData, 
+           columns: [
             {    
             	title:'일정',
                render:function(data,type,row){

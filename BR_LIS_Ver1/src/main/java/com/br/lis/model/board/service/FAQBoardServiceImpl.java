@@ -33,9 +33,9 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 	}
 
 	@Override
-	public int modifyFAQ(Notice_FAQBoardVo vo) {
+	public int modifyFAQ(Map<String, Object> map) {
 		logger.info("FAQBoardServiceImpl modifyFAQ()");
-		return dao.modifyFAQ(vo);
+		return dao.modifyFAQ(map);
 	}
 	
 	@Override

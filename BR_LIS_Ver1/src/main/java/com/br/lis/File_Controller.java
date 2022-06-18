@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,6 +30,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.br.lis.model.board.service.INoticeBoardService;
 import com.br.lis.util.ElasticSearchModule;
+
+//import edu.emory.mathcs.backport.java.util.Arrays;
 
 @Controller
 @SessionAttributes("admin")
@@ -91,7 +96,7 @@ public class File_Controller {
 //		         }
 				if (!backPath.exists()) {
 					// 만드려는 상위디렉토리가 없으면 상위도 만들어주고 생성
-					backPath.mkdir();
+					backPath.mkdirs();
 				}
 				// 덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //				String uploalName = path+uid+"_"+fileName;
@@ -138,7 +143,7 @@ public class File_Controller {
 			
 			logger.info("------------------------------------------------------ map : {}", map);
 			
-			if (map.get("notice_seq")==null) {
+			if (map.get("notice_seq")==null) {//insert
 				int insertCtn = service.insertNotice(map);
 				map.remove("directory_name");
 				if (insertCtn > 0) {
@@ -154,7 +159,8 @@ public class File_Controller {
 					sb.append("</script>");
 					return sb.toString();
 				}
-			}else {
+			}else {//update
+				imgDelete(map.get("content").toString(), map.get("directory_name").toString());
 				int updateCtn = service.modifyNotice(map);
 				map.remove("directory_name");
 				if (updateCtn > 0) {
@@ -172,11 +178,12 @@ public class File_Controller {
 				}
 			}
 			// map admin_id
-		} else {
+		} else {//첨부파일 없을 경우
 			logger.info("------------------------------------------------------ map : {}", map);
-			if (map.get("notice_seq")==null) {
+			if (map.get("notice_seq")==null) {//insert
 				map.put("file_path", "");
 				int insertCtn = service.insertNotice(map);
+				
 				map.remove("directory_name");
 				if (insertCtn > 0) {
 					ElasticSearchModule elasticInsert = new ElasticSearchModule();
@@ -191,8 +198,9 @@ public class File_Controller {
 					sb.append("</script>");
 					return sb.toString();
 				}
-			}else {
-				map.put("file_path", "");
+			}else {//update
+				imgDelete(map.get("content").toString(), map.get("directory_name").toString());
+//				map.put("file_path", "");
 				int updateCtn = service.modifyNotice(map);
 				map.remove("directory_name");
 				if (updateCtn > 0) {
@@ -251,8 +259,8 @@ public class File_Controller {
 
 			// 서버가 꺼졌을때를 위한 백업경로(절대경로)
 			// 업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
-			String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
-//			String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
+			String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
+//			String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/img/";
 
 //	         System.out.println("저장위치 path:"+path);
 //	         System.out.println("백업위치 back:"+absolutePathLinux);
@@ -267,7 +275,7 @@ public class File_Controller {
 //	         }
 			if (!backPath.exists()) {
 				// 만드려는 상위디렉토리가 없으면 상위도 만들어주고 생성
-				backPath.mkdir();
+				backPath.mkdirs();
 			}
 			// 덮어쓰기 안되게끔 유효아이디(UUID)로 파일이름 생성
 //	         String uploalName = path+uid+"_"+fileName;
@@ -315,7 +323,7 @@ public class File_Controller {
 
 	@RequestMapping(value = "/download.do")
 	@ResponseBody
-	public byte[] filedownload(@RequestParam(value = "uid") String uid,
+	public byte[] imgPreview(@RequestParam(value = "uid") String uid,
 			@RequestParam(value = "fileName") String fileName, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "directory_name") String directory_name) throws IOException {
 		byte[] bytes = null;
@@ -325,8 +333,8 @@ public class File_Controller {
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
 		// "/storage/notice/"+directory_name+"/") ;
 		// 절대경로를 통해 다운로드
-		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
-//		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
+		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
+//		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/img/";
 
 		String sDirPath = absolutePath + uid + "_" + fileName;
 
@@ -346,6 +354,41 @@ public class File_Controller {
 		// MIME타입, octet-stream : 8비트로 된 파일이라는 의미
 		response.setContentType("application/octet-stream");
 
+		return bytes;
+	}
+	@RequestMapping(value = "/downloadFile.do")
+	@ResponseBody
+	public byte[] filedownload(@RequestParam(value = "uid") String uid,
+			@RequestParam(value = "fileName") String fileName, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "directory_name") String directory_name) throws IOException {
+		byte[] bytes = null;
+		logger.info("Welcome! HomeController download : {} {} {}", uid, fileName, directory_name);
+		
+		// 서버에 저장된 이미지 경로
+		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
+		// "/storage/notice/"+directory_name+"/") ;
+		// 절대경로를 통해 다운로드
+		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
+//		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
+		
+		String sDirPath = absolutePath + uid + "_" + fileName;
+		
+		File file = new File(sDirPath);
+		
+		bytes = FileCopyUtils.copyToByteArray(file);
+		
+		String outputFilename = new String(file.getName().getBytes(), "8859_1");
+		
+		/*
+		 * Content-disposition : 지정된 파일명을 지정함으로써 더 자세한 파일의 속성을 알려줄 수 있다. attachment :
+		 * 브라우저 인식 파일확장자를 포함하여 모든 확장자의 파일들에 대해, 다운로드 시 무조건 '파일다운로드' 대화상자가 뜨도록 하는 해더속성
+		 */
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + outputFilename + "\"");
+		// 우리가 보내려고 하는 파일의 크기만큼 셋팅
+		response.setContentLength(bytes.length);
+		// MIME타입, octet-stream : 8비트로 된 파일이라는 의미
+		response.setContentType("application/octet-stream");
+		
 		return bytes;
 	}
 
@@ -371,6 +414,53 @@ public class File_Controller {
 			file.delete();
 		}
 
+	}
+	
+	//<img src=\"download.do?uid=cc8ee125-5a91-47a2-9867-d0dbaf9a0c72&amp;fileName=image-20220618111003-1.gif&amp;directory_name=admin001_202206170023\" style=\"height:360px; width:360px\" />
+    public void imgDelete(String str, String directory_name)	throws IOException {
+    	System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
+		logger.info("Welcome! HomeController imgDelete");
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
+		
+//		String directory_name=map.get(1).get("directory_name").toString();  
+//		String uid= map.get("");
+		// 서버에 저장된 이미지 경로
+		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
+		// "/storage/notice/"+directory_name+"/") ;
+		// 절대경로를 통해 다운로드
+		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
+//		String absolutePath = "C:\\BR_storage\\notice\\admin001_202206170023\\";
+//		String absolutePath= "/usr/local/BR_storage/notice/" + directory_name + "/";
+		
+		File dir = new File(absolutePath);
+		String[] filenames = dir.list(); //기존 이미지 파일 배열
+
+		String[] arr = str.split("<img src=\"download.do?");
+		String[] fileName=new String[arr.length]; // 수정 글 img 배열
+	
+		//수정시 해당글의 기존 file 리스트를 가지고온다
+		//수정할 때 저장할 콘텐츠에 들어있는 이미지 리스트와 비교
+		
+		
+		for (int i = 0; i < arr.length; i++) {
+			if(arr[i].contains("uid")) {
+				fileName[i] =arr[i].substring(arr[i].indexOf("uid=")+4,arr[i].indexOf("&amp;"))+"_"+arr[i].substring(arr[i].indexOf("fileName=")+9,arr[i].indexOf("&amp;",arr[i].indexOf("fileName")));
+			}
+		}
+		System.out.println("----------------------------------------------------------------------------------------------------------------------");
+		System.out.println(Arrays.toString(fileName));
+		System.out.println("----------------------------------------------------------------------------------------------------------------------");
+		for (int i = 0; i < filenames.length; i++) {
+			if(!Arrays.asList(fileName).contains(filenames[i])) {
+				String sDirPath = absolutePath + filenames[i];
+				File file = new File(sDirPath);
+				if (file.exists()) {
+					file.delete();
+				}
+			}
+		}
+ 	
+		
 	}
 
 }

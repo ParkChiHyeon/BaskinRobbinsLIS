@@ -1,5 +1,6 @@
 package com.br.lis.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Map;
@@ -69,4 +70,5 @@ public class ElasticSearchModule {
         return client;
     }
 
+    
 }

@@ -17,13 +17,16 @@
 	<insert id="insertCalendar" parameterType="java.util.Map">
 		 INSERT INTO CALENDAR_BOARD (CALENDAR_SEQ, ADMIN_ID, TITLE, CONTENT, REGDATE, START_DATE, END_DATE)
 				VALUES (CALENDAR_BOARD_SEQ.NEXTVAL,#{admin_id}, #{title}, #{content}, SYSDATE, 
-						#{start_date}, #{end_date})  
+						#{start_date}, #{end_date})
+				<selectKey keyProperty="calendar_seq" resultType="java.lang.Integer" order="AFTER">
+				SELECT CALENDAR_BOARD_SEQ.CURRVAL FROM DUAL	
+			</selectKey>  
 	</insert>
 	
-	<update id="modifyCalendar" parameterType="CalendarBoardVo">
+	<update id="modifyCalendar" parameterType="java.util.Map">
 		UPDATE CALENDAR_BOARD
-			SET TITLE = #{title}, CONTENT = #{content} 
-				WHERE START_DATE=#{start_date}
+			SET TITLE = #{title}, CONTENT = #{content}, START_DATE = #{start_date}, END_DATE =#{end_date}
+				WHERE CALENDAR_SEQ=#{calendar_seq}
 	</update>
 	
 	<delete id="multiDelCalendar" parameterType="java.util.List">

@@ -16,6 +16,12 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
  <%@ include file="./header.jsp"%>
 </head>
+<style>
+p{
+	color: red;
+}
+
+</style>
 <body>
 
 <div id="middle" >
@@ -43,6 +49,7 @@
 					<h3>공지사항 글 수정 입력폼</h3>
 					<form id="modifyNotice"  method="post"  onsubmit="return modifynotice()" enctype="multipart/form-data">
 						<input type="hidden" value="${dto.notice_seq}" name="notice_seq">
+						<input type="hidden" value="${dto.file_path}" name="file_path" id="file_path">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="${dto.admin_id}" class="form-control" readonly>
 						제목: <input type="text" id="title" name="title" value="${dto.title}" class="form-control"><br>
 						<textarea name="content" id="content">${dto.content}</textarea>
@@ -67,10 +74,11 @@
 				<c:if test="${kind == 'faq' }">
 					<h3>FAQ 글 수정 입력폼</h3>
 					<form id="modifyFAQ" method="post" action="./modifyFAQ.do">
+						<input type="hidden" name="faq_seq" value="${fVo.faq_seq}">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="${fVo.admin_id} " class="form-control">
 						제목: <input type="text" id="title" name="title" value="${fVo.title}" class="form-control"><br>
 						내용: <textarea name="content" id="content"> ${fVo.content} </textarea>
-						<input type="submit" class="btn btn-default" value="저장" onclick="modifyFAQSubmit(${fVo.faq_seq})">
+						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
 				</c:if>
@@ -79,11 +87,12 @@
 				<c:if test="${kind == 'calendar' }">
 					<h3>도서관일정 글 수정 입력폼</h3>
 					<form id="modifyCalendar" method="post" action="./modifyCalendar.do">
+						<input type="hidden" name="calendar_seq" value="${cVo.calendar_seq}">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="${cVo.admin_id}" class="form-control">
-						제목: <input type="text" id="title" name="title" class="form-control" value="${cVo.title} "><br>
+						제목: <input type="text" id="title" name="title" class="form-control" value="${cVo.title} " style="margin-bottom: 10px;"><br>
+						일정시작일: <input type="date" id="start_date" name="start_date" value="${fn:substring(cVo.start_date,0,10)}" >
+						일정종료일: <input type="date" id="end_date" name="end_date" value="${fn:substring(cVo.end_date,0,10)}" style="margin-left: 40px;"><br>
 						내용: <textarea name="content" id="content">${cVo.content} </textarea>
-						일정시작일: <input type="date" id="start_date" name="start_date" value="${cVo.start_date} " class="form-control"><br>
-						일정종료일: <input type="date" id="end_date" name="end_date" value="${cVo.end_date}" class="form-control"><br>
 						<input type="submit" class="btn btn-default" value="저장" onclick="save()">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
@@ -94,20 +103,22 @@
 </div>
 
  <script type="text/javascript">
-
-
-
-// //If you need to call a function in the iframe, you can call it as follows:
-// iFrame.contentWindow.yourFunction();
- 
-var directory_name='<c:out value="${dto.file_path}" escapeXml="false" />'
-var tempDir
-if(directory_name!=''){tempDir= directory_name.split('&')[2].substr(15);}
+var directory_name=$("#file_path").val()
+var regdateTemp='<c:out value="${dto.regdate}" escapeXml="false" />'
+var kind='<c:out value="${kind}" escapeXml="false" />'
+console.log(kind)
+var tempDir;
+if(directory_name!=''&&kind=='notice'){
+	tempDir= directory_name.split('&')[2].substr(15);
+}else{
+	tempDir=$("#admin_id").val()+"_"+regdateTemp.replace(/\s/g,"").replace(/[\-\:]/gi,"").substr(0,12);
+}
 
 CKEDITOR.replace( 'content' ,{
 									//language: 'en', //에디터의 언어 설정
 									uiColor: '#E2427F', // 에디터 색상 변경
 									extraPlugins: 'editorplaceholder', 
+									bodyId : 'ckEditor',
 								    editorplaceholder: // 에디터 화면에 띄운 글귀
 								    '여기에 글을 입력하거나 파일을 드래그해주세요...', 
 								    uploadUrl:"fileuploadImg.do?directory_name="+tempDir, 
@@ -184,13 +195,10 @@ function fileDelete(){
 				$("#deleteImg").css("display","none");
 				$("#deleteFile").css("display","block");
 				$("input[name=file]").css("display","block");
-				
+				$("#file_path").val("");
 		      }
 		   })
 }
-var editor = CKEDITOR.dom.selection
-var element = editor.getSelection().getSelectedElement();
-alert( element.getName() );
 </script>            
 </body>
 <%@include file="./footer.jsp"%>

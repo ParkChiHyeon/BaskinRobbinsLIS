@@ -42,11 +42,11 @@ window.onload = function(){
 }
 
 
-function multiDelete(){
-	chsSubmit();
+function multiDelete(kind){
+	chsSubmit(kind);
 }
 
-function chsSubmit(){
+function chsSubmit(kind){
 	if(chsConfirm()>0){
 	swal({
         title: "다중삭제",
@@ -63,7 +63,7 @@ function chsSubmit(){
     function(isConfirm) {
         if (isConfirm) {
             swal("삭제!", "작성글이 삭제 되었습니다.", "success");
-			submitForm();
+			submitForm(kind);
         } else {
             swal("취소", "작성글 삭제를 취소합니다. :)", "error");
         }
@@ -72,7 +72,7 @@ function chsSubmit(){
 	}else{
 		swal('','선택된글이 없습니다');
 	}
-	console.log("chsSubmit 마지막라인")
+//	console.log("chsSubmit 마지막라인")
 	return false;
 }
 
@@ -84,6 +84,10 @@ function chsSubmit(){
  js document를 통해서 submit()함수를 실행
 기존형태 : input[type='submit'] -> <form action="">
 */
-function submitForm(){
-	document.getElementsByName("formBoard")[0].submit();
+function submitForm(kind){
+	if(kind=='notice'){
+		document.getElementsByName("formBoard")[0].submit();
+	}else{	
+		document.getElementsByName("formBoard")[1].submit();
+	}
 }

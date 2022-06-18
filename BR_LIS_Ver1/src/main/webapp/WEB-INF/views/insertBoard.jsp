@@ -46,7 +46,7 @@
 				
 				<c:if test="${kind == 'faq' }">
 					<h3>FAQ 새 글 입력폼</h3>
-					<form id="insertFAQ" method="post" action="./insertFAQ.do">
+					<form id="insertFAQ" method="post" onsubmit="return insertFAQ()">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
 						제목: <input type="text" id="title" name="title" class="form-control"><br>
 						내용: <textarea name="content" id="content"></textarea>
@@ -57,12 +57,12 @@
 				
 				<c:if test="${kind == 'calendar' }">
 					<h3>도서관일정 새 글 입력폼</h3>
-					<form id="insertCalendar" method="post" action="./insertCalendar.do">
+					<form id="insertCalendar" method="post" onsubmit="return insertCalendar()">
 						작성자:<input type="text" id="admin_id" name="admin_id" value="admin001" class="form-control">
-						제목: <input type="text" id="title" name="title" class="form-control"><br>
+						제목: <input type="text" id="title" name="title" class="form-control" style="margin-bottom: 10px;">
+						일정 시작일: <input type="date" id="start_date" name="start_date" style="margin-right: 40px;">
+						일정 종료일: <input type="date" id="end_date" name="end_date" ><br>
 						내용: <textarea name="content" id="content"></textarea>
-						일정시작일: <input type="date" id="start_date" name="start_date" class="form-control"><br>
-						일정종료일: <input type="date" id="end_date" name="end_date" class="form-control"><br>
 						<input type="submit" class="btn btn-default" value="저장">
 						<input type="reset" class="btn btn-default" value="초기화" onclick="resetCon()">
 					</form>
@@ -82,7 +82,8 @@
  var hh = today.getHours();
  var mm = today.getMinutes();
  
- var tempDir = $("#admin_id").val()+"_"+year+(month<10?'0'+month:month)+(date<10?'0'+date:date)+(hh<10?'0'+hh:hh)+(mm<0?'0'+mm:mm);
+ var tempDir = $("#admin_id").val()+"_"+year+(month<10?'0'+month:month)+(date<10?'0'+date:date)+(hh<10?'0'+hh:hh)+(mm<10?'0'+mm:mm);
+ console.log(tempDir)
 if(kind=='notice'){
 	console.log("notice insert")
 CKEDITOR.replace( 'content' ,{
@@ -153,6 +154,41 @@ function insertBoard(){
 		return false;
 	}else{
 		editorFrm.action = "./fileupload.do?directory_name="+tempDir+"&regdate="+today.toISOString();
+	}
+}
+
+function insertFAQ(){
+	var editorFrm = document.getElementById("insertFAQ");
+	
+	var title = document.getElementById("title").value;
+	var content = CKEDITOR.instances.content.getData();
+	console.log(title, content);
+	
+	if(title==""){
+		alert("제목을 입력해주세요");
+		return false;
+	}else if(content==""){
+		alert("내용을 입력해주세요");
+		return false;
+	}else{
+		editorFrm.action = "./insertFAQ.do?regdate="+today.toISOString();
+	}
+} 
+function insertCalendar(){
+	var editorFrm = document.getElementById("insertCalendar");
+	
+	var title = document.getElementById("title").value;
+	var content = CKEDITOR.instances.content.getData();
+	console.log(title, content);
+	
+	if(title==""){
+		alert("제목을 입력해주세요");
+		return false;
+	}else if(content==""){
+		alert("내용을 입력해주세요");
+		return false;
+	}else{
+		editorFrm.action = "./insertCalendar.do?regdate="+today.toISOString();
 	}
 }
 </script>              

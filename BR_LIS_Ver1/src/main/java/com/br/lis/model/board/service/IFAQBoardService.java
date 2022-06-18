@@ -14,7 +14,7 @@ public interface IFAQBoardService {
 	
 	public int insertFAQ(Map<String, Object> map); 
 	
-	public int modifyFAQ(Notice_FAQBoardVo vo);
+	public int modifyFAQ(Map<String, Object> map);
 	
 	public int deleteFAQ(List<String> list); 
 	
