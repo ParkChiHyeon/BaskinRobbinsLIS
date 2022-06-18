@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="./khu_css/myPage.css"/>
 <link rel="stylesheet" href="./hik_css/myPageHIK.css"/>
 <link rel="stylesheet" href="./hsg_css/myPageReq.css"/>
+<link rel="stylesheet" href="./jsj_css/myPage.css"/>
 
 <!-- css끝 -->
 <!-- js 넣어라 -->
@@ -380,8 +381,7 @@
 		<div class="naviandtitle"> 
 			<h3>도서대출 이용현황</h3>
 		</div>
-		<br>
-		<br>
+
 		<!-- 내용 영역  -->
 <%-- 		<c:if test="${member.member_id eq 'member_id'}"> --%>
 		
@@ -406,7 +406,14 @@
 						<td>${lBean.title}</td>
 						<td>${lBean.lending_date}</td>
 						<td>${lBean.back_date}</td>
-						<td></td>
+						<c:choose>
+							<c:when test="${lBean.back_date <= lBean.end_date}">
+								<td style="color: red;font-size: x-small;">정상반납</td>
+							</c:when>
+							<c:otherwise>
+								<td style="color: red; font-size: x-small;">연체반납 <br>반납예정일 : ${lBean.end_date}</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 					</c:if>
 					</c:forEach>
