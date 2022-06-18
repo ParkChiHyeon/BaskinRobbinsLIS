@@ -58,5 +58,7 @@ public interface ILendingBookService {
 		//예약권수 제한
 		public List<LendingVo> limitBookCount(String member_id);
 		
+		//해당 멤버코드로 대여가능 권수 조회
+		public LibMemberVo rentalBookCount(String member_code);
 
 }

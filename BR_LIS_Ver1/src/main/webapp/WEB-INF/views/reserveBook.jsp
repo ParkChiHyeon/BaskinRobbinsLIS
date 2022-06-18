@@ -11,6 +11,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js" defer></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <%@ include file="./header.jsp"%>
 <body>
@@ -179,6 +180,7 @@ $(".checkReserve").click(function(){
 				console.log("================"+check);
 				
 			}else {
+// 				swal("예약 횟수가 초과해 예약이 불가능합니다", "취소후 예약해주세요","info")
 				alert("예약 횟수가 초과해 예약이 불가능합니다\n 취소후 예약해주세요");
 				location.href="./reserveBookList.do";
 			}
@@ -205,10 +207,12 @@ function checkReserve(){
 		async : true,
 		success : function(data){
 			console.log("성공")
+// 			swal("도서 예약이 되었습니다","예약을 확인해 주세요","success");
 			alert('도서 예약이 되었습니다');
 			location.href="./reserveBookList.do";
 		},
 		error:function(){
+// 			swal("ERROR","다시 시도 하십시오","error");
 			alert('ERROR\n다시 시도 하십시오');
 // 			location.href="./reserveBook.do";
 		}

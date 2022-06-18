@@ -27,7 +27,8 @@
 <div class="container">
 	<h2>즉시대출 신청</h2>
 	
-	<form action="./lendingBookAdmin.do" method="post"  class="form-inline">
+<!-- 	<form action="./lendingBookAdmin.do/ method="post"  class="form-inline"> -->
+	<form action="#" class="form-inline">
 		<div class="form-group">
 			<label>도서코드 :</label>
 			<input id="book" name="book_serial" type="text" class="form-control">
@@ -38,7 +39,8 @@
 		<input id="book" name="member_id" type="text" class="form-control">
 		</div>
 		<div class="form-group">
-		<input type="submit" class="btn btn-default" value="확인" onclick="a()">
+<!-- 		<input type="submit" class="btn btn-default" value="확인" onclick="a()"> -->
+		<input type="submit" class="btn btn-default" formaction="./lendingBookAdmin.do" formmethod="post" value="확인" onclick="a()">
 		</div>
 	</form>
 </div>
@@ -58,17 +60,17 @@
 				</tr>
 			</thead>
 			<tbody>
-			
-				<c:forEach var="lBean" items="${listBean}" varStatus="vs">
 				<tr id="selectList">
+				<c:forEach var="lBean" items="${listBean}" varStatus="vs">
 					<td><input type="hidden" id="book_serial" value=" ${lBean.book_serial}">${lBean.book_serial}</td>
 					<td >${lBean.isbn}</td>
 					<td>${lBean.title}</td>
 					<td>${lBean.author}</td>
-				</tr>
 				</c:forEach>
+				</tr>
 			</tbody>
 		</table>
+		
 <!-- 	</div>	 -->
 
 <!-- 	<div class="container">	 -->
@@ -97,6 +99,15 @@
 				</tr>
 			</tbody>
 		</table>
+		<c:choose>
+			<c:when test="${lVo.rental_count eq 0}">
+				<p style="color: red; font-size: medium;" >대출이 불가능 합니다. 대출 가능 잔여권수가 없습니다</p>
+			</c:when>
+			<c:otherwise>
+					<P style="color: blue; font-size: medium;"> 대여가능 권수는  ${lVo.rental_count}  권 입니다</P> <br>
+			</c:otherwise>
+		</c:choose><br>
+		
 	</div>
 	
 	<c:if test="${listBean eq null}">
@@ -111,7 +122,7 @@
 	</c:if>
 	
 	<button class="btn btn-outline-secondary" type="button" onclick="location.href='./home.do'">돌아가기</button>
-	<input type="reset" class="btn btn-default"value="초기화">
+	<input type="button" class="btn btn-default" value="초기화"  onclick="javascript:history.go(0)">
 	<div id="result"></div>
 	</div>
 </form>	

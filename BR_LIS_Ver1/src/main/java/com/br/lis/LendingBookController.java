@@ -147,7 +147,7 @@ public class LendingBookController {
 			return "redirect:/reserveBookList.do";
 		}
 	}
-	
+
 	@RequestMapping(value = "/confrimReserve.do",method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String confrimReserve(String seq, String code, String member, HttpServletRequest req,HttpServletResponse response) throws IOException{
@@ -155,22 +155,32 @@ public class LendingBookController {
 	//	String lending_seq = 	req.getParameter("lending_seq");
 		//String book_serial = 	req.getParameter("book_serial");
 		//String member_code = 	req.getParameter("member_code");
-		System.out.println(seq+code+member);
-		int n = service.confrimReserveBook(seq.trim(), code.trim(), member.trim());
+		System.out.println("대출코드 : "+seq+"도서코드 : "+code+"회원코드 : "+member);
 		
-		System.out.println(n+"n의 갯수======================");
-		if(n>0) {
+		
+		LibMemberVo vo =service.rentalBookCount(member);
+		logger.info("대여가능권수{}@@@@@@@@@@@@@@@@@@@@@@@@@@",vo);
+		
+		if(vo.getRental_count()==0) {
+			
 	//		PrintWriter out =response.getWriter();
 	//		response.setContentType("text/html; charset=UTF-8");
 	//		out.println("<script>alert('대출되었습니다');</script>");
 	//		out.flush();
 			
-			return "true";
-		}else {
 			return "false";
+		}else {
+			int n = service.confrimReserveBook(seq.trim(), code.trim(), member.trim());
+			System.out.println(n+"n의 갯수======================");
+			return "true";
 		}
 		
 	}
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/lendMainpage.do", method = RequestMethod.GET)
 	public String lendMainpage() {
 		logger.info("관리자 즉시대출화면으로 가기");
@@ -190,15 +200,25 @@ public class LendingBookController {
 		System.out.println(listBean+"============================");
 		model.addAttribute("listBean",listBean);
 		
-		if(listBean.equals(0) ) {
+		if(listBean.isEmpty()) {
 			logger.info("===========동작되나");
 			PrintWriter out =response.getWriter();
 			response.setContentType("text/html; charset=UTF-8");
 			out.print("<script>alert('예약중인 도서입니다');</script>");
 			out.flush();
-		}else {
-			logger.info("===========동작되나2");
+		
+//		if(listBean.equals(0) ) {
+//			logger.info("===========동작되나");
+//			PrintWriter out =response.getWriter();
+//			response.setContentType("text/html; charset=UTF-8");
+//			out.print("<script>alert('예약중인 도서입니다');</script>");
+//			out.flush();
 		}
+//		else {
+//		String chk = listBean.get(0).getBook_serial().toString();
+//		logger.info("@@@@@@@@@@@@@@@@@나오냐{}@@@@@@@@@@@@@@@@@@@@@@@@@",chk);
+//			logger.info("===========동작되나2");
+//		}
 		
 		
 		logger.info("lendingBookAdmin _ 관리자 즉시대출화면_회원정보보기");

@@ -18,9 +18,9 @@
 	<br>
 	<input class="btn btn-default" type="button" onclick="location.href='./lendMainpage.do'" value="뒤로가기">
 	<hr>
-	<br><br>
+	<br>
 	<h1>예약목록전체조회(관리자)</h1>
-
+	<br><br>
 </div>
 
 <div class="container">	
@@ -123,11 +123,17 @@ $(".frmReserve").click(function(){
 			console.log("성공");
 			console.log(data);
 			if(data == "true"){
-				alert("성공~~대출되었습니다");
+				alert("대출이 되었습니다");
 				location.href="./adminLenList.do";
+			}else{
+			alert("가능 대여 권수가 없습니다. \n 반납후 이용하세요");
 			}
-			
+		},
+		error:function(){
+			alert("에러입니다");
+// 			alert("가능 대여 권수가 없습니다. \n 반납후 이용하세요");
 		}
+		
 	});
 
 })

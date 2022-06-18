@@ -125,7 +125,10 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 		return sqlSession.selectList(NS+"limitBookCount",member_id);
 	}
 	
-	
+	@Override
+	public LibMemberVo rentalBookCount(String member_code) {
+		return sqlSession.selectOne(NS+"rentalBookCount",member_code);
+	}
 	
 	
 	
