@@ -140,7 +140,7 @@
 			</li>
 			</c:if>
 			
-	<li id="gnb6"><a href="/jungang/10054/40025/content.do" >도서관소개</a>
+	<li id="gnb6"><a href="./informationLib.do?kind=libguide" >도서관소개</a>
 			<ul>
 				<li id="gnb6_1" class=""><a href="./informationLib.do?kind=libguide" >도서관안내</a></li>
 				<li id="gnb6_4" class=""><a href="./informationLib.do?kind=useguide" >이용안내</a>
