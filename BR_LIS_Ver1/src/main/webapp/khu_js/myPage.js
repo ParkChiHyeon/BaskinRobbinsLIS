@@ -1,19 +1,4 @@
-		 /* 핸드폰 번호 */
-		 $(document).ready(function(){
-				$("#khu_phone_textbox").keyup(function(){
-					var phoneVal = $(this).val();
-					
-					var reg = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})";
-					if(phoneVal.match(reg)){
-						$("#khu_resultPhone").html("")
-					}else{
-						$("#khu_resultPhone").css("color","red");
-						$("#khu_resultPhone").html("핸드폰 번호를 다시 확인해주세요");
-
-					}
-				});
-			});
-		 
+			/* 비밀번호 변경 */ 
 		 	function updatePw(){
 			var frm = document.getElementById("khu_updateInfoForm")
 			var pw = document.getElementById("khu_pw_textbox").value;
@@ -32,18 +17,31 @@
 						return false;
 					}
 			}
+			/* 알림 설정 변경 */
+			function khu_notification(){
+			var frm = document.getElementById("khu_updateInfoForm");
+			frm.action ="./memberInfoUpdateNotification.do"
+		swal({
+    		title : "성공\n알림 설정을 변경하였습니다",					
+        	icon  : "success",
+        	closeOnClickOutside : false
+    		}, function(){
+			frm.submit();
+				}
+			)
+		}
 			
-			
+			/* 이름 변경 */
 			function updateName(){
 			var frm = document.getElementById("khu_updateInfoForm")
 			frm.action = "./memberInfoUpdateName.do"
 			var name = document.getElementById("khu_name_textbox").value;
-			var reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+			var reg = /^[가-힣a-zA-Z]+$/;
 			
 			if(name==""|| name.trim==""){
 				swal('실패','공백이 있거나 정보를 기입하지 않았습니다');
 				return false;		
-			}else if(name.match(reg)){
+			}else if(!name.match(reg)){
 				swal('실패','이름에 특수문자가 들어갈 수 없습니다 ');	
 				}else{
 					swal({
@@ -58,11 +56,9 @@
 			
 			}
 			
+			/* 번호 변경 */
 			function updatePhone(){
-			var frm = document.getElementById("khu_updateInfoForm")
-			
-//			var phoneChk = document.getElementById('phoneCheck_textbox');
-					
+			var frm = document.getElementById("khu_updateInfoForm")			
 			frm.action = "./memberInfoUpdatePhone.do"
 			swal({
     					title : "성공\n전화번호를 변경하였습니다",					
@@ -74,6 +70,7 @@
 					)
 			}	
 			
+			/* 주소 변경 */
 			function updateAddress(){
 			var frm = document.getElementById("khu_updateInfoForm")
 			frm.action = "./memberInfoUpdateAddress.do"
@@ -87,6 +84,7 @@
 					)
 			}
 			
+			/* 이메일 변경 */
 			function updateEmail(){
 			var frm = document.getElementById("khu_updateInfoForm")
 			frm.action = "./memberInfoUpdateEmail.do"
@@ -101,7 +99,7 @@
 			}						
 			
 			
-			
+			/* eye */
 			$(document).ready(function(){
         $('#eye i').on('click',function(){
             $('#eye input').toggleClass('active');
@@ -117,7 +115,7 @@
 			
 			
 			
-			
+			/* 카카오 주소찾기 */
 			function kakaopost() {
 			    new daum.Postcode({
 			        oncomplete: function(data) {
@@ -126,6 +124,7 @@
 			    }).open();
 			}
 			
+			/* 탈퇴 신청 */
 			function khu_quitRequest(){
 				var khu_frm = document.getElementById("khu_quitRequestForm")
 				var khu_id = document.getElementById("khu_hiddenId")
@@ -159,7 +158,7 @@
 					})
 				}
 			
-			
+			    /* qr 체크 사이즈*/
 				function checkSize(){
 				console.log("checkSize : " + "start");
 
@@ -180,23 +179,11 @@
 
 			/* QR 생성 함수 */
 			window.onload = function(width, height, data){
-//				var a = document.getElementById("khu_member_id").innerHTML;
-				var data = document.getElementsByName("khu_qr")[0].value + 
-					document.getElementsByName("khu_qr")[1].value +
-					document.getElementsByName("khu_qr")[2].value +
-//					document.getElementsByName("khu_qr")[3].value +
-					document.getElementsByName("khu_qr")[4].value;
-
-//				var a = a.value
-//				var b = b.value
-					
-//				var b = document.getElementById("khu_member_name").innterHTML;
-//				var c = document.getElementById("khu_member_code").value;
-//				var d = document.getElementById("khu_email").value;
-//				var e = document.getElementById("khu_phone").value;
-				
-//				var data = b.value;
-//				var data =	a+b;
+				var a = document.getElementsByName("khu_qr")[0].value  
+                var b = document.getElementsByName("khu_qr")[1].value 
+				var c =	document.getElementsByName("khu_qr")[2].value
+				var d =	document.getElementsByName("khu_qr")[4].value
+				var data =	a+b+c+d;
 				
 
 				
@@ -222,7 +209,7 @@
 	
 	
 	
-			
+			/* HTML2CANVAS */
 			function getPDF(fileName){
    // 기본 A4형식의 사이즈로 조정
     var HTML_Width = $(".canvas_div_pdf").width();
@@ -235,9 +222,6 @@
 
     var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
 
-    // ------------------------------테스트 중------------------------------
-//    
-    // ------------------------------------------------------------------
     
     html2canvas($(".canvas_div_pdf")[0],{allowTaint:true}).then(function(canvas) {
         canvas.getContext('2d');
@@ -251,13 +235,11 @@
         }
         
         pdf.save(fileName + ".pdf");
-        
-        // ------------------------------테스트 중------------------------------
-//        document.getElementById("loader").style.display = "none"; //로딩 끝
-        // ------------------------------------------------------------------
-        
+                
     });
 };
+
+/* PDF화 */
 $(document).ready(function() {
     $('#pdf').on('click',function(){
         window.scrollTo(0,0);
@@ -265,7 +247,57 @@ $(document).ready(function() {
         getPDF(fileName);
     })
 });
-			
+
+
+/* 핸드폰 유효성 */
+$(document).ready(function(){
+	$("#khu_phone_textbox").keyup(function(){
+		var phoneVal = $(this).val();
+		
+		var reg = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})";
+		if(phoneVal.match(reg)){
+			$("#khu_result_phone").html("")
+		}else{
+			$("#khu_result_phone").css("color","red");
+			$("#khu_result_phone").html("핸드폰 번호를 다시 확인해주세요");			
+		}
+	});
+});
+
+
+/* 비밀번호 유효성 */
+$(document).ready(function(){
+	$("#khu_pw_textbox").keyup(function(){
+		var pwVal = $(this).val();
+		var reg = "^(?=.*[a-zA-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$";
+		console.log(pwVal);
+		if(pwVal.match(reg)){
+			$("#khu_resultPw").css("color","blue");
+			$("#khu_resultPw").html("사용 가능한 비밀번호입니다")
+		}else{
+			$("#khu_resultPw").css("color","red");
+			$("#khu_resultPw").html("최소 8 자 및 최대 20 자, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자 및 하나의 특수 문자");
+		}
+	});
+});
+
+/* 이름 유효성 */
+$(document).ready(function(){
+	$("#khu_name_textbox").keyup(function(){
+		var reg = /^[가-힣a-zA-Z]+$/;
+		var nameVal = $(this).val();
+		if(nameVal.match(reg)){
+			$("#khu_resultName").html("")
+		}else{
+			$("#khu_resultName").css("color","red");
+			$("#khu_resultName").html("이름엔 영어와 한글만 들어갑니다");
+		}
+	});
+});	
+
+
+
+
 		
 
 

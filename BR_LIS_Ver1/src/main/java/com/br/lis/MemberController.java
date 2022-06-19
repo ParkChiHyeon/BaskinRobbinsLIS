@@ -275,8 +275,9 @@ public class MemberController {
 		@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
 		public String bookSearch(Model model,String page) {
 			logger.info("mypage memberInfoUpdate 이동");
+			model.addAttribute("page", "update");
 			model.addAttribute("page", page);
-			return "myPage";
+			return "redirect:/memberInfoUpdatePage.do";
 		}
 		
 		/* 회원정보 수정 페이지 이동 */
@@ -360,17 +361,15 @@ public class MemberController {
 		}
 		
 		/*  알림 수신 변경 */
-//		@RequestMapping(value = "/memberInfoUpdateNotification.do", method = RequestMethod.POST)
-//		@ResponseBody
-//		public Map<String, String> memberInfoUpdateNotification(@RequestParam Map<String, Object> map) {
-//			Map<String, String> resultMap = new HashMap<String, String>();
-//			logger.info("MemberController memberInfoUpdateNotification: {}", map);
-//			
-//			boolean isc = service.notificationYN(map);
-//			resultMap.put("isc", String.valueOf(isc));
-//			
-//			return resultMap;
-//		}
+		@RequestMapping(value = "/memberInfoUpdateNotification.do", method = RequestMethod.GET)
+		public String memberInfoUpdateNotification(@RequestParam Map<String, Object> map) {
+			
+			logger.info("MemberController memberInfoUpdateNotification: {}", map);
+			
+			boolean isc = service.notificationYN(map);
+			
+			return (isc==true)? "redirect:/logout.do":"redirect:/myPage.do";
+		}
 		
 		/* 회원 탈퇴신청 페이지 이동 */
 		@RequestMapping(value = "/memberQuitRequestPage.do", method = RequestMethod.GET)
