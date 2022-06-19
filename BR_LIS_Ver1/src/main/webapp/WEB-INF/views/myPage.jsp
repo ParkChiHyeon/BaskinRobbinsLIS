@@ -57,8 +57,6 @@
 				<c:if test="${member.auth == 'GH'}">
 				<li id="lnb_8" class=""><a href="./memberCard.do" >회원증 출력</a></li>
 				</c:if>
-				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >9</a></li>
-				<li id="lnb_7" class=""><a href="./memberInfoUpdate.do" >10</a></li>
 				</ul>
 				<div class="lnbBottom"></div>
 			</div>
@@ -93,7 +91,7 @@
 		<div id="eye">
 		<label>비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="khu_pw_textbox" name="password" required>
 		<i class="fa-solid fa-eye fa-lg"></i> 
-		<button type="button" id="#" onclick="updatePw()"class="btn btn-outline-primary">변경</button>
+		<button type="button" onclick="updatePw()"class="btn btn-outline-primary">변경</button>
 		</div>
 		</li>
 		<li class="list-group-item"><span id="khu_resultPw"><a></a></span></li>
@@ -101,15 +99,16 @@
 				
 		<li class="list-group-item" id="khu_idInput">
 		<label id="khu_label">이름</label><input type="text" class="form-control"  id="khu_name_textbox" name="name" value="${member.name}" required>
-		<button type="button" id="#" onclick="updateName()"class="btn btn-outline-primary">변경</button>
+		<button type="button" onclick="updateName()"class="btn btn-outline-primary">변경</button>
 		</li>
+		<li class="list-group-item"><span id="khu_resultName"><a></a></span></li>
 		
 		<li class="list-group-item" id="khu_idInput">
 		
 		<label id="khu_label">전화번호</label><input type="text" class="form-control" placeholder="ex)01012345678" id="khu_phone_textbox" name="phone" maxlength="11" value="${member.phone}" required>
 		<input type="button" class="btn btn-outline-primary" value="인증번호 전송" id="khu_sendPhoneNumber">
 		</li>
-		
+		<li class="list-group-item"><span id="khu_result_phone"><a></a></span></li>
 		
 		
 		<li class="list-group-item" id="khu_idInput">
@@ -122,9 +121,9 @@
 		
 		
 		<li class="list-group-item" id="khu_idInput">
-		<label id="khu_label">주소</label><input type="text" class="form-control" id="khu_detailAddress_textbox" name="address" autocomplete="name" value="${member.address}" required>
+		<label id="khu_label">주소</label><input type="text" class="form-control" id="khu_detailAddress_textbox" name="address" autocomplete="name" value="${member.address}" readonly>
 		<input type="button" class="btn btn-outline-primary" value="우편번호 찾기" id="khu_zipSearch_textbox" onclick="kakaopost()">
-		<button type="button" id="#" onclick="updateAddress()"class="btn btn-outline-primary">변경</button>
+		<button type="button" onclick="updateAddress()"class="btn btn-outline-primary">변경</button>
 		</li>
 		
 		<c:if test="${member.auth == 'GH'}">
@@ -148,6 +147,18 @@
 		<div class="khu_time2"></div>
 		</li>
 		</c:if>
+		
+			<c:if test="${member.notification =='Y'}">				
+				<li class="list-group-item" id="khu_idInput">
+				<label id="khu_label">알림 설정</label><br>
+				<input type="submit" class="btn btn-outline-danger" id="khu_notification_btn" name="notification" onclick="khu_notification()" value="끄기"></li>
+				</c:if>
+				
+				<c:if test="${member.notification =='N'}">
+				<li class="list-group-item" id="khu_idInput">
+				<label id="khu_label">알림 설정</label><br>
+				<input type="submit" class="btn btn-outline-primary" id="khu_notification_btn" name="notification" onclick="khu_notification()" value="켜기"></li>
+				</c:if>
 			
 	</ul>
 	</div>
@@ -169,7 +180,7 @@
 				<form class="form-inline" method="post" action="#" id="khu_quitRequestForm">
 				<div class="container">
 				<input type="text" value="${member.member_id}"  id="khu_hiddenId" name="member_id" hidden="true">
-				<ul class="list-group" style="margin-bottom: 100px;">
+				<ul class="list-group" style="margin-bottom: 0px auto;">
 				<li class="list-group-item" id="khu_idInput">	
 				<label id="khu_label" >휴대폰 인증</label>
 				<div class="container">
@@ -181,8 +192,7 @@
 				<input type="button" id="khu_checkBtn2" value="확인" class="btn btn-outline-primary">
 				<input type="submit" class="btn btn-outline-danger" value="탈퇴" id="khu_quitRequestBtn" onclick="khu_quitRequest()"  disabled >
 				<div class="khu_time2"></div>
-				
-				
+
 				</li>
 				</ul>
 	</div>
@@ -261,6 +271,8 @@
 				<div class="naviandtitle"> 
 				<h3>회원증 출력</h3>				
 				</div>
+				<br>
+				<br>
 <!-- class="canvas_div_pdf"는 script에서 사용  -->
 <div class="canvas_div_pdf" style="width:600px;">
 <!-- 밑에 부터 수정 -->

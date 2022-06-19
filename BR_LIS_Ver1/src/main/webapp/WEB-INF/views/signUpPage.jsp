@@ -148,21 +148,21 @@ div#eye i{
 <%@ include file="./header.jsp" %>
 <body>
 	
-	<form action="./signUp.do" method="POST" id="testForm" onsubmit="return frmsubmit()">
+	<form action="./signUp.do" method="POST" id="testForm" name="isAgree">
 	<div class="container">
 	
-	<input type="text" value="0" id="idChkVal" hidden="true">
-	<input type="text" value="0" id="pwChkVal" hidden="true">
-	<input type="text" value="0" id="pwChkVal2" hidden="true">
-	<input type="text" value="0" id="nameChkVal" hidden="true">
-	<input type="text" value="0" id="birthChkVal" hidden="true">
-	<input type="text" value="0" id="phoneChkVal" hidden="true">
-	<input type="text" value="0" id="phoneChkVal2" hidden="true">
-	<input type="text" value="1" id="addrChkVal" hidden="true">
+	<input type="text" value="0" id="idChkVal" >
+	<input type="text" value="0" id="pwChkVal" >
+	<input type="text" value="0" id="pwChkVal2" >
+	<input type="text" value="0" id="nameChkVal" >
+	<input type="text" value="0" id="birthChkVal" >
+	<input type="text" value="0" id="phoneChkVal" >
+	<input type="text" value="0" id="phoneChkVal2" >
+	<input type="text" value="1" id="addrChkVal" >
 	
 		<ul class="list-group" id="ulForm">	
 		<li class="list-group-item" id="idInput">
-		<label>아이디</label>
+		<label>* 아이디</label>
 		<input type="text" class="form-control" placeholder="ID" id="id_textbox" name="member_id" required>
 		<button type="button" id="btnIdDuplicateCheck" onclick="idDuplicateCheck()"class="btn btn-outline-primary">중복확인</button>
 		</li>
@@ -172,7 +172,7 @@ div#eye i{
 		
 		<li class="list-group-item" id="idInput">
 		<div id="eye">
-		<label>비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required>
+		<label>* 비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required>
 		<i class="fa-solid fa-eye fa-lg"></i> 
 		</div>
 		</li>
@@ -183,7 +183,7 @@ div#eye i{
 		
 		<li class="list-group-item" id="idInput">
 		<div id="eye">
-		<label>비밀번호 확인</label><input type="password" class="form-control"  id="pwChk_textbox" required>
+		<label>* 비밀번호 확인</label><input type="password" class="form-control"  id="pwChk_textbox" required>
 		<i class="fa-solid fa-eye fa-lg"></i> 
 		</div>
 		</li>
@@ -192,14 +192,14 @@ div#eye i{
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>이름</label><input type="text" class="form-control"  id="name_textbox" name="name" required>
+		<label>* 이름</label><input type="text" class="form-control"  id="name_textbox" name="name" required>
 		</li>
 		<li class="list-group-item"><span id="resultName"><a></a></span></li>
 		
 	
 		
 		<li class="list-group-item" id="idInput">
-		<label>주민번호 앞 6자리 + 뒤 1자리</label><input type="text" class="form-control" id="birth_textbox" name="birth" maxlength="7" required>
+		<label>* 주민번호 앞 6자리 + 뒤 1자리</label><input type="text" class="form-control" id="birth_textbox" name="birth" maxlength="7" required>
 		</li>
 		<li class="list-group-item"><span id="resultBirth"><a></a></span></li>
 			
@@ -208,7 +208,7 @@ div#eye i{
 		
 		<li class="list-group-item" id="idInput">
 		
-		<label>전화번호</label><input type="text" class="form-control" placeholder="ex)01012345678" id="phone_textbox" name="phone" maxlength="11" required>
+		<label>* 전화번호</label><input type="text" class="form-control" placeholder="ex)01012345678" id="phone_textbox" name="phone" maxlength="11" required>
 		
 		<input type="button" class="btn btn-outline-primary" value="인증번호 전송" id="sendPhoneNumber">
 		</li>
@@ -217,7 +217,7 @@ div#eye i{
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>인증번호</label><input type="text" class="form-control" id="phoneCheck_textbox" name="phoneCheckNum" maxlength="8" required>
+		<label>* 인증번호</label><input type="text" class="form-control" id="phoneCheck_textbox" name="phoneCheckNum" maxlength="8" required>
 		<input type="button" id="checkBtn" value="확인" class="btn btn-outline-primary">
 		<div class="time"></div>
 		</li>
@@ -244,30 +244,6 @@ div#eye i{
 <%@ include file="./footer.jsp" %>
 
 <script type="text/javascript">
-
-function frmsubmit(){
-	var id = document.getElementById("id_textbox");
-	var birth = document.getElementById("birth_textbox");
-	
-	console.log(id.value)
-	if( id.value=="" || id.value.trim==""){
-		swal('아이디는 필수 입력사항입니다');
-		return false;
-	}
-	
-	if(birth.value==""||birth.value.trim==""){
-		swal("주민번호는 필수 입력사항입니다");
-		return false;
-	}else if(birth.value.length != 7){
-		swal('주민번호는 앞 6자리 뒷 1자리입니다');
-		return false;
-	}
-	
-	
-	return true;
-	
-}
-
 
 var timer = null;
 var isRunning = false;
@@ -360,9 +336,13 @@ function signUp() {
 	var chk6 = document.getElementById("phoneChkVal");
 	var chk7 = document.getElementById("phoneChkVal2");
 	var chk8 = document.getElementById("addrChkVal");
+	var frm = document.getElementById("testForm");
+	var isCheck = document.frm.isAgree.checked;
+	
+	
 	console.log(chk)
 	if(chk.value == 1 && chk2.value == 1 && chk3.value == 1 && chk4.value == 1 && chk5.value == 1 && chk6.value == 1 &&
-			chk7.value == 1 && chk8.value == 1){
+			chk7.value == 1 && chk8.value == 1 && isCheck){
 		location.href = "./signUp.do";	
 	}
 	else{
@@ -398,9 +378,12 @@ function idDuplicateCheck() {
 				
 			}else if(msg.isc=="실패" && id.value.match(reg)){
 				swal("성공","중복된 아이디가 없습니다");
+				$("#resultId").css("color","blue");
+				$("#resultId").html("해당 아이디를 사용합니다");
 				$("#pw_textbox").focus();
 				$("#idChkVal").val(1);
 				$("#pw_textbox").focus();
+				$("#id_textbox").attr("readonly",true);	
 			}else{
 				swal("실패","다시 확인해주세요");
 				$("#idChkVal").val(0);
@@ -434,7 +417,8 @@ $(document).ready(function(){
 			$("#resultId").html("공백이 포함된 아이디는 사용할 수 없습니다.");
 			$("#idChkVal").val(0);
 		}else{
-			$("#resultId").html("")
+			$("#resultId").css("color","blue");
+			$("#resultId").html("사용하실려면 중복확인을 해주세요")
 		}
 	});
 });
@@ -445,8 +429,9 @@ $(document).ready(function(){
 		var pwVal = $(this).val();
 		var reg = "^(?=.*[a-zA-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$";
 		console.log(pwVal);
-		if(pwVal.match(reg)){	
-			$("#resultPw").html("")
+		if(pwVal.match(reg)){
+			$("#resultPw").css("color","blue");
+			$("#resultPw").html("사용 가능한 비밀번호입니다")
 			$("#pwChkVal").val(1);
 		}else{
 			$("#resultPw").css("color","red");
@@ -463,7 +448,8 @@ $(document).ready(function(){
 		var reg = "^(?=.*[a-zA-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$";
 		console.log(exPwVal);
 		if(pwVal == exPwVal && pwVal.match(reg)){
-			$("#resultPw2").html("")
+			$("#resultPw2").html("비밀번호가 확인되었습니다")
+			$("#resultPw2").css("color","blue");
 			$("#pwChkVal2").val(1);
 		}else{
 			$("#resultPw2").css("color","red");
@@ -551,6 +537,7 @@ $(document).ready(function(){
 document.getElementById("btnSignUp").addEventListener("click",function(evt)
 		  {
 		  let response = grecaptcha.getResponse();
+          
 		  if(response.length == 0) // 
 		  {
 		    swal("오류","자동가입 방지 체크를 해주세요");
@@ -579,21 +566,18 @@ document.getElementById("btnSignUp").addEventListener("click",function(evt)
 		            throw Error(response.status);
 		        }
 		        console.log(response);
-		        $("#chkVal").val(0);
 		        return response.json()
 		    })
 		    //성공
 		    .then(json => {
 		        if(json.success === true){
 		            console.log("Done completely");
-		            $("#chkVal").val(1);
 		        }
 
 		    })
 		    //에러
 		    .catch(err => {
 		        console.log("Error", err)
-		        $("#chkVal").val(0);
 		    })
 		  }
 		});
