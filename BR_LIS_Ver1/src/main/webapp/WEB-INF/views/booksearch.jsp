@@ -150,14 +150,14 @@ td:nth-child(odd){
 				<div class="naviandtitle">
 					<h3>희망도서신청</h3>
 					<form class="form-inline" onsubmit="return false">
-					<select class="form-control" id="searchKey" name="searchKey" title="검색 선택">
-						<option value="title">서명</option>
-						<option value="author">저자</option>
-						<option value="publisher">출판사</option>
-						<option value="isbn">ISBN</option>
-					</select>
-						<input	type="text"  class="form-control" id="requestSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 80%">
-						<button class="btn btn-primary" onclick="bookSearchRequest()">검색</button>
+<!-- 					<select class="form-control" id="searchKey" name="searchKey" title="검색 선택"> -->
+<!-- 						<option value="title">서명</option> -->
+<!-- 						<option value="author">저자</option> -->
+<!-- 						<option value="publisher">출판사</option> -->
+<!-- 						<option value="isbn">ISBN</option> -->
+<!-- 					</select> -->
+						<input	type="text"  class="form-control" id="requestSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 90%">
+						<button class="btn btn-primary" onclick="bookSearchRequest('${member.member_id}')" style="margin-left: 15px">검색</button>
 					</form>
 				</div>
 				</c:if>
@@ -181,7 +181,7 @@ function dataTableMake(table_id){
             "info": "현재 _START_ - _END_ / _TOTAL_건",
             "infoEmpty": "0/0",
             "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
+            "search": "결과 내 검색: ",
             "zeroRecords": "일치하는 데이터가 없어요.",
             "loadingRecords": "로딩중...",
             "processing":     "잠시만 기다려 주세요...",
