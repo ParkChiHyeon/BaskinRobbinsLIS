@@ -184,12 +184,12 @@ public class MemberController {
 		return "updatePwPage";	
 	}
 	
-	@RequestMapping(value = "/updatePw.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatePw.do", method = RequestMethod.GET)
 	public String updatePw(@RequestParam Map<String, Object> map) {
 		
 		int n = service.updateNewPw(map);
 		
-		return (n==1)?"loginPage":"updatePwPage";	
+		return (n==1)?"redirect:/loginPage.do":"reirect:/updatePwPage";	
 	}
 	
 		

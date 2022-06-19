@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri ="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
 <link rel="stylesheet" href="./khu_css/myPage.css"/>
 <link rel="stylesheet" href="./hik_css/myPageHIK.css"/>
 <link rel="stylesheet" href="./hsg_css/myPageReq.css"/>
+<link rel="stylesheet" href="./jsj_css/myPage.css"/>
 
 <!-- css끝 -->
 <!-- js 넣어라 -->
@@ -194,15 +196,15 @@
 				</div>
 				<br>
 				<br>
-				<form:form action="./upload.do" method="post" class="inline" enctype="multipart/form-data" modelAttribute="uploadFileVo">
+				<form:form action="./upload.do" method="post" class="inline" enctype="multipart/form-data" modelAttribute="uploadFileVo" id="file_uploads">
 				<ul class="list-group">
 				<li class="list-group-item" id="khu_idInput">
 				<label id="khu_label">등본 업로드</label>				
-				<input type="file" class="form-control" name="file" accept=".pdf" required>
+				<input type="file" class="form-control" name="file" accept="image/jpeg, image/png, image/gif" required>
 				<p style="color:red; font-weight: bold;">
 				<form:errors path="file"/>
 				</p>
-				<input type="submit" id="khu_btnRegiserCheck" value="확인" class="btn btn-outline-primary">
+				<input type="button" id="khu_btnRegiserCheck" value="확인" class="btn btn-outline-primary">
 				</li>
 				</ul>
 				</form:form>
@@ -237,7 +239,7 @@
 				절대 경로 :<input type="text" class="form-control" name="filepath" id="ocrPath" value="${path}" readonly><br>
 				<label>등본 상대 경로(히든 할거)</label><br>
 				상대 경로 :<input type="text" class="form-control" name="file_path" id="sangdaePath" value=" <%=request.getRequestURL() %>" readonly><br>
-				<input type="submit" id="khu_btnEmailCheck" value="등본 유효성 검증" class="btn btn-outline-primary">
+				<input type="submit" id="khu_btnEmailCheck" value="등본 유효성 검증" class="btn btn-outline-primary" onclick="ocr()">
 				</li>
 				
 				</ul>
@@ -379,8 +381,7 @@
 		<div class="naviandtitle"> 
 			<h3>도서대출 이용현황</h3>
 		</div>
-		<br>
-		<br>
+
 		<!-- 내용 영역  -->
 <%-- 		<c:if test="${member.member_id eq 'member_id'}"> --%>
 		
@@ -405,7 +406,14 @@
 						<td>${lBean.title}</td>
 						<td>${lBean.lending_date}</td>
 						<td>${lBean.back_date}</td>
-						<td></td>
+						<c:choose>
+							<c:when test="${lBean.back_date <= lBean.end_date}">
+								<td style="color: red;font-size: x-small;">정상반납</td>
+							</c:when>
+							<c:otherwise>
+								<td style="color: red; font-size: x-small;">연체반납 <br>반납예정일 : ${lBean.end_date}</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 					</c:if>
 					</c:forEach>
@@ -757,6 +765,17 @@ $('#khu_sendPhoneNumberForQuit').click(function(){
 			}, 1000);
 			     khu_isRunning = true;
 			}	
+			
+			
+			function ocr(msg) {
+				location.href = "./ocrChk.do"
+				if(msg.isc == "성공"){
+					swal("성공");
+				}else{
+					swal("실패");
+				}
+			}
+			
 		</script>
 <%@ include file="./footer.jsp"%>
 </html>

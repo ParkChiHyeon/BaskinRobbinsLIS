@@ -109,7 +109,7 @@ height: 100%;
  
         <form action="post" method="post" id="login">
             <div class="int-area1">
-                <input type="text" name="member_id" id="member_id" autocomplete="off" value="user001" required>
+                <input type="text" name="member_id" id="member_id" autocomplete="off" value="${mVo.member_id }" required>
                 <label for="id">USER NAME</label>                
             </div>
             <div class="int-area2">
