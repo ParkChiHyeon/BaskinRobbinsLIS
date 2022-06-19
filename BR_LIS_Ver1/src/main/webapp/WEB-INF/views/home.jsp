@@ -439,7 +439,7 @@ calList();//도서관일정 목록
 									</a>--></li>
 								<li><img src="./include/image/jungang/main/icon_msvc04.png"
 									alt=""> <a
-									href="./reserveBook.do"> 문화강좌신청
+									href=""> 문화강좌신청
 								</a></li>
 								<li><img src="./include/image/jungang/main/icon_msvc05.png"
 									alt=""> <a
