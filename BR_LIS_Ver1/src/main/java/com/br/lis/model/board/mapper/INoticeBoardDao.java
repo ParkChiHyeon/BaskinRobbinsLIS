@@ -21,9 +21,6 @@ public interface INoticeBoardDao {
 		//삭제
 		public int multiDelNotice(List<String> list);
 		
-		
-		
-
 		//페이징
 		public List<Notice_FAQBoardVo> selectPaging(Map<String, Object> map); 
 		public int getCountBoardList();
