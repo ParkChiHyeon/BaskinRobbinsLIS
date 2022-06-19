@@ -142,64 +142,16 @@
 			
 	<li id="gnb6"><a href="/jungang/10054/40025/content.do" >도서관소개</a>
 			<ul>
-			<li id="gnb6_1" class=""><a href="/jungang/10054/40025/content.do" >도서관안내</a>
-					<ul class="MkSub">
-					<li id="gnb6_1_1" class=""><a href="/jungang/10054/40025/content.do" >인사말</a>
-							</li>
-						<li id="gnb6_1_2" class=""><a href="/jungang/10055/40026/content.do" >연혁</a>
-							</li>
-						<li id="gnb6_1_3" class=""><a href="/jungang/10056/30012/program.do" >조직도</a>
-							</li>
-						<li id="gnb6_1_4" class=""><a href="/jungang/10057/40009/content.do" >도서관행정서비스헌장</a>
-							</li>
-						</ul>
+				<li id="gnb6_1" class=""><a href="./informationLib.do?kind=libguide" >도서관안내</a></li>
+				<li id="gnb6_4" class=""><a href="./informationLib.do?kind=useguide" >이용안내</a>
+<!-- 					<ul class="MkSub"> -->
+<%-- 							<c:if test="${member.auth eq null}">  --%>
+<!-- 						<li id="gnb6_4_2" class=""><a href="/jungang/10067/40081/content.do" >회원가입</a> -->
+<!-- 							</li> -->
+<%-- 							</c:if> --%>
+<!-- 						</ul> -->
 					</li>
-				<li id="gnb6_2" class=""><a href="/jungang/10343/40027/content.do" >시설현황</a>
-					<ul class="MkSub">
-					<li id="gnb6_2_1" class=""><a href="/jungang/10343/40027/content.do" >전체 안내</a>
-							<ul class="MkTab">
-							<li id="gnb6_2_1_1" class="mobileHide"><a href="/jungang/10343/40027/content.do" >층별안내</a></li>
-								<li id="gnb6_2_1_2" class="mobileHide"><a href="/jungang/10344/40143/content.do" >자료실현황</a></li>
-								</ul>
-							</li>
-						<li id="gnb6_2_2" class=""><a href="/jungang/10061/40028/content.do" >향토사료관</a>
-							<ul class="MkTab">
-							<li id="gnb6_2_2_1" class=""><a href="/jungang/10061/40028/content.do" >안내</a></li>
-								<li id="gnb6_2_2_2" class=""><a href="/jungang/10062/40029/content.do" >전시정보</a></li>
-								</ul>
-							</li>
-						<li id="gnb6_2_3" class=""><a href="/jungang/10063/40030/content.do" >숲속도서관</a>
-							</li>
-						</ul>
-					</li>
-				<li id="gnb6_3" class=""><a href="/jungang/10278/30013/program.do" >자료현황</a>
-					<ul class="MkTab">
-					<li id="gnb6_3_1" class="mobileHide"><a href="/jungang/10278/30013/program.do" >중앙도서관</a>
-							</li>
-						</ul>
-					</li>
-				<li id="gnb6_4" class=""><a href="/jungang/10066/40147/content.do" >이용안내</a>
-					<ul class="MkSub">
-					<li id="gnb6_4_1" class=""><a href="/jungang/10066/40147/content.do" >이용시간/휴관일</a>
-							</li>
-							<c:if test="${member.auth eq null}"> 
-						<li id="gnb6_4_2" class=""><a href="/jungang/10067/40081/content.do" >회원가입</a>
-							</li>
-							</c:if>
-						<li id="gnb6_4_3" class=""><a href="/jungang/10068/40011/content.do" >관외대출</a>
-							</li>
-						<li id="gnb6_4_4" class=""><a href="/jungang/10069/40032/content.do" >반디움</a>
-							</li>
-						<li id="gnb6_4_5" class=""><a href="/jungang/10070/40033/content.do" >자동화기기사용법</a>
-							</li>
-						<li id="gnb6_4_6" class=""><a href="/jungang/10071/40012/content.do" >도서관예절</a>
-							</li>
-						<li id="gnb6_4_7" class=""><a href="/jungang/10072/40034/content.do" >편의시설</a>
-							</li>
-						</ul>
-					</li>
-				<li id="gnb6_5" class=""><a href="/jungang/10073/40035/content.do" >찾아오시는길</a>
-					</li>
+				<li id="gnb6_5" class=""><a href="./informationLib.do?kind=locguide" >찾아오시는길</a></li>
 				</ul>
 			</li>
 <!-- 	<li id="gnb7"><a href="/jungang/10075/30014/program.do" >내서재</a> -->
