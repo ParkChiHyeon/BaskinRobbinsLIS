@@ -18,12 +18,10 @@
 			<h2>도서관소개</h2>
 			<div class="lnbBody" style="min-height: 529px;">
 				<ul id="lnb" class="lnbul">
-					<li id="lnb6_1" class=""><a
-						href="./informationLib.do?kind=libguide" class="current">도서관안내</a></li>
-					<li id="lnb6_4" class=""><a
-						href="./informationLib.do?kind=useguide">이용안내</a></li>
-					<li id="lnb6_5" class=""><a
-						href="./informationLib.do?kind=locguide">찾아오시는길</a></li>
+					<li id="lnb6_1" class=""><a href="./informationLib.do?kind=libguide" class="">도서관안내</a></li>
+					<li id="lnb6_2" class=""><a href="./informationLib.do?kind=useguide">이용안내</a></li>
+					<li id="lnb6_3" class=""><a href="./informationLib.do?kind=locguide" class="current">찾아 오시는길</a></li>
+					<li id="lnb6_4" class=""><a href="./informationLib.do?kind=siteMap" class="">사이트맵</a></li>
 				</ul>
 				<div class="lnbBottom"></div>
 			</div>
@@ -31,12 +29,11 @@
 
 		<div id="contentcore">
 			<div id="contentcore">
-				<div class="naviandtitle">
+				<div class="naviandtitle" style="padding-bottom: 0px;">
 					<h3>찾아오시는길</h3>
 					<div class="navi">
-						<a href="/jungang/main.do"><img
-							src="/include/image/global/common/icon_home.gif" alt="홈"></a>
-						도서관소개<span class="mobileHide"> &gt; <strong>찾아오시는길</strong></span>
+						<a href="./home.do"><img src="./include/image/global/common/icon_home.gif" alt="홈"></a>
+										도서관소개<span class="mobileHide"> &gt; <strong>찾아오시는 길</strong></span>
 					</div>
 				</div>
 				<div class="contents" id="contents">
@@ -95,29 +92,13 @@
 							"mapHeight" : "360"
 						}).render();
 					</script>
-					<h4 class="htitle">오시는 길</h4>
+					<br>
+					<h4 class="htitle"> <strong>오시는 길</strong></h4>
 					<ul class="guide">
-						<li><strong class="themeFC">주소</strong> : [16075] 경기도 의왕시
-							골우물길 49 (고천동)</li>
-						<li><strong class="themeFC">연락처</strong> : 031)345-3642, 3662
-							/ FAX 031)345-3649</li>
-						<li><strong class="themeFC">버스노선</strong> : <span
-							class="txtBtn_darkGray sizeSmall"><a
-								href="http://www.gbis.go.kr/gbis2014/schBus.action?mapTabCd=1"
-								title="새 창 열림" target="_blank" rel="noopener" class="newWindow">버스노선검색</a></span>
-							1-1, 1-2, 1-5, 441, 502, 마을버스 1, 2, 5 (중앙도서관 정류장 하차)</li>
+						<li><strong class="themeFC">주소</strong> : [08505] 서울시 금천구 가산디지털2로 115 대륭3차(가산동)</li>
+						<li><strong class="themeFC">연락처</strong> : 02-2108-5900, 5901/ FAX 02-2108-5909</li>
 					</ul>
-					<!--Real Contents End-->
-					<div class="box-area2 mt30">
-						<p class="ta_c nanum fnt13px">
-							<span class="mr40"> <img
-								src="/include/image/global/common/icon_fax.png" alt="콘텐츠 관리부서"
-								class=""> 콘텐츠 관리부서 : / 담당자 :
-							</span> <span><img
-								src="/include/image/global/common/icon_tel.png" alt="전화번호"
-								class=""> 전화번호 : </span>
-						</p>
-					</div>
+				
 				</div>
 			</div>
 		</div>

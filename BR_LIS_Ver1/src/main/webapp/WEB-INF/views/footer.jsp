@@ -25,7 +25,7 @@ $(function(){
 				<ul class="futil">
 					<li><a href="/jungang/10092/40014/content.do"><span class="fb">개인정보보호처리방침</span></a></li>
 					<li><a href="/jungang/10093/40015/content.do">이메일주소무단수집거부</a></li>
-					<li class="mobileHide"><a href="/jungang/10091/40013/content.do">사이트맵</a></li>
+					<li class="mobileHide"><a href="./informationLib.do?kind=siteMap">사이트맵</a></li>
 				</ul>
 				<div class="famSite">
 					<select name="relateSite" id="relateSite" title="관련기관 바로가기 선택">

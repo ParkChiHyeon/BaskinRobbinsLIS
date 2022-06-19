@@ -60,7 +60,8 @@ public class HomeController {
 
 		return "redirect:/home.do";
 	}
-
+	
+	//도서관 소개페이지
 	@RequestMapping(value = "/informationLib.do", method = RequestMethod.GET)
 	public String informationView(String kind) {
 		
@@ -68,11 +69,11 @@ public class HomeController {
 			return "/information/informationLib";
 		}else if(kind.equals("useguide")) {
 			return "/information/useinformation";
-		}else {
+		}else if(kind.equals("locguide")){
 			return "/information/informationLocation";
+		}else {
+			return "/information/siteMap";
 		}
 	}
-
-
 }
 

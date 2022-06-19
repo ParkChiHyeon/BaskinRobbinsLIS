@@ -6,30 +6,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file="../header.jsp"%>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-
-	<!--  -->
-
 	<div id="contbody">
-
-
 
 		<div id="contleft" class="contleft">
 			<h2>도서관소개</h2>
 			<div class="lnbBody" style="min-height: 529px;">
 				<ul id="lnb" class="lnbul">
-					<li id="lnb6_1" class=""><a
-						href="./informationLib.do?kind=libguide" class="current">도서관안내</a></li>
-					<li id="lnb6_4" class=""><a
-						href="./informationLib.do?kind=useguide">이용안내</a></li>
-					<li id="lnb6_5" class=""><a
-						href="./informationLib.do?kind=locguide">찾아오시는길</a></li>
+					<li id="lnb6_1" class=""><a href="./informationLib.do?kind=libguide" class="current">도서관안내</a></li>
+					<li id="lnb6_4" class=""><a href="./informationLib.do?kind=useguide">이용안내</a></li>
+					<li id="lnb6_5" class=""><a href="./informationLib.do?kind=locguide">찾아 오시는길</a></li>
+					<li id="lnb6_4" class=""><a href="./informationLib.do?kind=siteMap">사이트맵</a></li>
 				</ul>
 				<div class="lnbBottom"></div>
 			</div>
@@ -37,19 +29,15 @@
 
 		<div id="contentcore">
 
-
-			<div class="naviandtitle">
+			<div class="naviandtitle" style="padding-bottom: 0px;">
 				<h3>인사말</h3>
 				<div class="navi">
-					<a href="/jungang/main.do"><img
-						src="/include/image/global/common/icon_home.gif" alt="홈"></a>
-					도서관소개<span class="mobileHide"> &gt; 도서관안내 &gt; <strong>인사말</strong></span>
+					<a href="./home.do"><img src="./include/image/global/common/icon_home.gif" alt="홈"></a>
+					도서관소개<span class="mobileHide"> &gt; <strong>도서관안내</strong></span>
 				</div>
 			</div>
 
 			<div class="contents" id="contents">
-
-
 
 				<div class="ttabWrap">
 					<ul id="ttab3" class="tabType5">
@@ -57,10 +45,7 @@
 					</ul>
 				</div>
 
-				<!--Real Contents Start-->
-
-
-				<img src="/img/img_greeting.jpg" alt=" 행복하고 새로운 우왕도서관 방문을 환영합니다.">
+				<img src="./img/img_greeting.jpg" alt=" 행복하고 새로운 우왕도서관 방문을 환영합니다.">
 				<div class="greetingWrap">
 					<p class="mb30">
 						「우왕도서관」 방문을 환영합니다.<br>
@@ -73,17 +58,10 @@
 					<p class="ta_r">BaskinRobins31 우왕도서관장</p>
 				</div>
 
-
-
-				<!--Real Contents End-->
-
-
-
-
-
-
 			</div>
-		</div>
+			
+		</div><!-- contentcore 끝 -->
+	
 	</div>
 
 </body>
