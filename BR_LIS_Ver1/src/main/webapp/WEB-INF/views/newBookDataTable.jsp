@@ -18,6 +18,7 @@
 </head>
 <body>
 <div class="container">
+<h2>신규도서 조회</h2>
 	<form action="./newBookList.do">
 		<table id="dataTable" class="cell-border"> <!-- https://datatables.net/examples/styling/ -->
 			<thead>

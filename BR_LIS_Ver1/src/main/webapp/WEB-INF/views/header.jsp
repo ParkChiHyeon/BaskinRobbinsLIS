@@ -95,12 +95,12 @@
 							</ul>
 						</li>
 						<c:if test="${admin.admin_id != null }">
-							<li id="gnb3"><a href="/jungang/10028/30004/program.do">도서구매</a>
+							<li id="gnb3"><a href="./purchRegulList.do">도서구매</a>
 								<ul>
 									<li id="gnb3_1" class=""><a href="./purchRegulList.do">정기도서	구매관리</a></li>
 									<li id="gnb3_2" class=""><a href="./requestBookList.do">신청도서 구매관리</a></li>
 									<li id="gnb3_3" class=""><a href="./purchaseCodeList.do">발주관리</a></li>
-									<li id="gnb3_4" class=""><a href="./registPage.do">구매도서	등록</a></li>
+<!-- 									<li id="gnb3_4" class=""><a href="./registPage.do">구매도서등록</a></li> -->
 									<li id="gnb3_5" class=""><a href="./newBookList.do">신규도서조회</a>
 									</li>
 								</ul>
