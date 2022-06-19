@@ -74,7 +74,14 @@
 							<ul>
 								<li id="gnb1_1" class=""><a	href="./bookSearch.do?kind=total">통합검색</a></li>
 								<li id="gnb1_2" class=""><a	href="./bookSearch.do?kind=detail">상세검색</a></li>
-								<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">희망도서신청</a></li>
+								<c:choose>
+									<c:when test="${admin.admin_id != null}">
+										<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">정기도서구매</a></li>
+									</c:when>
+									<c:otherwise>
+										<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">희망도서신청</a></li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</li>
 						<c:if test="${member.member_id != null }">
