@@ -54,7 +54,7 @@
 							<li class="mobileHide"><a href="./signUpPage.do">회원가입</a></li>
 							</c:if>
 							
-					<li class="mobileHide"><a href="/jungang/10091/40013/content.do">사이트맵</a></li>
+					<li class="mobileHide"><a href="./informationLib.do?kind=siteMap">사이트맵</a></li>
 				</ul>
 			</div>
 			
@@ -90,13 +90,13 @@
 			</c:if>
 <!-- 			</li> -->
 	
-	<li id="gnb4"><a href="./viewAllBoard.do?kind=notice">정보마당</a>
+	<li id="gnb2"><a href="./viewAllBoard.do?kind=notice">정보마당</a>
 			<ul>
-			<li id="gnb4_1" class=""><a href="./viewAllBoard.do?kind=notice" >공지사항</a>
+			<li id="gnb2_1" class=""><a href="./viewAllBoard.do?kind=notice" >공지사항</a>
 					</li>
-				<li id="gnb4_2" class=""><a href="./viewAllBoard.do?kind=faq" >FAQ</a>
+				<li id="gnb2_2" class=""><a href="./viewAllBoard.do?kind=faq" >FAQ</a>
 					</li>
-				<li id="gnb4_3" class=""><a href="./viewAllBoard.do?kind=calendar" >도서관일정</a>
+				<li id="gnb2_3" class=""><a href="./viewAllBoard.do?kind=calendar" >도서관일정</a>
 					</li>
 				</ul>
 			</li>
@@ -118,21 +118,21 @@
 			</li>		
 			</c:if>
 			<c:if test="${admin.admin_id != null }">
-	<li id="gnb5"><a href="/jungang/10048/20026/bbsList.do" >대출/반납</a>
+	<li id="gnb4"><a href="/jungang/10048/20026/bbsList.do" >대출/반납</a>
 			<ul>
-			<li id="gnb5_1" class=""><a href="./lendMainpage.do" >대출</a>
+			<li id="gnb4_1" class=""><a href="./lendMainpage.do" >대출</a>
 					</li>
-				<li id="gnb5_2" class=""><a href="./returnBookPage.do" >반납</a>
+				<li id="gnb4_2" class=""><a href="./returnBookPage.do" >반납</a>
 					</li>
-				<li id="gnb5_3" class=""><a href="./returnBookList.do" >대출목록</a>
+				<li id="gnb4_3" class=""><a href="./returnBookList.do" >대출목록</a>
 					</li>
-				<li id="gnb5_4" class=""><a href="./possessingBookList.do" >보유도서 목록</a>
+				<li id="gnb4_4" class=""><a href="./possessingBookList.do" >보유도서 목록</a>
 					</li>
 				</ul>
 			</li>
 			</c:if>
 			<c:if test="${admin.admin_id != null }">
-	<li id="gnb6"><a href="./quitMemberManagePage.do" >탈퇴 회원 관리</a>
+	<li id="gnb5"><a href="./quitMemberManagePage.do" >탈퇴 회원 관리</a>
 			<ul>
 			<li id="gnb7_1" class=""><a href="./quitMemberManagePage.do" >조회 및 승인</a>
 					</li>
@@ -143,7 +143,7 @@
 	<li id="gnb6"><a href="./informationLib.do?kind=libguide" >도서관소개</a>
 			<ul>
 				<li id="gnb6_1" class=""><a href="./informationLib.do?kind=libguide" >도서관안내</a></li>
-				<li id="gnb6_4" class=""><a href="./informationLib.do?kind=useguide" >이용안내</a>
+				<li id="gnb6_2" class=""><a href="./informationLib.do?kind=useguide" >이용안내</a>
 <!-- 					<ul class="MkSub"> -->
 <%-- 							<c:if test="${member.auth eq null}">  --%>
 <!-- 						<li id="gnb6_4_2" class=""><a href="/jungang/10067/40081/content.do" >회원가입</a> -->
@@ -151,7 +151,8 @@
 <%-- 							</c:if> --%>
 <!-- 						</ul> -->
 					</li>
-				<li id="gnb6_5" class=""><a href="./informationLib.do?kind=locguide" >찾아오시는길</a></li>
+				<li id="gnb6_3" class=""><a href="./informationLib.do?kind=locguide" >찾아오시는길</a></li>
+				<li id="gnb6_4" class=""><a href="./informationLib.do?kind=siteMap" >사이트맵</a>
 				</ul>
 			</li>
 <!-- 	<li id="gnb7"><a href="/jungang/10075/30014/program.do" >내서재</a> -->
@@ -215,32 +216,47 @@
 <!-- 					</li> -->
 <!-- 				</ul> -->
 <!-- 			</li> -->
-	<li id="gnb8"><a href="/jungang/10091/40013/content.do" >이용안내</a>
-			<ul>
-			<li id="gnb8_1" class=""><a href="/jungang/10091/40013/content.do" >사이트맵</a>
-					</li>
-				<li id="gnb8_2" class=""><a href="/jungang/10092/40014/content.do" >개인정보처리방침</a>
-					</li>
-				<li id="gnb8_3" class=""><a href="/jungang/10093/40015/content.do" >이메일무단수집거부</a>
-					</li>
-				</ul>
-			</li>
+<!-- 	<li id="gnb8"><a href="/jungang/10091/40013/content.do" >이용안내</a> -->
+<!-- 			<ul> -->
+<!-- 			<li id="gnb8_1" class=""><a href="/jungang/10091/40013/content.do" >사이트맵</a> -->
+<!-- 					</li> -->
+<!-- 				<li id="gnb8_2" class=""><a href="/jungang/10092/40014/content.do" >개인정보처리방침</a> -->
+<!-- 					</li> -->
+<!-- 				<li id="gnb8_3" class=""><a href="/jungang/10093/40015/content.do" >이메일무단수집거부</a> -->
+<!-- 					</li> -->
+<!-- 				</ul> -->
+<!-- 			</li> -->
 	<li id="gnb9"><a href="/jungang/10094/30027/program.do" >회원</a>
 			<ul>
 			<c:if test="${member.auth eq null}"> 
-			<li id="gnb9_1" class=""><a href="/jungang/10094/30027/program.do" >로그인</a>
+			<li id="gnb9_1" class=""><a href="./loginPage.do" >로그인</a>
 					</li>
 					</c:if>
 				<c:if test="${member.auth eq null}"> 	
-				<li id="gnb9_2" class=""><a href="/member/join.do"  target="_self">회원가입</a>
+				<li id="gnb9_2" class=""><a href="./signUpPage.do"  target="_self">회원가입</a>
 					</li>
 					</c:if>
-				<li id="gnb9_3" class=""><a href="/member/findId.do"  target="_self">아이디찾기</a>
-					</li>
-				<li id="gnb9_4" class=""><a href="/member/findPwd.do"  target="_self">비밀번호 재발급</a>
-					</li>
+<!-- 				<li id="gnb9_3" class=""><a href="/member/findId.do"  target="_self">아이디찾기</a> -->
+<!-- 					</li> -->
+<!-- 				<li id="gnb9_4" class=""><a href="/member/findPwd.do"  target="_self">비밀번호 재발급</a> -->
+<!-- 					</li> -->
 				</ul>
 			</li>
+			
+	<c:if test="${member.auth eq null}"> 
+	<li id="gnb10"><a href="/jungang/10094/30027/program.do" >마이페이지</a>
+			<ul>
+			<li id="gnb9_1" class=""><a href="./loginPage.do" >로그인</a>
+					</li>
+				<li id="gnb9_2" class=""><a href="./signUpPage.do"  target="_self">회원가입</a>
+					</li>
+<!-- 				<li id="gnb9_3" class=""><a href="/member/findId.do"  target="_self">아이디찾기</a> -->
+<!-- 					</li> -->
+<!-- 				<li id="gnb9_4" class=""><a href="/member/findPwd.do"  target="_self">비밀번호 재발급</a> -->
+<!-- 					</li> -->
+				</ul>
+			</li>
+					</c:if>
 	</ul>
 	<div id="submenuArea">
 		<div id="subvisuala"></div>
