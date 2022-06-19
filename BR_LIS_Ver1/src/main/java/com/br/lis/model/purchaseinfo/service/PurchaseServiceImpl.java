@@ -7,8 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.br.lis.model.purchaseinfo.mapper.IPurchaseDao;
+import com.br.lis.model.purchaseinfo.mapper.IPurchaseRegistrationDao;
 import com.br.lis.vo.PurchaseVo;
 import com.br.lis.vo.RegularPurchaseVo;
 import com.br.lis.vo.RequestPurchaseVo;
@@ -18,6 +20,10 @@ public class PurchaseServiceImpl implements IPurchaseService {
 
 	@Autowired
 	private IPurchaseDao purchDao;
+	
+	@Autowired
+	private IPurchaseRegistrationDao registDao;
+	
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -112,21 +118,54 @@ public class PurchaseServiceImpl implements IPurchaseService {
 		logger.info("PurchaseServiceImpl purchConfirmDateUpdate");
 		return purchDao.purchConfirmDateUpdate(purchCodeVo);
 	}
-
+////-----------------------------------------------------------------------------------
+//	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(신청도서)
+//	@Override
+//	public int reqReceiveUpdate(String reqSerial) {
+//		logger.info("PurchaseServiceImpl reqReceiveUpdate");
+//		return purchDao.reqReceiveUpdate(reqSerial);
+//	}
+//
+//	
+//	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(정기구매도서)
+//	@Override
+//	public int regulReceiveUpdate(String regulSerial) {
+//		logger.info("PurchaseServiceImpl regulReceiveUpdate");
+//		return purchDao.regulReceiveUpdate(regulSerial);
+//	}
+//
+////-----------------------------------------------------------------------------------
+	
+//-----------------------------------------------------------------------------------
 	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(신청도서)
 	@Override
-	public int reqReceiveUpdate(String reqSerial) {
-		logger.info("PurchaseServiceImpl reqReceiveUpdate");
-		return purchDao.reqReceiveUpdate(reqSerial);
+	@Transactional
+	public int reqReceiveUpdate(String reqSerial, String isbnVo) {
+		logger.info("PurchaseServiceImpl reqReceiveUpdate, insertPurchaseBook and updateBookCount");
+		int reqReceiveUpdate = purchDao.reqReceiveUpdate(reqSerial);
+		int registBook = registDao.insertPurchaseBook(isbnVo);
+		int updateBookCount = registDao.updateBookCount(isbnVo);
+		
+		return (reqReceiveUpdate > 0 && registBook > 0 && updateBookCount > 0) ? 1 : 0;
 	}
-
+	
+	
 	// 입고(BR_W_BM_608) : 구매 완료되어 입고된 도서의 입고일을 업데이트(정기구매도서)
 	@Override
-	public int regulReceiveUpdate(String regulSerial) {
-		logger.info("PurchaseServiceImpl regulReceiveUpdate");
-		return purchDao.regulReceiveUpdate(regulSerial);
+	@Transactional
+	public int regulReceiveUpdate(String regulSerial, String isbnVo) {
+		logger.info("PurchaseServiceImpl regulReceiveUpdate, insertPurchaseBook and updateBookCount");
+		int regulReceiveUpdate = purchDao.regulReceiveUpdate(regulSerial);
+		int registBook = registDao.insertPurchaseBook(isbnVo);
+		int updateBookCount = registDao.updateBookCount(isbnVo);
+		
+		return (regulReceiveUpdate > 0 && registBook > 0 && updateBookCount > 0) ? 1 : 0;
 	}
-
+	
+//-----------------------------------------------------------------------------------
+	
+	
+	
 //	// 정기구매 정보 조회 : 정기구매 신청 된 도서의 목록 전체 조회 
 //	@Override
 //	public List<RegularPurchaseVo> purchRegulListSelectByCode(String purchCodeVo) {

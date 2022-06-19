@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.br.lis.model.purchaseinfo.mapper.IPurchaseDao;
 import com.br.lis.model.purchaseinfo.mapper.IPurchaseRegistrationDao;
 import com.br.lis.vo.BookInfoVo;
 import com.br.lis.vo.Possessing_BookVo;

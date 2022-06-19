@@ -81,6 +81,7 @@ function reqBookSearchKeyWord(){
 					reqListHTML+='<td>'                                                                                                                                                                     
 					if(requestBook.receive_date == null && requestBook.confirm == 'Y'){
 					reqListHTML+='<input type="checkbox" id="regularPurchaseCheck'+i+'" name="requestPurchaseCheck" class="checkDel" value="'+requestBook.wish_serial+'">'
+					reqListHTML+='<input type="hidden" id="reqIsbn'+i+'" name="reqIsbn" class="checkDel" value="'+requestBook.isbn+'">'
 					}
 					reqListHTML+='</td>'
 					reqListHTML+='<td id="wishSerial_Index'+i+'">'+requestBook.wish_serial+'</td>'
@@ -115,7 +116,7 @@ function reqBookSearchKeyWord(){
 					}
 					reqListHTML+='<td>'
 					if(requestBook.receive_date==null){
-					reqListHTML+='<div class="container mt-3">'// 수정버튼~~~~~~~~~~~~~~~~~~~~~
+					reqListHTML+='<div class="container mt-3">'// 수정버튼
 					reqListHTML+='<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal2" onclick="requestPurchaseInfoChange('+i+')">수정</button>'
 					reqListHTML+='<div class="modal" id="myModal2">'
 					reqListHTML+='<div class="modal-dialog modal-sm">'
@@ -155,15 +156,6 @@ function reqBookSearchKeyWord(){
 		}
 	});
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -262,13 +254,18 @@ function recieveBook(){
 	console.log("입고일을 업데이트하는 메소드")
 	
 	// 값을 담을 객체 생성
-	// 체크박스가 체크된 row의 regular_serial을 담아줌
+	// 체크박스가 체크된 row의 wish_serial을 담아줌
 	var recieveBook = $("input:checkbox[name='requestPurchaseCheck']:checked");
+	
 	var recieveBooks = []; // = {}; 랑 똑같음
+	var reqIsbnValues = [];/// 여기까지 작업함
 	for( var i = 0; i < recieveBook.length; i++) {
 	    var bookChecked = $(recieveBook.get(i));
-	    console.log(bookChecked.val());	
 		recieveBooks[i] = bookChecked.val();
+		var self = bookChecked.closest('td');
+		reqIsbnValues[i] = self.find('input[name=reqIsbn]').val();	// td영역내에서 input[name=re~]를 찾아서 가져온다
+		
+		
 	}
 	console.log(recieveBooks);
 	
@@ -276,7 +273,8 @@ function recieveBook(){
 		url : "./recieveBookReq.do",
 		type : "post",
 		data : {
-				"recieveBooks":recieveBooks
+				"recieveBooks":recieveBooks,
+				"reqIsbnValues":reqIsbnValues
 				},
 		dataType : "json",
 		async : false,
