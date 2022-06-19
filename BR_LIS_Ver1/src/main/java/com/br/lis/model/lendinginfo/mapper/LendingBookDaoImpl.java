@@ -31,11 +31,6 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 		return sqlSession.selectList(NS+"allReserveLending");
 	}
 
-//	public Map<String, String> reserveLendingBook(Map<String, String> map) {
-//	public int reserveLendingBook(String member_code) {
-//	public List<LendBookBean> reserveLendingBook(String member_code) {
-	
-	
 	@Override
 	public List<Map<String, Object>> reserveLendingBook(String member_code) {
 		return sqlSession.selectList(NS+"reserveLendingBook", member_code);
@@ -93,11 +88,6 @@ public class LendingBookDaoImpl implements ILendingBookDao {
 	@Override
 	public int realReserBookUpdate(String book_serial) {
 		return sqlSession.update(NS+"realReserBookUpdate",book_serial);
-	}
-
-	@Override
-	public List<LendingVo> fastReturnDayBook(LendingVo vo) {
-		return sqlSession.selectList(NS+"fastReturnDayBook",vo);
 	}
 
 	@Override

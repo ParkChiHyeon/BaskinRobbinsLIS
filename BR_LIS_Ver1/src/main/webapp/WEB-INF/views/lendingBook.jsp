@@ -28,7 +28,7 @@
 	<h2>즉시대출 신청</h2>
 	
 <!-- 	<form action="./lendingBookAdmin.do/ method="post"  class="form-inline"> -->
-	<form action="#" class="form-inline">
+	<form action="./lendingBookAdmin.do" class="form-inline">
 		<div class="form-group">
 			<label>도서코드 :</label>
 			<input id="book" name="book_serial" type="text" class="form-control">
@@ -39,8 +39,7 @@
 		<input id="book" name="member_id" type="text" class="form-control">
 		</div>
 		<div class="form-group">
-<!-- 		<input type="submit" class="btn btn-default" value="확인" onclick="a()"> -->
-		<input type="submit" class="btn btn-default" formaction="./lendingBookAdmin.do" formmethod="post" value="확인" onclick="a()">
+		<input type="submit" class="btn btn-default" value="확인" onclick="a()">
 		</div>
 	</form>
 </div>
