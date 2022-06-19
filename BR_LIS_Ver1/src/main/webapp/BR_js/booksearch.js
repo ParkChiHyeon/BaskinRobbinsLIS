@@ -44,7 +44,7 @@ function bookSearchTotal(){
             "info": "현재 _START_ - _END_ / _TOTAL_건",
             "infoEmpty": "0/0",
             "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
+            "search": "결과 내 검색: ",
             "zeroRecords": "일치하는 데이터가 없어요.",
             "loadingRecords": "로딩중...",
             "processing":     "잠시만 기다려 주세요...",
@@ -106,7 +106,7 @@ function kakaoBookImg(str){
 }
 
 
-function bookSearchRequest(){
+function bookSearchRequest(uid){
 	var str = $("#requestSearchKeyword").val();
 	var table = $("#bookSearchTotal").DataTable();
 	table.destroy();
@@ -138,7 +138,7 @@ function bookSearchRequest(){
             "info": "현재 _START_ - _END_ / _TOTAL_건",
             "infoEmpty": "0/0",
             "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
+            "search": "결과 내 검색: ",
             "zeroRecords": "일치하는 데이터가 없어요.",
             "loadingRecords": "로딩중...",
             "processing":     "잠시만 기다려 주세요...",
@@ -167,13 +167,22 @@ function bookSearchRequest(){
 		  		{ title:'도서',
 				 
 		          render:function(data,type,row){
+					var arr_isbn= row.isbn.split(" ");
+					var isbn;
+					if(arr_isbn.length==1){
+						isbn=arr_isbn[0]
+					}else{
+						isbn=arr_isbn[1]
+					}
 					var	html= '<p id="result_title">'+row.title+'</p>'; 
 					    html+= row.authors+'<br>';
 					    html+= row.publisher+'<br>';
 //					    html+= row.translator+'<br>';
 //					    html+= row.price+'<br>';
-					    html+= row.isbn;
-						html+= '<input type="button" id="bookRequest" value="도서구매신청" onclick="purchaseRequestBook();">';	
+					    html+= isbn;
+						if(uid!=undefined){
+							html+= '<input type="button" id="bookRequest" value="도서구매신청" onclick="purchaseRequestBook('+"'"+uid+"'"+')">';
+						}	
 					return html;
 				  }
 				}
@@ -183,10 +192,42 @@ function bookSearchRequest(){
 }
 
 // 도서구매신청버튼을 눌렀을 때 실행되는 메서드
-function purchaseRequestBook(){
+function purchaseRequestBook(member){
 	//isbn, title, publisher, author, translator, price 필요
-	console.log("도서구매신청 메서드 실행");
-//	console.log(author);
+	console.log("도서구매신청 메서드 실행 user:",member);
+	$.ajax({
+			url : "./requestBook.do",
+			type : "post",
+			data : {
+					"isbn":"9791170440079",
+					"member_id":member,
+					"title":,
+					"publisher":,
+					"author":,
+					"translator":,
+					"price":
+					},
+			dataType:"text",
+			async : false,
+			success:function(msg){
+				if(msg == "success"){
+					alert("도서 신청이 완료되었습니다.");
+					console.log("성공했습니다.");
+					history.go(0);
+				}else{
+					alert("다른 사용자에 의해 신청이 완료 된 도서입니다.");
+					console.log("실패.");
+					history.go(0);
+				}
+				
+			},
+			error : function(){
+				alert("도서 신청에 실패하였습니다. 다시 확인해주세요");
+				console.log("실패했습니다.");
+				history.go(0);
+			}
+	
+		});
 	
 }
 
@@ -244,7 +285,7 @@ function bookSearchDetail(){
             "info": "현재 _START_ - _END_ / _TOTAL_건",
             "infoEmpty": "0/0",
             "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
+            "search": "결과 내 검색: ",
             "zeroRecords": "일치하는 데이터가 없어요.",
             "loadingRecords": "로딩중...",
             "processing":     "잠시만 기다려 주세요...",
@@ -330,7 +371,7 @@ function bookSearchHome(searchKey,searchKeyword){
             "info": "현재 _START_ - _END_ / _TOTAL_건",
             "infoEmpty": "0/0",
             "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
+            "search": "결과 내 검색: ",
             "zeroRecords": "일치하는 데이터가 없어요.",
             "loadingRecords": "로딩중...",
             "processing":     "잠시만 기다려 주세요...",
