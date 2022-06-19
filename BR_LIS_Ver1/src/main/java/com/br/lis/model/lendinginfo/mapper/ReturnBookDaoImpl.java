@@ -112,6 +112,11 @@ public class ReturnBookDaoImpl implements IReturnBookDao {
 	public List<LendBookBean> returnBookList() {
 		return sqlSession.selectList(NS+"returnBookList");
 	}
+	
+	@Override
+	public List<LendBookBean> returnBookListBanNap() {
+		return sqlSession.selectList(NS+"returnBookListBanNap");
+	}
 
 	@Override
 	public List<LendBookBean> yetReturnBookList() {

@@ -126,7 +126,7 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		int r = lDao.lendingPenalty(map);
 		return (n > 0 && m > 0 && o > 0 && p > 0 && r > 0) ? 1 : 0;
 	}
-
+	
 	// 연체 처리(상태변경+관내회원권한변경)
 	
 	@Override
@@ -223,13 +223,19 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		return bDao.reserveSelfDel(lending_seq);
 	}
 	
-	//DATATABLE 반납 완료 목록
+	//DATATABLE 대출반납 완료 목록
 	@Override
 	public List<LendBookBean> returnBookList() {
 		logger.info("ReturnBookServiceImpl 반납 완료 목록");
 		return dao.returnBookList();
 	}
-
+	
+	//DATATABLE 반납 완료된 책 목록
+	@Override
+	public List<LendBookBean> returnBookListBanNap() {
+		logger.info("ReturnBookServiceImpl 반납 완료된 책 목록");
+		return dao.returnBookListBanNap();
+	}
 	
 	//DATATABLE 대출중 목록
 	@Override

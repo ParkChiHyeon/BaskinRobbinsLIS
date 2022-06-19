@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -78,68 +79,9 @@ public class ReturnBookController {
         
     }
 	
-//	// 반납 책 내역 조회
-//	@RequestMapping(value = "/returnBookSelect.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	@ResponseBody
-//	public Map<String, Object> returnBookSelect(Model model, HttpServletRequest req) {
-//	String book_serial = req.getParameter("book_serial");
-//	LendingVo vo = iService.lendingDetailForReturnBook(book_serial);
-//	model.addAttribute("vo", vo);
-//	Map<String, Object> rMap = new HashMap<String, Object>();
-//	rMap.put("book_serial", book_serial);
-//	ReservationVo rVo = iService.returnBookReserveCheck(rMap);
-//	model.addAttribute("rVo", rVo);
-//	LibMemberVo mVo = iService.lendingDetailForReturnUser(vo.getMember_code());
-//	model.addAttribute("mVo", mVo);
-//	Map<String, Object> map = new HashMap<String, Object>();
-//	map.put("rVo", rVo);
-//	map.put("vo", vo);
-//	map.put("mVo", mVo);
-//	return map;
-//	}
-	
-//	@RequestMapping(value = "/returnBookPageR.do", method = RequestMethod.GET)
-//    public String returnBookPageR(@RequestParam Map<String, Object> map,  HttpSession session, Model model, HttpServletRequest request) throws Exception{
-//        logger.info("Welcome! ReturnBookController returnBookPage");
-//        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
-//        if (flashMap!=null) {
-//            ReservationVo rVo = (ReservationVo)flashMap.get("rVo");
-//            LibMemberVo mVo = (LibMemberVo)flashMap.get("mVo");
-//            LendingVo vo = (LendingVo)flashMap.get("vo");
-//            model.addAttribute("vo", vo);
-//            model.addAttribute("mVo", mVo);
-//            model.addAttribute("rVo", rVo);
-//        }
-//        LendingVo lVo = (LendingVo) session.getAttribute("book_serial");
-//        model.addAttribute("book_serial", lVo);
-//        return "returnBookPage";
-//    }
-
-    // 반납 책 내역 조회
-//    @RequestMapping(value = "/returnBookSelect.do", method = {RequestMethod.GET, RequestMethod.POST})
-//    public String returnBookSelect(Model model, RedirectAttributes re, HttpServletRequest req) {
-//        String book_serial = req.getParameter("book_serial");
-//        System.out.println("book_serial");
-//        LendingVo vo = iService.lendingDetailForReturnBook(book_serial);
-//
-//        Map<String, Object> rMap = new HashMap<String, Object>();
-//        rMap.put("book_serial", book_serial);
-//
-//        ReservationVo rVo = iService.returnBookReserveCheck(rMap);
-//        LibMemberVo mVo = iService.lendingDetailForReturnUser(vo.getMember_code());
-//
-//        re.addFlashAttribute("rVo", rVo);
-//        re.addFlashAttribute("vo", vo);
-//        re.addFlashAttribute("mVo", mVo);
-//        
-//        
-//        return "redirect:/returnBookPageR.do";
-//    }
-	
-	
 	// 정상반납
 	@RequestMapping(value = "/returnNomal.do", method = RequestMethod.GET)
-	public String returnBookProcessing(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String returnBookProcessing(HttpServletRequest request, HttpServletResponse response){
 		logger.info("Welcome! ReturnBookController returnBookProcessing");
 		String lending_seq = request.getParameter("lending_seq");
 		String member_code = request.getParameter("member_code");
@@ -149,14 +91,13 @@ public class ReturnBookController {
 		} else {
 			iService.normalReturnBook(lending_seq, member_code);
 		}
-		PrintWriter out = response.getWriter();
-		out.println("<script>alert('반납완료');</script>");// 외않됨?
 		logger.info(lending_seq, member_code);
-		return "home";
+		return "redirect:/returnBookPage.do";
 	}
 
 	// 파손반납
 	@RequestMapping(value = "/returnBookDamege.do", method = RequestMethod.GET)
+	@Transactional
 	public String returnBookDamege(HttpServletRequest request) {
 		logger.info("Welcome! ReturnBookController returnBookDamege");
 		String lending_seq = request.getParameter("lending_seq");
@@ -175,11 +116,12 @@ public class ReturnBookController {
 			iService.normalReturnBook(lending_seq, member_code);
 			iService.damegeReturnBook(lending_seq, member_code);
 		}
-		return "home";
+		return "redirect:/returnBookPage.do";
 	}
 
 	// 분실 반납
 	@RequestMapping(value = "/returnBookLost.do", method = RequestMethod.GET)
+	@Transactional
 	public String returnBookLost(HttpServletRequest request) {
 		logger.info("Welcome! ReturnBookController returnBookLost");
 		String lending_seq = request.getParameter("lending_seq");
@@ -198,16 +140,25 @@ public class ReturnBookController {
 			iService.normalReturnBook(lending_seq, member_code);
 			iService.lossReturnBook(lending_seq, member_code);
 		}
-		return "home";
+		return "redirect:/returnBookPage.do";
 	}
 
-	// 반납 완료 목록
+	// 대출반납 완료 목록
 	@RequestMapping(value = "/returnBookList.do", method = RequestMethod.GET)
 	public String returnBookList(Model model) {
 		logger.info("Welcome! ReturnBookController returnBookList");
 		List<LendBookBean> lists = iService.returnBookList();
 		model.addAttribute("lists", lists);
 		return "returnBookList";
+	}
+	// 반납 완료된 책 목록
+	@RequestMapping(value = "/returnBookListBanNap.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String returnBookListBanNap() {
+		logger.info("Welcome! ReturnBookController returnBookListBanNap");
+		List<LendBookBean> bLists = iService.returnBookListBanNap();
+		Gson data = new GsonBuilder().create();
+		return data.toJson(bLists); 
 	}
 
 	// 대출 중인 목록 - 관리자

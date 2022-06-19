@@ -26,6 +26,7 @@ public interface IReturnBookService {
 	public void certifiedPhoneNumber(String phone, String name);
 	public int reserveSelfDel(String lending_seq);
 	public List<LendBookBean> returnBookList();
+	public List<LendBookBean> returnBookListBanNap();
 	public List<LendBookBean> yetReturnBookList();
 	public List<BookInfoVo> possessingBookList();
 	public List<LendBookBean> lendingListUser(String member_id);
