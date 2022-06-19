@@ -131,9 +131,9 @@ public class LendingBookController {
 		logger.info("회원이 예약 취소");
 //		Map<String, String> map = new HashMap<String, String>();
 //		map.put("j","lending_seq");
-		String lending_seq = 	req.getParameter("lending_seq");
 		String book_serial = 	req.getParameter("book_serial");
-		int n  =service.selfDeleteResrve(lending_seq, book_serial);
+		String lending_seq = 	req.getParameter("lending_seq");
+		int n  =service.selfDeleteResrve(book_serial, lending_seq);
 		System.out.println(n+"%%%%%%%%%%%%%%%%%%%%%%");
 		
 		if(n>0) {
@@ -178,9 +178,6 @@ public class LendingBookController {
 	}
 	
 	
-	
-	
-	
 	@RequestMapping(value = "/lendMainpage.do", method = RequestMethod.GET)
 	public String lendMainpage() {
 		logger.info("관리자 즉시대출화면으로 가기");
@@ -206,19 +203,8 @@ public class LendingBookController {
 			response.setContentType("text/html; charset=UTF-8");
 			out.print("<script>alert('예약중인 도서입니다');</script>");
 			out.flush();
-		
-//		if(listBean.equals(0) ) {
-//			logger.info("===========동작되나");
-//			PrintWriter out =response.getWriter();
-//			response.setContentType("text/html; charset=UTF-8");
-//			out.print("<script>alert('예약중인 도서입니다');</script>");
-//			out.flush();
 		}
-//		else {
-//		String chk = listBean.get(0).getBook_serial().toString();
-//		logger.info("@@@@@@@@@@@@@@@@@나오냐{}@@@@@@@@@@@@@@@@@@@@@@@@@",chk);
-//			logger.info("===========동작되나2");
-//		}
+
 		
 		
 		logger.info("lendingBookAdmin _ 관리자 즉시대출화면_회원정보보기");
@@ -226,11 +212,11 @@ public class LendingBookController {
 		mMap.put("member_id",member_id);
 		LibMemberVo lVo = mService.selectMyInfo(mMap);
 		model.addAttribute("lVo",lVo);
-		
-		
+				
 		return "lendingBook";
 	}
 
+	
 	@RequestMapping(value = "/fastLending.do",method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String fastLending(String bookserial,String member, LendingVo vo,HttpServletRequest req,HttpServletResponse response) throws IOException{
