@@ -1,15 +1,12 @@
 package com.br.lis;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.br.lis.model.purchaseinfo.service.IPurchaseRegistrationService;
 import com.br.lis.model.purchaseinfo.service.IPurchaseService;
 import com.br.lis.model.purchaseinfo.service.IRequestPurchaseService;
-import com.br.lis.vo.PurchaseVo;
 import com.br.lis.vo.RegularPurchaseVo;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 
 @Controller
 public class RegularBookController {
@@ -108,20 +101,13 @@ public class RegularBookController {
 	// 체크된 row의 입고일을 업데이트하는 메소드
 	@RequestMapping(value = "/recieveBook.do", method = RequestMethod.POST)
 	@ResponseBody
-	public int regulReceiveUpdate(HttpServletRequest req) {	
-		String recieveBooks[] = null;
-		Map map = req.getParameterMap();
-		Iterator it = map.keySet().iterator();
-		while(it.hasNext()) {
-			String key = (String) it.next();
-			recieveBooks = (String[]) map.get(key);
-		}
-		
+	public int regulReceiveUpdate(HttpServletRequest req, 
+			@RequestParam(value="regulIsbnValues[]") List<String> regulIsbnValues, 
+			@RequestParam(value="recieveBooks[]") List<String> recieveBooks) {	
 		int result = 0;
 		
-		int i = 0;
-		for(i = 0; i < recieveBooks.length; i++) {
-			result = PurcService.regulReceiveUpdate(recieveBooks[i]);
+		for(int i = 0; i < recieveBooks.size(); i++) {
+			result = PurcService.regulReceiveUpdate(recieveBooks.get(i), regulIsbnValues.get(i));
 		}
 		return result;
 	}

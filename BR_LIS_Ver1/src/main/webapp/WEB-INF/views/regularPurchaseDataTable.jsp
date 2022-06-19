@@ -45,6 +45,7 @@
 						<td>
 							<c:if test="${purchRegulList.receive_date == null && purchRegulList.confirm == 'Y'}">
 								<input type="checkbox" id="regularPurchaseCheck${vs.index}" name="regularPurchaseCheck" class="checkDel" value="${purchRegulList.regular_serial}">
+								<input type="hidden" id="regulIsbn${vs.index}" name="regulIsbn" class="checkDel" value="${purchRegulList.isbn}">
 							</c:if>
 						</td>
 						<td id="regularSerial_Index${vs.index}">${purchRegulList.regular_serial}</td>
@@ -112,9 +113,8 @@
 			</tbody>
 		</table>
 	<button class="btn btn-primary" onclick="recieveBook()">입고</button>	
+<%-- 	<button class="btn btn-primary" onclick="recieveBook(${vs.index})">입고</button>	 --%>
 	<button class="btn btn-danger" onclick="changeConfirmN()">반려</button>	
-<!-- 	<button class="btn btn-primary" onclick="createAjax()">AJAX</button>	 -->
-<!-- 	<button class="btn btn-info" onclick="javascript:location.href='./editor.do'">BACK</button> -->
 </div>
 
 <script type="text/javascript">

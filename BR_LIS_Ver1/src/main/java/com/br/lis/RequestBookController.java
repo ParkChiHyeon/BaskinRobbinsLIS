@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.purchaseinfo.service.IPurchaseRegistrationService;
@@ -219,20 +220,21 @@ public class RequestBookController {
 	// 체크된 row의 입고일을 업데이트하는 메소드
 	@RequestMapping(value = "/recieveBookReq.do", method = RequestMethod.POST)
 	@ResponseBody
-	public int reqReceiveUpdate(HttpServletRequest req) {	
-		String recieveBooks[] = null;
-		Map map = req.getParameterMap();
-		Iterator it = map.keySet().iterator();
-		while(it.hasNext()) {
-			String key = (String) it.next();
-			recieveBooks = (String[]) map.get(key);
-		}
+	public int reqReceiveUpdate(HttpServletRequest req,
+			@RequestParam(value="reqIsbnValues[]") List<String> reqIsbnValues, 
+			@RequestParam(value="recieveBooks[]") List<String> recieveBooks) {	
+//		String recieveBooks[] = null;
+//		Map map = req.getParameterMap();
+//		Iterator it = map.keySet().iterator();
+//		while(it.hasNext()) {
+//			String key = (String) it.next();
+//			recieveBooks = (String[]) map.get(key);
+//		}
 		
 		int result = 0;
 		
-		int i = 0;
-		for(i = 0; i < recieveBooks.length; i++) {
-			result = PurcService.reqReceiveUpdate(recieveBooks[i]);
+		for(int i = 0; i < recieveBooks.size(); i++) {
+			result = PurcService.reqReceiveUpdate(recieveBooks.get(i), reqIsbnValues.get(i));
 		}
 		return result;
 	}

@@ -45,15 +45,12 @@ function changePurchaseCount(){
 				console.log("아작스 성공")
 				history.go(0);				
 			}
-			
 		},
 		error : function(){
 			//변경 실패
 			alert("수정 실패. 다시 시도해주세요.");
 			history.go(0);
 		}
-	
-		
 	})
 }
 
@@ -134,25 +131,71 @@ function changeConfirmN(){
 
 
 // 입고 버튼을 눌렀을 때, 체크 된 구매 정보의 입고일이 업데이트
+//function recieveBook(){
+//	console.log("입고일을 업데이트하는 메소드")
+//	
+//	// 값을 담을 객체 생성
+//	// 체크박스가 체크된 row의 regular_serial을 담아줌
+//	var recieveBook = $("input:checkbox[name='regularPurchaseCheck']:checked");
+//	var recieveBooks = []; // = {}; 랑 똑같음
+//	for( var i = 0; i < recieveBook.length; i++) {
+//	    var bookChecked = $(recieveBook.get(i));
+//	    console.log(bookChecked.val());	
+//		recieveBooks[i] = bookChecked.val();
+//	}
+//	console.log(recieveBooks);
+//	
+//	$.ajax({
+//		url : "./recieveBook.do",
+//		type : "post",
+//		data : {
+//				"recieveBooks":recieveBooks
+//				},
+//		dataType : "json",
+//		async : false,
+//		success : function(msg){
+//		if(msg > 0){
+//				//변경 성공
+//				alert("입고처리 되었습니다.");
+//				console.log("아작스 성공")
+//				history.go(0);
+//			}
+//		},
+//		error : function(){
+//			//변경 실패
+//			alert("입고 실패. 다시 시도해주세요.");
+//			history.go(0);
+//		}
+//	});
+//}
+
+ 
+// 입고 버튼을 눌렀을 때, 체크 된 구매 정보의 입고일이 업데이트
 function recieveBook(){
+
 	console.log("입고일을 업데이트하는 메소드")
-	
 	// 값을 담을 객체 생성
 	// 체크박스가 체크된 row의 regular_serial을 담아줌
 	var recieveBook = $("input:checkbox[name='regularPurchaseCheck']:checked");
+	
 	var recieveBooks = []; // = {}; 랑 똑같음
+	var regulIsbnValues = [];
 	for( var i = 0; i < recieveBook.length; i++) {
-	    var bookChecked = $(recieveBook.get(i));
-	    console.log(bookChecked.val());	
+	    var bookChecked = $(recieveBook.get(i));	// 체크박스 input
 		recieveBooks[i] = bookChecked.val();
+		var self = bookChecked.closest('td');	// 체크박스와 가장 가까운 td를 찾는다
+		regulIsbnValues[i] = self.find('input[name=regulIsbn]').val();	// td영역내에서 input[name=re~]를 찾아서 가져온다
+		
+//		console.log(regulIsbnValues);
 	}
-	console.log(recieveBooks);
+//	console.log(recieveBooks);
 	
 	$.ajax({
 		url : "./recieveBook.do",
 		type : "post",
 		data : {
-				"recieveBooks":recieveBooks
+				"recieveBooks":recieveBooks,
+				"regulIsbnValues":regulIsbnValues
 				},
 		dataType : "json",
 		async : false,
@@ -160,13 +203,14 @@ function recieveBook(){
 		if(msg > 0){
 				//변경 성공
 				alert("입고처리 되었습니다.");
-				console.log("아작스 성공")
+				console.log("아작스 성공");
 				history.go(0);
 			}
 		},
 		error : function(){
 			//변경 실패
 			alert("입고 실패. 다시 시도해주세요.");
+			console.log("아작스 실패");
 			history.go(0);
 		}
 	});

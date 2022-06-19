@@ -111,6 +111,7 @@
 					<td>
 						<c:if test="${reqList.receive_date == null && reqList.confirm == 'Y'}">
 							<input type="checkbox" id="regularPurchaseCheck${vs.index}" name="requestPurchaseCheck" class="checkDel" value="${reqList.wish_serial}">
+							<input type="hidden" id="regIsbn${vs.index}" name="regIsbn" class="checkDel" value="${reqList.isbn}">
 						</c:if>
 					</td>
 					<td id="wishSerial_Index${vs.index}">${reqList.wish_serial}</td>
