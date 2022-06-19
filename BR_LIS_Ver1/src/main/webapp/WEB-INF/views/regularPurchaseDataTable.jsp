@@ -20,6 +20,7 @@
 </head>
 <body>
 <div class="container">
+	<h2>정기 도서구매 관리</h2>
 	<table id="dataTable" class="cell-border"> <!-- https://datatables.net/examples/styling/ -->
 		<thead>
 				<tr>

@@ -108,7 +108,15 @@ td:nth-child(odd){
 					<ul id="lnb" class="lnbul">
 						<li id="lnb1_1"><a id="lnb1_1_a" href="./bookSearch.do?kind=total">통합검색</a></li>
 						<li id="lnb1_2"><a id="lnb1_2_a" href="./bookSearch.do?kind=detail">상세검색</a></li>
-						<li id="lnb1_3"><a id="lnb1_3_a" href="./bookSearch.do?kind=request">희망도서신청</a></li>
+<!-- 						<li id="lnb1_3"><a id="lnb1_3_a" href="./bookSearch.do?kind=request">희망도서신청</a></li> -->
+						<c:choose>
+							<c:when test="${admin.admin_id != null}">
+								<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">정기도서구매</a></li>
+							</c:when>
+							<c:otherwise>
+								<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">희망도서신청</a></li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 					<div class="lnbBottom"></div>
 				</div>
@@ -148,7 +156,14 @@ td:nth-child(odd){
 				</c:if>
 				<c:if test="${kind=='request'}">
 				<div class="naviandtitle">
-					<h3>희망도서신청</h3>
+					<c:choose>
+						<c:when test="${admin.admin_id != null}">
+							<h3>정기도서구매</h3>
+						</c:when>
+						<c:otherwise>
+							<h3>희망도서신청</h3>
+						</c:otherwise>
+					</c:choose>
 					<form class="form-inline" onsubmit="return false">
 <!-- 					<select class="form-control" id="searchKey" name="searchKey" title="검색 선택"> -->
 <!-- 						<option value="title">서명</option> -->

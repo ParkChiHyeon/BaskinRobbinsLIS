@@ -14,6 +14,7 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
+ <h2>발주 관리</h2>
 	<button id="createPurchaseCode" name="createPurchaseCode" onclick="createPurchaseCode();">구매코드 생성</button>
 <%-- <input type="button" value="${creatPurchaseCodeSuccess}" onclick="createPurchaseCode()"> --%>
 <!-- <a id="creatPurchaseCodeSuccess" onclick="createPurchaseCode()">구매코드 생성</a> -->

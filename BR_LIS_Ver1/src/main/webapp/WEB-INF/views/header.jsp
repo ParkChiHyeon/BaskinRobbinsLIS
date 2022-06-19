@@ -74,7 +74,14 @@
 							<ul>
 								<li id="gnb1_1" class=""><a	href="./bookSearch.do?kind=total">통합검색</a></li>
 								<li id="gnb1_2" class=""><a	href="./bookSearch.do?kind=detail">상세검색</a></li>
-								<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">희망도서신청</a></li>
+								<c:choose>
+									<c:when test="${admin.admin_id != null}">
+										<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">정기도서구매</a></li>
+									</c:when>
+									<c:otherwise>
+										<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">희망도서신청</a></li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</li>
 
@@ -86,12 +93,12 @@
 							</ul>
 						</li>
 						<c:if test="${admin.admin_id != null }">
-							<li id="gnb3"><a href="/jungang/10028/30004/program.do">도서구매</a>
+							<li id="gnb3"><a href="./purchRegulList.do">도서구매</a>
 								<ul>
 									<li id="gnb3_1" class=""><a href="./purchRegulList.do">정기도서	구매관리</a></li>
 									<li id="gnb3_2" class=""><a href="./requestBookList.do">신청도서 구매관리</a></li>
 									<li id="gnb3_3" class=""><a href="./purchaseCodeList.do">발주관리</a></li>
-									<li id="gnb3_5" class=""><a href="./newBookList.do">신규도서조회</a>
+									<li id="gnb3_4" class=""><a href="./newBookList.do">신규도서조회</a>
 									</li>
 								</ul>
 							</li>

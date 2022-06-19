@@ -157,12 +157,12 @@ function purchaseCodeIndex(index){
 		// 발주확인/반입확인 버튼 조건 확인		
 		if(order_dateIndex == '' && confirm_dateIndex== '' ){
 			// 화면에 발주화면 버튼 보이기
-			var orderButtonHTML = '<button type="button" class="btn btn-success btn-order" data-bs-dismiss="modal" onclick="purchaseInfoUpdateOrderChk();">발주확인</button>'
-			$(".btn-update-modal").after(orderButtonHTML);
-		}else if(order_dateIndex != '' && confirm_dateIndex== ''){
-			// 화면에 반입확인 버튼 보이기
 			var confirmButtonHTML = '<button type="button" class="btn btn-success btn-receive" data-bs-dismiss="modal" onclick="purchaseInfoUpdateReceiveChk();">반입확인</button><br>'
 			$(".btn-update-modal").after(confirmButtonHTML);
+		}else if(order_dateIndex != '' && confirm_dateIndex== ''){
+			// 화면에 반입확인 버튼 보이기
+			var orderButtonHTML = '<button type="button" class="btn btn-success btn-order" data-bs-dismiss="modal" onclick="purchaseInfoUpdateOrderChk();">발주확인</button>'
+			$(".btn-update-modal").after(orderButtonHTML);
 		}
 	}
 }
