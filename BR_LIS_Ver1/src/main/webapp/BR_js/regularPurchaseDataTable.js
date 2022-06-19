@@ -170,7 +170,6 @@ function recieveBook(){
 			history.go(0);
 		}
 	});
-
 }
 
 
@@ -184,8 +183,6 @@ function recieveBook(){
 		$('.checkDel').prop('checked',false);
 		}
 	});
-
-
 
 $(document).on('click','.checkDel',function(){
 	if($('input[class=del-chk]:checked').length == $('.checkDel').length){

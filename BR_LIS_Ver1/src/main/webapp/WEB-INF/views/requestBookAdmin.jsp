@@ -85,12 +85,10 @@
 	
 <!-- 도서신청목록 -->	
 <div>
-	<table id="reqBookList">
+	<table class="table" id="reqBookList">
 		<thead>
 			<tr>
-				<th>체크<br>
-					<input type="checkbox" id="checkAll">
-				</th>
+				<th>체크<br><input type="checkbox" id="checkAll"></th>
 				<th>신청구매코드</th>
 				<th>id</th>
 				<th>구매코드</th>
@@ -112,10 +110,10 @@
 				<tr>
 					<td>
 						<c:if test="${reqList.receive_date == null && reqList.confirm == 'Y'}">
-							<input type="checkbox" id="regularPurchaseCheck${vs.index}" name="regularPurchaseCheck" class="checkDel" value="${reqList.wish_serial}">
+							<input type="checkbox" id="regularPurchaseCheck${vs.index}" name="requestPurchaseCheck" class="checkDel" value="${reqList.wish_serial}">
 						</c:if>
 					</td>
-					<td>${reqList.wish_serial}</td>
+					<td id="wishSerial_Index${vs.index}">${reqList.wish_serial}</td>
 					<td>${reqList.member_id}</td>
 					<td>${reqList.purchase_code}</td>
 					<td>${reqList.isbn}</td>
@@ -124,14 +122,26 @@
 					<td>${reqList.author}</td>
 					<td>${reqList.translator}</td>
 					<td>${reqList.price}</td>
-					<td>${reqList.ea}</td>
-					<td>${reqList.confirm}</td>
-					<td>${reqList.history}</td>
+					<td id="ea_Index${vs.index}">${reqList.ea}</td>
+					<c:choose>
+						<c:when test="${reqList.confirm == 'Y'}">
+							<td>승인</td>
+						</c:when>
+						<c:when test="${reqList.confirm == 'N'}">
+							<td>반려</td>
+						</c:when>
+						<c:otherwise>
+							<td>반려</td>
+						</c:otherwise>
+					</c:choose>
+					<td id="requestHistory_Index${vs.index}">${reqList.history}</td>
 					<td>${reqList.receive_date}</td>
 					<td>
+					<c:if test="${reqList.receive_date == null}">
 					<div class="container mt-3">
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal2">수정</button>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal2" onclick="requestPurchaseInfoChange(${vs.index})">수정</button>
 						<!-- The Modal -->
+<!-- 						<form> -->
 							<div class="modal" id="myModal2">
 							  <div class="modal-dialog modal-sm">
 							    <div class="modal-content">
@@ -157,12 +167,15 @@
 							
 							      <!-- Modal footer -->
 							      <div class="modal-footer">
-							        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="modalClose()">닫기</button>
+<!-- 							        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="modalClose2()">닫기</button> -->
+							        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
 							      </div>
 							    </div>
 							  </div>
 							</div>
+<!-- 							</form> -->
 						</div>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>

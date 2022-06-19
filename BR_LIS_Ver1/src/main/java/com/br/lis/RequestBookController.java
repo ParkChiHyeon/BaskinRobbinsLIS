@@ -1,6 +1,7 @@
 package com.br.lis;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class RequestBookController {
 	// 도서 신청 버튼을 눌렀을 때
 	@RequestMapping(value = "/requestBook.do", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public String requestBookButton (HttpServletRequest req, HttpServletResponse resp) {
+	public String requestBookButton (HttpServletRequest req) {
 		logger.info("Welcome! requestBookButton!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		String isbn = req.getParameter("isbn");
 		String member_id = req.getParameter("member_id");
@@ -59,19 +60,31 @@ public class RequestBookController {
 		String translator = req.getParameter("translator");
 		String price = req.getParameter("price");
 		
+		// 한 권의 책이 중복신청되지 않도록 하기 위한 쿼리// 왜안됨?ㅋ
+//		List<RequestPurchaseVo> purchReqOnceCheck = reqPurcService.purchReqOncePerBook(isbn);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isbn",isbn);
-		map.put("member_id",member_id);
-		map.put("title",title);
-		map.put("publisher",publisher);
-		map.put("author",auth);
-		map.put("translator",translator);
-		map.put("price",price);
+		Map<String, Object> map = new HashMap<String, Object>(); 
 		
 		
-		reqPurcService.purchRequestInsert(map);
-		return "requestPurchase";
+		// 해당 월에 중복되는 isbn이 없다면 map에 값을 넣어준다
+//		if(purchReqOnceCheck == null) {
+			map.put("isbn",isbn);
+			map.put("member_id",member_id);
+			map.put("title",title);
+			map.put("publisher",publisher);
+			map.put("author",auth);
+			map.put("translator",translator);
+			map.put("price",price);
+			
+			reqPurcService.purchRequestInsert(map);
+			
+			return "success";
+//		}else {
+//			map.put();
+//			return "fail";
+//		}
+		
+		
 	}
 	
 	
@@ -161,12 +174,94 @@ public class RequestBookController {
 		
 		List<RequestPurchaseVo> myRequestBookList = reqPurcService.purchReqConfirmSelect(mVo.getMember_id());
 		
-		
 		model.addAttribute("myRequestBookList",myRequestBookList);
 		model.addAttribute("reqPage","userRequestBook");
 		
 		return "myPage";
 	}
+	
+	// 신청도서의 구매 수량을 변경해주는 메소드
+	@RequestMapping(value = "/changePurchaseCountReq.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int changePurchaseCount(HttpServletRequest req) {
+		// 화면에서 구매수량과 시리얼번호를 받아옴
+		String changePurchaseCount = req.getParameter("changePurchaseCount");
+		String wish_serial = req.getParameter("wish_serial");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("ea", changePurchaseCount);		
+		map.put("wish_serial", wish_serial);
+		
+		int result = PurcService.reqQuantityUpdate(map);
+		
+		return result;
+	}
+	
+	// 구매불가사유를 업데이트하는 메소드
+	@RequestMapping(value = "/notPurchaseReasonReq.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int notPurchaseReason(HttpServletRequest req) {
+		String notPurchaseReason = req.getParameter("notPurchaseReason");
+		String wish_serial = req. getParameter("wish_serial");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("history", notPurchaseReason);		
+		map.put("wish_serial", wish_serial);
+
+		int result = registService.updateReqHistory(map);
+		
+		return result;
+	}
+	
+	
+	// 체크된 row의 입고일을 업데이트하는 메소드
+	@RequestMapping(value = "/recieveBookReq.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int reqReceiveUpdate(HttpServletRequest req) {	
+		String recieveBooks[] = null;
+		Map map = req.getParameterMap();
+		Iterator it = map.keySet().iterator();
+		while(it.hasNext()) {
+			String key = (String) it.next();
+			recieveBooks = (String[]) map.get(key);
+		}
+		
+		int result = 0;
+		
+		int i = 0;
+		for(i = 0; i < recieveBooks.length; i++) {
+			result = PurcService.reqReceiveUpdate(recieveBooks[i]);
+		}
+		return result;
+	}
+	
+	// 체크 된 row의 확정여부를 N으로 변경하는 메소드
+	@RequestMapping(value = "/changeConfirmNReq.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int reqConfirmUpdate(HttpServletRequest req) {
+		String recieveBooks[] = null;
+		Map map = req.getParameterMap();
+		Iterator it = map.keySet().iterator();
+		while(it.hasNext()) {
+			String key = (String) it.next();
+			recieveBooks = (String[]) map.get(key);
+		}
+		
+		int result = 0;
+		
+		int i = 0;
+		for(i = 0; i < recieveBooks.length; i++) {
+			result = PurcService.reqConfirmUpdate(recieveBooks[i]);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
 	
 	
 }

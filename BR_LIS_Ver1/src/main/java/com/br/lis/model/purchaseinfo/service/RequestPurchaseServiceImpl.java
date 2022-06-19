@@ -51,14 +51,14 @@ public class RequestPurchaseServiceImpl implements IRequestPurchaseService {
 
 	// 신청도서 신청(BR_W_BM_502) : 신청도서 월 1회만 신청하기 위한 쿼리(해당 구매 월에 MEMBER_ID가 있다면 신청하지 못함)
 	@Override
-	public RequestPurchaseVo purchReqOnceAMonth() {
+	public List<RequestPurchaseVo> purchReqOnceAMonth() {
 		logger.info("RequestPurchaseServiceImpl purchReqOnceAMonth" );
 		return reqDao.purchReqOnceAMonth();
 	}
 
 	// 신청도서 신청(BR_W_BM_502) : 한 권의 책을 중복 신청하는 것을 방지하기 위한 쿼리 (NULL이 아닐 경우 신청 불가)
 	@Override
-	public RequestPurchaseVo purchReqOncePerBook(String isbnVo) {
+	public List<RequestPurchaseVo> purchReqOncePerBook(String isbnVo) {
 		logger.info("RequestPurchaseServiceImpl purchReqOncePerBook" );
 		return reqDao.purchReqOncePerBook(isbnVo);
 	}
