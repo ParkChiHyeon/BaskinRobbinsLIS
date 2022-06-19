@@ -147,27 +147,27 @@ public class ReturnBookServiceImpl implements IReturnBookService {
 		logger.info("ReturnBookServiceImpl 연체 3일째 조회 및 문자 발송");
 		List<LibMemberVo> lists = dao.overdueThreeDayLendingBook();
 		// 문자 전송 가능 TEST 완료
-//		String api_key = "NCSXHAZLCERE8DKQ";
-//		String api_secret = "GIIQ8SVILBOG01WFEMRVCCQMFD1LSHYX";
-//		Message coolsms = new Message(api_key, api_secret);
-//		HashMap<String, String> params = new HashMap<String, String>();
-//		for (int i = 0; i < lists.size(); i++) {
-//			String phone = lists.get(i).getPhone();
-//			String name = lists.get(i).getName();
-//			System.out.println(phone + " " + name);
-//			params.put("to", phone);
-//			params.put("from", "01050329744");
-//			params.put("type", "SMS");
-//			params.put("text", name + "님 3일 연체된 도서가 있습니다 빠른 반납바랍니다.");
-//			params.put("app_version", "test app 1.2");
-//			try {
-//				JSONObject obj = (JSONObject) coolsms.send(params);
-//				System.out.println(obj.toString());
-//			} catch (CoolsmsException e) {
-//				System.out.println(e.getMessage());
-//				System.out.println(e.getCode());
-//			}
-//		}
+		String api_key = "NCSXHAZLCERE8DKQ";
+		String api_secret = "GIIQ8SVILBOG01WFEMRVCCQMFD1LSHYX";
+		Message coolsms = new Message(api_key, api_secret);
+		HashMap<String, String> params = new HashMap<String, String>();
+		for (int i = 0; i < lists.size(); i++) {
+			String phone = lists.get(i).getPhone();
+			String name = lists.get(i).getName();
+			System.out.println(phone + " " + name);
+			params.put("to", phone);
+			params.put("from", "01050329744");
+			params.put("type", "SMS");
+			params.put("text", name + "님 3일 연체된 도서가 있습니다 빠른 반납바랍니다.");
+			params.put("app_version", "test app 1.2");
+			try {
+				JSONObject obj = (JSONObject) coolsms.send(params);
+				System.out.println(obj.toString());
+			} catch (CoolsmsException e) {
+				System.out.println(e.getMessage());
+				System.out.println(e.getCode());
+			}
+		}
 	}
 
 	// 대출 연장
