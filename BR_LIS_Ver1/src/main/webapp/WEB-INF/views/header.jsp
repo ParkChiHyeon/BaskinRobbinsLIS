@@ -132,9 +132,6 @@
 									<c:if test="${member.auth eq null}">
 										<li id="gnb6_1" class=""><a	href="./quitMemberManagePage.do">조회 및 승인</a></li>
 									</c:if>
-									<c:if test="${member.auth eq null}">
-										<li id="gnb6_2" class=""><a href="./signUpPage.do" target="_self">회원가입</a></li>
-									</c:if>
 								</ul>
 							</li>
 						</c:if>
