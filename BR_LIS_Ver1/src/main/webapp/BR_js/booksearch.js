@@ -174,15 +174,18 @@ function bookSearchRequest(uid){
 					}else{
 						isbn=arr_isbn[1]
 					}
-					var	html= '<p id="result_title">'+row.title+'</p>'; 
-					    html+= row.authors+'<br>';
+					var	html='<form action="./requestBook.do" method="post">'
+					    html+= '<p id="result_title">'+row.title+'</p>'; 
+					    html+= '<span>저자</span><input type="text" id="author" name="author" value="'+row.authors+'"><br>';
 					    html+= row.publisher+'<br>';
 //					    html+= row.translator+'<br>';
 //					    html+= row.price+'<br>';
 					    html+= isbn;
 						if(uid!=undefined){
-							html+= '<input type="button" id="bookRequest" value="도서구매신청" onclick="purchaseRequestBook('+"'"+uid+"'"+')">';
+//							html+= '<input type="button" id="bookRequest" value="도서구매신청" onclick="purchaseRequestBook('+"'"+uid+"'"+')">';
+							html+= '<input type="submit" id="bookRequest" value="도서구매신청">';
 						}	
+						html+='</form>'
 					return html;
 				  }
 				}
@@ -195,39 +198,39 @@ function bookSearchRequest(uid){
 function purchaseRequestBook(member){
 	//isbn, title, publisher, author, translator, price 필요
 	console.log("도서구매신청 메서드 실행 user:",member);
-	$.ajax({
-			url : "./requestBook.do",
-			type : "post",
-			data : {
-					"isbn":"9791170440079",
-					"member_id":member,
-					"title":,
-					"publisher":,
-					"author":,
-					"translator":,
-					"price":
-					},
-			dataType:"text",
-			async : false,
-			success:function(msg){
-				if(msg == "success"){
-					alert("도서 신청이 완료되었습니다.");
-					console.log("성공했습니다.");
-					history.go(0);
-				}else{
-					alert("다른 사용자에 의해 신청이 완료 된 도서입니다.");
-					console.log("실패.");
-					history.go(0);
-				}
-				
-			},
-			error : function(){
-				alert("도서 신청에 실패하였습니다. 다시 확인해주세요");
-				console.log("실패했습니다.");
-				history.go(0);
-			}
-	
-		});
+//	$.ajax({
+//			url : "./requestBook.do",
+//			type : "post",
+//			data : {
+//					"isbn":"9791170440079",
+//					"member_id":member,
+//					"title":,
+//					"publisher":,
+//					"author":,
+//					"translator":,
+//					"price":
+//					},
+//			dataType:"text",
+//			async : false,
+//			success:function(msg){
+//				if(msg == "success"){
+//					alert("도서 신청이 완료되었습니다.");
+//					console.log("성공했습니다.");
+//					history.go(0);
+//				}else{
+//					alert("다른 사용자에 의해 신청이 완료 된 도서입니다.");
+//					console.log("실패.");
+//					history.go(0);
+//				}
+//				
+//			},
+//			error : function(){
+//				alert("도서 신청에 실패하였습니다. 다시 확인해주세요");
+//				console.log("실패했습니다.");
+//				history.go(0);
+//			}
+//	
+//		});
 	
 }
 

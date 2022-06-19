@@ -205,7 +205,7 @@
 	width: 115px;
 }
 #gnb7,#gnb8, #gnb9, #gnb10 {
-	display: none
+/* 	display: none */
 }
 #topmenu .iintegLib > a { color:#f9ff00 !important; }
 #topmenu .iintegLib.fbl > a {	color: #1fa700 !important }

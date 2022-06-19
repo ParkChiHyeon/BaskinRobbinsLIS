@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.br.lis.model.purchaseinfo.service.IPurchaseRegistrationService;
@@ -50,7 +51,7 @@ public class RequestBookController {
 	// 도서 신청 버튼을 눌렀을 때
 	@RequestMapping(value = "/requestBook.do", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public String requestBookButton (HttpServletRequest req) {
+	public String requestBookButton (HttpServletRequest req,@RequestParam Map<String, Object> map) {
 		logger.info("Welcome! requestBookButton!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		String isbn = req.getParameter("isbn");
 		String member_id = req.getParameter("member_id");
@@ -63,18 +64,18 @@ public class RequestBookController {
 		// 한 권의 책이 중복신청되지 않도록 하기 위한 쿼리// 왜안됨?ㅋ
 //		List<RequestPurchaseVo> purchReqOnceCheck = reqPurcService.purchReqOncePerBook(isbn);
 		
-		Map<String, Object> map = new HashMap<String, Object>(); 
+//		Map<String, Object> map = new HashMap<String, Object>(); 
 		
 		
 		// 해당 월에 중복되는 isbn이 없다면 map에 값을 넣어준다
 //		if(purchReqOnceCheck == null) {
-			map.put("isbn",isbn);
-			map.put("member_id",member_id);
-			map.put("title",title);
-			map.put("publisher",publisher);
-			map.put("author",auth);
-			map.put("translator",translator);
-			map.put("price",price);
+//			map.put("isbn",isbn);
+//			map.put("member_id",member_id);
+//			map.put("title",title);
+//			map.put("publisher",publisher);
+//			map.put("author",auth);
+//			map.put("translator",translator);
+//			map.put("price",price);
 			
 			reqPurcService.purchRequestInsert(map);
 			

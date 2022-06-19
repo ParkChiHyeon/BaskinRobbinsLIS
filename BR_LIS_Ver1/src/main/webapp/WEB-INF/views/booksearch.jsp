@@ -157,7 +157,7 @@ td:nth-child(odd){
 <!-- 						<option value="isbn">ISBN</option> -->
 <!-- 					</select> -->
 						<input	type="text"  class="form-control" id="requestSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 90%">
-						<button class="btn btn-primary" onclick="bookSearchRequest('${member.member_id}')" style="margin-left: 15px">검색</button>
+						<button class="btn btn-primary" onclick="bookSearchRequest()" style="margin-left: 15px">검색</button>
 					</form>
 				</div>
 				</c:if>

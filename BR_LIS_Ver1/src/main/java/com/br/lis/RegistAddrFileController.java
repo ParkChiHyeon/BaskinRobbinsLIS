@@ -74,7 +74,8 @@ public class RegistAddrFileController{
 		InputStream inputStream =null;
 		OutputStream outputStream =null;
 		
-		String path="C:\\BR_storage\\storage\\";
+//		String path="C:\\BR_storage\\storage\\";
+		String path="/usr/local/BR_storage/register/";
 		try {
 			//1)파일을 읽는다.
 			inputStream = file.getInputStream();
@@ -90,7 +91,7 @@ public class RegistAddrFileController{
 			//3) 만약 저장위치가 없다면 생성한다.
 			File storage = new File(path);
 			if (!storage.exists()) {
-				storage.mkdir();
+				storage.mkdirs();
 			}
 			
 			//4)저장할 파일이 없다면 만들어 주고 있다면 오버라이드 함

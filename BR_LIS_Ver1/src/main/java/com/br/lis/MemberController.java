@@ -275,7 +275,7 @@ public class MemberController {
 		@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
 		public String bookSearch(Model model,String page) {
 			logger.info("mypage memberInfoUpdate 이동");
-			model.addAttribute("page", page);
+			model.addAttribute("page", "update");
 			return "myPage";
 		}
 		
