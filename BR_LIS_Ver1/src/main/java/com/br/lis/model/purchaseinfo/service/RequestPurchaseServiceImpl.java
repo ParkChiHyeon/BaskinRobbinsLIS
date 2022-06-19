@@ -58,9 +58,9 @@ public class RequestPurchaseServiceImpl implements IRequestPurchaseService {
 
 	// 신청도서 신청(BR_W_BM_502) : 한 권의 책을 중복 신청하는 것을 방지하기 위한 쿼리 (NULL이 아닐 경우 신청 불가)
 	@Override
-	public List<RequestPurchaseVo> purchReqOncePerBook(String isbnVo) {
+	public List<RequestPurchaseVo> purchReqOncePerBook(String isbn) {
 		logger.info("RequestPurchaseServiceImpl purchReqOncePerBook" );
-		return reqDao.purchReqOncePerBook(isbnVo);
+		return reqDao.purchReqOncePerBook(isbn);
 	}
 
 	// 신청도서 신청목록 조회(BR_W_BM_503) : 사용자가 신청한 도서의 목록을 조회할 수 있다. 구매코드로 조회

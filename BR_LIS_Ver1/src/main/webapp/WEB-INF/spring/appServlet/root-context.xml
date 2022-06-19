@@ -46,12 +46,12 @@
 	
 	<tx:advice transaction-manager="transactionManager" id="advice">
 		<tx:attributes>
-			<tx:method name="*" propagation="REQUIRED" rollback-for="exception"/>
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice>
 	
 	<aop:config>
-		<aop:advisor advice-ref="advice" pointcut="execution(public * com.br.lis.model.service.*.*Service*.*(..))"/>
+		<aop:advisor advice-ref="advice" pointcut="execution(public * com.br.lis.model.*.service.*Service*.*(..))"/>
 	</aop:config>	
 		
 </beans>

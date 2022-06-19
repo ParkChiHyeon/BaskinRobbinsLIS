@@ -16,6 +16,7 @@ import com.br.lis.vo.LendingVo;
 import com.br.lis.vo.LibMemberVo;
 
 @Service
+@Transactional
 public class LendingBookServiceImpl implements ILendingBookService {
 
 	@Autowired
@@ -120,6 +121,7 @@ public class LendingBookServiceImpl implements ILendingBookService {
 	@Transactional
 	public int selfDeleteResrve(String book_serial, String lending_seq) {
 		logger.info("LendingBookServiceImpl 대출 예약 취소 후 보유도서 상태변경 selfDeleteResrve");
+		
 		int m = dao.reserveDelUpdate(book_serial);
 		int n = dao.reserveSelfDel(lending_seq);
 		return (m>0&&n>0)?1:0;

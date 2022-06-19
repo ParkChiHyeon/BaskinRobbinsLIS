@@ -126,25 +126,19 @@ public class LendingBookController {
 	}
 	
 	
-	@RequestMapping(value = "/cancelReseve.do", method = RequestMethod.GET) 
-	public String cancelReseve(/* @RequestParam String lending_seq, String book_serial, */HttpServletRequest req, HttpServletResponse response) throws IOException {
-		logger.info("회원이 예약 취소");
+	@RequestMapping(value = "/cancelReseve.do", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String cancelReseve(@RequestParam String lending_seq, @RequestParam String book_serial) throws IOException {
+		logger.info("회원이 예약 취소 : {} {}",lending_seq,book_serial);
 //		Map<String, String> map = new HashMap<String, String>();
 //		map.put("j","lending_seq");
-		String book_serial = 	req.getParameter("book_serial");
-		String lending_seq = 	req.getParameter("lending_seq");
 		int n  =service.selfDeleteResrve(book_serial, lending_seq);
 		System.out.println(n+"%%%%%%%%%%%%%%%%%%%%%%");
 		
 		if(n>0) {
-			PrintWriter out =response.getWriter();
-			response.setContentType("text/html; charset=UTF-8");
-			out.println("<script>alert('삭제되었습니다');</script>");
-			out.flush();
-			
-			return "redirect:/reserveBookList.do";
+			return "success";
 		}else {
-			return "redirect:/reserveBookList.do";
+			return "fail";
 		}
 	}
 

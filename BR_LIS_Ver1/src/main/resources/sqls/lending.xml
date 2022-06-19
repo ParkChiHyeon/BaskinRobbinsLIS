@@ -158,7 +158,7 @@ ORDER BY l.END_DATE ASC
 
 <!-- BR_W_BM_217  대출예약 취소 상태변경-->
 <update id="reserveDelUpdate" parameterType="java.lang.String">
-UPDATE POSSESSING_BOOK SET  RV  ='N'  WHERE BOOK_SERIAL =#{book_serial}
+		UPDATE POSSESSING_BOOK SET RV  ='N' WHERE BOOK_SERIAL =#{book_serial}
 </update>
 
 <!-- BR_W_BM_218 대여가능권수-->
