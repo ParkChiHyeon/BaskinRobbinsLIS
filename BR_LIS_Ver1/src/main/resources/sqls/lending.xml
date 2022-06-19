@@ -53,8 +53,7 @@ SELECT l.MEMBER_CODE,bi.ISBN,l.BOOK_SERIAL ,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER
       ORDER BY LENDING_SEQ DESC	
 </select>
 
-<!--BR_W_BM_203 회원예약목록조회  _회원
-	** 테이블 3개 조인..!   -->
+<!--BR_W_BM_203 회원예약목록조회  _회원  -->
 <select id="reserveLendingBook"  parameterType="java.lang.String" resultType="java.util.Map">
 SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHER,bi.author,pb.RV ,TO_CHAR(l.reserve_date,'YYYY.MM.DD') AS reserve_date
       FROM LENDING l 
@@ -75,7 +74,7 @@ SELECT l.MEMBER_CODE,bi.ISBN ,pb.BOOK_SERIAL,l.LENDING_SEQ ,bi.TITLE,bi.PUBLISHE
 			LENDING_DELAY,RETURN_STATUS,LENDING_DATE,
 			END_DATE, BACK_DATE,RESERVE_DATE)
 		VALUES('LEN'||TO_CHAR(SYSDATE,'YYMMDD')||LPAD(LENDING_SEQ.NEXTVAL,9,0),#{book_serial}, #{member_code},
-			'Y','NM', SYSDATE, 
+			'','NM', SYSDATE, 
 			SYSDATE+14,'','')
 </insert>
 
@@ -120,7 +119,7 @@ FROM POSSESSING_BOOK pb
 ON pb.BOOK_SERIAL =l.BOOK_SERIAL 
  JOIN BOOK_INFO bi 
 ON bi.ISBN = pb.ISBN 
-WHERE pb.RV ='N' AND pb.LD='Y'
+WHERE pb.RV ='N' AND pb.LD='Y' AND l.BACK_DATE IS NULL  AND  l.RESERVE_DATE IS NULL
 ORDER BY l.END_DATE ASC
 </select>
 
@@ -185,6 +184,11 @@ UPDATE POSSESSING_BOOK SET  RV  ='N'  WHERE BOOK_SERIAL =#{book_serial}
 	WHERE MEMBER_CODE =(SELECT MEMBER_CODE 
 	            FROM LIB_MEMBER lm
 	            WHERE lm.MEMBER_ID=#{member_id})
+</select>
+
+<!--해당 멤버코드로 대여가능 권수 조회 -->
+<select id="rentalBookCount" parameterType="java.lang.String" resultType="LibMemberVo">
+	SELECT RENTAL_COUNT  FROM LIB_MEMBER lm WHERE MEMBER_CODE =#{member_code}
 </select>
 
 </mapper>
