@@ -77,16 +77,7 @@
 								<li id="gnb1_3" class=""><a	href="./bookSearch.do?kind=request">희망도서신청</a></li>
 							</ul>
 						</li>
-						<c:if test="${member.member_id != null }">
-							<li id="gnb2"><a href="./lendingBookListUser.do">내서재</a>
-								<ul>
-									<li id="gnb2_1" class=""><a	href="./lendingBookListUser.do">대출현황</a></li>
-									<li id="gnb2_2" class=""><a href="./lendingBookMem.do">도서대출이용현황</a>	</li>
-									<li id="gnb2_3" class=""><a href="./reserveBookList.do">예약현황</a></li>
-									<li id="gnb2_4" class=""><a href="./myRequestBookList.do">나의	신청도서</a></li>
-								</ul>
-						  </li>
-						</c:if>
+
 						<li id="gnb2"><a href="./viewAllBoard.do?kind=notice">정보마당</a>
 							<ul>
 								<li id="gnb2_1" class=""><a	href="./viewAllBoard.do?kind=notice">공지사항</a></li>
@@ -100,7 +91,6 @@
 									<li id="gnb3_1" class=""><a href="./purchRegulList.do">정기도서	구매관리</a></li>
 									<li id="gnb3_2" class=""><a href="./requestBookList.do">신청도서 구매관리</a></li>
 									<li id="gnb3_3" class=""><a href="./purchaseCodeList.do">발주관리</a></li>
-									<li id="gnb3_4" class=""><a href="./registPage.do">구매도서	등록</a></li>
 									<li id="gnb3_5" class=""><a href="./newBookList.do">신규도서조회</a>
 									</li>
 								</ul>
@@ -144,6 +134,7 @@
 									<c:if test="${member.auth == 'NM'}">
 										<li id="gnb7_3" class=""><a href="./updateToGhPage.do">관내회원	등업</a></li>
 									</c:if>
+									<li id="gnb2_1" class=""><a	href="./reserveBook.do">도서예약</a></li>
 									<li id="gnb7_4" class=""><a href="./lendingBookListUser.do">도서대출 현황</a></li>
 									<li id="gnb7_5" class=""><a href="./lendingBookMem.do">도서대출	이용 현황</a></li>
 									<li id="gnb7_6" class=""><a href="./reserveBookList.do">예약 현황</a></li>
