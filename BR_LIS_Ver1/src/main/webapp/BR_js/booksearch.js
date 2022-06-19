@@ -394,15 +394,35 @@ function bookSearchDetail(){
 					render:function(data,type,row){
 					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row._source.img+'>' 
 					return html;
-				  }},
+				  }
+				},
 		  		{ 
-					title:'도서',
-		        	render:function(data,type,row){
+					  title:'도서',
+			          render:function(data,type,row){
+//						console.log(row._source.status_code);
+						var dg = row._source.status_code.substr(row._source.status_code.indexOf("DG")+5,1);
 						var	html= '<p id="result_title">'+row._source.title+'</p>'; 
-					    html+= row._source.author+'<br>';
-					    html+= row._source.publisher+'<br>';
-					    html+= row._source.isbn;						
-					return html;
+							html+= '<p><font style="color:#91b015">저자명</font> : '+row._source.author+'</p>'; 
+							html+= '<p><font style="color:#91b015">출판사</font> : '+row._source.publisher+'</p>'; 
+							html+= '<p><font style="color:#91b015">ISBN</font> : '+row._source.isbn+'</p>'; 
+							html+= '<table class="table table-striped" style="width:60%; border:solid 1px; float:right;"><thead><tr style="text-align:center;"><th>대출가능여부</th><th>반납예정일</th><th>예약가능여부</th></tr></thead>';
+							html+='<tbody><tr>';
+								if(dg=='Y'){
+									html+='<td>대출가능</td>';
+									html+='<td>-</td>';
+									html+='<td>예약불가</td>';
+								}else{
+									html+='<td>대출불가</td>';
+									html+='<td>'+row._source.return_date.substr(0,10)+'</td>';
+									if(uid!=undefined){
+										html+='<td><input type="button" id="bookRequest" value="예약" style="width:80%" onclick="reserveBook('+"'"+uid+"'," +"'"+row._source.book_serial+"',"+ +row._source.isbn+')"></td>';
+									}else{
+										html+='<td><input type="button" id="bookRequest" value="예약" style="width:80%" onclick="reserveBook()"></td>';
+									}
+								}
+							html+='</tr></tbody>';
+							html   +='</table>';
+						return html;
 				  }
 				}
 		  	]
@@ -480,15 +500,35 @@ function bookSearchHome(searchKey,searchKeyword){
 					render:function(data,type,row){
 					var html = '<input type="checkbox" class="thumbImg"><img class="bookImg_BR" src='+row._source.img+'>' 
 					return html;
-				  }},
-		  		{ title:'도서',
-				 
-		          render:function(data,type,row){
-					var	html= '<p id="result_title">'+row._source.title+'</p>'; 
-					    html+= row._source.author+'<br>';
-					    html+= row._source.publisher+'<br>';
-					    html+= row._source.isbn;						
-					return html;
+				  }
+				},
+		  		{ 
+					  title:'도서',
+			          render:function(data,type,row){
+//						console.log(row._source.status_code);
+						var dg = row._source.status_code.substr(row._source.status_code.indexOf("DG")+5,1);
+						var	html= '<p id="result_title">'+row._source.title+'</p>'; 
+							html+= '<p><font style="color:#91b015">저자명</font> : '+row._source.author+'</p>'; 
+							html+= '<p><font style="color:#91b015">출판사</font> : '+row._source.publisher+'</p>'; 
+							html+= '<p><font style="color:#91b015">ISBN</font> : '+row._source.isbn+'</p>'; 
+							html+= '<table class="table table-striped" style="width:60%; border:solid 1px; float:right;"><thead><tr style="text-align:center;"><th>대출가능여부</th><th>반납예정일</th><th>예약가능여부</th></tr></thead>';
+							html+='<tbody><tr>';
+								if(dg=='Y'){
+									html+='<td>대출가능</td>';
+									html+='<td>-</td>';
+									html+='<td>예약불가</td>';
+								}else{
+									html+='<td>대출불가</td>';
+									html+='<td>'+row._source.return_date.substr(0,10)+'</td>';
+									if(uid!=undefined){
+										html+='<td><input type="button" id="bookRequest" value="예약" style="width:80%" onclick="reserveBook('+"'"+uid+"'," +"'"+row._source.book_serial+"',"+ +row._source.isbn+')"></td>';
+									}else{
+										html+='<td><input type="button" id="bookRequest" value="예약" style="width:80%" onclick="reserveBook()"></td>';
+									}
+								}
+							html+='</tr></tbody>';
+							html   +='</table>';
+						return html;
 				  }
 				}
 		  	]
