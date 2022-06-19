@@ -62,15 +62,7 @@ function returnBookSelect(){
 			html+='<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./returnBookDamege.do" formmethod="get" formtarget="_self" onclick="paSon()">파손</button>';
 			html+='<button class="w-btn-outline w-btn-gray-outline" type="submit" formaction="./returnBookLost.do" formmethod="get" formtarget="_self" onclick="bunSil()">분실</button>';
 			$(".buttons").append(html);
-			function baNap(){
-				swal("정상반납","반납이 완료되었습니다.")
-			}
-			function paSon(){
-				swal("파손처리","파손처리가 완료되었습니다.")
-			}
-			function bunSil(){
-				swal("분실처리","분실처리가 완료되었습니다.")
-			}
+			
 		},
 		error:function(data) {
 			vo+='<td colspan="5">데이터가 없습니다</td>';
@@ -82,4 +74,14 @@ function returnBookSelect(){
 			alert("대출한 내역이 없습니다.");
 		}
 	})
+}
+
+function baNap(){
+	alert("반납이 완료되었습니다.")
+}
+function paSon(){
+	alert("파손처리가 완료되었습니다.")
+}
+function bunSil(){
+	alert("분실처리가 완료되었습니다.")
 }

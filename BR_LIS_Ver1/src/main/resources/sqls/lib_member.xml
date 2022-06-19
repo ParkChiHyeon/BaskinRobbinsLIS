@@ -198,7 +198,7 @@
 	<!-- 연체 패널티 부여 BR_W_UM_022 -->
 	<update id="lendingPenalty" parameterType="java.util.Map">
 	UPDATE LIB_MEMBER 
-  	SET AUTH='NM', PENALTY = (SELECT
+  	SET PENALTY = (SELECT
   	(SELECT CASE WHEN (BACK_DATE-END_DATE) > 0 THEN TO_DATE(TO_CHAR((BACK_DATE-END_DATE)+ 
 	SYSDATE,'YYYYMMDD')) END
   	FROM LENDING l

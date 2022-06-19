@@ -124,6 +124,18 @@ ON l.BOOK_SERIAL =pb.BOOK_SERIAL
 JOIN BOOK_INFO bi 
 ON bi.ISBN = pb.ISBN 
 WHERE l.BACK_DATE IS NOT NULL <![CDATA[AND ROWNUM < 50]]>
+ORDER BY LENDING_SEQ DESC
+</select>
+
+<select id="returnBookListBanNap" resultType="LendBookBean">
+SELECT bi.TITLE, l.LENDING_SEQ, l.BOOK_SERIAL, l.MEMBER_CODE, l.LENDING_DATE, l.END_DATE, l.BACK_DATE, l.RESERVE_DATE 
+FROM LENDING l
+JOIN POSSESSING_BOOK pb 
+ON l.BOOK_SERIAL =pb.BOOK_SERIAL 
+JOIN BOOK_INFO bi 
+ON bi.ISBN = pb.ISBN 
+WHERE l.BACK_DATE IS NOT NULL <![CDATA[AND ROWNUM < 50]]> AND pb.BA='Y'
+ORDER BY LENDING_SEQ DESC
 </select>
 
 <select id="yetReturnBookList" resultType="LendBookBean">
@@ -134,6 +146,7 @@ ON l.BOOK_SERIAL =pb.BOOK_SERIAL
 JOIN BOOK_INFO bi 
 ON bi.ISBN = pb.ISBN 
 WHERE l.BACK_DATE IS NULL AND l.LENDING_DATE IS NOT NULL
+ORDER BY LENDING_SEQ DESC
 </select>
 
 <select id="possessingBookList" resultType="BookInfoVo">
@@ -143,6 +156,7 @@ JOIN BOOK_INFO bi
 ON pb.ISBN  = bi.ISBN 
 <![CDATA[WHERE ROWNUM < 100 ]]>
 </select>
+
 <select id="lendingListUser"  parameterType="java.lang.String" resultType="LendBookBean">
 SELECT l.BOOK_SERIAL, l.MEMBER_CODE, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_DELAY, TO_CHAR(l.LENDING_DATE,'YYYY-MM-DD') AS LENDING_DATE, TO_CHAR(l.LENDING_DATE,'YYYY-MM-DD') AS LENDING_DATE, TO_CHAR(l.END_DATE,'YYYY-MM-DD')AS END_DATE, GREATEST(TRUNC(SYSDATE-l.END_DATE),0) AS BACK_DATE  
         FROM (SELECT *FROM BOOK_INFO bi, POSSESSING_BOOK pb WHERE bi.ISBN=pb.ISBN) A, LENDING l 
@@ -151,6 +165,7 @@ SELECT l.BOOK_SERIAL, l.MEMBER_CODE, l.LENDING_SEQ, A.TITLE,A.AUTHOR, l.LENDING_
             WHERE lm.MEMBER_ID= #{member_id}) AND l.BOOK_SERIAL=A.BOOK_SERIAL AND l.BACK_DATE IS NULL AND l.RESERVE_DATE IS NULL
             ORDER BY l.LENDING_SEQ DESC
 </select>
+
 <resultMap type="com.br.lis.vo.LendingVo" id="lendingMap">
 <id property="lending_seq" column="LENDING_SEQ"/>
 <id property="member_code" column="MEMBER_CODE"/>

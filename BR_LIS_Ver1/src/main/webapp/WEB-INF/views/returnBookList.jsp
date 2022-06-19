@@ -16,7 +16,7 @@
 <script type="text/javascript" src="./BR_js/returnBookList.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container"><br>
 	<table id="dataTable" class="hover">
 		<thead>
 			<tr>
@@ -43,8 +43,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<button onclick="javascript:location.reload();" class="btn btn-primary" >반납완료목록</button>
-	<button onclick="lendingBookListAdmin()" class="btn btn-success">대출중목록</button>
+	<button onclick="javascript:location.reload();" class="btn btn-primary" >대출반납완료 목록</button>
+	<button onclick="lendingBookListBanNapAdmin();" class="btn btn-success" >반납완료된 책목록</button>
+	<button onclick="lendingBookListAdmin()" class="btn btn-info">대출중목록</button>
 </div>
 </body>
 <%@include file="./footer.jsp"%>
