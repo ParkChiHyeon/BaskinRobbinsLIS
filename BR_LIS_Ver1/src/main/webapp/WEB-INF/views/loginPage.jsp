@@ -102,23 +102,22 @@ height: 100%;
 
 </style>
 <body class="body">
-	<div id="forms">
+	<div id="forms" class="container">
 	<input type="hidden" id="chkval" value="0">
     <section class="login-form">
-        <h1>Login</h1>
- 
-        <form action="post" method="post" id="login">
+        <form action="post" method="post" id="login" style="padding-top: 100px;">
             <div class="int-area1">
+            <h1>Login</h1>
                 <input type="text" name="member_id" id="member_id" autocomplete="off" value="${mVo.member_id }" required>
                 <label for="id">USER NAME</label>                
             </div>
             <div class="int-area2">
-                <input type="password" name="password" id="password" autocomplete="off" value="Xptmxm@12" required>
+                <input type="password" name="password" id="password" autocomplete="off" required>
                 <i class="fa-solid fa-eye fa-lg"></i>
                 <label for="pw">PASSWORD</label>
             </div>
             <div class="btn-area">
-                <button id="btnLogin" type="button" name="signUp" onclick="loginCheck()">LOGIN</button>
+                <button id="btnLogin" type="button" name="signUp" onclick="loginCheck()" onkeyup="enterkey()">LOGIN</button>
             </div> 
             <div class="caption">
             <button id="btnFindId" type="button" onclick="findIdForm()" class="btn btn-outline-dark">아이디 찾기</button>
@@ -143,9 +142,9 @@ height: 100%;
             <ul class = "list-group">
             <li class="list-group-item">
             <label>사용자 이름</label>
-                <input type="text" name="name" id="name" autocomplete="off" value="테스트이름" placeholder="찾을 아이디의 사용자 이름을 입력해주세요" required>
+                <input type="text" name="name" id="name" autocomplete="off" value="테스트십구" placeholder="찾을 아이디의 사용자 이름을 입력해주세요" required>
             <label>사용자 전화번호</label>    
-                <input type="text" name="phone" id="phone" autocomplete="off" value="01085439648" placeholder="찾을 아이디의 전화번호를 입력해주세요" required maxlength="11">
+                <input type="text" name="phone" id="phone" autocomplete="off" value="01042935376" placeholder="찾을 아이디의 전화번호를 입력해주세요" required maxlength="11">
                 <input type="button" id="btnFindForm" class="btn btn-outline-primary" value="아이디 찾기" onclick="find()">
                 </li>
       		</ul>	 
@@ -163,7 +162,7 @@ height: 100%;
     <span class="close2">&times;</span>
      <div class="container">
         <h1>비밀번호 재발급</h1>
-		<form action="" id="findPwForm" method="POST">
+		<form action="" id="findPwForm" method="GET">
             <ul class = "list-group">
             <li class="list-group-item">
             <label>사용자 아이디</label>
@@ -177,7 +176,7 @@ height: 100%;
 				<div class="time"></div>
 				</li>
 				<li class="list-group-item" id="idInput">
-                <input type="submit" id="btnPwFindForm" class="btn btn-outline-primary" value="재발급 받기" onclick="findPw()" style="width: 100%;" disabled>
+                <input type="button" id="btnPwFindForm" class="btn btn-outline-primary" value="재발급 받기" onclick="findPw()" style="width: 100%;" disabled>
                 </li>
       		</ul>	 
       	</form> 
@@ -301,11 +300,10 @@ height: 100%;
 			console.log(phone.value);
 			
 			frm.action = "./updatePwPage.do"
-// 			frm2.action = "./encrypt.do"
 			
 			$.ajax({
 				url :"./findPwChk.do",
-				type:"POST",
+				type:"GET",
 				data:"member_id="+id.value+"&phone="+phone.value,
 				success:function(msg){
 					if(msg.isc =="성공"){
@@ -319,6 +317,7 @@ height: 100%;
 							});
 					}else{
 						swal("올바른 정보를 입력해주세요");
+						return false;
 					}
 				},
 				error:function(){
@@ -384,13 +383,6 @@ height: 100%;
 		
 	}
     
-    
-    
-   
-    
-    
-    
-
 
     // Get the button that opens the modal
 
@@ -410,13 +402,7 @@ height: 100%;
     
     
 
-    // When the user clicks anywhere outside of the modal, close it
-//     window.onclick = function(event) {
-//       if (event.target == idModal || event.target == pwModal) {
-//         idModal.style.display = "none";
-//         pwModal.style.display = "none";
-//       }
-//     }
+   
     
    
     
@@ -488,8 +474,6 @@ height: 100%;
         });
     });
     
-   
-
     </script>     
 
 </html>

@@ -23,36 +23,25 @@
  	width: 100%
 }
 
-ul{
-	display: inline-block;
-}
-
-li{
-	text-align: center;
-}
-
-.container{
+#liItem{
+	width: 500px;
+	height: 250px;
 	margin: 0 auto;
 }
 
-#password{
-	width: 600px;
-	height: 40px;
+#btn{
+	width: 100%;
 }
 
-h1{
-	text-align: center;
-}
 </style>
 <body class="body">    
-            <div class="container">
-            
+            <div class="container">       
+            <ul class = "list-group" style="margin-top: 200px;">
+            <li class="list-group-item" id="liItem">
             <h1>관리자 인증</h1>
-            <ul class = "list-group">
-            <li class="list-group-item">
-            <label for="pw">관리자 번호</label>
-                <input type="password" name="password" id="password" autocomplete="off" value="dndhkdehtjrhks" placeholder="관리자 번호를 입력해주세요" required>
-                <input type="button" name="btnAdminLogin" id="btn" class="btn btn-outline-primary" value="확인" onclick="certification()">
+                <input type="password" class="form-control" name="password" id="password" autocomplete="off" value="dndhkdehtjrhks" placeholder="관리자 번호를 입력해주세요" required>
+                <input type="button"  name="btnAdminLogin" id="btn" class="btn btn-outline-primary" value="확인" onclick="certification()">
+                <a>관리자 문의 010-4293-5376</a>
                 </li>
       		</ul>
       		  

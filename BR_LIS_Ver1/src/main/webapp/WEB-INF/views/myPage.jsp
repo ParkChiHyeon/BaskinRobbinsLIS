@@ -214,7 +214,7 @@
 				<p style="color:red; font-weight: bold;">
 				<form:errors path="file"/>
 				</p>
-				<input type="button" id="khu_btnRegiserCheck" value="확인" class="btn btn-outline-primary">
+				<input type="submit" id="khu_btnRegiserCheck" value="확인" class="btn btn-outline-primary">
 				</li>
 				</ul>
 				</form:form>
@@ -230,7 +230,7 @@
 				</div>
 				
 				<!-- 내용 영역 넣고싶은거 넣으셈 -->
-				<form class="form-inline" method="get" action="./updateGH.do" id="khu_quitRequestForm">
+				<form class="form-inline" method="GET" action="#" id="khu_quitRequestForm">
 				<ul class="list-group">
 				<li class="list-group-item" id="khu_idInput">				
 				<label id="khu_label">이메일</label><input type="text" class="form-control" id="khu_email_textbox" name="email"  placeholder="example@example.com" autocomplete="name"  required>
@@ -238,31 +238,31 @@
 				</li>
 				<li class="list-group-item" id="khu_idInput">
 				<label id="khu_label">인증번호</label><input type="text" class="form-control" id="khu_emailCheck_textbox" name="emailCheckNum" maxlength="8" required>
-				<input type="button" id="khu_btnEmailCheck" value="확인" class="btn btn-outline-primary" >
+				<input type="button" id="khu_btnEmailCheck" value="인증번호 확인" class="btn btn-outline-primary" >
 				<div class="khu_time4"></div>
 				</li>
 				</ul>
 				
 				<ul class="list-group">
 				<li class="list-group-item" id="khu_idInput">
-				<label>등본 파일 경로(히든 할거)</label><br>
-				절대 경로 :<input type="text" class="form-control" name="filepath" id="ocrPath" value="${path}" readonly><br>
-				<label>등본 상대 경로(히든 할거)</label><br>
-				상대 경로 :<input type="text" class="form-control" name="file_path" id="sangdaePath" value=" <%=request.getRequestURL() %>" readonly><br>
-				<input type="submit" id="khu_btnEmailCheck" value="등본 유효성 검증" class="btn btn-outline-primary" onclick="ocr()">
-				</li>
-				
-				</ul>
-			
-			
-				<ul class="list-group">
-				<li class="list-group-item" id="khu_idInput">
-				<input type="submit" id="khu_btnUpdateGH" value="관내회원 등업" class="btn btn-outline-primary"  style="width: 100%; margin: 0px auto;" name="file"  onchange="this.select();">
+				<input type="submit" id="khu_btnUpdateGH" value="관내회원 등업" class="btn btn-outline-primary"  style="width: 100%; margin: 0px auto;" name="file" disabled="disabled" onclick="updateGhComplete()">
 				<input type="text" name="member_id" value="${member.member_id}" hidden="true">
 				</li>
 				</ul>
-				</form>
 				
+<!-- 				<ul class="list-group"> -->
+<!-- 				<li class="list-group-item" id="khu_idInput"> -->
+<!-- 				<label>등본 파일 경로(히든 할거)</label><br> -->
+				<input type="text" class="form-control" name="filepath" id="ocrPath" value="${path}" hidden="hidden"><br>
+<!-- 				<label>등본 상대 경로(히든 할거)</label><br> -->
+				<input type="text" class="form-control" name="file_path" id="sangdaePath" value=" <%=request.getRequestURL() %>" hidden="hidden"><br>
+<!-- 				<input type="submit" id="khu_btnEmailCheck" value="등본 유효성 검증" class="btn btn-outline-primary" onclick="ocr()"> -->
+<!-- 				</li> -->
+<!-- 				</ul> -->
+			
+			
+				
+				</form>
 				</div>
 				</c:if>
 				
@@ -542,6 +542,8 @@ var khu_isRunning = false;
 var khu_btn = document.getElementById("khu_btnUpdatePhone"); 
 var khu_btn2 = document.getElementById("khu_btnUpdateEmail");
 var khu_btn3 = document.getElementById("khu_quitRequestBtn");
+
+/* 전화번호 수정 인증 */
 $('#khu_sendPhoneNumber').click(function(){
 			
 			    let phoneNumber = $('#khu_phone_textbox').val();
@@ -603,7 +605,7 @@ $('#khu_sendPhoneNumber').click(function(){
 			}, 1000);
 			     khu_isRunning = true;
 			}
-			
+/* 메일 주소 수정 인증 */			
 $('#sendEmailNumber').click(function(){		
 			    let emailNumber = $('#khu_email_textbox').val();
 			    swal("인증번호 발송 완료");
@@ -648,9 +650,15 @@ $('#sendEmailNumber').click(function(){
 /* 관내회원 이메일 발송 */
 $('#sendEmailNumberAuth').click(function(){		
     let emailNumber = $('#khu_email_textbox').val();
-    swal("인증번호 발송 완료");
-    var display = $('.khu_time4');
-    var leftSec = 180;
+    
+    if(emailNumber == ''){
+    	swal("값을 입력해주세요");
+    }else{
+    	 swal("인증번호 발송 완료");
+ 	    var display = $('.khu_time4');
+ 	    var leftSec = 180;
+    }
+  
     
     if(khu_isRunning){
     	clearInterval(khu_timer);
@@ -660,17 +668,21 @@ $('#sendEmailNumberAuth').click(function(){
     	startkhu_timer(leftSec, display);
     }
     
+    
     var docum = document.getElementById("sendEmailNumberAuth").disabled;
     
+    // 관내회원 등업 버튼임
    $.ajax({
     type: "POST",
     url: "./memberInfoUpdateEmailChk.do",
-    data: {"email" : emailNumber}, // 핸드폰 값이 넘어감
+    data: {"email" : emailNumber}, // 이메일 값이 넘어감
     success: function(res){ // 인증번호 값이 넘어옴
     	$('#khu_btnEmailCheck').click(function(){
     		if($('#khu_emailCheck_textbox').val()=='') {
         		swal('값을 입력하세요.');
         	}else if(khu_isRunning && $.trim(res)==$('#khu_emailCheck_textbox').val()){
+        		$('#khu_email_textbox').attr("readonly", true);
+        		$('#khu_btnUpdateGH').attr("disabled", false);
         		swal('인증 성공');
 //         		khu_btn4.disabled = false;
         		clearInterval(khu_timer);
@@ -686,12 +698,6 @@ $('#sendEmailNumberAuth').click(function(){
     }
 })
 });		
-		
-		
-		
-		
-		
-		
 		
 			function startkhu_timer(count, display) {
 				var minutes, seconds;
@@ -715,7 +721,7 @@ $('#sendEmailNumberAuth').click(function(){
 			}
 			
 			
-			
+/* 회원탈퇴 번호 인증 */			
 $('#khu_sendPhoneNumberForQuit').click(function(){
 				
 			    let phoneNumber = $('#khu_phone').val();

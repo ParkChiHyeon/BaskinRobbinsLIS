@@ -46,8 +46,8 @@ div#eye i{
 <%@ include file="./header.jsp" %>
 
 <body class="body">    
-	<input type="text" value="0" id="pwChkVal">
-	<input type="text" value="0" id="pwChkVal2" >
+	<input type="text" value="0" id="pwChkVal" hidden="true">
+	<input type="text" value="0" id="pwChkVal2" hidden="true">
 			<form action="./memberInfoUpdatePw.do" method="get" id="khu_updateInfoForm"  onsubmit="return frmsubmit()">
 	<div class="container">
 	<input type="text" class="form-control" name="member_id" value="${mVo.member_id }" maxlength="8" hidden="true">

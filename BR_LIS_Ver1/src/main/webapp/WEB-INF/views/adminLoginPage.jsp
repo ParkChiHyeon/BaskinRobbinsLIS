@@ -40,7 +40,7 @@ div.int-area2 i{
     <section class="login-form">
         <h1>Admin Login</h1>
  
-        <form action="#" method="post" id="login">
+        <form action="#" method="post" id="login" style="padding-top: 100px;">
             <div class="int-area1">
                 <input type="text" name="admin_id" id="admin_id" autocomplete="off" value="admin001" required>
                 <label for="id">Admin Id</label>

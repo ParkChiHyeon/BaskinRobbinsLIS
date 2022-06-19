@@ -3,9 +3,7 @@ package com.br.lis;
 
 
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.br.lis.model.member.service.API_Service;
@@ -59,11 +56,6 @@ public class MemberController {
 		return "loginPage";
 	}
 	
-	/* 마이 페이지로 이동 */
-//	@RequestMapping(value = "/myPage.do",method = RequestMethod.GET)
-//	public String myPage() {		
-//		return "myPage";
-//	}
 	
 	/* 관리자 페이지로 이동 */
 	@RequestMapping(value = "/adminPage.do",method = RequestMethod.GET)
@@ -82,24 +74,14 @@ public class MemberController {
 		
 		LibMemberVo mVo = service.loginMember(map);
 		
-//		logger.info("MemberController loginCheck : {}", map2);
-//		AdminVo aVo = aService.loginAdmin(map2);
+
 		logger.info("MemberController loginCheck 로그인 정보 : {}", mVo);
-		
-		
-		
-//		logger.info("MemberController loginCheck 로그인 정보 : {}", aVo);
-		
+			
 		if(mVo == null) {
 			resultMap.put("isc", "실패");
 		}else if(mVo != null){
 			resultMap.put("isc", "성공");
 		}	
-//		if(aVo == null) {
-//			resultMap.put("isc", "실패");
-//		}else if(aVo != null) {
-//			resultMap.put("isc", "성공");
-//		}
 		return resultMap;
 	}
 		
@@ -174,8 +156,8 @@ public class MemberController {
 	        
 	        return mav;
 	    }
-	
-	@RequestMapping(value = "/updatePwPage.do" , method = RequestMethod.POST)
+	/* 비밀번호 재발급 페이지 */
+	@RequestMapping(value = "/updatePwPage.do" , method = RequestMethod.GET)
 	public String updatePwPage(@RequestParam Map<String, Object> map, Model model) {
 		
 		LibMemberVo vo = service.findPw(map);
@@ -184,6 +166,7 @@ public class MemberController {
 		return "updatePwPage";	
 	}
 	
+	/* 비밀번호 변경 */
 	@RequestMapping(value = "/updatePw.do", method = RequestMethod.GET)
 	public String updatePw(@RequestParam Map<String, Object> map) {
 		
@@ -250,7 +233,7 @@ public class MemberController {
 		return "loginPage";
 	}
 		/* 비밀번호 찾기 아작스 */
-		@RequestMapping(value = "/findPwChk.do", method = RequestMethod.POST)
+		@RequestMapping(value = "/findPwChk.do", method = RequestMethod.GET)
 		@ResponseBody
 		public Map<String, Object> findPwChk(@RequestParam Map<String,Object> map, Model model) {
 			System.out.println(map);
@@ -423,16 +406,16 @@ public class MemberController {
 			
 			return "myPage";
 		}
-		
+		/* 관내회원 등업 */
 		@RequestMapping(value = "/updateGH.do", method = RequestMethod.GET)
 		public String updateGH(@RequestParam Map<String,Object> map) {
 					
 			int n = service.updateNmToGh(map);
 			
-			return (n==1)?"redirect:/memberCard.do":"redirect:/myPage.do";
+			return (n==1)?"redirect:/logout.do":"redirect:/myPage.do";
 			
 		}
-		
+		/* 회원증 페이지 */
 		@RequestMapping(value = "/memberCard.do", method = RequestMethod.GET)
 		public String memberCard(HttpSession session, Model model, String memberCard) {
 			
@@ -444,7 +427,7 @@ public class MemberController {
 			return "myPage";
 			
 		}
-		
+		/* 탈퇴 신청 승인 페이지 이동 */
 		@RequestMapping(value = "/quitMemberManagePage.do" , method = RequestMethod.GET)
 		public String quitMemberManagePage(Model model) {
 			
@@ -455,6 +438,8 @@ public class MemberController {
 			return "quitMemberManagePage";
 		}
 		
+		
+		/* 탈퇴 승인 */
 		@RequestMapping(value = "/quitAcceptMember.do", method = RequestMethod.POST)
 		public String quitAcceptMember(HttpServletRequest req) {
 			
@@ -468,6 +453,7 @@ public class MemberController {
 			return (n==1)?"redirect:/quitMemberManagePage.do":"redirect:/quitMemberManagePage.do";			
 		}
 		
+		/* 탈퇴 조건 체크 */
 		@RequestMapping(value = "/quitRequirementChk.do", method =RequestMethod.POST)
 		public Map<String, Object> quitRequirementChk(HttpServletRequest req) {
 				

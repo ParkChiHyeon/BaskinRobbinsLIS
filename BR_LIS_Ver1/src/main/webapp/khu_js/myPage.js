@@ -296,7 +296,19 @@ $(document).ready(function(){
 });	
 
 
-
+function updateGhComplete(){
+	var frm = document.getElementById("khu_quitRequestForm");
+	frm.action = "./updateGH.do";
+	
+	swal({
+    	title : "등업 성공\n다시 로그인 해주세요",					
+        icon  : "success",
+        closeOnClickOutside : false
+    	}, function(){
+        frm.submit();
+       console.log(msg.isc);
+    	});
+}
 
 		
 

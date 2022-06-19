@@ -416,8 +416,8 @@ calList();//도서관일정 목록
 								
 								<c:if test="${admin.admin_id != null }"> 
 							<span
-								class="txtBtn_darkGray sizeSmall ml10"><a
-								href="./adminPage.do">관리자 페이지</a></span>	
+								class="txtBtn_darkgray sizeSmall ml10"><a
+								>관리자 정보 : ${admin.admin_id}</a></span>	
 								</c:if>	
 								
 						</div>

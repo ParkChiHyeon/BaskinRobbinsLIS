@@ -151,14 +151,14 @@ div#eye i{
 	<form action="./signUp.do" method="POST" id="testForm" name="isAgree">
 	<div class="container">
 	
-	<input type="text" value="0" id="idChkVal" >
-	<input type="text" value="0" id="pwChkVal" >
-	<input type="text" value="0" id="pwChkVal2" >
-	<input type="text" value="0" id="nameChkVal" >
-	<input type="text" value="0" id="birthChkVal" >
-	<input type="text" value="0" id="phoneChkVal" >
-	<input type="text" value="0" id="phoneChkVal2" >
-	<input type="text" value="1" id="addrChkVal" >
+	<input type="text" value="0" id="idChkVal" hidden="true">
+	<input type="text" value="0" id="pwChkVal" hidden="true">
+	<input type="text" value="0" id="pwChkVal2" hidden="true">
+	<input type="text" value="0" id="nameChkVal" hidden="true">
+	<input type="text" value="0" id="birthChkVal" hidden="true">
+	<input type="text" value="0" id="phoneChkVal" hidden="true">
+	<input type="text" value="0" id="phoneChkVal2" hidden="true">
+	<input type="text" value="1" id="addrChkVal" hidden="true">
 	
 		<ul class="list-group" id="ulForm">	
 		<li class="list-group-item" id="idInput">
