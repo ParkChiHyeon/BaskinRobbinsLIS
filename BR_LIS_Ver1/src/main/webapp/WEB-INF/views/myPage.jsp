@@ -365,7 +365,7 @@
 							<fmt:parseDate value="${lists.lending_date}" pattern="yyyy-MM-dd" var="lendingDate"/>
 							<fmt:formatDate var="closeDate" value="${endDate}" pattern="yyyy-MM-dd"/>
 							<fmt:formatDate var="openDate" value="${lendingDate}" pattern="yyyy-MM-dd"/>
-							<c:if test="${empty lists.lending_delay && lists.back_date eq 0 && openDate<now && now<closeDate && lVo_HIK.auth eq GH}">
+							<c:if test="${empty lists.lending_delay && lists.back_date eq 0 && openDate<now && now<closeDate && lVo_HIK.auth eq 'GH'}">
 								<input type="button" onclick="delayLendingBook(${vs.index})" value="연장하기">
 							</c:if>
 						</td>

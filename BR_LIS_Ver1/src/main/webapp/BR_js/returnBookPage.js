@@ -25,7 +25,11 @@ function returnBookSelect(){
 			}else{
 			vo+='<td><input type="hidden" name="lending_seq" value='+data.vo.lending_seq+'>'+data.vo.lending_seq+'</td>';
 			vo+='<td class="book_serial">'+data.vo.book_serial+'</td>';
+			if (data.vo.lending_delay==null){
+			vo+='<td>N</td>';
+			}else{
 			vo+='<td>'+data.vo.lending_delay+'</td>';
+			}
 			vo+='<td>'+data.vo.lending_date+'</td>';
 			vo+='<td>'+moment(data.vo.end_date).format('YYYY-MM-DD HH:mm:ss')+'</td>';
 			
@@ -46,8 +50,8 @@ function returnBookSelect(){
 			if(data.rVo!=null){
 				rVo+='<td><input type="hidden" name="member_code" value='+data.rVo.lending_seq+'>'+data.rVo.lending_seq+'</td>';
 				rVo+='<td>'+data.rVo.reserve_date+'</td>'
-				rVo+='<td>'+data.book_serial+'</td>'
-				rVo+='<td>'+data.member_code+'</td>'
+				rVo+='<td>'+data.rVo.book_serial+'</td>'
+				rVo+='<td>'+data.rVo.member_code+'</td>'
 				rVo+='<td><input type="hidden" name="member_code" value='+data.rVo.phone+'>'+data.rVo.phone+'</td>';
 				rVo+='<td>'+data.rVo.email+'</td>'
 				rVo+='<td><input type="hidden" name="member_code" value='+data.rVo.name+'>'+data.rVo.name+'</td>';
