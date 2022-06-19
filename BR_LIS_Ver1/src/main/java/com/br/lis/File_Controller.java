@@ -80,8 +80,8 @@ public class File_Controller {
 				// 서버가 꺼졌을때를 위한 백업경로(절대경로)
 				// 업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
 
-				String absolutePath = "C:\\BR_storage\\notice\\" + map.get("directory_name") + "\\";
-//				String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
+//				String absolutePath = "C:\\BR_storage\\notice\\" + map.get("directory_name") + "\\";
+				String absolutePath = "/usr/local/BR_storage/notice/" + map.get("directory_name") + "/";
 
 //				System.out.println("저장위치 path:"+path);
 //				System.out.println("백업위치 back:"+absolutePathLinux);
@@ -259,8 +259,8 @@ public class File_Controller {
 
 			// 서버가 꺼졌을때를 위한 백업경로(절대경로)
 			// 업로드 되는 날짜를 구해서 백업경로 폴더 자동으로 생성되게끔 처리
-			String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
-//			String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/img/";
+//			String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
+			String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/img/";
 
 //	         System.out.println("저장위치 path:"+path);
 //	         System.out.println("백업위치 back:"+absolutePathLinux);
@@ -333,8 +333,8 @@ public class File_Controller {
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
 		// "/storage/notice/"+directory_name+"/") ;
 		// 절대경로를 통해 다운로드
-		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
-//		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/img/";
+//		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
+		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/img/";
 
 		String sDirPath = absolutePath + uid + "_" + fileName;
 
@@ -368,8 +368,8 @@ public class File_Controller {
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
 		// "/storage/notice/"+directory_name+"/") ;
 		// 절대경로를 통해 다운로드
-		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
-//		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
+//		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
+		String absolutePath = "/usr/local/BR_storage/notice/" + directory_name + "/";
 		
 		String sDirPath = absolutePath + uid + "_" + fileName;
 		
@@ -403,8 +403,8 @@ public class File_Controller {
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
 		// "/storage/notice/"+directory_name+"/") ;
 		// 절대경로를 통해 다운로드
-		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
-//		String absolutePath= "/usr/local/BR_storage/notice/" + directory_name + "/";
+//		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\";
+		String absolutePath= "/usr/local/BR_storage/notice/" + directory_name + "/";
 
 		String sDirPath = absolutePath + uid + "_" + fileName;
 
@@ -428,9 +428,9 @@ public class File_Controller {
 		// String path=WebUtils.getRealPath(request.getSession().getServletContext(),
 		// "/storage/notice/"+directory_name+"/") ;
 		// 절대경로를 통해 다운로드
-		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
+//		String absolutePath = "C:\\BR_storage\\notice\\" + directory_name + "\\img\\";
 //		String absolutePath = "C:\\BR_storage\\notice\\admin001_202206170023\\";
-//		String absolutePath= "/usr/local/BR_storage/notice/" + directory_name + "/";
+		String absolutePath= "/usr/local/BR_storage/notice/" + directory_name + "/img/";
 		
 		File dir = new File(absolutePath);
 		String[] filenames = dir.list(); //기존 이미지 파일 배열
