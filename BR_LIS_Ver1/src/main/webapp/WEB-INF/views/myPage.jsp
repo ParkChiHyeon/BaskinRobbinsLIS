@@ -450,7 +450,6 @@
 		<br>
 		<br>
 		<!-- 내용 영역  -->
-		<form action="./reserveBookList.do" >
 			<table  id="dataTable" class="table table-hover">
 					<thead>
 						<tr id="reserveList">
@@ -464,9 +463,9 @@
 					<tbody>
 				<%-- 			<c:forEach var="a" items="${a}" varStatus="vs"> --%>
 						<tr id="reserveListVal">
-							<td id="lending_seq"><input type="hidden" name="lending_seq" value="${a.LENDING_SEQ}">${a.LENDING_SEQ}</td>
+							<td><input id="lending_seq" type="hidden" name="lending_seq" value="${a.LENDING_SEQ}">${a.LENDING_SEQ}</td>
 							<td>${a.ISBN}</td>
-							<td id="book_serial"><input type="hidden" name="book_serial" value=" ${a.BOOK_SERIAL}"> ${a.BOOK_SERIAL}</td>
+							<td><input id="book_serial" type="hidden" name="book_serial" value="${a.BOOK_SERIAL}"> ${a.BOOK_SERIAL}</td>
 							<td>${a.TITLE}</td>
 							<td>${a.RESERVE_DATE}</td>
 						</tr>
@@ -476,9 +475,8 @@
 				<br>
 				<br>
 				<c:if test="${a ne null }">
-					<button class="btn btn-outline-secondary" type="submit" formaction="./cancelReseve.do" formmethod="get" formtarget="_self">예약취소</button>
+					<input class="btn btn-outline-secondary" type="submit" value="예약취소" onclick="cancelReserve()"></button>
 				</c:if>
-			</form>
 			
 
 	</div>
@@ -787,6 +785,31 @@ $('#khu_sendPhoneNumberForQuit').click(function(){
 					swal("실패");
 				}
 			}
+			
+function cancelReserve(){
+	console.log($("#book_serial").val().length,$("#lending_seq").val().length)
+	console.log("하 집에가고싶다")
+	$.ajax({
+			url : "./cancelReseve.do",
+			type : "post",
+			data : {
+					"book_serial":$("#book_serial").val(),
+					"lending_seq":$("#lending_seq").val()
+					},
+			dataType:"text",
+			async : false,
+			success:function(data){
+				console.log(data)
+				if(data=="success"){
+					alert("도서예약이 취소되었습니다.")
+					location.href='./reserveBookList.do'
+				}else{
+					alert("예약취소에 실패하였습니다. 관리자에게 문의하세요")
+					location.href='./reserveBookList.do'
+				}
+			}
+	});
+}			
 			
 		</script>
 <%@ include file="./footer.jsp"%>

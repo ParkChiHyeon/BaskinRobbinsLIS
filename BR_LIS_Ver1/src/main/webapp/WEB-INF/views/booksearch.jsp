@@ -126,7 +126,12 @@ td:nth-child(odd){
 						<option value="isbn">ISBN</option>
 					</select>
 						<input	type="text"  class="form-control" id="bookSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 80%">
+						<c:if test="${member.member_id != null}">
+						<button class="btn btn-primary" onclick="bookSearchTotal('${member.member_id}')">검색</button>
+						</c:if>
+						<c:if test="${member.member_id == null}">
 						<button class="btn btn-primary" onclick="bookSearchTotal()">검색</button>
+						</c:if>
 					</form>
 				</div>
 				</c:if>
@@ -157,7 +162,12 @@ td:nth-child(odd){
 <!-- 						<option value="isbn">ISBN</option> -->
 <!-- 					</select> -->
 						<input	type="text"  class="form-control" id="requestSearchKeyword" name="searchKeyword" autocomplete="off" placeholder="검색어 입력" style="width: 90%">
+						<c:if test="${member.member_id != null}">
+						<button class="btn btn-primary" onclick="bookSearchRequest('${member.member_id}')" style="margin-left: 15px">검색</button>
+						</c:if>
+						<c:if test="${member.member_id == null}">
 						<button class="btn btn-primary" onclick="bookSearchRequest()" style="margin-left: 15px">검색</button>
+						</c:if>
 					</form>
 				</div>
 				</c:if>
