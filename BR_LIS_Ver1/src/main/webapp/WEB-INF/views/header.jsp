@@ -124,7 +124,7 @@
 						</li>
 
 						<c:if test="${admin.admin_id != null }">
-							<li id="gnb6"><a href="./signUpPage.do">회원관리</a>
+							<li id="gnb6"><a href="./quitMemberManagePage.do">회원관리</a>
 								<ul>
 									<c:if test="${member.auth eq null}">
 										<li id="gnb6_1" class=""><a	href="./quitMemberManagePage.do">조회 및 승인</a></li>

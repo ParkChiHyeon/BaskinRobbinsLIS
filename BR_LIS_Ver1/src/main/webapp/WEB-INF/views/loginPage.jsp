@@ -301,12 +301,15 @@ height: 100%;
 			
 			frm.action = "./updatePwPage.do"
 			
+						
 			$.ajax({
 				url :"./findPwChk.do",
 				type:"GET",
 				data:"member_id="+id.value+"&phone="+phone.value,
 				success:function(msg){
 					if(msg.isc =="성공"){
+						$("#phone_textbox").attr("readonly",true);
+						$("#form_member_id").attr("readonly",true);
 						swal({
 							title: "비밀번호 변경 페이지로 넘어갑니다",
 							icon : "success",
