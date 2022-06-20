@@ -11,6 +11,7 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="./hsk_css/regular.css"/>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
@@ -19,22 +20,22 @@
 
 </head>
 <body>
-<div class="container">
+<div class="concon">
 	<h2>정기 도서구매 관리</h2>
 	<table id="dataTable" class="cell-border"> <!-- https://datatables.net/examples/styling/ -->
 		<thead>
 				<tr>
 					<th>체크<input type="checkbox" id="checkAll"> </th>
-					<th>정기구매코드</th>
-					<th>구매코드</th>
+					<th>정기<br>구매코드</th>
+					<th>구매<br>코드</th>
 					<th>ISBN</th>
 					<th>제목</th>
 					<th>출판사</th>
 					<th>지은이</th>
 					<th>번역</th>
 					<th>가격</th>
-					<th>구매수량</th>
-					<th>확정여부</th>
+					<th>수량</th>
+					<th>확정<br>여부</th>
 					<th>비고</th>
 					<th>입고일</th>
 					<th>수정</th>
@@ -50,23 +51,23 @@
 							</c:if>
 						</td>
 						<td id="regularSerial_Index${vs.index}">${purchRegulList.regular_serial}</td>
-						<td>${purchRegulList.purchase_code}</td>
+						<td class="tdSize2">${purchRegulList.purchase_code}</td>
 						<td>${purchRegulList.isbn}</td>
-						<td>${purchRegulList.title}</td>
-						<td>${purchRegulList.publisher}</td>
-						<td>${purchRegulList.author}</td>
-						<td>${purchRegulList.translator}</td>
-						<td>${purchRegulList.price}</td>
-						<td id="ea_Index${vs.index}">${purchRegulList.ea}</td>
+						<td class="tdSize">${purchRegulList.title}</td>
+						<td class="tdSize1">${purchRegulList.publisher}</td>
+						<td class="tdSize">${purchRegulList.author}</td>
+						<td class="tdSize">${purchRegulList.translator}</td>
+						<td class="tdSize2">${purchRegulList.price}</td>
+						<td class="tdSize2" id="ea_Index${vs.index}">${purchRegulList.ea}</td>
 						<c:choose>
 							<c:when test="${purchRegulList.confirm == 'Y'}">
-								<td>승인</td>
+								<td class="tdSize2">승인</td>
 							</c:when>
 							<c:when test="${purchRegulList.confirm == 'N'}">
-								<td>반려</td>
+								<td class="tdSize2">반려</td>
 							</c:when>
 							<c:otherwise>
-								<td>반려</td>
+								<td class="tdSize2">반려</td>
 							</c:otherwise>
 						</c:choose>
 <%-- 						<td>${purchRegulList.confirm}</td> --%>
@@ -74,7 +75,7 @@
 						<td>${purchRegulList.receive_date}</td>
 						<td>
 							<c:if test="${purchRegulList.receive_date == null}">
-								<div class="container">
+								<div class="">
 								  <!-- Trigger the modal with a button -->
 								  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="regularPurchaseInfoChange(${vs.index})">수정</button>
 								
