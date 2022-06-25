@@ -148,7 +148,7 @@ div#eye i{
 <%@ include file="./header.jsp" %>
 <body>
 	
-	<form action="./signUp.do" method="POST" id="testForm" name="isAgree">
+	<form action="post" method="post" id="testForm" name="isAgree">
 	<div class="container">
 	
 	<input type="text" value="0" id="idChkVal" hidden="true">
@@ -172,7 +172,7 @@ div#eye i{
 		
 		<li class="list-group-item" id="idInput">
 		<div id="eye">
-		<label>* 비밀번호</label><input type="password" class="form-control" placeholder="PASSWORD" id="pw_textbox" name="password" required>
+		<label>* 비밀번호</label><input type="password" class="form-control" disabled="disabled" placeholder="PASSWORD" id="pw_textbox" name="password" required>
 		<i class="fa-solid fa-eye fa-lg"></i> 
 		</div>
 		</li>
@@ -183,23 +183,24 @@ div#eye i{
 		
 		<li class="list-group-item" id="idInput">
 		<div id="eye">
-		<label>* 비밀번호 확인</label><input type="password" class="form-control"  id="pwChk_textbox" required>
+		<label>* 비밀번호 확인</label><input type="password" class="form-control"  disabled="disabled" id="pwChk_textbox" required>
 		<i class="fa-solid fa-eye fa-lg"></i> 
 		</div>
+		<button type="button" disabled="disabled" id="btnUsePw" onclick="useThisPw()"class="btn btn-outline-primary">해당 비밀번호 사용하기</button>
 		</li>
 		<li class="list-group-item"><span id="resultPw2"><a></a></span></li>
 		
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>* 이름</label><input type="text" class="form-control"  id="name_textbox" name="name" required>
+		<label>* 이름</label><input type="text" class="form-control"  id="name_textbox" disabled="disabled" name="name" required>
 		</li>
 		<li class="list-group-item"><span id="resultName"><a></a></span></li>
 		
 	
 		
 		<li class="list-group-item" id="idInput">
-		<label>* 주민번호 앞 6자리 + 뒤 1자리</label><input type="text" class="form-control" id="birth_textbox" name="birth" maxlength="7" required>
+		<label>* 주민번호 앞 6자리 + 뒤 1자리</label><input type="text" class="form-control" id="birth_textbox" disabled="disabled" name="birth" maxlength="7" required>
 		</li>
 		<li class="list-group-item"><span id="resultBirth"><a></a></span></li>
 			
@@ -208,7 +209,7 @@ div#eye i{
 		
 		<li class="list-group-item" id="idInput">
 		
-		<label>* 전화번호</label><input type="text" class="form-control" placeholder="ex)01012345678" id="phone_textbox" name="phone" maxlength="11" required>
+		<label>* 전화번호</label><input type="text" class="form-control" placeholder="ex)01012345678" id="phone_textbox" disabled="disabled" name="phone" maxlength="11" required>
 		
 		<input type="button" class="btn btn-outline-primary" value="인증번호 전송" id="sendPhoneNumber">
 		</li>
@@ -217,7 +218,7 @@ div#eye i{
 		
 		
 		<li class="list-group-item" id="idInput">
-		<label>* 인증번호</label><input type="text" class="form-control" id="phoneCheck_textbox" name="phoneCheckNum" maxlength="8" required>
+		<label>* 인증번호</label><input type="text" class="form-control" id="phoneCheck_textbox" name="phoneCheckNum" disabled="disabled" maxlength="8" required>
 		<input type="button" id="checkBtn" value="확인" class="btn btn-outline-primary">
 		<div class="time"></div>
 		</li>
@@ -232,7 +233,7 @@ div#eye i{
 		
 		
 		<li class="list-group-item"><div id="recaptcha_render" ></div></li>
-		<li class="list-group-item"><input type="submit" class="btn btn-outline-primary" value="가입완료" onclick="signUp()" id="btnSignUp" ></li>
+		<li class="list-group-item"><input type="button" class="btn btn-outline-primary" value="가입완료" disabled="disabled" onclick="signUp()" id="btnSignUp" ></li>
 				
 			
 				
@@ -251,6 +252,7 @@ var isRunning = false;
 $('#sendPhoneNumber').click(function(){
     let phoneNumber = $('#phone_textbox').val();
     swal("인증번호 발송 완료");
+    $('#phoneCheck_textbox').attr("disabled",false);
     var display = $('.time');
     var leftSec = 180;
     
@@ -276,6 +278,12 @@ $('#sendPhoneNumber').click(function(){
             		swal('인증 성공');
             		clearInterval(timer);
             		display.html("");
+            		$('#phone_textbox').attr("readonly",true);
+            		$('#btnSignUp').attr("disabled",false);
+            		$('#pw_textbox').attr("readonly",true);
+            		$('#pwChk_textbox').attr("readonly",true);
+            		$('#name_textbox').attr("readonly",true);
+            		$('#birth_textbox').attr("readonly",true);
             		$("#phoneChkVal2").val(1);
             	}else{
             		if(isRunning){
@@ -328,31 +336,24 @@ var onloadCallback = function() {
 
 
 function signUp() {
-	var chk = document.getElementById("idChkVal");
-	var chk2 = document.getElementById("pwChkVal");
-	var chk3 = document.getElementById("pwChkVal2");
-	var chk4 = document.getElementById("nameChkVal");
-	var chk5 = document.getElementById("birthChkVal");
-	var chk6 = document.getElementById("phoneChkVal");
-	var chk7 = document.getElementById("phoneChkVal2");
-	var chk8 = document.getElementById("addrChkVal");
 	var frm = document.getElementById("testForm");
-	var isCheck = document.frm.isAgree.checked;
 	
+	var name = document.getElementById("name_textbox");
+	var phone = document.getElementById("phone_textbox");
+	var birth = document.getElementById("birth_textbox");
 	
-	console.log(chk)
-	if(chk.value == 1 && chk2.value == 1 && chk3.value == 1 && chk4.value == 1 && chk5.value == 1 && chk6.value == 1 &&
-			chk7.value == 1 && chk8.value == 1 && isCheck){
-		location.href = "./signUp.do";	
+	frm.action = "./signUp.do"
+		
+		swal({
+			title : "회원가입 성공",					
+			icon  : "success",
+			closeOnClickOutside : false
+			}, function(){
+				frm.submit();
+			});
+			
 	}
-	else{
-		swal("에러","작성한 정보를 다시 확인하세요");
-		return false;
-	}
 	
-}
-
-
 function kakaopost() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -380,6 +381,7 @@ function idDuplicateCheck() {
 				swal("성공","중복된 아이디가 없습니다");
 				$("#resultId").css("color","blue");
 				$("#resultId").html("해당 아이디를 사용합니다");
+				$('#pw_textbox').attr("disabled",false);
 				$("#pw_textbox").focus();
 				$("#idChkVal").val(1);
 				$("#pw_textbox").focus();
@@ -387,6 +389,7 @@ function idDuplicateCheck() {
 			}else{
 				swal("실패","다시 확인해주세요");
 				$("#idChkVal").val(0);
+				$('#pw_textbox').attr("disabled",true);
 			}
 		},
 		error :function(){
@@ -432,14 +435,25 @@ $(document).ready(function(){
 		if(pwVal.match(reg)){
 			$("#resultPw").css("color","blue");
 			$("#resultPw").html("사용 가능한 비밀번호입니다")
+			$('#pwChk_textbox').attr("disabled",false);
+			$('#name_textbox').attr("disabled",false);
 			$("#pwChkVal").val(1);
 		}else{
 			$("#resultPw").css("color","red");
 			$("#resultPw").html("최소 8 자 및 최대 20 자, 하나 이상의 대문자, 하나의 소문자, 하나의 숫자 및 하나의 특수 문자 정규식");
+			$('#pwChk_textbox').attr("disabled",true);
 			$("#pwChkVal").val(0);
 		}
 	});
 });
+
+function useThisPw() {
+	$('#pw_textbox').attr("readonly",true);
+	$('#pwChk_textbox').attr("readonly",true);
+	swal('해당 비밀번호를 사용합니다');
+	$("#name_textbox").focus();
+	$('#name_textbox').attr("disabled",false);
+}
 
 $(document).ready(function(){
 	$("#pwChk_textbox").keyup(function(){
@@ -450,10 +464,12 @@ $(document).ready(function(){
 		if(pwVal == exPwVal && pwVal.match(reg)){
 			$("#resultPw2").html("비밀번호가 확인되었습니다")
 			$("#resultPw2").css("color","blue");
+			$('#btnUsePw').attr("disabled",false);
 			$("#pwChkVal2").val(1);
 		}else{
 			$("#resultPw2").css("color","red");
 			$("#resultPw2").html("비밀번호를 다시 확인해주세요");
+			$('#name_textbox').attr("disabled",true);
 			$("#pwChkVal2").val(0);
 
 		}
@@ -467,6 +483,7 @@ $(document).ready(function(){
 		var nameVal = $(this).val();
 		if(nameVal.match(reg)){
 			$("#resultName").html("")
+			$('#birth_textbox').attr("disabled",false);
 			$("#nameChkVal").val(1);
 		}else{
 			$("#resultName").css("color","red");
@@ -490,6 +507,7 @@ $(document).ready(function(){
 		}else{
 			$("#resultPhone").css("color","red");
 			$("#resultPhone").html("핸드폰 번호를 다시 확인해주세요");
+			$('#phoneCheck_textbox').attr("disabled",true);
 			$("#phoneChkVal").val(0);
 
 		}
@@ -508,6 +526,7 @@ $(document).ready(function(){
 		var reg = "^[0-9]{7,7}";
 		if(birthVal.match(reg)){
 			$("#resultBirth").html("")
+			$('#phone_textbox').attr("disabled",false);
 			$("#birthChkVal").val(1);
 		}else{
 			
